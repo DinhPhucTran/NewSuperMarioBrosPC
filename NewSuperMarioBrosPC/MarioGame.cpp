@@ -1,28 +1,10 @@
 #include <time.h>
 #include <d3dx9.h>
-#include "mario.h"
+#include "MarioGame.h"
 #include "utils.h"
 //#include "physics.h"
 
-//#define MARIO_IMAGE_RIGHT L"mario3.bmp"
-//#define MARIO_IMAGE_LEFT L"mario3.bmp"
-#define GROUND_MIDDLE L"ground_middle.png"
-#define BRICK L"brick.png"
-#define CHECK_FALL L"checkFall.png"
-#define MARIO_IMAGE L"smallMarioResized.png"
 
-#define MARIO_SPEED 0.5f
-#define GROUND_Y 45
-
-#define BACKGROUND_FILE L"blocks.png"
-
-#define ANIMATE_RATE 30
-#define JUMP_VELOCITY_BOOST 2.5f
-#define FALLDOWN_VELOCITY_DECREASE 0.5f
-
-#define GRAV_VELOCITY 0.5f
-#define MAX_GRAV 1.0f
-//#define VIEW_PORT_Y  600
 DWORD last = 0;
 Animation *rightWalkAnim = new Animation(14, 16);
 Animation *leftWalkAnim = new Animation(1, 3);
@@ -31,18 +13,18 @@ Animation *leftStandAnim = new Animation(0, 0);
 Animation *leftJumpAnim = new Animation(4, 4);
 Animation *rightJumpAnim = new Animation(13, 13);
 
-CMarioSample::CMarioSample(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate) :
+CMarioGame::CMarioGame(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate) :
 CGame(hInstance, Name, Mode, IsFullScreen, FrameRate)
 {
 	marioSprite = NULL;
 }
 
-CMarioSample::~CMarioSample()
+CMarioGame::~CMarioGame()
 {
 	delete marioSprite;
 }
 
-void CMarioSample::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
+void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 {
 	srand((unsigned)time(NULL));
 
@@ -79,7 +61,7 @@ void CMarioSample::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 int xc = 0;
 
-void CMarioSample::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
+void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 {
 	// TO-DO: should enhance CGame to put a separate virtual method for updating game status
 
@@ -190,7 +172,7 @@ void CMarioSample::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	_SpriteHandler->End();
 }
 
-void CMarioSample::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
+void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 {
 	DWORD now = GetTickCount();
 	if (IsKeyDown(DIK_RIGHT))
@@ -272,7 +254,7 @@ void CMarioSample::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 	}
 }
 
-void CMarioSample::OnKeyDown(int KeyCode)
+void CMarioGame::OnKeyDown(int KeyCode)
 {
 	switch (KeyCode)
 	{

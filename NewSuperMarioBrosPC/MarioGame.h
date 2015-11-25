@@ -9,11 +9,32 @@
 
 #define DIRECT_LEFT 0;
 #define DIRECT_RIGHT 1;
-class CMarioSample : public CGame
+
+//#define MARIO_IMAGE_RIGHT L"mario3.bmp"
+//#define MARIO_IMAGE_LEFT L"mario3.bmp"
+#define GROUND_MIDDLE L"ground_middle.png"
+#define BRICK L"brick.png"
+#define CHECK_FALL L"checkFall.png"
+#define MARIO_IMAGE L"smallMarioResized.png"
+
+#define MARIO_SPEED 0.5f
+#define GROUND_Y 45
+
+#define BACKGROUND_FILE L"blocks.png"
+
+#define ANIMATE_RATE 30
+#define JUMP_VELOCITY_BOOST 2.5f
+#define FALLDOWN_VELOCITY_DECREASE 0.5f
+
+#define GRAV_VELOCITY 0.5f
+#define MAX_GRAV 1.0f
+//#define VIEW_PORT_Y  600
+
+class CMarioGame : public CGame
 {
 public:
-	CMarioSample(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate);
-	~CMarioSample();
+	CMarioGame(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate);
+	~CMarioGame();
 
 	LPD3DXSPRITE _SpriteHandler;
 

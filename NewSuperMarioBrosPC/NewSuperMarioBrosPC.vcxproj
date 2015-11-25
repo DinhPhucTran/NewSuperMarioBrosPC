@@ -70,7 +70,7 @@
   <ItemGroup>
     <ClInclude Include="animation.h" />
     <ClInclude Include="game.h" />
-    <ClInclude Include="mario.h" />
+    <ClInclude Include="MarioGame.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="utils.h" />
@@ -79,7 +79,7 @@
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="mario.cpp" />
+    <ClCompile Include="MarioGame.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="utils.cpp" />
