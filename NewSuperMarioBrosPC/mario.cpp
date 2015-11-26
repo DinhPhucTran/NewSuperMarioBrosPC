@@ -50,7 +50,7 @@ void CMarioSample::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	D3DXCreateSprite(d3ddv, &_SpriteHandler);
 
 
-	//Background = CreateSurfaceFromFile(_d3ddv, BACKGROUND_FILE);
+	_Background = CreateSurfaceFromFile(_d3ddv, BACKGROUND_FILE);
 
 	HRESULT res = D3DXCreateSprite(_d3ddv, &_SpriteHandler);
 
@@ -151,12 +151,12 @@ void CMarioSample::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 
 
 	// Background
-	/*d3ddv->StretchRect(
-	Background,			// from
+	d3ddv->StretchRect(
+	_Background,			// from
 	NULL,				// which portion?
 	_BackBuffer,		// to
 	NULL,				// which portion?
-	D3DTEXF_NONE);*/
+	D3DTEXF_NONE);
 
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
