@@ -24,7 +24,8 @@ public:
 	Animation* mAnim;
 	Object(int x, int y, int width, int height, float vx, float vy, float vx_last,  float ax, float ay, Animation* anim, CSprite * image);
 	void setAnimation(Animation* anim);
-	virtual Animation* getAnimation();
+	Animation* getAnimation();
+	void setSprite(CSprite* sprite);
 	void update(int t);
 
 	~Object();

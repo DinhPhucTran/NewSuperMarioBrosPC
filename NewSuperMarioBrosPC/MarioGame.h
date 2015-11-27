@@ -15,7 +15,7 @@
 #define GROUND_MIDDLE L"ground_middle.png"
 #define BRICK L"brick.png"
 #define CHECK_FALL L"checkFall.png"
-#define MARIO_IMAGE L"smallMarioResized.png"
+#define MARIO_SMALL_IMAGE L"smallMarioResized.png"
 
 #define MARIO_MAX_SPEED 0.5f
 #define MARIO_MIN_SPEED 0.1f
@@ -54,7 +54,8 @@ public:
 
 	//LPDIRECT3DSURFACE9 Background;
 
-	CSprite * marioSprite;
+	CSprite * marioSmallSprite;
+	CSprite * marioLargeSprite;
 
 	CSprite * ground_middle;
 	CSprite * brick;
