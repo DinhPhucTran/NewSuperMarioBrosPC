@@ -1,9 +1,15 @@
 ﻿#ifndef _OBJECT_H
 #define _OBJECT_H
-#include "sprite.h"
-#include "game.h"
 #include <string>
+#include "object.h"
+#include "sprite.h"
+#include "animation.h"
+
+
 using namespace std;
+class MarioState;//khai báo lớp MarioState,
+class MarioAnimationFactory;//khai báo có lớp MarioAnimationFactory
+
 
 
 class Object {

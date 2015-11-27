@@ -33,6 +33,15 @@
     <ClInclude Include="MarioGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MarioAnimationFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sprite.cpp">
@@ -54,6 +63,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MarioGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioAnimationFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
