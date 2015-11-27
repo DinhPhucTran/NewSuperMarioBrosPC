@@ -5,7 +5,7 @@
 
 #include "game.h"
 #include "sprite.h"
-//#include "object.h"
+#include "MarioObject.h"
 
 #define DIRECT_LEFT 0;
 #define DIRECT_RIGHT 1;
@@ -17,7 +17,9 @@
 #define CHECK_FALL L"checkFall.png"
 #define MARIO_IMAGE L"smallMarioResized.png"
 
-#define MARIO_SPEED 0.5f
+#define MARIO_MAX_SPEED 0.5f
+#define MARIO_MIN_SPEED 0.1f
+#define MARIO_ACCELERATION_X 0.5f
 #define GROUND_Y 45
 
 #define BACKGROUND_FILE L"blocks.png"
@@ -38,13 +40,15 @@ public:
 
 	LPD3DXSPRITE _SpriteHandler;
 
-	int mario_x;			// position of kitty
+	int mario_x;			// position of mario
 	int mario_y;
 
-	float mario_vx;			// velocity of kitty
+	float mario_vx;			// velocity of mario
 	float mario_vy;
 
 	float mario_vx_last;	// last vx of mario before stop ( to determine the direction of mario )
+	
+	Mario* mario;
 
 	DWORD last_time;		// this is to control the animate rate of kitty
 

@@ -1,18 +1,18 @@
-#include <time.h>
+﻿#include <time.h>
 #include <d3dx9.h>
 #include "MarioGame.h"
 #include "utils.h"
+#include "MarioAnimationFactory.h"
 //#include "physics.h"
 
 
 DWORD last = 0;
-Animation *rightWalkAnim = new Animation(14, 16);
-Animation *leftWalkAnim = new Animation(1, 3);
-Animation *rightStandAnim = new Animation(17, 17);
-Animation *leftStandAnim = new Animation(0, 0);
-Animation *leftJumpAnim = new Animation(4, 4);
-Animation *rightJumpAnim = new Animation(13, 13);
-
+//Animation *rightWalkAnim = new Animation(14, 16);
+//Animation *leftWalkAnim = new Animation(1, 3);
+//Animation *rightStandAnim = new Animation(17, 17);
+//Animation *leftStandAnim = new Animation(0, 0);
+//Animation *leftJumpAnim = new Animation(4, 4);
+//Animation *rightJumpAnim = new Animation(13, 13);
 CMarioGame::CMarioGame(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate) :
 CGame(hInstance, Name, Mode, IsFullScreen, FrameRate)
 {
@@ -36,6 +36,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 	HRESULT res = D3DXCreateSprite(_d3ddv, &_SpriteHandler);
 
+	//khởi tạo mario
 	mario_x = 20;
 	mario_y = GROUND_Y;
 
@@ -46,6 +47,8 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	mario_vy = 0;
 
 	marioSprite = new CSprite(_SpriteHandler, MARIO_IMAGE, 36, 34, 50, 18);
+
+	mario = new Mario(mario_x, mario_y, 36, 34, mario_vx, 0, 0, MARIO_ACCELERATION_X , 0, NULL, marioSprite, NULL, NULL);
 
 	// One sprite only :)
 	ground_middle = new CSprite(_SpriteHandler, GROUND_MIDDLE, 32, 32, 1, 1);
@@ -73,8 +76,7 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	//
 	// Update mario status
 	//
-	mario_x += mario_vx * t;
-	mario_y += mario_vy * t;
+	mario->update(t);
 
 	//
 	// Animate mario if he is running
@@ -82,24 +84,27 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	DWORD now = GetTickCount();
 	if (now - last_time > 1000 / ANIMATE_RATE)
 	{
-		//if (mario_vx > 0) mario_right->Next();
-		if (mario_vx > 0) anim = rightWalkAnim;
-		if (mario_vx < 0) anim = leftWalkAnim;
-		if (mario_vx == 0)
-		{
-			if (this->direction == 0)
-				anim = leftStandAnim;
-			else
-				anim = rightStandAnim;
-		}
-		if (!_IsOnGround)
-		{
-			if (direction == 0)
-				anim = leftJumpAnim;
-			else
-				anim = rightJumpAnim;
-		}
-		anim->Update();
+		////anim = rightWalkAnim;
+
+		//if (mario_vx > 0) anim = rightWalkAnim;
+		//if (mario_vx < 0) anim = leftWalkAnim;
+		//if (mario_vx == 0)
+		//{
+		//	if (this->direction == 0)
+		//		anim = leftStandAnim;
+		//	else
+		//		anim = rightStandAnim;
+		//}
+		//if (!_IsOnGround)
+		//{
+		//	if (direction == 0)
+		//		anim = leftJumpAnim;
+		//	else
+		//		anim = rightJumpAnim;
+		//}
+		//anim->Update();
+		
+		mario->setAnimation(mario->mAnimationFactory->createAnimation());
 		last_time = now;
 	}
 
@@ -113,9 +118,14 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	mario_vy = 0;
 	}*/
 
+
+	////
+	////Mô phỏng gia tốc trọng trường 
+	///TO-DO thay isOnGround bằng cách xử lý va chạm với gạch dưới đất
+	///
 	if (_IsOnGround == false)
 	{
-		mario_vy -= GRAV_VELOCITY;
+		mario_vy -= GRAV_VELOCITY;//mô phỏng trọng lực
 		//mario_y = GROUND_Y;
 		/*if (mario_vy < MAX_GRAV)
 		mario_vy = -MAX_GRAV;*/
@@ -130,7 +140,8 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 
 	if (_IsOnGround)
 		mario_y = GROUND_Y;
-
+	////////////////////////////////////////////////////
+	////////////////////////////////////////////////////
 
 	// Background
 	d3ddv->StretchRect(
@@ -142,7 +153,7 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-	int vpx = mario_x - 400;
+	int vpx = mario->x - 400;
 	int VIEW_PORT_Y = 480;
 	//int vpx = xc;
 	if (vpx <= 0) vpx = 0;
@@ -166,7 +177,8 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	else						marioSprite->Render(anim, mario_x, mario_y, vpx, VIEW_PORT_Y);
 	*/
 
-	marioSprite->Render(anim, mario_x, mario_y, vpx, VIEW_PORT_Y);
+	//marioSprite->Render(anim, mario_x, mario_y, vpx, VIEW_PORT_Y);
+	mario->mSprite->Render(mario->getAnimation(), mario->x, mario->y, vpx, VIEW_PORT_Y);
 	brick->Render(0, 0, 0, 100, 47, vpx, VIEW_PORT_Y);
 
 	_SpriteHandler->End();
@@ -177,32 +189,27 @@ void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 	DWORD now = GetTickCount();
 	if (IsKeyDown(DIK_RIGHT))
 	{
-		
-		this->direction = DIRECT_RIGHT;
-		//anim = walkAnim;
-		//mario_vx = MARIO_SPEED;
-		
+		mario->vx = MARIO_MAX_SPEED;//mario đi phải
+		mario->vx_last = mario->vx;//lưu lại vx để biết hướng của mario
 		if (now - last > 1000 / ANIMATE_RATE)
 		{
-			if (mario_vx > MARIO_SPEED)
-				mario_vx = MARIO_SPEED;
-			mario_vx += 0.05f;
+			if (mario->vx > MARIO_MAX_SPEED)
+				mario->ax=0;
+			//mario_vx += 0.05f;
 			last = now;
 			//mario_vx_last = mario_vx;
 		}
-
-		
 	}
 	else
 	if (IsKeyDown(DIK_LEFT))
 	{
-		this->direction = DIRECT_LEFT;
-		//mario_vx = -MARIO_SPEED;
+		mario->vx = -MARIO_MAX_SPEED;
+		mario->vx_last = mario->vx;
 		if (now - last > 1000 / ANIMATE_RATE)
 		{
-			if (mario_vx < -MARIO_SPEED)
-				mario_vx = -MARIO_SPEED;
-			mario_vx -= 0.05f;
+			if (mario_vx < -MARIO_MAX_SPEED)
+				mario->ax=0;
+			//mario_vx -= 0.05f;
 			last = now;
 			//mario_vx_last = mario_vx;
 		}
@@ -218,18 +225,18 @@ void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 
 		if (now - last > 1000 / ANIMATE_RATE)
 		{
-			if (mario_vx > 0)
+			if (mario->vx > 0)
 			{
-				mario_vx -= 0.05f;
-				if (mario_vx < 0)
-					mario_vx = 0;
+				mario->vx -= 0.05f;
+				if (mario->vx < 0)
+					mario->vx = 0;
 			}
 				
-			if (mario_vx < 0)
+			if (mario->vx < 0)
 			{
-				mario_vx += 0.05f;
-				if (mario_vx > 0)
-					mario_vx = 0;
+				mario->vx += 0.05f;
+				if (mario->vx > 0)
+					mario->vx = 0;
 			}
 				
 			last = now;
@@ -259,8 +266,8 @@ void CMarioGame::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		if (mario_y <= GROUND_Y)
-			mario_vy += JUMP_VELOCITY_BOOST;			// start jump if is not "on-air"
+		if (mario->y <= GROUND_Y)
+			mario->vy += JUMP_VELOCITY_BOOST;			// start jump if is not "on-air"
 		_IsOnGround = false;
 		break;
 
