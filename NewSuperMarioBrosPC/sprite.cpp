@@ -38,7 +38,7 @@ CSprite::CSprite(LPD3DXSPRITE SpriteHandler, LPWSTR FilePath, int Width, int Hei
 		D3DPOOL_DEFAULT,
 		D3DX_DEFAULT,
 		D3DX_DEFAULT,
-		D3DCOLOR_XRGB(176, 224, 248), // 176, 224, 248
+		D3DCOLOR_XRGB(255, 0, 255), // 176, 224, 248
 		&info,
 		NULL,
 		&_Image);

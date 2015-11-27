@@ -16,6 +16,7 @@
 #define BRICK L"brick.png"
 #define CHECK_FALL L"checkFall.png"
 #define MARIO_SMALL_IMAGE L"smallMarioResized.png"
+#define MARIO_LARGE_IMAGE L"bigMarioResized.png"
 
 #define MARIO_MAX_SPEED 0.5f
 #define MARIO_MIN_SPEED 0.1f

@@ -31,12 +31,12 @@ class LargeMarioAnimationFactory :public MarioAnimationFactory{
 private:
 	Mario* mMario;
 public:
-	Animation *rightWalkAnim = new Animation(14, 16);
-	Animation *leftWalkAnim = new Animation(1, 3);
-	Animation *rightStandAnim = new Animation(17, 17);
-	Animation *leftStandAnim = new Animation(0, 0);
-	Animation *leftJumpAnim = new Animation(4, 4);
-	Animation *rightJumpAnim = new Animation(13, 13);
+	Animation *rightWalkAnim = new Animation(8, 13);
+	Animation *leftWalkAnim = new Animation(1, 5);
+	Animation *rightStandAnim = new Animation(8, 8);
+	Animation *leftStandAnim = new Animation(6, 6);
+	Animation *leftJumpAnim = new Animation(15, 21);
+	Animation *rightJumpAnim = new Animation(23, 29);
 
 	//contructor
 	LargeMarioAnimationFactory(Mario* mario);

@@ -48,9 +48,11 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	mario_vy = 0;
 
 	marioSmallSprite = new CSprite(_SpriteHandler, MARIO_SMALL_IMAGE, 36, 34, 50, 18);
-	
+	marioLargeSprite = new CSprite(_SpriteHandler, MARIO_LARGE_IMAGE, 60, 60, 195, 15);
 
-	mario = new Mario(mario_x, mario_y, 36, 34, mario_vx, 0, 0, MARIO_ACCELERATION_X , 0, NULL, marioSmallSprite, NULL, NULL);
+	mario = new Mario(mario_x, mario_y, 36, 34, mario_vx, 0, 0, MARIO_ACCELERATION_X , 0, NULL, marioLargeSprite, NULL, NULL);
+	MarioAnimationFactory* largeAnimFactory = new LargeMarioAnimationFactory(mario);
+	mario->setAnimationFactory(largeAnimFactory);
 
 	// One sprite only :)
 	ground_middle = new CSprite(_SpriteHandler, GROUND_MIDDLE, 32, 32, 1, 1);
