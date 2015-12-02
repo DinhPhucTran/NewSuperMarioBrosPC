@@ -18,3 +18,6 @@ void Animation::SetIndex(int Index)
 {
 	index = Index;
 }
+Animation::~Animation(){
+	//nothing to clean up
+}

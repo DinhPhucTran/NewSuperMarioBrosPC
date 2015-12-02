@@ -39,6 +39,15 @@ Animation* SmallMarioAnimationFactory::createAnimation(){
 	return result;
 }
 
+SmallMarioAnimationFactory::~SmallMarioAnimationFactory(){
+	delete leftJumpAnim;
+	delete rightJumpAnim;
+	delete leftWalkAnim;
+	delete rightWalkAnim;
+	delete leftStandAnim;
+	delete rightStandAnim;
+}
+//========================================
 LargeMarioAnimationFactory::LargeMarioAnimationFactory(Mario* mario){
 	mMario = mario;
 }
@@ -70,4 +79,14 @@ Animation* LargeMarioAnimationFactory::createAnimation(){
 	}
 	result->Update();//next frame
 	return result;
+}
+
+LargeMarioAnimationFactory::~LargeMarioAnimationFactory(){
+	delete leftJumpAnim;
+	delete rightJumpAnim;
+	delete leftWalkAnim;
+	delete rightWalkAnim;
+	delete leftStandAnim;
+	delete rightStandAnim;
+	
 }
