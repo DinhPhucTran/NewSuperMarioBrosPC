@@ -21,7 +21,7 @@ Mario::Mario(int x, int y, int width, int height, int vx, int vy, int vx_last, f
 		mAnimationFactory = animFactory;
 	}
 	else{
-		mAnimationFactory = new SmallMarioAnimationFactory(this);
+		mAnimationFactory = SmallMarioAnimationFactory::getInstance(this);
 	}
 }
 const string Mario::OBJECT_NAME = "mario_object";

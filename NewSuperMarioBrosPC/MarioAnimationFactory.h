@@ -13,6 +13,9 @@ public:
 class SmallMarioAnimationFactory :public MarioAnimationFactory{
 private:
 	Mario* mMario;
+	SmallMarioAnimationFactory(Mario* mario);
+
+	static SmallMarioAnimationFactory* sInstance;
 public:
 	Animation *rightWalkAnim = new Animation(14, 16);
 	Animation *leftWalkAnim = new Animation(1, 3);
@@ -20,9 +23,9 @@ public:
 	Animation *leftStandAnim = new Animation(0, 0);
 	Animation *leftJumpAnim = new Animation(4, 4);
 	Animation *rightJumpAnim = new Animation(13, 13);
-	
+	static SmallMarioAnimationFactory* getInstance(Mario* mario =NULL);
 	//contructor
-	SmallMarioAnimationFactory(Mario* mario);
+	
 	Animation* createAnimation()override;
 	~SmallMarioAnimationFactory();
 };
@@ -30,7 +33,10 @@ public:
 class LargeMarioAnimationFactory :public MarioAnimationFactory{
 private:
 	Mario* mMario;
+	LargeMarioAnimationFactory(Mario* mario);
+	static LargeMarioAnimationFactory* sInstance;
 public:
+	static LargeMarioAnimationFactory* getInstance(Mario* mario=NULL);
 	Animation *rightWalkAnim = new Animation(8, 13);
 	Animation *leftWalkAnim = new Animation(1, 5);
 	Animation *rightStandAnim = new Animation(8, 8);
@@ -38,8 +44,7 @@ public:
 	Animation *leftJumpAnim = new Animation(15, 21);
 	Animation *rightJumpAnim = new Animation(23, 29);
 
-	//contructor
-	LargeMarioAnimationFactory(Mario* mario);
+
 	Animation* createAnimation()override;
 	~LargeMarioAnimationFactory();
 };

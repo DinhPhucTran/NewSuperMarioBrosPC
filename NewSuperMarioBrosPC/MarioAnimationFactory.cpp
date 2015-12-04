@@ -47,9 +47,29 @@ SmallMarioAnimationFactory::~SmallMarioAnimationFactory(){
 	delete leftStandAnim;
 	delete rightStandAnim;
 }
+SmallMarioAnimationFactory* SmallMarioAnimationFactory::sInstance;//define singleton
+SmallMarioAnimationFactory* SmallMarioAnimationFactory::getInstance(Mario* mario){
+	if (SmallMarioAnimationFactory::sInstance == NULL){
+		SmallMarioAnimationFactory::sInstance = new SmallMarioAnimationFactory(mario);
+	}
+	else
+		sInstance->mMario = mario;
+	return sInstance;
+}
 //========================================
 LargeMarioAnimationFactory::LargeMarioAnimationFactory(Mario* mario){
 	mMario = mario;
+}
+
+//define singleton
+LargeMarioAnimationFactory* LargeMarioAnimationFactory::sInstance;
+LargeMarioAnimationFactory* LargeMarioAnimationFactory::getInstance(Mario* mario){
+	if (sInstance == NULL){
+		sInstance = new LargeMarioAnimationFactory(mario);
+	}
+	else
+		sInstance->mMario = mario;
+	return sInstance;
 }
 
 Animation* LargeMarioAnimationFactory::createAnimation(){
