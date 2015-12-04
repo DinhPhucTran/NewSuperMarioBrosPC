@@ -25,7 +25,7 @@
 
 #define BACKGROUND_FILE L"blocks.png"
 
-#define ANIMATE_RATE 30
+#define ANIMATE_RATE 15
 #define JUMP_VELOCITY_BOOST 2.5f
 #define FALLDOWN_VELOCITY_DECREASE 0.5f
 

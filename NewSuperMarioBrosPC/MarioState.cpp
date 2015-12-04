@@ -57,20 +57,20 @@ void MarioStateLarge::onCollision(Object* ob){
 }
 
 //==================SATE_RACON==============
-const string MarioStateRacon::STATE_NAME = "mario_state_racon";
-string MarioStateRacon::getName(){
+const string MarioStateRaccoon::STATE_NAME = "mario_state_raccoon";
+string MarioStateRaccoon::getName(){
 	return STATE_NAME;
 }
-MarioStateRacon::MarioStateRacon(Mario* ob){
-	MarioStateRacon::mMario = ob;
+MarioStateRaccoon::MarioStateRaccoon(Mario* ob){
+	MarioStateRaccoon::mMario = ob;
 }
-void MarioStateRacon::onAPress(){
+void MarioStateRaccoon::onAPress(){
 	//jump;
 }
-void MarioStateRacon::onBPress(){
+void MarioStateRaccoon::onBPress(){
 	//do nothing;
 }
-void MarioStateRacon::onCollision(Object* ob){
+void MarioStateRaccoon::onCollision(Object* ob){
 	//xử lý va chạm trong trường hợp mario Lớn
 }
 

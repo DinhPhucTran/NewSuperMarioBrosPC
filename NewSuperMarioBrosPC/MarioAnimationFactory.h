@@ -38,7 +38,8 @@ private:
 public:
 	static LargeMarioAnimationFactory* getInstance(Mario* mario=NULL);
 	Animation *rightWalkAnim = new Animation(8, 13);
-	Animation *leftWalkAnim = new Animation(1, 5);
+	//Animation *leftWalkAnim = new Animation(1, 5);
+	Animation *leftWalkAnim = new Animation(60, 65);
 	Animation *rightStandAnim = new Animation(8, 8);
 	Animation *leftStandAnim = new Animation(6, 6);
 	Animation *leftJumpAnim = new Animation(15, 21);
@@ -47,6 +48,25 @@ public:
 
 	Animation* createAnimation()override;
 	~LargeMarioAnimationFactory();
+};
+
+class RaccoonMarioAnimationFactory :public MarioAnimationFactory{
+private:
+	Mario* mMario;
+	RaccoonMarioAnimationFactory(Mario* mario);
+	static RaccoonMarioAnimationFactory* sInstance;
+public:
+	static RaccoonMarioAnimationFactory* getInstance(Mario* mario = NULL);
+	Animation *rightWalkAnim = new Animation(99, 103);
+	Animation *leftWalkAnim = new Animation(91, 95);
+	Animation *rightStandAnim = new Animation(98, 98);
+	Animation *leftStandAnim = new Animation(96, 96);
+	Animation *leftJumpAnim = new Animation(122, 126);
+	Animation *rightJumpAnim = new Animation(128, 132);
+
+
+	Animation* createAnimation()override;
+	~RaccoonMarioAnimationFactory();
 };
 
 #endif

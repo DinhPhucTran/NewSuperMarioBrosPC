@@ -36,11 +36,11 @@ public:
 	string getName();//return OBJECT_NAME
 };
 
-class MarioStateRacon : public MarioState{
+class MarioStateRaccoon : public MarioState{
 	Mario* mMario;
 public:
 	static const string STATE_NAME;
-	MarioStateRacon(Mario* mario);
+	MarioStateRaccoon(Mario* mario);
 	void onAPress() override;//jump and fly
 	void onBPress() override;//turn around
 	void onCollision(Object* ob) override;

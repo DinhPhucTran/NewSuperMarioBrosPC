@@ -56,6 +56,9 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	MarioAnimationFactory* largeAnimFactory =  LargeMarioAnimationFactory::getInstance(mario);
 	mario->setAnimationFactory(largeAnimFactory);
 
+	MarioAnimationFactory* raccoonAnimFactory = RaccoonMarioAnimationFactory::getInstance(mario);
+	mario->setAnimationFactory(raccoonAnimFactory);
+
 	// One sprite only :)
 	ground_middle = new CSprite(_SpriteHandler, GROUND_MIDDLE, 32, 32, 1, 1);
 	brick = new CSprite(_SpriteHandler, BRICK, 32, 32, 1, 1);
