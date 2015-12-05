@@ -14,6 +14,7 @@ class MarioAnimationFactory;//khai báo có lớp MarioAnimationFactory
 
 class Object {
 public:
+	static const string OBJECT_NAME;
 	int x, y;
 	float ax;
 	float ay;
@@ -27,7 +28,7 @@ public:
 	Animation* getAnimation();
 	void setSprite(CSprite* sprite);
 	void update(int t);
-
+	virtual string getName();
 	~Object();
 };
 #endif

@@ -9,7 +9,6 @@ class MarioAnimationFactory;//khai báo có lớp MarioAnimationFactory
 class Mario :public Object{
 	MarioState* mMarioState;
 public:
-
 	MarioAnimationFactory* mAnimationFactory;
 	Mario(int x, int y, int width, int height, int vx, int vy, int vx_last, float aX, float aY, Animation* anim, CSprite* image, MarioState* state = NULL,MarioAnimationFactory* animFactory = NULL);
 	static const string OBJECT_NAME;
@@ -17,7 +16,7 @@ public:
 	void onBPress();
 	void onCollision(Object* object);
 	void setState(MarioState* state);
-	string getName();
+	string getName() override;
 	void setAnimationFactory(MarioAnimationFactory* animFactory);
 };
 

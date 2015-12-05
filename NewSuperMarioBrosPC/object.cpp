@@ -5,6 +5,11 @@
 #include"sprite.h"
 #include "marioGame.h"//to access global variable such at _SpriteHandler 
 using namespace std;
+
+const string Object::OBJECT_NAME = "game_object";
+string Object::getName(){
+	return OBJECT_NAME;
+}
 Object::Object(int X, int Y, int Width, int Height, float Vx, float Vy, float vx_last, float aX, float aY, Animation*anim, CSprite * Image) {
 	x = X;
 	y = Y;

@@ -6,6 +6,8 @@
 #include "game.h"
 #include "sprite.h"
 #include "MarioObject.h"
+#include "ObjectManager.h"
+#include "MarioAnimationFactory.h"
 
 #define DIRECT_LEFT 0;
 #define DIRECT_RIGHT 1;
@@ -48,6 +50,7 @@ public:
 	float mario_vy;
 
 	float mario_vx_last;	// last vx of mario before stop ( to determine the direction of mario )
+	
 	
 	Mario* mario;
 
