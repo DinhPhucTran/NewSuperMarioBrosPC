@@ -69,6 +69,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="animation.h" />
+    <ClInclude Include="Brick.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="MarioAnimationFactory.h" />
     <ClInclude Include="MarioGame.h" />
@@ -89,6 +90,7 @@
     <ClCompile Include="MarioState.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="Brick.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>

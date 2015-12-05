@@ -31,6 +31,7 @@ int ObjectManager::removeObject(Object *ob){
 	for (int i = 0; i < mListObject.size(); ++i){
 		if (mListObject[i] == ob){
 			mListObject.erase(mListObject.begin() + i);
+			delete ob;
 			return 1;
 		}
 	}
@@ -57,4 +58,16 @@ Mario* ObjectManager::getMario(){
 		}
 	}
 	return NULL;
+}
+
+void ObjectManager::render(int vpx,int vpy){
+	for (int i = 0; i < mListObject.size() ; ++i){
+		mListObject[i]->render(vpx,vpy);
+	}
+}
+
+void ObjectManager::update(int t){
+	for (int i = 0; i < mListObject.size(); ++i){
+		mListObject[i]->update(t);
+	}
 }

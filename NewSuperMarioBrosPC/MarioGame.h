@@ -42,6 +42,7 @@ public:
 	~CMarioGame();
 
 	LPD3DXSPRITE _SpriteHandler;
+	
 
 	int mario_x;			// position of mario
 	int mario_y;
@@ -51,7 +52,7 @@ public:
 
 	float mario_vx_last;	// last vx of mario before stop ( to determine the direction of mario )
 	
-	
+	ObjectManager* mObjectManager = ObjectManager::getInstance();
 	Mario* mario;
 
 	DWORD last_time;		// this is to control the animate rate of kitty
@@ -68,10 +69,8 @@ public:
 
 	bool _IsOnGround;
 	bool _IsFallOfGround;
-	int direction;
-	//Object * fallBox;
-	Animation * anim;
 
+	//Object * fallBox;
 protected:
 	LPDIRECT3DSURFACE9 _Background;
 

@@ -14,10 +14,11 @@ public:
 	static const string OBJECT_NAME;
 	void onAPress();
 	void onBPress();
-	void onCollision(Object* object);
+	void onCollision(Object* object)override;
 	void setState(MarioState* state);
 	string getName() override;
 	void setAnimationFactory(MarioAnimationFactory* animFactory);
+	void render(int vpx,int vpy)override;
 };
 
 #endif

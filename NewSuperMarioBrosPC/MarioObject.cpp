@@ -45,4 +45,6 @@ void Mario::setState(MarioState* state){
 void Mario::setAnimationFactory(MarioAnimationFactory* animFactory){
 	mAnimationFactory = animFactory;
 }
-
+void Mario::render(int vpx,int vpy){
+	mSprite->Render(mAnimationFactory->createAnimation(), x, y, vpx, vpy);
+}

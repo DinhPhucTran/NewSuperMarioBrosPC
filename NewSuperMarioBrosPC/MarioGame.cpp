@@ -54,9 +54,12 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	Mario* marioObject = new Mario(mario_x, mario_y, 36, 34, mario_vx, 0, 0, MARIO_ACCELERATION_X , 0, NULL, marioLargeSprite, NULL, NULL);
 	//SmallMarioAnimationFactory* smallAnimationFactory = new SmallMarioAnimationFactory(mario);
 	//mario->setAnimationFactory(smallAnimationFactory);
-	ObjectManager* obManager = ObjectManager::getInstance();
-	obManager->addObject(marioObject);
-	mario = obManager->getMario();
+	
+	mObjectManager->addObject(marioObject);
+	
+	mario = mObjectManager->getMario();
+
+
 	MarioAnimationFactory* largeAnimFactory =  LargeMarioAnimationFactory::getInstance(mario);
 	mario->setAnimationFactory(largeAnimFactory);
 
@@ -87,9 +90,11 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 
 
 	//
-	// Update mario status
+	// Update all object status
 	//
+	//mObjectManager->update(t);
 	mario->update(t);
+	mObjectManager->checkCollition();
 
 	//
 	// Animate mario if he is running
@@ -182,17 +187,10 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	brick->Render(0, 0, 0, 165 + j, 200, vpx, VIEW_PORT_Y);
 	fallDown->Render(0, 0, 0, 600, 0, vpx, VIEW_PORT_Y);
 
-	//
-	//  Select correct sprite to render depends on which direction mario is facing
-	//
-	/*if (mario_vx > 0)			marioSprite->Render(anim, mario_x, mario_y, vpx, VIEW_PORT_Y);//mario_right->Render(496, 0, 28, mario_x, mario_y, vpx, VIEW_PORT_Y);
-	else if (mario_vx < 0)		marioSprite->Render(194, 0, 26, mario_x, mario_y, vpx, VIEW_PORT_Y);
-	else if (mario_vx_last < 0) marioSprite->Render(194, 0, 26, mario_x, mario_y, vpx, VIEW_PORT_Y);
-	else						marioSprite->Render(anim, mario_x, mario_y, vpx, VIEW_PORT_Y);
-	*/
 
-	//marioSprite->Render(anim, mario_x, mario_y, vpx, VIEW_PORT_Y);
-	mario->mSprite->Render(mario->getAnimation(), mario->x, mario->y, vpx, VIEW_PORT_Y);
+	//render all object in game
+	mObjectManager->render(vpx,VIEW_PORT_Y);
+	//mario->render(vpx, VIEW_PORT_Y);
 	brick->Render(0, 0, 0, 100, 47, vpx, VIEW_PORT_Y);
 
 	_SpriteHandler->End();

@@ -18,6 +18,8 @@ public:
 	int removeObject(int position);
 	void checkCollition();
 	Mario* getMario();
+	void update(int t);
+	void render(int vpx, int vpy);
 
 
 };
