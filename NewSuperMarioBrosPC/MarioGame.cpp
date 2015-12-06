@@ -135,6 +135,15 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 		//}
 		//anim->Update();
 		
+		
+		mario->vy -= GRAV_VELOCITY;
+		
+		
+		if (mario->y <= GROUND_Y){
+			mario->y = GROUND_Y;
+			mario->vy = 0;
+		}
+		
 		mario->setAnimation(mario->mAnimationFactory->createAnimation());
 		last_time = now;
 	}
@@ -145,23 +154,24 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	////Mô phỏng gia tốc trọng trường 
 	///TO-DO thay isOnGround bằng cách xử lý va chạm với gạch dưới đất
 	///
-	if (_IsOnGround == false)
-	{
-		mario->vy -= GRAV_VELOCITY;//mô phỏng trọng lực
-		//mario_y = GROUND_Y;
-		if (mario->vy < MAX_GRAV)
-		mario_vy = -MAX_GRAV;
-	}
-	else
-	{
-		mario->vy = 0;
-	}
+	//if (_IsOnGround == false)
+	//{
+	//	mario->vy -= GRAV_VELOCITY;//mô phỏng trọng lực
+	//	//mario_y = GROUND_Y;
+	//	if (mario->vy < MAX_GRAV)
+	//	mario_vy = -MAX_GRAV;
+	//}
+	//else
+	//{
+	//	mario->vy = 0;
+	//}
 
-	if (mario->y <= GROUND_Y && _IsFallOfGround == false)
-		_IsOnGround = true;
+	//if (mario->y <= GROUND_Y && _IsFallOfGround == false)
+	//	_IsOnGround = true;
 
-	if (_IsOnGround)
-		mario_y = GROUND_Y;
+	//if (_IsOnGround)
+	//	mario_y = GROUND_Y;
+	
 	////////////////////////////////////////////////////
 	////////////////////////////////////////////////////
 
@@ -282,7 +292,7 @@ void CMarioGame::OnKeyDown(int KeyCode)
 	{
 	case DIK_SPACE:
 		if (mario->y <= GROUND_Y)
-			mario->vy += JUMP_VELOCITY_BOOST;			// start jump if is not "on-air"
+			mario->vy = JUMP_VELOCITY_BOOST;			// start jump if is not "on-air"
 		_IsOnGround = false;
 		break;
 
