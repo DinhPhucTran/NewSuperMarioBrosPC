@@ -3,6 +3,7 @@
 #include "MarioGame.h"
 #include "utils.h"
 #include "MarioAnimationFactory.h"
+#include "Brick.h"
 
 //#include "physics.h"
 
@@ -50,6 +51,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 	marioSmallSprite = new CSprite(_SpriteHandler, MARIO_SMALL_IMAGE, 36, 34, 50, 18);
 	marioLargeSprite = new CSprite(_SpriteHandler, MARIO_LARGE_IMAGE, 60, 60, 195, 15);
+	
 
 	Mario* marioObject = new Mario(mario_x, mario_y, 36, 34, mario_vx, 0, 0, MARIO_ACCELERATION_X , 0, NULL, marioLargeSprite, NULL, NULL);
 	//SmallMarioAnimationFactory* smallAnimationFactory = new SmallMarioAnimationFactory(mario);
@@ -67,8 +69,18 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	mario->setAnimationFactory(raccoonAnimFactory);
 
 	// One sprite only :)
+
 	enemi = new CSprite (_SpriteHandler, ENEMI, 32, 24, 12, 4);
-	ground_middle = new CSprite(_SpriteHandler, GROUND_MIDDLE, 32, 32, 1, 1);
+
+	CSprite* nen = new CSprite(_SpriteHandler, L"nen.png", 72, 18, 1, 1);
+	Animation *nenAnim = new Animation(0, 0);
+
+	for (int i = 0; i < 50; ++i){
+		Brick* brick = new Brick(i*(nen->_Width), GROUND_Y-37,72,18, nenAnim, nen);
+		mObjectManager->addObject(brick);
+	}
+
+
 	brick = new CSprite(_SpriteHandler, BRICK, 32, 32, 1, 1);
 
 	fallDown = new CSprite(_SpriteHandler, CHECK_FALL, 4, 619, 1, 1);
@@ -127,17 +139,7 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 		last_time = now;
 	}
 
-	//
-	// Simulate fall down
-	//
-	if (mario->y > GROUND_Y) 
-		mario->vy -= FALLDOWN_VELOCITY_DECREASE;
-	else
-	{
-		mario->y = GROUND_Y;
-		mario->vy = 0;
-	}
-
+	
 
 	////
 	////Mô phỏng gia tốc trọng trường 
@@ -145,17 +147,17 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	///
 	if (_IsOnGround == false)
 	{
-		mario_vy -= GRAV_VELOCITY;//mô phỏng trọng lực
+		mario->vy -= GRAV_VELOCITY;//mô phỏng trọng lực
 		//mario_y = GROUND_Y;
-		/*if (mario_vy < MAX_GRAV)
-		mario_vy = -MAX_GRAV;*/
+		if (mario->vy < MAX_GRAV)
+		mario_vy = -MAX_GRAV;
 	}
 	else
 	{
-		mario_vy = 0;
+		mario->vy = 0;
 	}
 
-	if (mario_y <= GROUND_Y && _IsFallOfGround == false)
+	if (mario->y <= GROUND_Y && _IsFallOfGround == false)
 		_IsOnGround = true;
 
 	if (_IsOnGround)
@@ -178,11 +180,11 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	//int vpx = xc;
 	if (vpx <= 0) vpx = 0;
 	xc += 1;
-	for (int i = 0; i < 32 * 50; i += 32)
-		ground_middle->Render(0, 0, 0, 16 + i, 16, vpx, VIEW_PORT_Y);
+	/*for (int i = 0; i < 32 * 50; i += 32)
+		ground_middle->Render(0, 0, 0, 16 + i, 16, vpx, VIEW_PORT_Y);*/
 
-	for (int i = 0; i < 32 * 10; i += 32)
-		ground_middle->Render(0, 0, 0, 16 + i, 16, vpx, VIEW_PORT_Y);
+	/*for (int i = 0; i < 32 * 10; i += 32)
+		ground_middle->Render(0, 0, 0, 16 + i, 16, vpx, VIEW_PORT_Y);*/
 
 	int j = 0;
 	brick->Render(0, 0, 0, 165 + j, 200, vpx, VIEW_PORT_Y);
