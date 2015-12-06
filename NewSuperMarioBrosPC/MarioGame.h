@@ -20,6 +20,8 @@
 #define MARIO_SMALL_IMAGE L"smallMarioResized.png"
 #define MARIO_LARGE_IMAGE L"bigMarioResized.png"
 
+#define ENEMI L"Enemi1"
+
 #define MARIO_MAX_SPEED 0.5f
 #define MARIO_MIN_SPEED 0.1f
 #define MARIO_ACCELERATION_X 0.5f
@@ -61,6 +63,7 @@ public:
 
 	CSprite * marioSmallSprite;
 	CSprite * marioLargeSprite;
+	CSprite * enemi;
 
 	CSprite * ground_middle;
 	CSprite * brick;
