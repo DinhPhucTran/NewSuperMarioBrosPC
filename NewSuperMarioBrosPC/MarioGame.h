@@ -29,9 +29,9 @@
 
 #define BACKGROUND_FILE L"blocks.png"
 
-#define ANIMATE_RATE 30
+#define ANIMATE_RATE 1000
 #define JUMP_VELOCITY_BOOST 2.0f
-#define FALLDOWN_VELOCITY_DECREASE 0.5f
+#define FALLDOWN_VELOCITY_DECREASE 0.1f
 
 #define GRAV_VELOCITY 0.5f
 #define MAX_GRAV 1.0f
@@ -72,7 +72,7 @@ public:
 
 	bool _IsOnGround;
 	bool _IsFallOfGround;
-
+	int animationDelay=0;
 	//Object * fallBox;
 protected:
 	LPDIRECT3DSURFACE9 _Background;

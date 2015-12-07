@@ -98,56 +98,17 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	// TO-DO: should enhance CGame to put a separate virtual method for updating game status
 
 
-	// NOTES: If there is a class for mario, this should be mario->Update(t);
-	// Putting mario update here is NOT a good place
-
-
 	//
 	// Update all object status
 	//
-	//mObjectManager->update(t);
-	mario->update(t);
+	mObjectManager->update(t);
 	mObjectManager->checkCollition();
 
-	//
-	// Animate mario if he is running
-	//
-	DWORD now = GetTickCount();
-	if (now - last_time > 1000 / ANIMATE_RATE)
-	{
-		////anim = rightWalkAnim;
-
-		//if (mario_vx > 0) anim = rightWalkAnim;
-		//if (mario_vx < 0) anim = leftWalkAnim;
-		//if (mario_vx == 0)
-		//{
-		//	if (this->direction == 0)
-		//		anim = leftStandAnim;
-		//	else
-		//		anim = rightStandAnim;
-		//}
-		//if (!_IsOnGround)
-		//{
-		//	if (direction == 0)
-		//		anim = leftJumpAnim;
-		//	else
-		//		anim = rightJumpAnim;
-		//}
-		//anim->Update();
-		
-		
-		mario->vy -= GRAV_VELOCITY;
-		
-		
-		if (mario->y <= GROUND_Y){
-			mario->y = GROUND_Y;
-			mario->vy = 0;
-		}
-		
-		mario->setAnimation(mario->mAnimationFactory->createAnimation());
-		last_time = now;
+	mario->vy -= GRAV_VELOCITY;
+	if (mario->y <= GROUND_Y){
+		mario->y = GROUND_Y;
+		mario->vy = 0;
 	}
-
 	
 
 	////
@@ -266,23 +227,6 @@ void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 				
 			last = now;
 		}
-
-		/*if (mario_vx > 0)
-		{
-			mario_vx -= 0.0000003f;
-			if (mario_vx < 0 || mario_vx < 0.00005f)
-				mario_vx = 0;
-		}
-		if (mario_vx < 0)
-		{
-			mario_vx += 0.0000003f;
-			if (mario_vx > 0 || mario_vx > -0.0000005f)
-				mario_vx = 0;
-		}*/
-
-		//mario_left->ResetLeft();
-		//mario_right->Reset();
-		//anim = standAnim;
 	}
 }
 
@@ -293,7 +237,6 @@ void CMarioGame::OnKeyDown(int KeyCode)
 	case DIK_SPACE:
 		if (mario->y <= GROUND_Y)
 			mario->vy = JUMP_VELOCITY_BOOST;			// start jump if is not "on-air"
-		_IsOnGround = false;
 		break;
 
 	}

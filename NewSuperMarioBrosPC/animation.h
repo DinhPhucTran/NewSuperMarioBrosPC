@@ -4,9 +4,10 @@
 class Animation
 {
 public:
+	static const int FRAME_DELAY;
 	int startFrame, endFrame;
 	int index;
-	int frameSpeed;
+	int frameDelay;
 
 	Animation(int startFrame, int endFrame);
 	~Animation();

@@ -17,12 +17,14 @@ private:
 
 	static SmallMarioAnimationFactory* sInstance;
 public:
+
 	Animation *rightWalkAnim = new Animation(14, 16);
 	Animation *leftWalkAnim = new Animation(1, 3);
 	Animation *rightStandAnim = new Animation(17, 17);
 	Animation *leftStandAnim = new Animation(0, 0);
 	Animation *leftJumpAnim = new Animation(4, 4);
 	Animation *rightJumpAnim = new Animation(13, 13);
+	
 	static SmallMarioAnimationFactory* getInstance(Mario* mario =NULL);
 	//contructor
 	
@@ -63,7 +65,10 @@ public:
 	Animation *leftStandAnim = new Animation(96, 96);
 	Animation *leftJumpAnim = new Animation(122, 126);
 	Animation *rightJumpAnim = new Animation(128, 132);
-
+	Animation *leftJumpUpAnim = new Animation(136, 136);
+	Animation *leftJumpDownAnim = new Animation(150, 150);
+	Animation *rightJumpUpAnim = new Animation(148, 148);
+	Animation *rightJumpDownAnim = new Animation(164, 164);
 
 	Animation* createAnimation()override;
 	~RaccoonMarioAnimationFactory();
