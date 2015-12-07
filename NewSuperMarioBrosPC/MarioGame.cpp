@@ -3,7 +3,7 @@
 #include "MarioGame.h"
 #include "utils.h"
 #include "MarioAnimationFactory.h"
-#include "Brick.h"
+#include "BrickGround.h"
 
 //#include "physics.h"
 
@@ -76,8 +76,8 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	Animation *nenAnim = new Animation(0, 0);
 
 	for (int i = 0; i < 50; ++i){
-		Brick* brick = new Brick(i*(nen->_Width), GROUND_Y-37,72,18, nenAnim, nen);
-		mObjectManager->addObject(brick);
+		BrickGround* brickGround = new BrickGround(i*(nen->_Width), GROUND_Y-37,72,18, nenAnim, nen);
+		mObjectManager->addObject(brickGround);
 	}
 
 

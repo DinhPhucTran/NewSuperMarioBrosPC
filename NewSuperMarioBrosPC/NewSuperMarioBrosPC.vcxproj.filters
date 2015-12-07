@@ -45,13 +45,13 @@
     <ClInclude Include="ObjectManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
     <ClInclude Include="MarioObject.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
     <ClInclude Include="object.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickGround.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
   </ItemGroup>
@@ -83,13 +83,13 @@
     <ClCompile Include="ObjectManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Source Files\Object</Filter>
-    </ClCompile>
     <ClCompile Include="MarioObject.cpp">
       <Filter>Source Files\Object</Filter>
     </ClCompile>
     <ClCompile Include="object.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BrickGround.cpp">
       <Filter>Source Files\Object</Filter>
     </ClCompile>
   </ItemGroup>
