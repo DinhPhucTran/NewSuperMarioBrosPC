@@ -71,6 +71,7 @@
     <ClInclude Include="animation.h" />
     <ClInclude Include="BrickGround.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="KoopaTroopa.h" />
     <ClInclude Include="MarioAnimationFactory.h" />
     <ClInclude Include="MarioGame.h" />
     <ClInclude Include="MarioObject.h" />
@@ -83,6 +84,7 @@
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="KoopaTroopa.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MarioAnimationFactory.cpp" />
     <ClCompile Include="MarioGame.cpp" />

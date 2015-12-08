@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Object">
       <UniqueIdentifier>{228a9131-9676-49ea-a321-adc0fedd688f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Enemies">
+      <UniqueIdentifier>{5b4244a2-a9c4-4bd9-b684-0724e6758862}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enemies">
+      <UniqueIdentifier>{f4182b4f-3dc4-49c7-8b35-9e242025e183}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation.h">
@@ -53,6 +59,9 @@
     </ClInclude>
     <ClInclude Include="BrickGround.h">
       <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="KoopaTroopa.h">
+      <Filter>Header Files\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +100,9 @@
     </ClCompile>
     <ClCompile Include="BrickGround.cpp">
       <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="KoopaTroopa.cpp">
+      <Filter>Source Files\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

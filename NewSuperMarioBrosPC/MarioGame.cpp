@@ -104,12 +104,20 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	mObjectManager->update(t);
 	mObjectManager->checkCollition();
 
-	mario->vy -= GRAV_VELOCITY;
+
+	//trọng trường
+	/*mario->vy -= GRAV_VELOCITY;
 	if (mario->y <= GROUND_Y){
 		mario->y = GROUND_Y;
 		mario->vy = 0;
-	}
+	}*/
 	
+	mario->ay -= GRAV_VELOCITY;
+	if (mario->y <= GROUND_Y){
+		mario->y = GROUND_Y;
+		mario->vy = 0;
+		mario->ay = 0;
+	}
 
 	////
 	////Mô phỏng gia tốc trọng trường 
@@ -172,6 +180,7 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 
 void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 {
+	
 	//DWORD now = GetTickCount();
 	if (IsKeyDown(DIK_RIGHT))
 	{
@@ -207,13 +216,11 @@ void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 			}
 		}
 	}
-	if (IsKeyDown(DIK_SPACE)){
-		/*mario->ay = 1.5f;
-		mario->vy = Mario::MAX_SPEED_Y;
-		if (mario->vy == Mario::MAX_SPEED_Y)
-			mario->ay = 0;*/
-
-	}
+	/*if (IsKeyDown(DIK_SPACE)){
+		if (mario->ay == 0){
+			mario->ay = 0.015f;
+		}
+	}*/
 }
 
 void CMarioGame::OnKeyDown(int KeyCode)
@@ -221,10 +228,16 @@ void CMarioGame::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		mario->ay = 1.5f;
-		if (mario->vy == Mario::MAX_SPEED_Y)
-			mario->ay = 0;
-
+		if (mario->ay == 0){
+			mario->ay = 0.012f;
+		}
+		if (IsKeyDown(DIK_SPACE)){
+			//if (mario->ay == 0){
+			if (mario->vy<0)
+				mario->vy +=0.3f;
+			//}
+		}
+		break;
 	}
 }
 
