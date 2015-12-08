@@ -9,6 +9,12 @@ class MarioAnimationFactory;//khai báo có lớp MarioAnimationFactory
 class Mario :public Object{
 	MarioState* mMarioState;
 public:
+	static const float ACCELERATION_X;
+	static const float ACCELERATION_Y;
+	static const float MAX_SPEED_X;
+	static const float MAX_SPEED_Y;
+
+
 	MarioAnimationFactory* mAnimationFactory;
 	Mario(int x, int y, int width, int height, int vx, int vy, int vx_last, float aX, float aY, Animation* anim, CSprite* image, MarioState* state = NULL,MarioAnimationFactory* animFactory = NULL);
 	static const string OBJECT_NAME;
@@ -19,6 +25,7 @@ public:
 	string getName() override;
 	void setAnimationFactory(MarioAnimationFactory* animFactory);
 	void render(int vpx,int vpy)override;
+	void update(int t)override;
 };
 
 #endif

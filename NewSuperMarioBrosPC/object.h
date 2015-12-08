@@ -27,7 +27,7 @@ public:
 	void setAnimation(Animation* anim);
 	Animation* getAnimation();
 	void setSprite(CSprite* sprite);
-	void update(int t);
+	virtual void update(int t);
 	virtual string getName();
 	virtual void onCollision(Object* ob);
 	virtual void render(int vpx,int vpy);

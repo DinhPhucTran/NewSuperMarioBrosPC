@@ -138,14 +138,15 @@ RaccoonMarioAnimationFactory* RaccoonMarioAnimationFactory::getInstance(Mario* m
 
 Animation* RaccoonMarioAnimationFactory::createAnimation(){
 	Animation* result;
-	if (mMario->vy != 0)//vy>0 => mario nhảy lên, vy<0 =>mario đang rớt xuống
+	if (mMario->vy > 0)//vy>0 => mario nhảy lên, vy<0 =>mario đang rớt xuống
 	{
 		if (mMario->vx_last < 0)//quay trái
 			result = leftJumpUpAnim;
 		else
 			result = rightJumpUpAnim;
 	}
-	else{//vy==0 mario đang đứng trên vật thể 
+	else if(mMario->vy==0)
+	{//vy==0 mario đang đứng trên vật thể 
 		if (mMario->vx_last < 0)//quay trái
 		{
 			if (mMario->vx != 0)//mario đang đi
@@ -160,6 +161,12 @@ Animation* RaccoonMarioAnimationFactory::createAnimation(){
 			else
 				result = rightStandAnim;
 		}
+	}
+	else {//mario đang rơi
+		if (mMario->vx_last < 0)//quay trái
+			result = leftJumpDownAnim;
+		else
+			result = rightJumpDownAnim;
 	}
 	result->Update();
 	return result;

@@ -53,7 +53,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	marioLargeSprite = new CSprite(_SpriteHandler, MARIO_LARGE_IMAGE, 60, 60, 195, 15);
 	
 
-	Mario* marioObject = new Mario(mario_x, mario_y, 36, 34, mario_vx, 0, 0, MARIO_ACCELERATION_X , 0, NULL, marioLargeSprite, NULL, NULL);
+	Mario* marioObject = new Mario(mario_x, mario_y, 36, 34, mario_vx, 0, 0, 0 , 0, NULL, marioLargeSprite, NULL, NULL);
 	//SmallMarioAnimationFactory* smallAnimationFactory = new SmallMarioAnimationFactory(mario);
 	//mario->setAnimationFactory(smallAnimationFactory);
 	
@@ -172,61 +172,47 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 
 void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 {
-	DWORD now = GetTickCount();
+	//DWORD now = GetTickCount();
 	if (IsKeyDown(DIK_RIGHT))
 	{
-		mario->vx = MARIO_MAX_SPEED;//mario đi phải
+		//mario->vx = MARIO_MAX_SPEED;//mario đi phải
+		mario->ax = Mario::ACCELERATION_X;
 		mario->vx_last = mario->vx;//lưu lại vx để biết hướng của mario
-		if (now - last > 1000 / ANIMATE_RATE)
-		{
-			if (mario->vx > MARIO_MAX_SPEED)
-				mario->ax=0;
-			//mario_vx += 0.05f;
-			last = now;
-			//mario_vx_last = mario_vx;
-		}
 	}
 	else
 	if (IsKeyDown(DIK_LEFT))
 	{
-		mario->vx = -MARIO_MAX_SPEED;
+		//mario->vx = -MARIO_MAX_SPEED;
+		mario->ax = -Mario::ACCELERATION_X;
 		mario->vx_last = mario->vx;
-		if (now - last > 1000 / ANIMATE_RATE)
-		{
-			if (mario_vx < -MARIO_MAX_SPEED)
-				mario->ax=0;
-			//mario_vx -= 0.05f;
-			last = now;
-			//mario_vx_last = mario_vx;
-		}
-		
-
-		//mario_vx_last = mario_vx;
 	}
-	else
+	else//all key release
 	{
-		/*mario_vx = 0;
-		mario_left->ResetLeft();
-		mario_right->Reset();*/
-
-		if (now - last > 1000 / ANIMATE_RATE)
+		if (mario->vx_last > 0)
 		{
-			if (mario->vx > 0)
-			{
-				mario->vx -= 0.05f;
-				if (mario->vx < 0)
-					mario->vx = 0;
+			//mario->vx -= 0.00000015f;
+			mario->ax = -Mario::ACCELERATION_X;
+			if (mario->vx <= 0){
+				mario->vx = 0;
+				mario->ax = 0;
 			}
-				
-			if (mario->vx < 0)
-			{
-				mario->vx += 0.05f;
-				if (mario->vx > 0)
-					mario->vx = 0;
+		}else
+		if (mario->vx_last < 0)
+		{
+			//mario->vx += 0.00000015f;
+			mario->ax = Mario::ACCELERATION_X;
+			if (mario->vx >= 0){
+				mario->vx = 0;
+				mario->ax = 0;
 			}
-				
-			last = now;
 		}
+	}
+	if (IsKeyDown(DIK_SPACE)){
+		/*mario->ay = 1.5f;
+		mario->vy = Mario::MAX_SPEED_Y;
+		if (mario->vy == Mario::MAX_SPEED_Y)
+			mario->ay = 0;*/
+
 	}
 }
 
@@ -235,9 +221,9 @@ void CMarioGame::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		if (mario->y <= GROUND_Y)
-			mario->vy = JUMP_VELOCITY_BOOST;			// start jump if is not "on-air"
-		break;
+		mario->ay = 1.5f;
+		if (mario->vy == Mario::MAX_SPEED_Y)
+			mario->ay = 0;
 
 	}
 }
