@@ -12,7 +12,7 @@ const float Mario::ACCELERATION_X = 0.0015f;
 const float Mario::MAX_SPEED_X = 0.5f;
 const float Mario::MAX_SPEED_Y = 1.5f;
 
-Mario::Mario(int x, int y, int width, int height, int vx, int vy, int vx_last, float aX, float aY, Animation* anim, CSprite * image, MarioState* state,MarioAnimationFactory* animFactory) 
+Mario::Mario(int x, int y, int width, int height, int vx, int vy, int vx_last, float aX, float aY, Animation* anim, CSprite * image, MarioState* state,AnimationFactory* animFactory) 
 	: Object(x, y, width, height, vx, vy, vx_last, aX, aY, anim, image){
 	if (state != NULL){
 		mMarioState = state;
@@ -46,7 +46,7 @@ string Mario::getName(){
 void Mario::setState(MarioState* state){
 	Mario::mMarioState = state;
 }
-void Mario::setAnimationFactory(MarioAnimationFactory* animFactory){
+void Mario::setAnimationFactory(AnimationFactory* animFactory){
 	mAnimationFactory = animFactory;
 }
 void Mario::render(int vpx,int vpy){

@@ -2,9 +2,6 @@
 #include<string>
 using namespace std;
 
-Animation* MarioAnimationFactory::createAnimation(){
-	return NULL;
-}
 
 SmallMarioAnimationFactory::SmallMarioAnimationFactory(Mario* mario){
 	mMario = mario;

@@ -1,16 +1,14 @@
 #ifndef __MARIO_ANIMATION_FACTORY_H__
 #define __MARIO_ANIMATION_FACTORY_H__
 
-#include"animation.h"
+#include "AnimationFactory.h"
+
 #include"MarioObject.h"
 #include <string>
 using namespace std;
-class MarioAnimationFactory{
-public:
-	virtual Animation* createAnimation();
-};
 
-class SmallMarioAnimationFactory :public MarioAnimationFactory{
+
+class SmallMarioAnimationFactory :public AnimationFactory{
 private:
 	Mario* mMario;
 	SmallMarioAnimationFactory(Mario* mario);
@@ -32,7 +30,7 @@ public:
 	~SmallMarioAnimationFactory();
 };
 
-class LargeMarioAnimationFactory :public MarioAnimationFactory{
+class LargeMarioAnimationFactory :public AnimationFactory{
 private:
 	Mario* mMario;
 	LargeMarioAnimationFactory(Mario* mario);
@@ -52,7 +50,7 @@ public:
 	~LargeMarioAnimationFactory();
 };
 
-class RaccoonMarioAnimationFactory :public MarioAnimationFactory{
+class RaccoonMarioAnimationFactory :public AnimationFactory{
 private:
 	Mario* mMario;
 	RaccoonMarioAnimationFactory(Mario* mario);

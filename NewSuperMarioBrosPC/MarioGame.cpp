@@ -62,10 +62,10 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	mario = mObjectManager->getMario();
 
 
-	MarioAnimationFactory* largeAnimFactory =  LargeMarioAnimationFactory::getInstance(mario);
+	AnimationFactory* largeAnimFactory =  LargeMarioAnimationFactory::getInstance(mario);
 	mario->setAnimationFactory(largeAnimFactory);
 
-	MarioAnimationFactory* raccoonAnimFactory = RaccoonMarioAnimationFactory::getInstance(mario);
+	AnimationFactory* raccoonAnimFactory = RaccoonMarioAnimationFactory::getInstance(mario);
 	mario->setAnimationFactory(raccoonAnimFactory);
 
 	// One sprite only :)
@@ -216,11 +216,14 @@ void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 			}
 		}
 	}
-	/*if (IsKeyDown(DIK_SPACE)){
+	
+	
+
+	if (IsKeyDown(DIK_SPACE)){
 		if (mario->ay == 0){
 			mario->ay = 0.015f;
 		}
-	}*/
+	}
 }
 
 void CMarioGame::OnKeyDown(int KeyCode)
@@ -230,15 +233,14 @@ void CMarioGame::OnKeyDown(int KeyCode)
 	case DIK_SPACE:
 		if (mario->ay == 0){
 			mario->ay = 0.012f;
+			last_time = GetTickCount();
+			
 		}
-		if (IsKeyDown(DIK_SPACE)){
-			//if (mario->ay == 0){
-			if (mario->vy<0)
-				mario->vy +=0.3f;
-			//}
-		}
+		
+		
 		break;
 	}
+	
 }
 
 

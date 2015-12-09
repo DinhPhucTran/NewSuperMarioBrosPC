@@ -5,7 +5,7 @@
 #include "object.h"
 using namespace std;
 class MarioState;//khai báo lớp MarioState,
-class MarioAnimationFactory;//khai báo có lớp MarioAnimationFactory
+class AnimationFactory;//khai báo có lớp MarioAnimationFactory
 class Mario :public Object{
 	MarioState* mMarioState;
 public:
@@ -15,15 +15,15 @@ public:
 	static const float MAX_SPEED_Y;
 
 
-	MarioAnimationFactory* mAnimationFactory;
-	Mario(int x, int y, int width, int height, int vx, int vy, int vx_last, float aX, float aY, Animation* anim, CSprite* image, MarioState* state = NULL,MarioAnimationFactory* animFactory = NULL);
+	AnimationFactory* mAnimationFactory;
+	Mario(int x, int y, int width, int height, int vx, int vy, int vx_last, float aX, float aY, Animation* anim, CSprite* image, MarioState* state = NULL,AnimationFactory* animFactory = NULL);
 	static const string OBJECT_NAME;
 	void onAPress();
 	void onBPress();
 	void onCollision(Object* object)override;
 	void setState(MarioState* state);
 	string getName() override;
-	void setAnimationFactory(MarioAnimationFactory* animFactory);
+	void setAnimationFactory(AnimationFactory* animFactory);
 	void render(int vpx,int vpy)override;
 	void update(int t)override;
 };
