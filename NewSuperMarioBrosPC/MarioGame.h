@@ -23,7 +23,7 @@
 #define CHECK_FALL L"checkFall.png"
 #define MARIO_SMALL_IMAGE L"smallMarioResized.png"
 #define MARIO_LARGE_IMAGE L"bigMarioResized.png"
-#define KOOPA_TROOPA_IMAGE L"KoopaRedGreen_16x27x17.png"
+#define KOOPA_TROOPA_IMAGE L"KoopaRedGreen_16x28x17.png"
 
 #define ENEMI L"Enemi1"
 

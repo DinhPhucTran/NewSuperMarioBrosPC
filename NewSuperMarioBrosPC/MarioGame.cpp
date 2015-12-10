@@ -51,13 +51,16 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 	marioSmallSprite = new CSprite(_SpriteHandler, MARIO_SMALL_IMAGE, 36, 34, 50, 18);
 	marioLargeSprite = new CSprite(_SpriteHandler, MARIO_LARGE_IMAGE, 60, 60, 195, 15);
-	koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_IMAGE, 17, 27, 48, 16);
+	koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_IMAGE, 17, 28, 48, 16);
 
-	KoopaTroopa* koopa = new KoopaTroopa(450, GROUND_Y, 17, 27, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
+	KoopaTroopa* koopa = 
+		new KoopaTroopa(450, GROUND_Y, 17, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
 	koopa->setAnimationFactory(new KoopaAnimationFactory(koopa));
+	koopa->setState(new KoopaSlidingState());
 	
-	RedKoopa* redKoopa = new RedKoopa(500, GROUND_Y, 17, 27, 0.15f, 0, 0.15f, 0, 0, NULL, koopaTroopaSprite);
-	redKoopa->setAnimationFactory(new RedKoopaAnimationFactory(redKoopa));
+	KoopaTroopa* redKoopa = 
+		new RedKoopa(500, GROUND_Y, 17, 28, KoopaTroopa::KOOPA_VELOCITY_X, 0, KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
+	//redKoopa->setAnimationFactory(new RedKoopaAnimationFactory(redKoopa));
 	mObjectManager->addObject(redKoopa);
 	Mario* marioObject = new Mario(mario_x, mario_y, 36, 34, mario_vx, 0, 0, 0 , 0, NULL, marioLargeSprite, NULL, NULL);
 	//SmallMarioAnimationFactory* smallAnimationFactory = new SmallMarioAnimationFactory(mario);

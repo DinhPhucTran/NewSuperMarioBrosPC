@@ -14,7 +14,7 @@ public:
 
 class RedKoopaAnimationFactory :public AnimationFactory{
 
-	RedKoopa* mRedKoopa;
+	KoopaTroopa* mRedKoopa;
 	
 
 public:
@@ -23,9 +23,8 @@ public:
 	Animation* mKoopaVulnerableAnim = new Animation(32, 32);
 	Animation* mKoopaSlidingAnim = new Animation(32, 35);
 
-	RedKoopaAnimationFactory(RedKoopa* redKoopa);
+	RedKoopaAnimationFactory(KoopaTroopa* redKoopa);
 
-	static RedKoopaAnimationFactory* getInstance(RedKoopa* redKoopa);
 	Animation* createAnimation()override;
 	~RedKoopaAnimationFactory();
 };

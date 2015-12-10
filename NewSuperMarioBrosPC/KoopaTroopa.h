@@ -47,7 +47,7 @@ public :
 };
 
 class KoopaTroopa : public Object{
-private:
+protected:
 	KoopaTroopaState* mState;
 public:
 	static float const KOOPA_VELOCITY_X;

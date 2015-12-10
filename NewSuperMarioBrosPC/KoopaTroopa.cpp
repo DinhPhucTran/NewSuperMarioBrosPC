@@ -4,11 +4,14 @@ using namespace std;
 
 KoopaTroopa::KoopaTroopa(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image) 
 	:Object(x, y, width, height, vx, vy, vx_last, ax, ay, anim, image){
+	if (mState == NULL){
+		mState = new KoopaNomalState();
+	}
 	if(mAnimationFactory==NULL)
 		mAnimationFactory = new KoopaAnimationFactory(this);
 	if(mAnim==NULL)
 		mAnim = mAnimationFactory->createAnimation();
-	mState = new KoopaNomalState();
+	
 }
 
 const float KoopaTroopa::KOOPA_VELOCITY_X = 0.1f;
@@ -21,6 +24,10 @@ void KoopaTroopa::onCollision(Object* ob){
 }
 KoopaTroopaState* KoopaTroopa::getState(){
 	return mState;
+}
+void KoopaTroopa::setState(KoopaTroopaState* state){
+	if(state!=NULL)
+		mState = state;
 }
 
 void KoopaTroopa::setAnimationFactory(AnimationFactory* animFactory){
