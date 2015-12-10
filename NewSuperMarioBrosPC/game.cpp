@@ -166,7 +166,7 @@ void CGame::_InitKeyboard()
 
 	//trace(L"SetDataFormat for keyboard successfully");
 
-	hr = _Keyboard->SetCooperativeLevel(_hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+	hr = _Keyboard->SetCooperativeLevel(_hWnd, DISCL_FOREGROUND );//original value _hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE
 
 	//trace(L"SetCooperativeLevel for keyboard successfully");
 
