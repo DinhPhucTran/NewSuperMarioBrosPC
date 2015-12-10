@@ -7,8 +7,10 @@ class KoopaTroopa;
 class KoopaAnimationFactory: public AnimationFactory{
 	KoopaTroopa* mKoopa;
 public:
-	
-
+	Animation* mKoopaLeftWalkAnim = new Animation(4, 5);
+	Animation* mKoopaRightWalkAnim = new Animation(10,11);
+	Animation* mKoopaVulnerableAnim = new Animation(36, 36);
+	Animation* mKoopaSlidingAnim = new Animation(36, 39);
 	Animation* createAnimation()override;
 	KoopaAnimationFactory(KoopaTroopa* koopa);
 };
@@ -50,8 +52,10 @@ public:
 	//static Animation* 
 	static const string OBJECT_NAME;
 	string getName();
+	KoopaTroopaState* getState();
 	void setState(KoopaTroopaState* state);
 	void setAnimationFactory(AnimationFactory* animFactory);
 	void onCollision(Object* ob)override;
+	void render(int vpx,int vpy)override;
 	KoopaTroopa(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image);
 };

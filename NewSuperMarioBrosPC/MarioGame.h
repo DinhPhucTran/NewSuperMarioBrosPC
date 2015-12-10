@@ -8,6 +8,7 @@
 #include "MarioObject.h"
 #include "ObjectManager.h"
 #include "MarioAnimationFactory.h"
+#include "KoopaTroopa.h"
 
 #define DIRECT_LEFT 0;
 #define DIRECT_RIGHT 1;
@@ -19,6 +20,7 @@
 #define CHECK_FALL L"checkFall.png"
 #define MARIO_SMALL_IMAGE L"smallMarioResized.png"
 #define MARIO_LARGE_IMAGE L"bigMarioResized.png"
+#define KOOPA_TROOPA_IMAGE L"KoopaRedGreen_16x27x17.png"
 
 #define ENEMI L"Enemi1"
 
@@ -64,7 +66,7 @@ public:
 	CSprite * marioSmallSprite;
 	CSprite * marioLargeSprite;
 	CSprite * enemi;
-
+	CSprite * koopaTroopaSprite;
 	CSprite * ground_middle;
 	CSprite * brick;
 	CSprite * mountain;

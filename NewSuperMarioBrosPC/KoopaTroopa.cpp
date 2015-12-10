@@ -5,6 +5,7 @@ using namespace std;
 KoopaTroopa::KoopaTroopa(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image) 
 	:Object(x, y, width, height, vx, vy, vx_last, ax, ay, anim, image){
 	mAnimationFactory = new KoopaAnimationFactory(this);
+	mState = new KoopaNomalState();
 }
 
 const string KoopaTroopa::OBJECT_NAME = "koopa_troopa";
@@ -13,6 +14,17 @@ string KoopaTroopa::getName(){
 }
 void KoopaTroopa::onCollision(Object* ob){
 	mState->onCollision(ob);
+}
+KoopaTroopaState* KoopaTroopa::getState(){
+	return mState;
+}
+
+void KoopaTroopa::setAnimationFactory(AnimationFactory* animFactory){
+	mAnimationFactory = animFactory;
+}
+
+void KoopaTroopa::render(int vpx, int vpy){
+	mSprite->Render(mAnimationFactory->createAnimation(), x, y, vpx, vpy);
 }
 
 
@@ -64,7 +76,24 @@ void KoopaSlidingState::onCollision(Object*ob){
 
 /////////////////////////////KoopaAnimationFactory///////////////
 Animation* KoopaAnimationFactory::createAnimation(){
-	return 0;
+	string stateName = mKoopa->getState()->getName();
+	Animation* result;
+	if (stateName == KoopaVulnerableState::STATE_NAME){
+		result = mKoopaVulnerableAnim;
+	}
+	else if (stateName == KoopaSlidingState::STATE_NAME){
+		result = mKoopaSlidingAnim;
+	}
+	else {///normal state
+		if (mKoopa->vx_last < 0){
+			result = mKoopaLeftWalkAnim;
+		}
+		else{
+			result = mKoopaRightWalkAnim;
+		}
+	}
+	result->Update();
+	return result;
 }
 
 KoopaAnimationFactory::KoopaAnimationFactory(KoopaTroopa*koopa){
