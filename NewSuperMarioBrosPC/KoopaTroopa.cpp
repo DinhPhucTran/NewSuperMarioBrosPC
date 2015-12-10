@@ -4,10 +4,14 @@ using namespace std;
 
 KoopaTroopa::KoopaTroopa(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image) 
 	:Object(x, y, width, height, vx, vy, vx_last, ax, ay, anim, image){
-	mAnimationFactory = new KoopaAnimationFactory(this);
+	if(mAnimationFactory==NULL)
+		mAnimationFactory = new KoopaAnimationFactory(this);
+	if(mAnim==NULL)
+		mAnim = mAnimationFactory->createAnimation();
 	mState = new KoopaNomalState();
 }
 
+const float KoopaTroopa::KOOPA_VELOCITY_X = 0.1f;
 const string KoopaTroopa::OBJECT_NAME = "koopa_troopa";
 string KoopaTroopa::getName(){
 	return OBJECT_NAME;
@@ -25,6 +29,10 @@ void KoopaTroopa::setAnimationFactory(AnimationFactory* animFactory){
 
 void KoopaTroopa::render(int vpx, int vpy){
 	mSprite->Render(mAnimationFactory->createAnimation(), x, y, vpx, vpy);
+}
+void KoopaTroopa::update(int t){
+	x += vx*t;
+	y += vy*t;
 }
 
 
@@ -75,6 +83,7 @@ void KoopaSlidingState::onCollision(Object*ob){
 }
 
 /////////////////////////////KoopaAnimationFactory///////////////
+
 Animation* KoopaAnimationFactory::createAnimation(){
 	string stateName = mKoopa->getState()->getName();
 	Animation* result;
@@ -98,4 +107,10 @@ Animation* KoopaAnimationFactory::createAnimation(){
 
 KoopaAnimationFactory::KoopaAnimationFactory(KoopaTroopa*koopa){
 	mKoopa = koopa;
+}
+KoopaAnimationFactory::~KoopaAnimationFactory(){
+	delete mKoopaLeftWalkAnim;
+	delete mKoopaRightWalkAnim;
+	delete mKoopaSlidingAnim;
+	delete mKoopaVulnerableAnim;
 }

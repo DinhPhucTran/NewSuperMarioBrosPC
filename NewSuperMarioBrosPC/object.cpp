@@ -39,9 +39,9 @@ void Object::setSprite(CSprite* sprite){
 	Object::mSprite = sprite;
 }
 void Object::update(int t){
-	x = x + vx * t;// +(1 / 2)*ax*t*t;//phương trình chuyển động tăng dần đều
-	//vx = vx + ax;
-	y = y + vy * t;// +(1 / 2)*ay*t*t;
+	x += vx * t;
+
+	y += vy * t;
 }
 Object::~Object() {
 	delete mSprite;

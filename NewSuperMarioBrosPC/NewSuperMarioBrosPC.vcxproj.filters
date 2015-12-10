@@ -66,6 +66,9 @@
     <ClInclude Include="AnimationFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RedKoopa.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sprite.cpp">
@@ -105,6 +108,9 @@
       <Filter>Source Files\Object</Filter>
     </ClCompile>
     <ClCompile Include="KoopaTroopa.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="RedKoopa.cpp">
       <Filter>Source Files\Enemies</Filter>
     </ClCompile>
   </ItemGroup>

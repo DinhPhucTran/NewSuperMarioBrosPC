@@ -7,8 +7,11 @@
 #include "sprite.h"
 #include "MarioObject.h"
 #include "ObjectManager.h"
+//#include "KoopaTroopa.h"
 #include "MarioAnimationFactory.h"
-#include "KoopaTroopa.h"
+#include "RedKoopa.h"
+
+
 
 #define DIRECT_LEFT 0;
 #define DIRECT_RIGHT 1;
@@ -24,19 +27,17 @@
 
 #define ENEMI L"Enemi1"
 
-#define MARIO_MAX_SPEED 0.5f
-#define MARIO_MIN_SPEED 0.1f
 
 #define GROUND_Y 45
 
 #define BACKGROUND_FILE L"blocks.png"
 
-#define ANIMATE_RATE 1000
+
 #define JUMP_VELOCITY_BOOST 2.0f
 #define FALLDOWN_VELOCITY_DECREASE 0.1f
 
 #define GRAV_VELOCITY 0.0015f
-#define MAX_GRAV 1.0f
+
 //#define VIEW_PORT_Y  600
 
 class CMarioGame : public CGame
@@ -79,11 +80,11 @@ public:
 protected:
 	LPDIRECT3DSURFACE9 _Background;
 
-	virtual void RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta);
-	virtual void ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta);
-	virtual void LoadResources(LPDIRECT3DDEVICE9 d3ddv);
+	virtual void RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)override;
+	virtual void ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)override;
+	virtual void LoadResources(LPDIRECT3DDEVICE9 d3ddv)override;
 
-	virtual void OnKeyDown(int KeyCode);
+	virtual void OnKeyDown(int KeyCode)override;
 
 	void RenderBackground(int view_port_x, int view_port_y);
 };

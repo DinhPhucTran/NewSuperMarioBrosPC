@@ -79,6 +79,7 @@
     <ClInclude Include="MarioState.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="RedKoopa.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
@@ -94,6 +95,7 @@
     <ClCompile Include="object.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="BrickGround.cpp" />
+    <ClCompile Include="RedKoopa.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
