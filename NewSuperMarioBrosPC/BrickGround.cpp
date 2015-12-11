@@ -7,7 +7,7 @@ const string BrickGround::OBJECT_NAME = "brick_ground";
 string BrickGround::getName(){
 	return OBJECT_NAME;
 }
-void BrickGround::onCollision(Object* ob){
+void BrickGround::onCollision(Object* ob,int dir){
 
 }
 

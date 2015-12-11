@@ -12,7 +12,7 @@ const string Gooba::OBJECT_NAME = "gooba";
 string Gooba::getName(){
 	return OBJECT_NAME;
 }
-void Gooba::onCollision(Object* ob){
+void Gooba::onCollision(Object* ob,int dir){
 	mState->onCollision(ob);
 }
 GoobaState* Gooba::getState(){

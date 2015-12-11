@@ -11,7 +11,7 @@ void MarioState::onAPress(){
 void MarioState::onBPress(){
 	//do nothing
 }
-void MarioState::onCollision(Object* ob){
+void MarioState::onCollision(Object* ob,int dir){
 	// do nothing 
 }
 string MarioState::getName(){
@@ -35,7 +35,7 @@ void MarioStateSmall::onAPress(){
 void MarioStateSmall::onBPress(){
 	//do nothing
 }
-void MarioStateSmall::onCollision(Object* ob){
+void MarioStateSmall::onCollision(Object* ob,int dir){
 	//xử lý va chạm khi mario ở trạng thái Small
 }
 //==================SATE_LARGE==============
@@ -52,7 +52,7 @@ void MarioStateLarge::onAPress(){
 void MarioStateLarge::onBPress(){
 	//do nothing;
 }
-void MarioStateLarge::onCollision(Object* ob){
+void MarioStateLarge::onCollision(Object* ob,int dir){
 	//xử lý va chạm trong trường hợp mario Lớn
 }
 
@@ -70,7 +70,7 @@ void MarioStateRaccoon::onAPress(){
 void MarioStateRaccoon::onBPress(){
 	//do nothing;
 }
-void MarioStateRaccoon::onCollision(Object* ob){
+void MarioStateRaccoon::onCollision(Object* ob,int dir){
 	//xử lý va chạm trong trường hợp mario Lớn
 }
 

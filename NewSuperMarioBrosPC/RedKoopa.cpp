@@ -11,7 +11,7 @@ RedKoopa::RedKoopa(int x, int y, int width, int height, float vx, float vy, floa
 		mAnim = mAnimationFactory->createAnimation();
 	
 }
-void RedKoopa::onCollision(Object* ob){
+void RedKoopa::onCollision(Object* ob,int dir){
 	//xử lý va chạm của Rùa Đỏ
 }
 

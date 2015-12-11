@@ -9,7 +9,7 @@ public:
 	static const string OBJECT_NAME;;
 	string getName()override;
 	void update(int t)override;
-	void onCollision(Object* ob)override;
+	void onCollision(Object* ob,int dir)override;
 };
 
 class RedKoopaAnimationFactory :public AnimationFactory{

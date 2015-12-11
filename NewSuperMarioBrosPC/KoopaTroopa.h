@@ -19,14 +19,14 @@ public:
 
 class KoopaTroopaState{
 public:
-	virtual void onCollision(Object* ob);
+	virtual void onCollision(Object* ob,int dir);
 	virtual string getName();
 };
 
 class KoopaNomalState:public KoopaTroopaState{//trạng thái đi lại bình thường
 public:
 	static const string STATE_NAME;
-	void onCollision(Object* ob)override;
+	void onCollision(Object* ob,int dir)override;
 	string getName()override;
 };
 
@@ -34,7 +34,7 @@ class KoopaVulnerableState :public KoopaTroopaState{//Trạng thái dể bị t�
 	//ở trạng thái này mario đụng vào là xong :p
 public:
 	static const string STATE_NAME;
-	void onCollision(Object* ob)override;
+	void onCollision(Object* ob,int dir)override;
 	string getName()override;
 };
 
@@ -42,7 +42,7 @@ class KoopaSlidingState :public KoopaTroopaState{
 	//trạng thái bị mario đá, trượt từ đầu này sang đầu khác
 public :
 	static const string STATE_NAME;
-	void onCollision(Object*ob)override;
+	void onCollision(Object*ob,int dir)override;
 	string getName()override;
 };
 
@@ -58,7 +58,7 @@ public:
 	KoopaTroopaState* getState();
 	void setState(KoopaTroopaState* state);
 	void setAnimationFactory(AnimationFactory* animFactory);
-	virtual void onCollision(Object* ob)override;
+	virtual void onCollision(Object* ob,int dir)override;
 	void render(int vpx,int vpy)override;
 	virtual void update(int t)override;
 	KoopaTroopa(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image);

@@ -29,7 +29,7 @@ public:
 	void setSprite(CSprite* sprite);
 	virtual void update(int t);
 	virtual string getName();
-	virtual void onCollision(Object* ob);
+	virtual void onCollision(Object* ob, int direction);
 	virtual void render(int vpx,int vpy);
 	~Object();
 };

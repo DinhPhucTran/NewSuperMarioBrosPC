@@ -10,7 +10,7 @@ const string Object::OBJECT_NAME = "game_object";
 string Object::getName(){
 	return OBJECT_NAME;
 }
-void Object::onCollision(Object* ob){
+void Object::onCollision(Object* ob, int direction){
 	//Object know nothing to response Collision
 }
 Object::Object(int X, int Y, int Width, int Height, float Vx, float Vy, float vx_last, float aX, float aY, Animation*anim, CSprite * Image) {

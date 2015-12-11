@@ -20,7 +20,7 @@ public:
 	static const string OBJECT_NAME;
 	void onAPress();
 	void onBPress();
-	void onCollision(Object* object)override;
+	void onCollision(Object* object, int dir)override;
 	void setState(MarioState* state);
 	string getName() override;
 	void setAnimationFactory(AnimationFactory* animFactory);

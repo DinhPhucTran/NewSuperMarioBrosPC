@@ -55,7 +55,7 @@ public:
 	GoobaState* getState();
 	void setState(GoobaState* state);
 	void setAnimationFactory(AnimationFactory* animFactory);
-	void onCollision(Object* ob)override;
+	void onCollision(Object* ob, int dir)override;
 	void render(int vpx, int vpy)override;
 	Gooba(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image);
 };

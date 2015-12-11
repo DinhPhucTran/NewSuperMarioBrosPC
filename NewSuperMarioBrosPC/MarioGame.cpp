@@ -62,7 +62,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	KoopaTroopa* redKoopa = 
 		new RedKoopa(500, GROUND_Y, 17, 28, KoopaTroopa::KOOPA_VELOCITY_X, 0, KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
 	//redKoopa->setAnimationFactory(new RedKoopaAnimationFactory(redKoopa));
-	Gooba* gooba = new Gooba(400, GROUND_Y, 32, 32, -0.05f, 0, -0.5f, 0, 0, NULL, goobaSprite);
+	Gooba* gooba = new Gooba(400, GROUND_Y, 32, 32, -0.15f, 0, -0.5f, 0, 0, NULL, goobaSprite);
 	gooba->setAnimationFactory(new GoobaAnimationFactory(gooba));
 	gooba->setAnimation(gooba->mAnimationFactory->createAnimation());
 

@@ -36,8 +36,8 @@ void Mario::onAPress(){
 void Mario::onBPress(){
 	Mario::mMarioState->onBPress();
 }
-void Mario::onCollision(Object* ob){
-	Mario::mMarioState->onCollision(ob);
+void Mario::onCollision(Object* ob,int dir){
+	Mario::mMarioState->onCollision(ob,dir);
 }
 string Mario::getName(){
 	return Mario::OBJECT_NAME;

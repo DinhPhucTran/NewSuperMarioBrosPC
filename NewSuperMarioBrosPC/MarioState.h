@@ -8,7 +8,7 @@ class MarioState{
 public:
 	virtual void onAPress();
 	virtual void onBPress() ;
-	virtual void onCollision(Object* ob) ;
+	virtual void onCollision(Object* ob,int dir) ;
 	virtual std::string getName();
 };
 
@@ -19,7 +19,7 @@ public:
 	MarioStateSmall(Mario* mario);
 	void onAPress()override;//jump
 	void onBPress()override;//do nothing
-	void onCollision(Object* ob)override;
+	void onCollision(Object* ob, int dir)override;
 
 	string getName();//return OBJECT_NAME
 };
@@ -31,7 +31,7 @@ public:
 	MarioStateLarge(Mario* mario);
 	void onAPress()override;//jump
 	void onBPress()override;//do nothing
-	void onCollision(Object* ob)override;
+	void onCollision(Object* ob,int dir)override;
 
 	string getName();//return OBJECT_NAME
 };
@@ -43,7 +43,7 @@ public:
 	MarioStateRaccoon(Mario* mario);
 	void onAPress() override;//jump and fly
 	void onBPress() override;//turn around
-	void onCollision(Object* ob) override;
+	void onCollision(Object* ob,int dir) override;
 
 	string getName();//return OBJECT_NAME
 };
