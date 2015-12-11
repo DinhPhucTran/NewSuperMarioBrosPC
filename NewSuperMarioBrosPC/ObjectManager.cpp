@@ -1,4 +1,5 @@
-#include "ObjectManager.h"
+﻿#include "ObjectManager.h"
+#include "Physics.h"
 
 ObjectManager* ObjectManager::sInstance;
 ObjectManager::ObjectManager(){
@@ -41,9 +42,14 @@ int ObjectManager::removeObject(Object *ob){
 void ObjectManager::checkCollition(){
 	for (int i = 0; i < mListObject.size()-1; ++i){
 		for (int j = i + 1; j < mListObject.size(); ++j){
-			//if(isCollision(mListObject[i],mlistObject[j])==true) {
-			//objecti.onCollition(objectj);
-			//objectJ.onCollition(objecti);
+			Object *ob1, *ob2;
+			ob1 = mListObject[i];
+			ob2 = mListObject[j];
+			int dir = Physics::CollisionStatic(mListObject[i], mListObject[j]);
+			if (dir != 0){
+				ob1->onCollision(ob2, dir);//ob 1 bị đụng trái thì ob2 bị đụng phải, tương tự trên dưới
+				ob2->onCollision(ob1, -dir);
+			}
 		}
 	}
 }

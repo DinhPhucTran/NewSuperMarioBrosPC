@@ -90,7 +90,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	CSprite* nen = new CSprite(_SpriteHandler, L"nen.png", 72, 18, 1, 1);
 	Animation *nenAnim = new Animation(0, 0);
 
-	for (int i = 0; i < 50; ++i){
+	for (int i = 0; i < 20; ++i){
 		BrickGround* brickGround = new BrickGround(i*(nen->_Width), GROUND_Y-37,72,18, nenAnim, nen);
 		mObjectManager->addObject(brickGround);
 	}
