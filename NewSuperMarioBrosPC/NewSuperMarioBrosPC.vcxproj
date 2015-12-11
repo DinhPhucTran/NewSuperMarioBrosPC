@@ -72,6 +72,7 @@
     <ClInclude Include="AnimationFactory.h" />
     <ClInclude Include="BrickGround.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="gooba.h" />
     <ClInclude Include="KoopaTroopa.h" />
     <ClInclude Include="MarioAnimationFactory.h" />
     <ClInclude Include="MarioGame.h" />
@@ -86,6 +87,7 @@
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="gooba.cpp" />
     <ClCompile Include="KoopaTroopa.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MarioAnimationFactory.cpp" />

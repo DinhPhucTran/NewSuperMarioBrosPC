@@ -10,6 +10,7 @@
 //#include "KoopaTroopa.h"
 #include "MarioAnimationFactory.h"
 #include "RedKoopa.h"
+#include "gooba.h"
 
 
 
@@ -25,7 +26,7 @@
 #define MARIO_LARGE_IMAGE L"bigMarioResized.png"
 #define KOOPA_TROOPA_IMAGE L"KoopaRedGreen_16x28x17.png"
 
-#define ENEMI L"Enemi1"
+#define GOOBA L"gooba.png"
 
 
 #define GROUND_Y 45
@@ -66,7 +67,7 @@ public:
 
 	CSprite * marioSmallSprite;
 	CSprite * marioLargeSprite;
-	CSprite * enemi;
+	CSprite * goobaSprite;
 	CSprite * koopaTroopaSprite;
 	CSprite * ground_middle;
 	CSprite * brick;
