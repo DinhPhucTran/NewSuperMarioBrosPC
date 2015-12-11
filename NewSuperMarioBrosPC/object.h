@@ -31,6 +31,12 @@ public:
 	virtual string getName();
 	virtual void onCollision(Object* ob, int direction);
 	virtual void render(int vpx,int vpy);
+	
+	int left();
+	int right();
+	int top();
+	int bottom();
+	
 	~Object();
 };
 #endif

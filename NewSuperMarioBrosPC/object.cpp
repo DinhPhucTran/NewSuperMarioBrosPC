@@ -50,3 +50,20 @@ Object::~Object() {
 void Object::render(int vpx, int vpy){
 	mSprite->Render(mAnim, x, y, vpx, vpy);
 }
+
+int Object::left() {
+	return x - width / 2;
+}
+
+int Object::right() {
+	return x + width / 2;
+}
+
+int Object::top() {
+	return y + height / 2;
+}
+
+int Object::bottom() {
+	return y - height / 2;
+}
+
