@@ -5,6 +5,7 @@
 #include "MarioAnimationFactory.h"
 #include "BrickGround.h"
 #include "Physics.h"
+#include"MarioState.h"
 //#include "physics.h"
 
 
@@ -70,6 +71,8 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	Mario* marioObject = new Mario(mario_x, mario_y, 36, 34, mario_vx, 0, 0, 0 , 0, NULL, marioLargeSprite, NULL, NULL);
 	//SmallMarioAnimationFactory* smallAnimationFactory = new SmallMarioAnimationFactory(mario);
 	//mario->setAnimationFactory(smallAnimationFactory);
+	marioObject->setAnimationFactory(LargeMarioAnimationFactory::getInstance(marioObject));
+	marioObject->setState(new MarioStateLarge(marioObject));
 	
 	mObjectManager->addObject(marioObject);
 	mObjectManager->addObject(koopa);
@@ -80,10 +83,8 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	AnimationFactory* largeAnimFactory =  LargeMarioAnimationFactory::getInstance(mario);
 	mario->setAnimationFactory(largeAnimFactory);
 
-	AnimationFactory* raccoonAnimFactory = RaccoonMarioAnimationFactory::getInstance(mario);
-	mario->setAnimationFactory(raccoonAnimFactory);
 
-	// One sprite only :)
+
 
 	
 
@@ -94,6 +95,9 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 		BrickGround* brickGround = new BrickGround(i*(nen->_Width), GROUND_Y-37,72,18, nenAnim, nen);
 		mObjectManager->addObject(brickGround);
 	}
+
+	BrickGround* brickGround = new BrickGround(100, GROUND_Y + 80, 72, 18, nenAnim, nen);
+	mObjectManager->addObject(brickGround);
 
 
 	brick = new CSprite(_SpriteHandler, BRICK, 32, 32, 1, 1);
