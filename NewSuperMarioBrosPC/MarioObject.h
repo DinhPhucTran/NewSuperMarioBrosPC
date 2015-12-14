@@ -8,7 +8,10 @@ class MarioState;//khai báo lớp MarioState,
 class AnimationFactory;//khai báo có lớp MarioAnimationFactory
 class Mario :public Object{
 	MarioState* mMarioState;
+
 public:
+	int isLeftButtonPress;
+	int isRightButtonPress;
 	static const float ACCELERATION_X;
 	static const float ACCELERATION_Y;
 	static const float MAX_SPEED_X;

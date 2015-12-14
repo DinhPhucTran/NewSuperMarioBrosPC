@@ -45,6 +45,8 @@ string Mario::getName(){
 
 void Mario::setState(MarioState* state){
 	Mario::mMarioState = state;
+	width = state->getWidth();
+	height = state->getHeight();
 }
 void Mario::setAnimationFactory(AnimationFactory* animFactory){
 	mAnimationFactory = animFactory;

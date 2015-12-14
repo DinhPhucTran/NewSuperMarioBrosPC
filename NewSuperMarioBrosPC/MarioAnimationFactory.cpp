@@ -1,5 +1,6 @@
 ﻿#include"MarioAnimationFactory.h"
 #include<string>
+#include"game.h"
 using namespace std;
 
 
@@ -12,42 +13,48 @@ Animation* SmallMarioAnimationFactory::createAnimation(){
 	if (mMario->vy > 0)//vy>0 => mario nhảy lên, vy<0 =>mario đang rớt xuống
 	{
 		if (mMario->vx_last < 0)//quay trái
-			result = leftJumpAnim;
+			result = leftJumpUpAnim;
 		else
-			result = rightJumpAnim;
+			result = rightJumpUpAnim;
 	}
-	else{
-		if (mMario->vy == 0){
-			//vy==0 mario đang đứng trên vật thể 
-			if (mMario->vx_last < 0)//quay trái
+	else if (mMario->vy == 0)
+	{//vy==0 mario đang đứng trên vật thể 
+		if (mMario->vx_last < 0)//quay trái
+		{
+			if (mMario->ax > 0 && mMario->isRightButtonPress == 1){//quay phải
+				result = turnRightAnimation;
+			}
+			else if (mMario->vx != 0)//mario đang đi
+				result = leftWalkAnim;
+			else{//mario đang đứng yên
+				result = leftStandAnim;
+			}
+		}
+		else{//vx_last >0 mario đang đi trái
+			if (mMario->ax < 0 && mMario->isLeftButtonPress == 1)//đang đổi hướng
 			{
-				if (mMario->vx != 0)//mario đang đi
-					result = leftWalkAnim;
-				else{//mario đang đứng yên
-					result = leftStandAnim;
-				}
+				result = turnLeftAnimation;
 			}
-			else{
-				if (mMario->vx != 0)//đang đi phải
-					result = rightWalkAnim;
-				else
-					result = rightStandAnim;
-			}
-		}
-		else{
-			if (mMario->vx_last < 0)//quay trái
-				result = leftJumpAnim;
+			else if (mMario->vx != 0)//đang đi phải
+				result = rightWalkAnim;
 			else
-				result = rightJumpAnim;
+				result = rightStandAnim;
 		}
+	}
+	else {//mario đang rơi
+		if (mMario->vx_last < 0)//quay trái
+		{
+			result = leftJumpDownAnim;
+		}
+		else
+			result = rightJumpDownAnim;
 	}
 	result->Update();
 	return result;
 }
 
 SmallMarioAnimationFactory::~SmallMarioAnimationFactory(){
-	delete leftJumpAnim;
-	delete rightJumpAnim;
+	
 	delete leftWalkAnim;
 	delete rightWalkAnim;
 	delete leftStandAnim;
@@ -80,36 +87,51 @@ LargeMarioAnimationFactory* LargeMarioAnimationFactory::getInstance(Mario* mario
 
 Animation* LargeMarioAnimationFactory::createAnimation(){
 	Animation* result;
-	if (mMario->vy != 0)//vy>0 => mario nhảy lên, vy<0 =>mario đang rớt xuống
+	if (mMario->vy > 0)//vy>0 => mario nhảy lên, vy<0 =>mario đang rớt xuống
 	{
 		if (mMario->vx_last < 0)//quay trái
-			result = leftJumpAnim;
+			result = leftJumpUpAnim;
 		else
-			result = rightJumpAnim;
+			result = rightJumpUpAnim;
 	}
-	else{//vy==0 mario đang đứng trên vật thể 
+	else if (mMario->vy == 0)
+	{//vy==0 mario đang đứng trên vật thể 
 		if (mMario->vx_last < 0)//quay trái
 		{
-			if (mMario->vx != 0)//mario đang đi
+			if (mMario->ax > 0 && mMario->isRightButtonPress == 1){//quay phải
+				result = turnRightAnimation;
+			}
+			else if (mMario->vx != 0)//mario đang đi
 				result = leftWalkAnim;
 			else{//mario đang đứng yên
 				result = leftStandAnim;
 			}
 		}
-		else{
-			if (mMario->vx != 0)//đang đi phải
+		else{//vx_last >0 mario đang đi trái
+			if (mMario->ax < 0 && mMario->isLeftButtonPress == 1)//đang đổi hướng
+			{
+				result = turnLeftAnimation;
+			}
+			else if (mMario->vx != 0)//đang đi phải
 				result = rightWalkAnim;
 			else
 				result = rightStandAnim;
 		}
+	}
+	else {//mario đang rơi
+		if (mMario->vx_last < 0)//quay trái
+		{
+			result = leftJumpDownAnim;
+		}
+		else
+			result = rightJumpDownAnim;
 	}
 	result->Update();
 	return result;
 }
 
 LargeMarioAnimationFactory::~LargeMarioAnimationFactory(){
-	delete leftJumpAnim;
-	delete rightJumpAnim;
+
 	delete leftWalkAnim;
 	delete rightWalkAnim;
 	delete leftStandAnim;
@@ -146,14 +168,20 @@ Animation* RaccoonMarioAnimationFactory::createAnimation(){
 	{//vy==0 mario đang đứng trên vật thể 
 		if (mMario->vx_last < 0)//quay trái
 		{
-			if (mMario->vx != 0)//mario đang đi
+			if (mMario->ax > 0 && mMario->isRightButtonPress == 1){//quay phải
+				result = turnRightAnimation;
+			}
+			else if (mMario->vx != 0)//mario đang đi
 				result = leftWalkAnim;
 			else{//mario đang đứng yên
 				result = leftStandAnim;
 			}
 		}
-		else{
-			if (mMario->vx != 0)//đang đi phải
+		else{//vx_last >0 mario đang đi trái
+			if (mMario->ax < 0 && mMario->isLeftButtonPress==1)//đang đổi hướng
+			{
+				result = turnLeftAnimation;
+			}else if (mMario->vx != 0)//đang đi phải
 				result = rightWalkAnim;
 			else
 				result = rightStandAnim;
@@ -161,8 +189,9 @@ Animation* RaccoonMarioAnimationFactory::createAnimation(){
 	}
 	else {//mario đang rơi
 		if (mMario->vx_last < 0)//quay trái
+		{
 			result = leftJumpDownAnim;
-		else
+		}else
 			result = rightJumpDownAnim;
 	}
 	result->Update();
@@ -170,8 +199,7 @@ Animation* RaccoonMarioAnimationFactory::createAnimation(){
 }
 
 RaccoonMarioAnimationFactory::~RaccoonMarioAnimationFactory(){
-	delete leftJumpAnim;
-	delete rightJumpAnim;
+
 	delete leftWalkAnim;
 	delete rightWalkAnim;
 	delete leftStandAnim;

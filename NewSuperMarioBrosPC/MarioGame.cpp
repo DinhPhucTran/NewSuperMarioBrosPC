@@ -50,8 +50,9 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	mario_vx_last = 1.0f;
 	mario_vy = 0;
 
-	marioSmallSprite = new CSprite(_SpriteHandler, MARIO_SMALL_IMAGE, 36, 34, 50, 18);
-	marioLargeSprite = new CSprite(_SpriteHandler, MARIO_LARGE_IMAGE, 60, 60, 195, 15);
+	marioSmallSprite = new CSprite(_SpriteHandler, MARIO_SMALL_IMAGE, 16, 16, 50, 18);
+	marioLargeSprite = new CSprite(_SpriteHandler, MARIO_LARGE_IMAGE, 32, 32, 195, 10);
+
 	koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_IMAGE, 17, 28, 48, 16);
 	goobaSprite = new CSprite(_SpriteHandler, GOOBA, 32, 32, 12, 4);
 
@@ -68,11 +69,15 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	gooba->setAnimation(gooba->mAnimationFactory->createAnimation());
 
 	mObjectManager->addObject(redKoopa);
-	Mario* marioObject = new Mario(mario_x, mario_y, 36, 34, mario_vx, 0, 0, 0 , 0, NULL, marioLargeSprite, NULL, NULL);
-	//SmallMarioAnimationFactory* smallAnimationFactory = new SmallMarioAnimationFactory(mario);
-	//mario->setAnimationFactory(smallAnimationFactory);
-	marioObject->setAnimationFactory(LargeMarioAnimationFactory::getInstance(marioObject));
-	marioObject->setState(new MarioStateLarge(marioObject));
+	Mario* marioObject = new Mario(mario_x, mario_y, 16, 27, mario_vx, 0, 0, 0 , 0, NULL, marioLargeSprite, NULL, NULL);
+	
+	
+	//marioObject->setAnimationFactory(SmallMarioAnimationFactory::getInstance(marioObject));
+	//marioObject->setState(new MarioStateSmall(marioObject));
+	marioObject->setAnimationFactory(RaccoonMarioAnimationFactory::getInstance(marioObject));
+	marioObject->setState(new MarioStateRaccoon(marioObject));
+	//marioObject->setAnimationFactory(LargeMarioAnimationFactory::getInstance(marioObject));
+	//marioObject->setState(new MarioStateLarge(marioObject));
 	
 	mObjectManager->addObject(marioObject);
 	mObjectManager->addObject(koopa);
@@ -80,8 +85,6 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	mario = mObjectManager->getMario();
 
 
-	AnimationFactory* largeAnimFactory =  LargeMarioAnimationFactory::getInstance(mario);
-	mario->setAnimationFactory(largeAnimFactory);
 
 
 
@@ -203,19 +206,23 @@ void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 	//DWORD now = GetTickCount();
 	if (IsKeyDown(DIK_RIGHT))
 	{
-		//mario->vx = MARIO_MAX_SPEED;//mario đi phải
+		mario->isLeftButtonPress = 0;
+		mario->isRightButtonPress = 1;
 		mario->ax = Mario::ACCELERATION_X;
 		mario->vx_last = mario->vx;//lưu lại vx để biết hướng của mario
 	}
 	else
 	if (IsKeyDown(DIK_LEFT))
 	{
-		//mario->vx = -MARIO_MAX_SPEED;
+		mario->isRightButtonPress = 0;
+		mario->isLeftButtonPress = 1;
 		mario->ax = -Mario::ACCELERATION_X;
 		mario->vx_last = mario->vx;
 	}
 	else//all key release
 	{
+		mario->isLeftButtonPress = 0;
+		mario->isRightButtonPress = 0;
 		if (mario->vx_last > 0)
 		{
 			//mario->vx -= 0.00000015f;

@@ -1,9 +1,15 @@
 ﻿#include"Physics.h"
+
+
 bool Physics::ContainsPoint(Object *o, int x, int y)
 {
 	return (x >= (o->x - (o->width / 2)) && y <= (o->y + (o->height / 2)) && x <= (o->x + (o->width / 2)) && y >= (o->y - (o->height / 2)));
 }
 
+const int Physics::COLLIDED_FROM_BOTTOM = -1;
+const int Physics::COLLIDED_FROM_TOP = 1;
+const int Physics::COLLIDED_FROM_LEFT = -2;
+const int Physics::COLLIDED_FROM_RIGHT = 2;
 int Physics::CollisionStatic(Object *o1, Object *o2)
 {
 	//1: đụng đầu o1
@@ -17,7 +23,7 @@ int Physics::CollisionStatic(Object *o1, Object *o2)
 		{
 			//o1->vy = 0;
 			//o1->y = o2->top() + o1->height / 2;
-			return 3;
+			return -1;
 		}
 	}
 
@@ -39,7 +45,7 @@ int Physics::CollisionStatic(Object *o1, Object *o2)
 	if (ContainsPoint(o2, o1->left(), o1->y))
 	{
 		//o1->x = o2->right() + o1->width / 2;
-		return 4;
+		return -2;
 	}
 	return 0;
 }
