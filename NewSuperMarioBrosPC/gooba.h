@@ -16,15 +16,19 @@ public:
 };
 
 class GoobaState{
+protected:
+	Gooba* mGooba;
 public:
-	virtual void onCollision(Object* ob);
+	GoobaState(Gooba* gooba);
+	virtual void onCollision(Object* ob,int dir);
 	virtual string getName();
 };
 
 class GoobaNomalState :public GoobaState{//trạng thái đi lại bình thường
 public:
+	GoobaNomalState(Gooba* goooba);
 	static const string STATE_NAME;
-	void onCollision(Object* ob)override;
+	void onCollision(Object* ob,int dir)override;
 	string getName()override;
 };
 //

@@ -1,11 +1,12 @@
 ﻿#include"gooba.h"
 #include <string>
+
 using namespace std;
 
 Gooba::Gooba(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image)
 :Object(x, y, width, height, vx, vy, vx_last, ax, ay, anim, image){
 	mAnimationFactory = new GoobaAnimationFactory(this);
-	mState = new GoobaNomalState();
+	mState = new GoobaNomalState(this);
 }
 
 const string Gooba::OBJECT_NAME = "gooba";
@@ -13,7 +14,7 @@ string Gooba::getName(){
 	return OBJECT_NAME;
 }
 void Gooba::onCollision(Object* ob,int dir){
-	mState->onCollision(ob);
+	mState->onCollision(ob,dir);
 }
 GoobaState* Gooba::getState(){
 	return mState;
@@ -32,8 +33,10 @@ void Gooba::render(int vpx, int vpy){
 string GoobaState::getName(){
 	return "gooba_state";
 }
-
-void GoobaState::onCollision(Object*ob){
+GoobaState::GoobaState(Gooba* gooba){
+	mGooba = gooba;
+}
+void GoobaState::onCollision(Object*ob,int direction){
 	//khong xử lý va chạm, vì đây là trạng thái ảo
 }
 
@@ -43,12 +46,15 @@ const string GoobaNomalState::STATE_NAME = "gooba_nomal_state";
 string GoobaNomalState::getName(){
 	return STATE_NAME;
 }
-void GoobaNomalState::onCollision(Object*ob){
+void GoobaNomalState::onCollision(Object*ob,int direction){
 	//xử lý va chạm, nếu chạm gạch thì quay đầu
 	//chạm mario từ bên trái,phải hoặc bên dưới thì mario chết
 	//chạm mario từ trên thì chuyển sang trạng thái Vulnerable;
 }
+GoobaNomalState::GoobaNomalState(Gooba* gooba)
+	:GoobaState(gooba){
 
+}
 ///////////////////KoopaVulnerableState///////////////
 
 //const string KoopaVulnerableState::STATE_NAME = "koopa_vulnerable_state";
