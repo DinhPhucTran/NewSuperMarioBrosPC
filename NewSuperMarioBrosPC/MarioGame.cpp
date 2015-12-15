@@ -24,6 +24,7 @@ CGame(hInstance, Name, Mode, IsFullScreen, FrameRate)
 
 CMarioGame::~CMarioGame()
 {
+	delete mObjectManager;
 	delete marioSmallSprite;
 	delete marioLargeSprite;
 }
@@ -59,16 +60,18 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	KoopaTroopa* koopa = 
 		new KoopaTroopa(450, GROUND_Y, 17, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
 	koopa->setAnimationFactory(new KoopaAnimationFactory(koopa));
-	koopa->setState(new KoopaSlidingState());
+	koopa->setState(new KoopaSlidingState(koopa));
 	
 	KoopaTroopa* redKoopa = 
 		new RedKoopa(500, GROUND_Y, 17, 28, KoopaTroopa::KOOPA_VELOCITY_X, 0, KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
 	//redKoopa->setAnimationFactory(new RedKoopaAnimationFactory(redKoopa));
+	mObjectManager->addObject(redKoopa);
+
 	Gooba* gooba = new Gooba(400, GROUND_Y, 32, 32, -0.15f, 0, -0.5f, 0, 0, NULL, goobaSprite);
 	gooba->setAnimationFactory(new GoobaAnimationFactory(gooba));
 	gooba->setAnimation(gooba->mAnimationFactory->createAnimation());
 
-	mObjectManager->addObject(redKoopa);
+	
 	Mario* marioObject = new Mario(mario_x, mario_y, 32, 32, mario_vx, 0, 0, 0 , 0, NULL, marioLargeSprite, NULL, NULL);
 	
 	

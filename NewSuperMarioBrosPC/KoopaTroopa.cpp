@@ -1,11 +1,13 @@
 ﻿#include"KoopaTroopa.h"
+#include"BrickGround.h"
+#include"Physics.h"
 #include <string>
 using namespace std;
 
 KoopaTroopa::KoopaTroopa(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image) 
 	:Object(x, y, width, height, vx, vy, vx_last, ax, ay, anim, image){
 	if (mState == NULL){
-		mState = new KoopaNomalState();
+		mState = new KoopaNomalState(this);
 	}
 	if(mAnimationFactory==NULL)
 		mAnimationFactory = new KoopaAnimationFactory(this);
@@ -49,9 +51,12 @@ string KoopaTroopaState::getName(){
 }
 
 void KoopaTroopaState::onCollision(Object*ob,int dir){
+
 	//khong xử lý va chạm, vì đây là trạng thái ảo
 }
-
+KoopaTroopaState::KoopaTroopaState(KoopaTroopa* koopa){
+	mKoopa = koopa;
+}
 /////////////////////KoopaNomalState//////////////////
 
 const string KoopaNomalState::STATE_NAME = "koopa_nomal_state";
@@ -62,6 +67,18 @@ void KoopaNomalState::onCollision(Object*ob,int dir){
 	//xử lý va chạm, nếu chạm gạch thì quay đầu
 	//chạm mario từ bên trái,phải hoặc bên dưới thì mario chết
 	//chạm mario từ trên thì chuyển sang trạng thái Vulnerable;
+	if (ob->getName() == BrickGround::OBJECT_NAME){
+		if (dir == Physics::COLLIDED_FROM_LEFT){
+			if (mKoopa->vx_last < 0){
+				mKoopa->vx = KoopaTroopa::KOOPA_VELOCITY_X;
+				mKoopa->vx_last = mKoopa->vx;
+			}
+		}
+	}
+}
+KoopaNomalState::KoopaNomalState(KoopaTroopa* koopa)
+	:KoopaTroopaState(koopa){
+	
 }
 
 ///////////////////KoopaVulnerableState///////////////
@@ -73,6 +90,11 @@ string KoopaVulnerableState::getName(){
 void KoopaVulnerableState::onCollision(Object*ob,int dir){
 	//xử lý va chạm 
 	//nếu chạm mario chuyển sang trạng thái bị đá SlidingState
+}
+
+KoopaVulnerableState::KoopaVulnerableState(KoopaTroopa* koopa) 
+	:KoopaTroopaState(koopa){
+	
 }
 
 
@@ -87,6 +109,12 @@ void KoopaSlidingState::onCollision(Object*ob,int dir){
 	//nếu chạm mario từ trên xuống thì dừng lại chuyển sang trạng thái vulnerable
 	//nếu chạm gạch vở đc thì gach vở, đổi hướng.
 	//nếu chạm kẻ thù (Goomba, koopa..) thì kẻ thù chết.
+
+	
+}
+KoopaSlidingState::KoopaSlidingState(KoopaTroopa* koopa) 
+	:KoopaTroopaState(koopa){
+
 }
 
 /////////////////////////////KoopaAnimationFactory///////////////

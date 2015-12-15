@@ -5,7 +5,7 @@ string const RedKoopa::OBJECT_NAME = "red_koopa";
 RedKoopa::RedKoopa(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image)
 	:KoopaTroopa(x, y, width, height, vx, vy, vx_last, ax, ay, anim, image){
 	if (mState == NULL)
-		mState = new KoopaNomalState();
+		mState = new KoopaNomalState(this);
 	mAnimationFactory = new RedKoopaAnimationFactory(this);
 	if (mAnim == NULL)
 		mAnim = mAnimationFactory->createAnimation();

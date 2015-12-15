@@ -18,7 +18,11 @@ public:
 };
 
 class KoopaTroopaState{
+protected:
+	KoopaTroopa* mKoopa;
 public:
+	KoopaTroopaState(KoopaTroopa* koopa);
+
 	virtual void onCollision(Object* ob,int dir);
 	virtual string getName();
 };
@@ -28,6 +32,7 @@ public:
 	static const string STATE_NAME;
 	void onCollision(Object* ob,int dir)override;
 	string getName()override;
+	KoopaNomalState(KoopaTroopa* koopa);
 };
 
 class KoopaVulnerableState :public KoopaTroopaState{//Trạng thái dể bị tổn thương, khi chui vào mai rùa
@@ -36,6 +41,7 @@ public:
 	static const string STATE_NAME;
 	void onCollision(Object* ob,int dir)override;
 	string getName()override;
+	KoopaVulnerableState(KoopaTroopa* koopa);
 };
 
 class KoopaSlidingState :public KoopaTroopaState{
@@ -44,6 +50,7 @@ public :
 	static const string STATE_NAME;
 	void onCollision(Object*ob,int dir)override;
 	string getName()override;
+	KoopaSlidingState(KoopaTroopa* koopa);
 };
 
 class KoopaTroopa : public Object{
