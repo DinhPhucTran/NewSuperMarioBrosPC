@@ -1,4 +1,7 @@
-﻿#include "object.h"
+﻿#ifndef _KOOPA_TROOPA_H
+#define _KOOPA_TROOPA_H
+
+#include "object.h"
 #include <string>
 #include "AnimationFactory.h"
 using namespace std;
@@ -67,6 +70,7 @@ public:
 	void setAnimationFactory(AnimationFactory* animFactory);
 	virtual void onCollision(Object* ob,int dir)override;
 	void render(int vpx,int vpy)override;
-	virtual void update(int t)override;
 	KoopaTroopa(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image);
 };
+
+#endif

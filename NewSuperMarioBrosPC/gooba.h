@@ -1,6 +1,11 @@
-﻿#include "object.h"
+﻿#ifndef _GOOBA_H_
+#define _GOOBA_H_
+
+#include "object.h"
 #include <string>
 #include "AnimationFactory.h"
+#include"BrickGround.h"
+#include "Physics.h"
 using namespace std;
 
 class Gooba;
@@ -52,6 +57,7 @@ class Gooba : public Object{
 private:
 	GoobaState* mState;
 public:
+	static const float SPEED_X;
 	AnimationFactory* mAnimationFactory;
 	//static Animation* 
 	static const string OBJECT_NAME;
@@ -63,3 +69,5 @@ public:
 	void render(int vpx, int vpy)override;
 	Gooba(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image);
 };
+
+#endif

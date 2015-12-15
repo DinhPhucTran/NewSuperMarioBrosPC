@@ -1,4 +1,6 @@
-﻿#include"KoopaTroopa.h"
+﻿
+
+#include"KoopaTroopa.h"
 #include"BrickGround.h"
 #include"Physics.h"
 #include <string>
@@ -39,10 +41,7 @@ void KoopaTroopa::setAnimationFactory(AnimationFactory* animFactory){
 void KoopaTroopa::render(int vpx, int vpy){
 	mSprite->Render(mAnimationFactory->createAnimation(), x, y, vpx, vpy);
 }
-void KoopaTroopa::update(int t){
-	x += vx*t;
-	y += vy*t;
-}
+
 
 
 /////////////////////KoopaTroopaState/////////////////////
@@ -73,6 +72,27 @@ void KoopaNomalState::onCollision(Object*ob,int dir){
 				mKoopa->vx = KoopaTroopa::KOOPA_VELOCITY_X;
 				mKoopa->vx_last = mKoopa->vx;
 			}
+			return;//tối ưu hóa;
+		}
+		else if (dir == Physics::COLLIDED_FROM_RIGHT){
+			if (mKoopa->vx_last > 0){
+				mKoopa->vx = -KoopaTroopa::KOOPA_VELOCITY_X;
+				mKoopa->vx_last = mKoopa->vx;
+			}
+			return; //tối ưu hóa
+		}
+		else if(dir == Physics::COLLIDED_FROM_BOTTOM){
+			mKoopa->vy = 0;
+			mKoopa->ay = 0;
+			mKoopa->y = ob->top() + mKoopa->height / 2;// chỉnh lại tọa độ y
+			return;//dừng được rồi khoongn cần chạy thêm nữa
+		}
+		else if (dir == Physics::COLLIDED_FROM_TOP){
+			if (mKoopa->vy > 0){
+				mKoopa->vy = -0.000001;//gần bằng 0, không đc =0 sẽ gây ra lổi
+				mKoopa->ay = 0;
+			}
+			return;//tối ưu hóa code
 		}
 	}
 }

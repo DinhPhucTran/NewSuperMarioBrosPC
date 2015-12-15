@@ -129,11 +129,13 @@ void MarioStateRaccoon::onCollision(Object* ob,int dir){
 		if (dir == Physics::COLLIDED_FROM_RIGHT)
 		{
 			mMario->x = ob->left() - mMario->width / 2;
+			mMario->ax = 0;
 			return;
 		}
 		if (dir == Physics::COLLIDED_FROM_LEFT)
 		{
 			mMario->x = ob->right() + mMario->width / 2;
+			mMario->ax = 0;
 			return;
 		}
 	}

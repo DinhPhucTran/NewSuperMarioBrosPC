@@ -42,6 +42,7 @@
 class CMarioGame : public CGame
 {
 public:
+	static const float GRAVITY_VELOCOTY;
 	CMarioGame(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate);
 	~CMarioGame();
 

@@ -9,17 +9,13 @@
 //#include "physics.h"
 
 
+const float CMarioGame::GRAVITY_VELOCOTY = GRAV_VELOCITY;
 DWORD last = 0;
-//Animation *rightWalkAnim = new Animation(14, 16);
-//Animation *leftWalkAnim = new Animation(1, 3);
-//Animation *rightStandAnim = new Animation(17, 17);
-//Animation *leftStandAnim = new Animation(0, 0);
-//Animation *leftJumpAnim = new Animation(4, 4);
-//Animation *rightJumpAnim = new Animation(13, 13);
+
 CMarioGame::CMarioGame(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate) :
 CGame(hInstance, Name, Mode, IsFullScreen, FrameRate)
 {
-	marioSmallSprite = NULL;
+	
 }
 
 CMarioGame::~CMarioGame()
@@ -58,16 +54,16 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	goobaSprite = new CSprite(_SpriteHandler, GOOBA, 32, 32, 12, 4);
 
 	KoopaTroopa* koopa = 
-		new KoopaTroopa(450, GROUND_Y, 17, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
+		new KoopaTroopa(450, GROUND_Y+200, 17, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
 	koopa->setAnimationFactory(new KoopaAnimationFactory(koopa));
-	koopa->setState(new KoopaSlidingState(koopa));
+	koopa->setState(new KoopaNomalState(koopa));
 	
 	KoopaTroopa* redKoopa = 
-		new RedKoopa(500, GROUND_Y, 17, 28, KoopaTroopa::KOOPA_VELOCITY_X, 0, KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
+		new RedKoopa(500, GROUND_Y+200, 17, 28, KoopaTroopa::KOOPA_VELOCITY_X, 0, KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
 	//redKoopa->setAnimationFactory(new RedKoopaAnimationFactory(redKoopa));
 	mObjectManager->addObject(redKoopa);
 
-	Gooba* gooba = new Gooba(400, GROUND_Y, 32, 32, -0.15f, 0, -0.5f, 0, 0, NULL, goobaSprite);
+	Gooba* gooba = new Gooba(400, GROUND_Y+200, 32, 32, -0.15f, 0, -0.5f, 0, 0, NULL, goobaSprite);
 	gooba->setAnimationFactory(new GoobaAnimationFactory(gooba));
 	gooba->setAnimation(gooba->mAnimationFactory->createAnimation());
 
@@ -102,7 +98,8 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 		BrickGround* brickGround = new BrickGround(i*(nen->_Width), GROUND_Y,48,16, nenAnim, nen);
 		mObjectManager->addObject(brickGround);
 	}
-
+	mObjectManager->addObject(new BrickGround(20, GROUND_Y + 16, 48, 16, nenAnim, nen));
+	mObjectManager->addObject(new BrickGround(500, GROUND_Y + 16, 48, 16, nenAnim, nen));
 	BrickGround* brickGround = new BrickGround(100, GROUND_Y + 54, 48, 16, nenAnim, nen);
 	mObjectManager->addObject(brickGround);
 
