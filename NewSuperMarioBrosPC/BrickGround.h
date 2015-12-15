@@ -2,6 +2,7 @@
 #define ___BRICK_GROUND_H___
 
 #include "object.h"
+
 #include <string>
 using namespace std;
 class BrickGround :public Object

@@ -49,7 +49,7 @@ public:
 
 class MarioStateRaccoon : public MarioState{
 	Mario* mMario;
-	int height = 27;
+	int height = 28;
 	int width = 16;
 public:
 	int getHeight()override;

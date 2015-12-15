@@ -14,6 +14,7 @@ public:
 	int isRightButtonPress;
 	static const float ACCELERATION_X;
 	static const float ACCELERATION_Y;
+	static const float ACCELERATION_Y_PLUS;
 	static const float MAX_SPEED_X;
 	static const float MAX_SPEED_Y;
 

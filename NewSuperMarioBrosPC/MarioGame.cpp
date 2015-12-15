@@ -42,7 +42,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 	//khởi tạo mario
 	mario_x = 20;
-	mario_y = GROUND_Y;
+	mario_y = 500;
 
 	_IsOnGround = true;
 
@@ -69,13 +69,14 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	gooba->setAnimation(gooba->mAnimationFactory->createAnimation());
 
 	mObjectManager->addObject(redKoopa);
-	Mario* marioObject = new Mario(mario_x, mario_y, 16, 27, mario_vx, 0, 0, 0 , 0, NULL, marioLargeSprite, NULL, NULL);
+	Mario* marioObject = new Mario(mario_x, mario_y, 32, 32, mario_vx, 0, 0, 0 , 0, NULL, marioLargeSprite, NULL, NULL);
 	
 	
 	//marioObject->setAnimationFactory(SmallMarioAnimationFactory::getInstance(marioObject));
 	//marioObject->setState(new MarioStateSmall(marioObject));
 	marioObject->setAnimationFactory(RaccoonMarioAnimationFactory::getInstance(marioObject));
 	marioObject->setState(new MarioStateRaccoon(marioObject));
+
 	//marioObject->setAnimationFactory(LargeMarioAnimationFactory::getInstance(marioObject));
 	//marioObject->setState(new MarioStateLarge(marioObject));
 	
@@ -91,15 +92,15 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 	
 
-	CSprite* nen = new CSprite(_SpriteHandler, L"nen.png", 72, 18, 1, 1);
+	CSprite* nen = new CSprite(_SpriteHandler, L"nen.png", 48, 16, 1, 1);
 	Animation *nenAnim = new Animation(0, 0);
 
 	for (int i = 0; i < 20; ++i){
-		BrickGround* brickGround = new BrickGround(i*(nen->_Width), GROUND_Y-37,72,18, nenAnim, nen);
+		BrickGround* brickGround = new BrickGround(i*(nen->_Width), GROUND_Y,48,16, nenAnim, nen);
 		mObjectManager->addObject(brickGround);
 	}
 
-	BrickGround* brickGround = new BrickGround(100, GROUND_Y + 80, 72, 18, nenAnim, nen);
+	BrickGround* brickGround = new BrickGround(100, GROUND_Y + 54, 48, 16, nenAnim, nen);
 	mObjectManager->addObject(brickGround);
 
 
@@ -120,51 +121,24 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	// TO-DO: should enhance CGame to put a separate virtual method for updating game status
 
 
+	mObjectManager->update(t);
 	//
 	// Update all object status
-	//
-	mObjectManager->update(t);
-	mObjectManager->checkCollition();
-
-
-	//trọng trường
-	/*mario->vy -= GRAV_VELOCITY;
-	if (mario->y <= GROUND_Y){
-		mario->y = GROUND_Y;
-		mario->vy = 0;
-	}*/
-	
-	mario->ay -= GRAV_VELOCITY;
+	mario->ay -= GRAV_VELOCITY*t;
 	if (mario->y <= GROUND_Y){
 		mario->y = GROUND_Y;
 		mario->vy = 0;
 		mario->ay = 0;
 	}
-
-	////
-	////Mô phỏng gia tốc trọng trường 
-	///TO-DO thay isOnGround bằng cách xử lý va chạm với gạch dưới đất
-	///
-	//if (_IsOnGround == false)
-	//{
-	//	mario->vy -= GRAV_VELOCITY;//mô phỏng trọng lực
-	//	//mario_y = GROUND_Y;
-	//	if (mario->vy < MAX_GRAV)
-	//	mario_vy = -MAX_GRAV;
-	//}
-	//else
-	//{
-	//	mario->vy = 0;
-	//}
-
-	//if (mario->y <= GROUND_Y && _IsFallOfGround == false)
-	//	_IsOnGround = true;
-
-	//if (_IsOnGround)
-	//	mario_y = GROUND_Y;
 	
-	////////////////////////////////////////////////////
-	////////////////////////////////////////////////////
+
+
+	
+	
+	mObjectManager->checkCollition();
+
+	
+
 
 	// Background
 	d3ddv->StretchRect(
@@ -188,9 +162,9 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 		ground_middle->Render(0, 0, 0, 16 + i, 16, vpx, VIEW_PORT_Y);*/
 
 	int j = 0;
-	brick->Render(0, 0, 0, 165 + j, 200, vpx, VIEW_PORT_Y);
+	brick->Render(0, 0, 0, 0, 0, vpx, VIEW_PORT_Y);
 	fallDown->Render(0, 0, 0, 600, 0, vpx, VIEW_PORT_Y);
-
+	
 
 	//render all object in game
 	mObjectManager->render(vpx,VIEW_PORT_Y);
@@ -246,8 +220,13 @@ void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 	
 
 	if (IsKeyDown(DIK_SPACE)){
-		if (mario->ay == 0){
-			mario->ay = 0.015f;
+		last_time = GetTickCount();
+		if (mario->vy == 0){
+			if (GetTickCount()- last_time <=100)
+				mario->ay = Mario::ACCELERATION_Y;
+			else{
+				mario->ay = Mario::ACCELERATION_Y;
+			}
 		}
 	}
 }
@@ -257,12 +236,7 @@ void CMarioGame::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		if (mario->ay == 0){
-			mario->ay = 0.012f;
-			last_time = GetTickCount();
-			
-		}
-		
+				
 		
 		break;
 	}

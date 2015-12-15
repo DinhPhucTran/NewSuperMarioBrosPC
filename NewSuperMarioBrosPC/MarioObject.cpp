@@ -9,8 +9,10 @@ using namespace std;
 
 
 const float Mario::ACCELERATION_X = 0.0015f;
-const float Mario::MAX_SPEED_X = 0.5f;
-const float Mario::MAX_SPEED_Y = 1.5f;
+const float Mario::ACCELERATION_Y = 0.009f;
+const float Mario::ACCELERATION_Y_PLUS = 0.012f;
+const float Mario::MAX_SPEED_X = 0.3f;
+const float Mario::MAX_SPEED_Y = 0.7f;
 
 Mario::Mario(int x, int y, int width, int height, int vx, int vy, int vx_last, float aX, float aY, Animation* anim, CSprite * image, MarioState* state,AnimationFactory* animFactory) 
 	: Object(x, y, width, height, vx, vy, vx_last, aX, aY, anim, image){

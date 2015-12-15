@@ -34,10 +34,8 @@
 #define BACKGROUND_FILE L"blocks.png"
 
 
-#define JUMP_VELOCITY_BOOST 2.0f
-#define FALLDOWN_VELOCITY_DECREASE 0.1f
 
-#define GRAV_VELOCITY 0.0015f
+#define GRAV_VELOCITY 0.0001f
 
 //#define VIEW_PORT_Y  600
 
