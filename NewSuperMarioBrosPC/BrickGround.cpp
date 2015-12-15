@@ -12,4 +12,4 @@ void BrickGround::onCollision(Object* ob,int dir){
 }
 
 BrickGround::BrickGround(int x, int y, int width, int height, Animation* anim, CSprite* sprite) 
-	:Object(x, y, width, height, 0, 0, 0, 0, 0, anim, sprite){}
+	:StaticObject(x, y, width, height, anim, sprite){}

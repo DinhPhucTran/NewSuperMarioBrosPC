@@ -1,11 +1,12 @@
 #ifndef ___BRICK_GROUND_H___
 #define ___BRICK_GROUND_H___
 
-#include "object.h"
 
 #include <string>
+#include "MarioObject.h"
+#include "StaticObject.h"
 using namespace std;
-class BrickGround :public Object
+class BrickGround :public StaticObject
 {
 private:
 
