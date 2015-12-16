@@ -63,7 +63,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	//redKoopa->setAnimationFactory(new RedKoopaAnimationFactory(redKoopa));
 	mObjectManager->addObject(redKoopa);
 
-	Gooba* gooba = new Gooba(400, GROUND_Y+200, 32, 32, -0.15f, 0, -0.5f, 0, 0, NULL, goobaSprite);
+	Gooba* gooba = new Gooba(400, GROUND_Y+200, 32, 32, -Gooba::SPEED_X, 0, -Gooba::SPEED_X, 0, 0, NULL, goobaSprite);
 	gooba->setAnimationFactory(new GoobaAnimationFactory(gooba));
 	gooba->setAnimation(gooba->mAnimationFactory->createAnimation());
 
@@ -98,7 +98,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 		BrickGround* brickGround = new BrickGround(i*(nen->_Width), GROUND_Y,48,16, nenAnim, nen);
 		mObjectManager->addObject(brickGround);
 	}
-	mObjectManager->addObject(new BrickGround(20, GROUND_Y + 16, 48, 16, nenAnim, nen));
+	mObjectManager->addObject(new BrickGround(300, GROUND_Y + 16, 48, 16, nenAnim, nen));
 	mObjectManager->addObject(new BrickGround(500, GROUND_Y + 16, 48, 16, nenAnim, nen));
 	BrickGround* brickGround = new BrickGround(100, GROUND_Y + 54, 48, 16, nenAnim, nen);
 	mObjectManager->addObject(brickGround);

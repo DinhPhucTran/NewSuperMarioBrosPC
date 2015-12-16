@@ -59,27 +59,23 @@ void GoobaNomalState::onCollision(Object*ob,int dir){
 				mGooba->vx = Gooba::SPEED_X;
 				mGooba->vx_last = mGooba->vx;
 			}
-			return;//tối ưu hóa;
 		}
 		else if (dir == Physics::COLLIDED_FROM_RIGHT){
 			if (mGooba->vx_last > 0){
 				mGooba->vx = -Gooba::SPEED_X;
 				mGooba->vx_last = mGooba->vx;
 			}
-			return; //tối ưu hóa
 		}
 		else if (dir == Physics::COLLIDED_FROM_BOTTOM){
 			mGooba->vy = 0;
 			mGooba->ay = 0;
 			mGooba->y = ob->top() + mGooba->height / 2;// chỉnh lại tọa độ y
-			return;//dừng được rồi khoongn cần chạy thêm nữa
 		}
 		else if (dir == Physics::COLLIDED_FROM_TOP){
 			if (mGooba->vy > 0){
 				mGooba->vy = -0.000001;//gần bằng 0, không đc =0 sẽ gây ra lổi
 				mGooba->ay = 0;
 			}
-			return;//tối ưu hóa code
 		}
 	}
 }
