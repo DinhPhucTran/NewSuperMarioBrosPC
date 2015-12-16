@@ -8,8 +8,7 @@ public:
 	RedKoopa(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image);
 	static const string OBJECT_NAME;;
 	string getName()override;
-	void update(int t)override;
-	void onCollision(Object* ob,int dir)override;
+	
 };
 
 class RedKoopaAnimationFactory :public AnimationFactory{

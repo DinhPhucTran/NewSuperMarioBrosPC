@@ -59,9 +59,10 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	koopa->setState(new KoopaNomalState(koopa));
 	
 	KoopaTroopa* redKoopa = 
-		new RedKoopa(500, GROUND_Y+200, 17, 28, KoopaTroopa::KOOPA_VELOCITY_X, 0, KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
-	//redKoopa->setAnimationFactory(new RedKoopaAnimationFactory(redKoopa));
+		new RedKoopa(500, GROUND_Y+50, 17, 28,-KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
+	redKoopa->setState(new KoopaSlidingState(redKoopa));
 	mObjectManager->addObject(redKoopa);
+
 
 	Gooba* gooba = new Gooba(400, GROUND_Y+200, 32, 32, -Gooba::SPEED_X, 0, -Gooba::SPEED_X, 0, 0, NULL, goobaSprite);
 	gooba->setAnimationFactory(new GoobaAnimationFactory(gooba));

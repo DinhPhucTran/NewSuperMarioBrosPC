@@ -24,14 +24,20 @@ class KoopaTroopaState{
 protected:
 	KoopaTroopa* mKoopa;
 public:
+
 	KoopaTroopaState(KoopaTroopa* koopa);
 
 	virtual void onCollision(Object* ob,int dir);
 	virtual string getName();
+	virtual int getWidth();				//ở mổi trạng thái nhất định thì có kích thước khác nhau, trong hàm setState(NormalState) thì phải chỉnh lại kích thước của Troopa
+	virtual int getHeight();			//ví dụ Normal Troopa sẽ cao hơn Sliding Stroopa
+	virtual int getAnimationDelay();	//và Sliding Troopa lại có AnimationRate cao hơn và tốc độ cao hơn Normal Troopa
+	virtual float getSpeed();			//trong mỗi trạng thái nên định nghĩa những thuộc thay đổi này, width, height, animationDelay,Speed;
 };
 
 class KoopaNomalState:public KoopaTroopaState{//trạng thái đi lại bình thường
 public:
+
 	static const string STATE_NAME;
 	void onCollision(Object* ob,int dir)override;
 	string getName()override;
@@ -41,10 +47,14 @@ public:
 class KoopaVulnerableState :public KoopaTroopaState{//Trạng thái dể bị tổn thương, khi chui vào mai rùa
 	//ở trạng thái này mario đụng vào là xong :p
 public:
+
 	static const string STATE_NAME;
 	void onCollision(Object* ob,int dir)override;
 	string getName()override;
 	KoopaVulnerableState(KoopaTroopa* koopa);
+	
+	int getHeight()override;//=16
+	float getSpeed()override;//=0;
 };
 
 class KoopaSlidingState :public KoopaTroopaState{
@@ -54,15 +64,24 @@ public :
 	void onCollision(Object*ob,int dir)override;
 	string getName()override;
 	KoopaSlidingState(KoopaTroopa* koopa);
+	int getHeight()override;//=16
+	int getAnimationDelay()override;//=10;
+	float getSpeed()override;//=0.5f
 };
 
 class KoopaTroopa : public Object{
 protected:
 	KoopaTroopaState* mState;
 public:
+	static const int KOOPA_WIDTH;
+	static const int KOOPA_HEIGHT;
+	static const int KOOPA_VULNERABLE_HEIGHT;
+	static const int NORMAL_ANIMATION_DELAY;
+	static const int SLIDING_ANIMATION_DELAY;
 	static float const KOOPA_VELOCITY_X;
+	static float const KOOPA_SLIDING_SPEED_X;
+	static float const KOOPA_VULNERABLE_SPEED_X; //= 0;
 	AnimationFactory* mAnimationFactory;
-	//static Animation* 
 	static const string OBJECT_NAME;
 	string getName();
 	KoopaTroopaState* getState();

@@ -11,17 +11,12 @@ RedKoopa::RedKoopa(int x, int y, int width, int height, float vx, float vy, floa
 		mAnim = mAnimationFactory->createAnimation();
 	
 }
-void RedKoopa::onCollision(Object* ob,int dir){
-	//xử lý va chạm của Rùa Đỏ
-}
+
 
 string RedKoopa::getName(){
 	return RedKoopa::OBJECT_NAME;
 }
-void RedKoopa::update(int t){
-	x += vx*t;
-	y += vy*t;
-}
+
 ////////////////////////////////
 
 RedKoopaAnimationFactory::RedKoopaAnimationFactory(KoopaTroopa* redKoopa){

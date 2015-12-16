@@ -17,8 +17,14 @@ KoopaTroopa::KoopaTroopa(int x, int y, int width, int height, float vx, float vy
 		mAnim = mAnimationFactory->createAnimation();
 	
 }
-
+const int KoopaTroopa::KOOPA_WIDTH = 16;
+const int KoopaTroopa::KOOPA_HEIGHT = 27;
+const int KoopaTroopa::KOOPA_VULNERABLE_HEIGHT = 16;
+const int KoopaTroopa::NORMAL_ANIMATION_DELAY = Animation::FRAME_DELAY_DEFAULT;
+const int KoopaTroopa::SLIDING_ANIMATION_DELAY = 10;
 const float KoopaTroopa::KOOPA_VELOCITY_X = 0.1f;
+const float KoopaTroopa::KOOPA_SLIDING_SPEED_X = 0.35f;
+const float KoopaTroopa::KOOPA_VULNERABLE_SPEED_X = 0;
 const string KoopaTroopa::OBJECT_NAME = "koopa_troopa";
 string KoopaTroopa::getName(){
 	return OBJECT_NAME;
@@ -32,6 +38,18 @@ KoopaTroopaState* KoopaTroopa::getState(){
 void KoopaTroopa::setState(KoopaTroopaState* state){
 	if(state!=NULL)
 		mState = state;
+	this->width = mState->getWidth();//thay đối lại kích thước của Koopa ứng với trạng thái
+	this->height = mState->getHeight();
+	this->mAnim->frameDelay = mState->getAnimationDelay();
+	if (vx_last < 0){
+		this->vx = -mState->getSpeed();
+		vx_last = vx;
+	}
+	else
+	{
+		this->vx = mState->getSpeed();;
+		vx_last = vx;
+	}
 }
 
 void KoopaTroopa::setAnimationFactory(AnimationFactory* animFactory){
@@ -54,6 +72,19 @@ void KoopaTroopaState::onCollision(Object*ob,int dir){
 }
 KoopaTroopaState::KoopaTroopaState(KoopaTroopa* koopa){
 	mKoopa = koopa;
+}
+
+float KoopaTroopaState::getSpeed(){
+	return KoopaTroopa::KOOPA_VELOCITY_X;
+}
+int KoopaTroopaState::getHeight(){
+	return KoopaTroopa::KOOPA_HEIGHT;
+}
+int KoopaTroopaState::getWidth(){
+	return KoopaTroopa::KOOPA_WIDTH;
+}
+int KoopaTroopaState::getAnimationDelay(){
+	return KoopaTroopa::NORMAL_ANIMATION_DELAY;
 }
 /////////////////////KoopaNomalState//////////////////
 
@@ -98,10 +129,18 @@ KoopaNomalState::KoopaNomalState(KoopaTroopa* koopa)
 
 ///////////////////KoopaVulnerableState///////////////
 
+
 const string KoopaVulnerableState::STATE_NAME = "koopa_vulnerable_state";
 string KoopaVulnerableState::getName(){
 	return STATE_NAME;
 }
+int KoopaVulnerableState::getHeight(){
+	return KoopaTroopa::KOOPA_VULNERABLE_HEIGHT;
+}
+float KoopaVulnerableState::getSpeed(){
+	return KoopaTroopa::KOOPA_VULNERABLE_SPEED_X;
+}
+
 void KoopaVulnerableState::onCollision(Object*ob,int dir){
 	//xử lý va chạm 
 	//nếu chạm mario chuyển sang trạng thái bị đá SlidingState
@@ -114,6 +153,7 @@ KoopaVulnerableState::KoopaVulnerableState(KoopaTroopa* koopa)
 
 
 /////////////////////////////////////////////////
+
 const string KoopaSlidingState::STATE_NAME = "koopa_sliding_state";
 string KoopaSlidingState::getName(){
 	return STATE_NAME;
@@ -124,12 +164,45 @@ void KoopaSlidingState::onCollision(Object*ob,int dir){
 	//nếu chạm mario từ trên xuống thì dừng lại chuyển sang trạng thái vulnerable
 	//nếu chạm gạch vở đc thì gach vở, đổi hướng.
 	//nếu chạm kẻ thù (Goomba, koopa..) thì kẻ thù chết.
-
+	if (ob->getName() == BrickGround::OBJECT_NAME){
+		if (dir == Physics::COLLIDED_FROM_LEFT){
+			if (mKoopa->vx_last < 0){
+				mKoopa->vx = KoopaTroopa::KOOPA_SLIDING_SPEED_X;
+				mKoopa->vx_last = mKoopa->vx;
+			}
+		}
+		else if (dir == Physics::COLLIDED_FROM_RIGHT){
+			if (mKoopa->vx_last > 0){
+				mKoopa->vx = -KoopaTroopa::KOOPA_SLIDING_SPEED_X;
+				mKoopa->vx_last = mKoopa->vx;
+			}
+		}
+		else if (dir == Physics::COLLIDED_FROM_BOTTOM){
+			mKoopa->vy = 0;
+			mKoopa->ay = 0;
+			mKoopa->y = ob->top() + mKoopa->height / 2;// chỉnh lại tọa độ y
+		}
+		else if (dir == Physics::COLLIDED_FROM_TOP){
+			if (mKoopa->vy > 0){
+				mKoopa->vy = -0.000001;//gần bằng 0, không đc =0 sẽ gây ra lổi
+				mKoopa->ay = 0;
+			}
+		}
+	}
 	
 }
 KoopaSlidingState::KoopaSlidingState(KoopaTroopa* koopa) 
 	:KoopaTroopaState(koopa){
 
+}
+int KoopaSlidingState::getAnimationDelay(){
+	return KoopaTroopa::SLIDING_ANIMATION_DELAY;
+}
+int KoopaSlidingState::getHeight(){
+	return KoopaTroopa::KOOPA_VULNERABLE_HEIGHT;
+}
+float KoopaSlidingState::getSpeed(){
+	return KoopaTroopa::KOOPA_SLIDING_SPEED_X;
 }
 
 /////////////////////////////KoopaAnimationFactory///////////////
