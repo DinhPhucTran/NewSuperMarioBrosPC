@@ -3,6 +3,7 @@
 #include "BrickGround.h"
 #include "Pipe.h"
 #include "Physics.h"
+#include "RedKoopa.h"
 
 #include <string>
 using namespace std;
@@ -138,6 +139,38 @@ void MarioStateRaccoon::onCollision(Object* ob,int dir){
 			mMario->x = ob->right() + mMario->width / 2;
 			mMario->ax = 0;
 			return;
+		}
+	}
+	if (objectName == KoopaTroopa::OBJECT_NAME || objectName == RedKoopa::OBJECT_NAME){
+		KoopaTroopa* koopa = (KoopaTroopa*)ob;
+		string state = koopa->getState()->getName();
+		if (state == KoopaNomalState::STATE_NAME){
+ 			if (dir == Physics::COLLIDED_FROM_BOTTOM){
+				mMario->y = ob->top() + mMario->height / 2;
+				mMario->jumpUp();
+			}
+			else if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT||dir==Physics::COLLIDED_FROM_TOP){
+				mMario->die();
+			}
+			//nếu trái phải thì chết
+		}
+		else if (state == KoopaVulnerableState::STATE_NAME){
+			if (dir == Physics::COLLIDED_FROM_TOP){
+				
+				
+			}
+			else if (dir == Physics::COLLIDED_FROM_LEFT){
+				
+			}
+		}
+		else if (state == KoopaSlidingState::STATE_NAME){
+			if (dir == Physics::COLLIDED_FROM_BOTTOM){
+				mMario->y = ob->top() + mMario->height / 2;
+				mMario->jumpUp();
+			}
+			else if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT){
+				mMario->die();
+			}
 		}
 	}
 }

@@ -35,6 +35,10 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	// TO-DO: not a very good place to initial sprite handler
 	D3DXCreateSprite(d3ddv, &_SpriteHandler);
 
+	///font debug
+	D3DXCreateFont(d3ddv, 30, 30, FW_BOLD, 0, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, TEXT("Arial"), &fontArial);
+	
+	//end
 
 	_Background = CreateSurfaceFromFile(_d3ddv, BACKGROUND_FILE);
 
@@ -42,7 +46,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 	//khởi tạo mario
 	mario_x = 20;
-	mario_y = 500;
+	mario_y = GROUND_Y + 100;;
 
 	
 	mario_vx = 0;
@@ -61,9 +65,10 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	koopa->setState(new KoopaNomalState(koopa));
 	
 	KoopaTroopa* redKoopa = 
-		new RedKoopa(500, GROUND_Y+200, 17, 28, KoopaTroopa::KOOPA_VELOCITY_X, 0, KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
-	//redKoopa->setAnimationFactory(new RedKoopaAnimationFactory(redKoopa));
+		new RedKoopa(500, GROUND_Y+50, 17, 28,-KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
+	redKoopa->setState(new KoopaVulnerableState(redKoopa));
 	mObjectManager->addObject(redKoopa);
+
 
 	Gooba* gooba = new Gooba(400, GROUND_Y+200, 32, 32, -Gooba::SPEED_X, 0, -Gooba::SPEED_X, 0, 0, NULL, goobaSprite);
 	gooba->setAnimationFactory(new GoobaAnimationFactory(gooba));
@@ -233,10 +238,10 @@ void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 	if (IsKeyDown(DIK_SPACE)){
 		last_time = GetTickCount();
 		if (mario->vy == 0){
-			if (GetTickCount()- last_time <=100)
-				mario->ay = Mario::ACCELERATION_Y;
+			if (GetTickCount() - last_time <= 100)
+				mario->jumpUp();
 			else{
-				mario->ay = Mario::ACCELERATION_Y;
+				mario->jumpUp();
 			}
 		}
 	}

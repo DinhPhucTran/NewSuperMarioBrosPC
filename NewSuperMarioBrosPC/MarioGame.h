@@ -57,7 +57,7 @@ public:
 	float mario_vy;
 
 	float mario_vx_last;	// last vx of mario before stop ( to determine the direction of mario )
-	
+	LPD3DXFONT fontArial;
 	ObjectManager* mObjectManager = ObjectManager::getInstance();
 	Mario* mario;
 

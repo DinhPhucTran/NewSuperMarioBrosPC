@@ -30,6 +30,8 @@ public:
 	void setAnimationFactory(AnimationFactory* animFactory);
 	void render(int vpx,int vpy)override;
 	void update(int t)override;
+	void jumpUp();
+	void stop();
 };
 
 #endif

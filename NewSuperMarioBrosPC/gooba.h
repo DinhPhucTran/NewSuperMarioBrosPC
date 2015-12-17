@@ -14,8 +14,7 @@ class GoobaAnimationFactory : public AnimationFactory{
 public:
 	Animation* mGoobaLeftWalkAnim = new Animation(0, 3);
 	Animation* mGoobaRightWalkAnim = new Animation(4, 7);
-	/*Animation* mKoopaVulnerableAnim = new Animation(36, 36);
-	Animation* mKoopaSlidingAnim = new Animation(36, 39);*/
+
 	Animation* createAnimation()override;
 	GoobaAnimationFactory(Gooba* gooba);
 };
