@@ -169,6 +169,7 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	int vpy = 240;
 	//int vpx = xc;
 	if (vpx <= 0) vpx = 0;
+	if (vpx >= 2485) vpx = 2485;
 	xc += 1;
 	
 	foregroundImage->Render(1417, 360 - 288, vpx, vpy);
@@ -186,7 +187,7 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	rect.right = 240;
 	rect.bottom = 100;
 	char buffer[32] = { 0 };
-	sprintf_s(buffer, "%d/%d", mario->x, mario->y);
+	sprintf_s(buffer, "%d/%d", mario->x, vpx);
 	fontArial->DrawTextA(NULL, buffer, 20, &rect, DT_LEFT, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 

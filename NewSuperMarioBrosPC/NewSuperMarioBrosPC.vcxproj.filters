@@ -75,10 +75,9 @@
     <ClInclude Include="StaticObject.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="Pipe.h">
       <Filter>Header Files\Object</Filter>
-=======
+	 </ClInclude> 
     <ClInclude Include="MarioObject.h">
       <Filter>Header Files\Mario</Filter>
     </ClInclude>
@@ -87,7 +86,6 @@
     </ClInclude>
     <ClInclude Include="MarioState.h">
       <Filter>Header Files\Mario</Filter>
->>>>>>> origin/master
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -133,10 +131,9 @@
     <ClCompile Include="StaticObject.cpp">
       <Filter>Source Files\Object</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="Pipe.cpp">
       <Filter>Source Files\Object</Filter>
-=======
+	</ClCompile>
     <ClCompile Include="MarioAnimationFactory.cpp">
       <Filter>Source Files\Mario</Filter>
     </ClCompile>
@@ -145,7 +142,6 @@
     </ClCompile>
     <ClCompile Include="MarioState.cpp">
       <Filter>Source Files\Mario</Filter>
->>>>>>> origin/master
     </ClCompile>
   </ItemGroup>
 </Project>
