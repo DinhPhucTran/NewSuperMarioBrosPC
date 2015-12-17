@@ -23,7 +23,7 @@ const int KoopaTroopa::KOOPA_VULNERABLE_HEIGHT = 16;
 const int KoopaTroopa::NORMAL_ANIMATION_DELAY = Animation::FRAME_DELAY_DEFAULT;
 const int KoopaTroopa::SLIDING_ANIMATION_DELAY = 1;
 const float KoopaTroopa::KOOPA_VELOCITY_X = 0.1f;
-const float KoopaTroopa::KOOPA_SLIDING_SPEED_X = 0.5f;
+const float KoopaTroopa::KOOPA_SLIDING_SPEED_X = 0.35f;
 const float KoopaTroopa::KOOPA_VULNERABLE_SPEED_X = 0;
 const string KoopaTroopa::OBJECT_NAME = "koopa_troopa";
 string KoopaTroopa::getName(){
@@ -99,7 +99,7 @@ void KoopaNomalState::onCollision(Object*ob,int dir){
 	//xử lý va chạm, nếu chạm gạch thì quay đầu
 	//chạm mario từ bên trái,phải hoặc bên dưới thì mario chết
 	//chạm mario từ trên thì chuyển sang trạng thái Vulnerable;
-	if (ob->getName() == BrickGround::OBJECT_NAME){
+	 if (ob->getName() == BrickGround::OBJECT_NAME){
 		if (dir == Physics::COLLIDED_FROM_LEFT){
 			if (mKoopa->vx_last < 0){
 				mKoopa->vx = KoopaTroopa::KOOPA_VELOCITY_X;
@@ -124,10 +124,10 @@ void KoopaNomalState::onCollision(Object*ob,int dir){
 			}
 		}
 	}
-	if (ob->getName() == Mario::OBJECT_NAME){
+	 else if (ob->getName() == Mario::OBJECT_NAME){
 		//chạm trái phải dưới -> mario chết
 		//trên thì chuyển sang vulnerable state;
-		if (dir == Physics::COLLIDED_FROM_TOP){
+     		if (dir == Physics::COLLIDED_FROM_TOP){
 			if (mKoopa->vy > 0){
 				mKoopa->vy = -0.000001;//gần bằng 0, không đc =0 sẽ gây ra lổi
 				mKoopa->ay = 0;
