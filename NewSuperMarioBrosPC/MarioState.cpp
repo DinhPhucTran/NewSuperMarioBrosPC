@@ -1,6 +1,7 @@
 ﻿#include "MarioState.h"
 #include "MarioObject.h"
 #include "BrickGround.h"
+#include "Pipe.h"
 #include "Physics.h"
 
 #include <string>
@@ -98,7 +99,7 @@ int MarioStateRaccoon::getWidth(){
 void MarioStateRaccoon::onCollision(Object* ob,int dir){
 	//xử lý va chạm trong trường hợp mario Raccoon
 	string objectName = ob->getName();
-	if (objectName == BrickGround::OBJECT_NAME)
+	if (objectName == BrickGround::OBJECT_NAME || objectName == Pipe::OBJECT_NAME)
 	{
 		/*switch (dir){
 		case (-1) :

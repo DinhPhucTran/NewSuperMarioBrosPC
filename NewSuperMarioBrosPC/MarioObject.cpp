@@ -62,7 +62,11 @@ void Mario::update(int t){
 	vy += ay*t;
 	x += vx*(float)t;
 	y += vy*(float)t;
-	
+	if (x <= 10)
+		x = 10;
+	if (x >=2800)
+		x = 2800;
+
 	if (vx >= Mario::MAX_SPEED_X || vx <= -Mario::MAX_SPEED_X){
 		ax = 0;
 		if (vx_last<0)

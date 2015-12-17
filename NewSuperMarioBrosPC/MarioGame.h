@@ -25,6 +25,7 @@
 #define MARIO_SMALL_IMAGE L"marioSmall.png"
 #define MARIO_LARGE_IMAGE L"marioSprite32x32.png"
 #define KOOPA_TROOPA_IMAGE L"KoopaRedGreen_16x28x17.png"
+#define FOREGROUND_IMAGE L"foreground.png"
 
 #define GOOBA L"gooba.png"
 
@@ -72,9 +73,8 @@ public:
 	CSprite * brick;
 	CSprite * mountain;
 	CSprite * fallDown;
+	CSprite *foregroundImage;
 
-	bool _IsOnGround;
-	bool _IsFallOfGround;
 	int animationDelay=0;
 	//Object * fallBox;
 protected:

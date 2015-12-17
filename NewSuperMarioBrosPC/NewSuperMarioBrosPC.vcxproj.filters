@@ -78,6 +78,9 @@
     <ClInclude Include="StaticObject.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
+    <ClInclude Include="Pipe.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sprite.cpp">
@@ -129,6 +132,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StaticObject.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipe.cpp">
       <Filter>Source Files\Object</Filter>
     </ClCompile>
   </ItemGroup>

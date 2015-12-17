@@ -81,6 +81,7 @@
     <ClInclude Include="object.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Physics.h" />
+    <ClInclude Include="Pipe.h" />
     <ClInclude Include="RedKoopa.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="StaticObject.h" />
@@ -100,6 +101,7 @@
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="BrickGround.cpp" />
     <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="RedKoopa.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="StaticObject.cpp" />
