@@ -25,6 +25,12 @@
     <Filter Include="Source Files\Enemies">
       <UniqueIdentifier>{f4182b4f-3dc4-49c7-8b35-9e242025e183}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Mario">
+      <UniqueIdentifier>{b72fb0de-ad6b-4e1c-a578-b64461a24838}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mario">
+      <UniqueIdentifier>{4f2b12cb-a96f-4e9a-b8c4-69c1f29353c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation.h">
@@ -42,17 +48,8 @@
     <ClInclude Include="MarioGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MarioAnimationFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MarioState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ObjectManager.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MarioObject.h">
-      <Filter>Header Files\Object</Filter>
     </ClInclude>
     <ClInclude Include="object.h">
       <Filter>Header Files\Object</Filter>
@@ -78,6 +75,15 @@
     <ClInclude Include="StaticObject.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
+    <ClInclude Include="MarioObject.h">
+      <Filter>Header Files\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioAnimationFactory.h">
+      <Filter>Header Files\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioState.h">
+      <Filter>Header Files\Mario</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sprite.cpp">
@@ -98,17 +104,8 @@
     <ClCompile Include="MarioGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MarioAnimationFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MarioState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MarioObject.cpp">
-      <Filter>Source Files\Object</Filter>
     </ClCompile>
     <ClCompile Include="object.cpp">
       <Filter>Source Files\Object</Filter>
@@ -130,6 +127,15 @@
     </ClCompile>
     <ClCompile Include="StaticObject.cpp">
       <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioAnimationFactory.cpp">
+      <Filter>Source Files\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioObject.cpp">
+      <Filter>Source Files\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioState.cpp">
+      <Filter>Source Files\Mario</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
