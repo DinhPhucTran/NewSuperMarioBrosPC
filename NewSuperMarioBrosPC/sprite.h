@@ -25,6 +25,7 @@ public:
 
 	// Render current sprite at location (X,Y)
 	void Render(int firstSpriteX, int firstSpriteY, int distanceBetweenSprites, int X, int Y, int vpx, int vpy);
+	void Render(int X, int Y, int vpx, int vpy);
 	void Render(Animation *anim, int x, int y, int vpx, int vpy);
 	~CSprite();
 };

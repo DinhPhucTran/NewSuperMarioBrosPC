@@ -77,9 +77,49 @@ void CSprite::Render(int fisrSpriteX, int firstSpriteY, int distanceBetweenSprit
 	D3DXVECTOR3 p(vp_pos.x, vp_pos.y, 0);
 	D3DXVECTOR3 center((float)_Width / 2, (float)_Height / 2, 0);
 
-	/*D3DXMATRIX mt1;
-	D3DXMatrixScaling(&mt1, 1.5, 1.5, 1);
-	_SpriteHandler->SetTransform(&mt1);*/
+	D3DXMATRIX mt1;
+	D3DXMatrixScaling(&mt1, 2, 2, 1);
+	_SpriteHandler->SetTransform(&mt1);
+
+	_SpriteHandler->Draw(
+		_Image,
+		&srect,
+		&center,
+		&p,
+		D3DCOLOR_XRGB(255, 255, 255)
+		);
+
+}
+
+void CSprite::Render(int X, int Y, int vpx, int vpy)
+{
+	RECT srect;
+
+	srect.left = (_Index % _SpritePerRow) * (_Width);
+	srect.top = (_Index / _SpritePerRow) * (_Height);
+	srect.right = srect.left + _Width;
+	srect.bottom = srect.top + _Height + 1;
+
+	D3DXVECTOR3 position((float)X, (float)Y, 0);
+
+	//
+	// WORLD TO VIEWPORT TRANSFORM USING MATRIX
+	//
+
+	D3DXMATRIX mt;
+	D3DXMatrixIdentity(&mt);
+	mt._22 = -1.0f;
+	mt._41 = -vpx;
+	mt._42 = vpy;
+	D3DXVECTOR4 vp_pos;
+	D3DXVec3Transform(&vp_pos, &position, &mt);
+
+	D3DXVECTOR3 p(vp_pos.x, vp_pos.y, 0);
+	D3DXVECTOR3 center((float)_Width / 2, (float)_Height / 2, 0);
+
+	D3DXMATRIX mt1;
+	D3DXMatrixScaling(&mt1, 2, 2, 1);
+	_SpriteHandler->SetTransform(&mt1);
 
 	_SpriteHandler->Draw(
 		_Image,

@@ -75,7 +75,6 @@ void CGame::_InitWindow()
 		style = WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP;
 	else
 		style = WS_OVERLAPPEDWINDOW;
-
 	_hWnd =
 		CreateWindow(
 		_Name,
@@ -98,6 +97,8 @@ void CGame::_InitWindow()
 
 	ShowWindow(_hWnd, SW_SHOWNORMAL);
 	UpdateWindow(_hWnd);
+	
+
 }
 
 void CGame::_InitDirectX()

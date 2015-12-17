@@ -13,6 +13,7 @@ private:
 public:
 	static const string OBJECT_NAME;
 	BrickGround(int x, int y, int width, int height, Animation* anim, CSprite* sprite);
+	BrickGround(int x, int y, int width, int height);
 	virtual string getName()override;
 	virtual void onCollision(Object *ob,int dir)override;
 };

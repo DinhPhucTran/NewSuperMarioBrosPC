@@ -58,11 +58,20 @@ void Mario::render(int vpx,int vpy){
 }
 
 void Mario::update(int t){
-	vx = vx + ax*t;
-	vy += ay*t;
+	
+	
+	if (x <= 10)
+		x = 10;
+	if (x >=2800)
+		x = 2800;
+
+
 	x =x+ (int)(vx*t);
 	y +=(int)(vy*t);
+	vx = vx + ax*t;
+	vy += ay*t;
 	
+
 	if (vx >= Mario::MAX_SPEED_X || vx <= -Mario::MAX_SPEED_X){
 		ax = 0;
 		if (vx_last<0)

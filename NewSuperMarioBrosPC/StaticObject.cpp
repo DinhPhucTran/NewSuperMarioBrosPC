@@ -6,6 +6,11 @@ StaticObject::StaticObject(int x, int y, int width, int height, Animation* anim,
 {
 
 }
+StaticObject::StaticObject(int x, int y, int width, int height)
+: Object(x, y, width, height)
+{
+
+}
 
 void StaticObject::update(int t){
 	//do nothing

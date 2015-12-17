@@ -1,6 +1,6 @@
 #include "animation.h"
 
-const int Animation::FRAME_DELAY_DEFAULT;
+const int Animation::FRAME_DELAY_DEFAULT=6;
 Animation::Animation(int StartFrame, int EndFrame,int frDelay )
 {
 

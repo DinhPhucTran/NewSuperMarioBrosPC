@@ -6,7 +6,7 @@ class Animation
 private:
 	int frameDelayCounter;
 public:
-	static const int FRAME_DELAY_DEFAULT = 6;//default =6
+	static const int FRAME_DELAY_DEFAULT;//default =6
 	int startFrame, endFrame;
 	int index;
 	int frameDelay;		//để kiểm soát tốc độ chuyển frame, 

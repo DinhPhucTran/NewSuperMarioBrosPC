@@ -26,6 +26,19 @@ Object::Object(int X, int Y, int Width, int Height, float Vx, float Vy, float vx
 	mSprite = Image;
 	mAnim = anim;
 }
+
+Object::Object(int X, int Y, int Width, int Height) {
+	x = X;
+	y = Y;
+	width = Width;
+	height = Height;
+	vx = 0;
+	vy = 0;
+	ax = 0;// gia tốc x
+	ay = 0;// gia tốc y
+	
+}
+
 void Object::setAnimation(Animation* anim){
 	if (anim!=NULL)
 		mAnim = anim;
@@ -50,7 +63,8 @@ Object::~Object() {
 }
 
 void Object::render(int vpx, int vpy){
-	mSprite->Render(mAnim, x, y, vpx, vpy);
+	if (mSprite!=NULL)
+		mSprite->Render(mAnim, x, y, vpx, vpy);
 }
 
 int Object::left() {
