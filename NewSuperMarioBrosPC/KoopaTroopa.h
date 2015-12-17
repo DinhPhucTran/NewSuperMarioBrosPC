@@ -4,6 +4,9 @@
 #include "object.h"
 #include <string>
 #include "AnimationFactory.h"
+#include "gooba.h"
+
+class RedKoopa;
 using namespace std;
 
 class KoopaTroopa;
@@ -23,6 +26,7 @@ public:
 class KoopaTroopaState{
 protected:
 	KoopaTroopa* mKoopa;
+	AnimationFactory* mAnimationFactory;
 public:
 
 	KoopaTroopaState(KoopaTroopa* koopa);
@@ -36,16 +40,21 @@ public:
 };
 
 class KoopaNomalState:public KoopaTroopaState{//trạng thái đi lại bình thường
+
 public:
 
 	static const string STATE_NAME;
 	void onCollision(Object* ob,int dir)override;
 	string getName()override;
 	KoopaNomalState(KoopaTroopa* koopa);
+
+
 };
 
 class KoopaVulnerableState :public KoopaTroopaState{//Trạng thái dể bị tổn thương, khi chui vào mai rùa
 	//ở trạng thái này mario đụng vào là xong :p
+private:
+
 public:
 
 	static const string STATE_NAME;
@@ -59,11 +68,14 @@ public:
 
 class KoopaSlidingState :public KoopaTroopaState{
 	//trạng thái bị mario đá, trượt từ đầu này sang đầu khác
+private:
+
 public :
 	static const string STATE_NAME;
 	void onCollision(Object*ob,int dir)override;
 	string getName()override;
 	KoopaSlidingState(KoopaTroopa* koopa);
+
 	int getHeight()override;//=16
 	int getAnimationDelay()override;//=10;
 	float getSpeed()override;//=0.5f

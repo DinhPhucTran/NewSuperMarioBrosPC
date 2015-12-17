@@ -60,8 +60,8 @@ void Mario::render(int vpx,int vpy){
 void Mario::update(int t){
 	vx = vx + ax*t;
 	vy += ay*t;
-	x += vx*(float)t;
-	y += vy*(float)t;
+	x =x+ (int)(vx*t);
+	y +=(int)(vy*t);
 	
 	if (vx >= Mario::MAX_SPEED_X || vx <= -Mario::MAX_SPEED_X){
 		ax = 0;
@@ -73,4 +73,15 @@ void Mario::update(int t){
 	{
 		ay = 0;
 	}
+}
+void Mario::jumpUp(){
+	vy = 0;
+	ay = Mario::ACCELERATION_Y;
+	//vy = 0.5f;
+}
+void Mario::stop(){
+	vx = 0;
+	vy = 0;
+	ax = 0;
+	ay = 0;
 }

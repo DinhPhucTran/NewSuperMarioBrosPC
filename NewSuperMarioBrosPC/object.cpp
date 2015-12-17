@@ -69,3 +69,6 @@ int Object::bottom() {
 	return y - height / 2;
 }
 
+void Object::die(){
+	ObjectManager::getInstance()->removeObject(this);
+}

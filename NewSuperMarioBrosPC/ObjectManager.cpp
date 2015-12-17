@@ -24,7 +24,8 @@ int ObjectManager::removeObject(int position){
 	catch (out_of_range exception){
 		return 0;
 	}
-	delete ob;
+	//delete ob;
+	ob = 0;
 	mListObject.erase(mListObject.begin() + position);
 	return 1;
 }
@@ -32,7 +33,8 @@ int ObjectManager::removeObject(Object *ob){
 	for (int i = 0; i < mListObject.size(); ++i){
 		if (mListObject[i] == ob){
 			mListObject.erase(mListObject.begin() + i);
-			delete ob;
+			//delete ob;
+			ob = 0;
 			return 1;
 		}
 	}
@@ -47,8 +49,10 @@ void ObjectManager::checkCollition(){
 			ob2 = mListObject[j];
 			int dir = Physics::CollisionStatic(mListObject[i], mListObject[j]);
 			if (dir != 0){
-				ob1->onCollision(ob2, dir);//ob 1 bị đụng trái thì ob2 bị đụng phải, tương tự trên dưới
-				ob2->onCollision(ob1, -dir);
+				if (ob1)
+					ob1->onCollision(ob2, dir);//ob 1 bị đụng trái thì ob2 bị đụng phải, tương tự trên dưới
+				if (ob2)
+					ob2->onCollision(ob1, -dir);
 			}
 		}
 	}
