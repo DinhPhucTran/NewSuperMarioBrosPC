@@ -106,12 +106,7 @@ void GoobaNomalState::onCollision(Object*ob,int dir){
 	string objName = ob->getName();
 	GoobaState::onCollision(ob, dir);
 	if (objName == Mario::OBJECT_NAME){
-		Mario* mario = (Mario*)ob;
-		if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT||dir==Physics::COLLIDED_FROM_BOTTOM){
-			//mario->die();
-		}
-		else if (dir == Physics::COLLIDED_FROM_TOP){
-			mario->jumpUp();
+		if (dir == Physics::COLLIDED_FROM_TOP){
 			mGooba->setState(new GoobaDyingState(mGooba));
 		}
 	}

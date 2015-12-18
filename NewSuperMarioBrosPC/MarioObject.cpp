@@ -47,8 +47,18 @@ string Mario::getName(){
 
 void Mario::setState(MarioState* state){
 	Mario::mMarioState = state;
+	string stateName = state->getName();
 	width = state->getWidth();
 	height = state->getHeight();
+	if (stateName == MarioStateRaccoon::STATE_NAME){
+		setAnimationFactory(RaccoonMarioAnimationFactory::getInstance(this));
+	}
+	else if (stateName == MarioStateLarge::STATE_NAME){
+		setAnimationFactory(LargeMarioAnimationFactory::getInstance(this));
+	}
+	else if (stateName == MarioStateSmall::STATE_NAME){
+		setAnimationFactory(SmallMarioAnimationFactory::getInstance(this));
+	}
 }
 void Mario::setAnimationFactory(AnimationFactory* animFactory){
 	mAnimationFactory = animFactory;
@@ -93,4 +103,17 @@ void Mario::stop(){
 	vy = 0;
 	ax = 0;
 	ay = 0;
+}
+void Mario::die(){
+	y += 150;
+	string stateName = mMarioState->getName();
+	if (stateName == MarioStateRaccoon::STATE_NAME){
+		setState(new MarioStateLarge(this));
+	}
+	else if (stateName == MarioStateLarge::STATE_NAME){
+		setState(new MarioStateSmall(this));
+	}
+	else{
+		Object::die();
+	}
 }

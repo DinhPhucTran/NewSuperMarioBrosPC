@@ -6,6 +6,8 @@
 #include <string>
 using namespace std;
 class MarioState{
+protected:
+	Mario* mMario;
 public:
 	virtual void onAPress();
 	virtual void onBPress() ;
@@ -13,12 +15,12 @@ public:
 	virtual std::string getName();
 	virtual int getHeight();//chiểu cao của mario ở trạng thái xác định;
 	virtual int getWidth();// chiều rộng của mario ở trạng thái xác định;
+	MarioState(Mario* mario);
 };
 
 class MarioStateSmall :public MarioState{
 	int height = 16;
 	int width = 16;
-	Mario* mMario;
 public:
 	static const string STATE_NAME;
 	int getHeight()override;
@@ -32,7 +34,7 @@ public:
 };
 
 class MarioStateLarge  :public MarioState{
-	Mario* mMario;
+
 	int height = 27;
 	int width = 16;
 public:

@@ -32,6 +32,7 @@ public:
 	void update(int t)override;
 	void jumpUp();
 	void stop();
+	void die()override;
 };
 
 #endif
