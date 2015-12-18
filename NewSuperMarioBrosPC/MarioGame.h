@@ -26,6 +26,7 @@
 #define MARIO_LARGE_IMAGE L"marioSprite32x32.png"
 #define KOOPA_TROOPA_GOOMBA_IMAGE L"KoopaRedGreenGoomba_16x28x17.png"
 #define FOREGROUND_IMAGE L"foreground.png"
+#define QBRICK_IMAGE L"qBrick.png"
 
 
 
@@ -71,7 +72,6 @@ public:
 	CSprite * ground_middle;
 	CSprite * brick;
 	CSprite * mountain;
-	CSprite * fallDown;
 	CSprite *foregroundImage;
 
 	int animationDelay=0;

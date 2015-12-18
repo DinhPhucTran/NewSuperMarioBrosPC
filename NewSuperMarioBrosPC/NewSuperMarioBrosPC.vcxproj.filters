@@ -77,7 +77,7 @@
     </ClInclude>
     <ClInclude Include="Pipe.h">
       <Filter>Header Files\Object</Filter>
-	 </ClInclude> 
+    </ClInclude>
     <ClInclude Include="MarioObject.h">
       <Filter>Header Files\Mario</Filter>
     </ClInclude>
@@ -86,6 +86,12 @@
     </ClInclude>
     <ClInclude Include="MarioState.h">
       <Filter>Header Files\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="MetalBlock.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Qbrick.h">
+      <Filter>Header Files\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -133,7 +139,7 @@
     </ClCompile>
     <ClCompile Include="Pipe.cpp">
       <Filter>Source Files\Object</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="MarioAnimationFactory.cpp">
       <Filter>Source Files\Mario</Filter>
     </ClCompile>
@@ -142,6 +148,12 @@
     </ClCompile>
     <ClCompile Include="MarioState.cpp">
       <Filter>Source Files\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="MetalBlock.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Qbrick.cpp">
+      <Filter>Source Files\Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

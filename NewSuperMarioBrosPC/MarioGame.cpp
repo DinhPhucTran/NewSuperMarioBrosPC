@@ -7,6 +7,8 @@
 #include "Physics.h"
 #include "MarioState.h"
 #include "Pipe.h"
+#include "MetalBlock.h"
+#include "Qbrick.h"
 //#include "physics.h"
 
 
@@ -14,7 +16,11 @@ const float CMarioGame::GRAVITY_VELOCOTY = GRAV_VELOCITY;
 DWORD last = 0;
 LPD3DXFONT fontArial;
 RECT rect;
-
+Animation *qbAnim1 = new Animation(0, 3);
+Animation *qbAnim2 = new Animation(0, 3);
+CSprite *qbSprite;
+QBrick *qb1;
+QBrick *qb2;
 CMarioGame::CMarioGame(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate) :
 CGame(hInstance, Name, Mode, IsFullScreen, FrameRate)
 {
@@ -128,8 +134,19 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	BrickGround * ground6 = new BrickGround(2257 + 280, 8, 560, 16);
 	//mObjectManager->addObject(ground6);
 
-	Pipe * pipe1 = new Pipe(348 + 16, 32, 32, 64);
+	Pipe * pipe1 = new Pipe(367, 40, 32, 48);
 	mObjectManager->addObject(pipe1);
+	MetalBlock *mb1 = new MetalBlock(263, 40, 48, 48);
+	mObjectManager->addObject(mb1);
+	MetalBlock *mb2 = new MetalBlock(295, 56, 48, 80);
+	mObjectManager->addObject(mb2);
+
+	
+	qbSprite = new CSprite(_SpriteHandler, QBRICK_IMAGE, 16, 16, 5, 5);
+	qb1 = new QBrick(184, 73, 16, 16, 0, 0, 0, 0, 0, qbAnim1, qbSprite);
+	mObjectManager->addObject(qb1);
+	qb2 = new QBrick(184 + 16, 73, 16, 16, 0, 0, 0, 0, 0, qbAnim2, qbSprite);
+	mObjectManager->addObject(qb2);
 	
 
 	mario = mObjectManager->getMario();
@@ -152,8 +169,20 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 		mario->vy = 0;
 		mario->ay = 0;
 	}*/
-	
+	qbAnim1->Update();
+	if (Physics::ContainsPoint(qb1, mario->x, mario->top()))
+	{
+		qbAnim1->startFrame = 4;
+		qbAnim1->endFrame = 4;
+	}
 
+	qbAnim2->Update();
+	if (Physics::ContainsPoint(qb2, mario->x, mario->top()))
+	{
+		qbAnim2->startFrame = 4;
+		qbAnim2->endFrame = 4;
+	}
+		
 
 	
 	
@@ -179,7 +208,7 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	if (vpx >= 2485) vpx = 2485;
 	xc += 1;
 	
-	foregroundImage->Render(1417, 360 - 288, vpx, vpy);
+	foregroundImage->Render(1424, 360 - 288, vpx, vpy);
 
 
 	//render all object in game
@@ -194,7 +223,7 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	rect.right = 240;
 	rect.bottom = 100;
 	char buffer[32] = { 0 };
-	sprintf_s(buffer, "%d/%d", mario->x, vpx);
+	sprintf_s(buffer, "Mx: %d / My: %d       ", mario->x, mario->y);
 	fontArial->DrawTextA(NULL, buffer, 20, &rect, DT_LEFT, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 

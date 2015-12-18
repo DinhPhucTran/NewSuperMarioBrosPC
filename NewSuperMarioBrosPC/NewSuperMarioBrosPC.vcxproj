@@ -78,10 +78,12 @@
     <ClInclude Include="MarioGame.h" />
     <ClInclude Include="MarioObject.h" />
     <ClInclude Include="MarioState.h" />
+    <ClInclude Include="MetalBlock.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Pipe.h" />
+    <ClInclude Include="Qbrick.h" />
     <ClInclude Include="RedKoopa.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="StaticObject.h" />
@@ -97,11 +99,13 @@
     <ClCompile Include="MarioGame.cpp" />
     <ClCompile Include="MarioObject.cpp" />
     <ClCompile Include="MarioState.cpp" />
+    <ClCompile Include="MetalBlock.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="BrickGround.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Pipe.cpp" />
+    <ClCompile Include="Qbrick.cpp" />
     <ClCompile Include="RedKoopa.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="StaticObject.cpp" />

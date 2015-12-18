@@ -4,6 +4,8 @@
 #include "Pipe.h"
 #include "Physics.h"
 #include "RedKoopa.h"
+#include "MetalBlock.h"
+#include "Qbrick.h"
 
 #include <string>
 using namespace std;
@@ -20,7 +22,17 @@ void MarioState::onBPress(){
 }
 void MarioState::onCollision(Object* ob,int dir){
 	string objectName = ob->getName();
-	if (objectName == BrickGround::OBJECT_NAME || objectName == Pipe::OBJECT_NAME)
+	if (objectName == MetalBlock::OBJECT_NAME)
+	{
+		if (dir == Physics::COLLIDED_FROM_BOTTOM && mMario->y >= ob->top())
+		{
+			mMario->vy = 0;
+			mMario->ay = 0;
+			mMario->y = ob->top() + mMario->height / 2;
+			return;
+		}
+	}
+	if (objectName == BrickGround::OBJECT_NAME || objectName == Pipe::OBJECT_NAME || objectName == QBrick::OBJECT_NAME)
 	{
 		/*switch (dir){
 		case (-1) :
