@@ -59,15 +59,19 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_IMAGE, 17, 28, 48, 16);
 	goobaSprite = new CSprite(_SpriteHandler, GOOBA, 32, 32, 12, 4);
 
+	KoopaTroopa* koopa2 =
+		new KoopaTroopa(200, GROUND_Y + 200, 17, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
+	
 	KoopaTroopa* koopa = 
 		new KoopaTroopa(450, GROUND_Y+200, 17, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
-	koopa->setAnimationFactory(new KoopaAnimationFactory(koopa));
 	koopa->setState(new KoopaNomalState(koopa));
+	
+
 	
 	KoopaTroopa* redKoopa = 
 		new RedKoopa(500, GROUND_Y+50, 17, 28,-KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
 	redKoopa->setState(new KoopaVulnerableState(redKoopa));
-	mObjectManager->addObject(redKoopa);
+	
 
 
 	Gooba* gooba = new Gooba(400, GROUND_Y+200, 32, 32, -Gooba::SPEED_X, 0, -Gooba::SPEED_X, 0, 0, NULL, goobaSprite);
@@ -88,9 +92,10 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	
 	mObjectManager->addObject(marioObject);
 	mObjectManager->addObject(koopa);
+	mObjectManager->addObject(koopa2);
+	mObjectManager->addObject(redKoopa);
 	mObjectManager->addObject(gooba);
-	mario = mObjectManager->getMario();
-
+	
 
 
 
@@ -118,14 +123,17 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	BrickGround * ground3 = new BrickGround(1153 + 176, 8, 352, 16);
 	mObjectManager->addObject(ground3);
 	BrickGround * ground4 = new BrickGround(1537 + 40, 8, 80, 16);
-	mObjectManager->addObject(ground4);
+	//mObjectManager->addObject(ground4);
 	BrickGround * ground5 = new BrickGround(1666 + 288, 8, 576, 16);
-	mObjectManager->addObject(ground5);
+	//mObjectManager->addObject(ground5);
 	BrickGround * ground6 = new BrickGround(2257 + 280, 8, 560, 16);
-	mObjectManager->addObject(ground6);
+	//mObjectManager->addObject(ground6);
 
 	Pipe * pipe1 = new Pipe(348 + 16, 32, 32, 64);
 	mObjectManager->addObject(pipe1);
+	
+
+	mario = mObjectManager->getMario();
 
 }
 

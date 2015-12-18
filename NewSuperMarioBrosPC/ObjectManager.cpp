@@ -71,8 +71,12 @@ Mario* ObjectManager::getMario(){
 }
 
 void ObjectManager::render(int vpx,int vpy){
-	for (int i = 0; i < mListObject.size() ; ++i){
+	/*for (int i = 0; i < mListObject.size() ; ++i){
 		mListObject[i]->render(vpx,vpy);
+	}*/
+
+	for (int i = mListObject.size() - 1; i >= 0; --i){
+		mListObject[i]->render(vpx, vpy);
 	}
 }
 
