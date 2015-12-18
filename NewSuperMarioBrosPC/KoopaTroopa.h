@@ -5,6 +5,7 @@
 #include <string>
 #include "AnimationFactory.h"
 #include "gooba.h"
+#include"Pipe.h"
 
 class RedKoopa;
 using namespace std;
