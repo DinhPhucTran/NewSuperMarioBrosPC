@@ -9,6 +9,9 @@ const float Gooba::SPEED_X = 0.08f;
 const int Gooba::WIDTH = 16;
 const int Gooba::HEIGHT = 16;
 const int Gooba::ANIMATION_DELAY = 10;
+const int Gooba::DYING_HEIGHT = 9;
+const float Gooba::DYING_SPEED = 0;
+const int Gooba::DYING_TIME = 500;
 Gooba::Gooba(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image)
 :Object(x, y, width, height, vx, vy, vx_last, ax, ay, anim, image){
 	mAnimationFactory = new GoobaAnimationFactory(this);
@@ -35,31 +38,26 @@ void Gooba::setAnimationFactory(AnimationFactory* animFactory){
 void Gooba::render(int vpx, int vpy){
 	mSprite->Render(mAnimationFactory->createAnimation(), x, y, vpx, vpy);
 }
+void Gooba::setState(GoobaState* goobaState){
+	delete mState;
+	mState = goobaState;
+	width = mState->getWidth();
+	height = mState->getHeight();
+	vx = mState->getSpeed();
+}
 
 
-/////////////////////KoopaTroopaState/////////////////////
+/////////////////////GoobaState/////////////////////
 string GoobaState::getName(){
 	return "gooba_state";
 }
 GoobaState::GoobaState(Gooba* gooba){
 	mGooba = gooba;
 }
-void GoobaState::onCollision(Object*ob,int direction){
-	//khong xử lý va chạm, vì đây là trạng thái ảo
-}
 
-/////////////////////KoopaNomalState//////////////////
-
-const string GoobaNomalState::STATE_NAME = "gooba_nomal_state";
-string GoobaNomalState::getName(){
-	return STATE_NAME;
-}
-void GoobaNomalState::onCollision(Object*ob,int dir){
-	//xử lý va chạm, nếu chạm gạch thì quay đầu
-	//chạm mario từ bên trái,phải hoặc bên dưới thì mario chết
-	//chạm mario từ trên thì chuyển sang trạng thái Vulnerable;
+void GoobaState::onCollision(Object*ob,int dir){
 	string objName = ob->getName();
-	if (objName == BrickGround::OBJECT_NAME || objName==Pipe::OBJECT_NAME){
+	if (objName == BrickGround::OBJECT_NAME || objName == Pipe::OBJECT_NAME){
 		if (dir == Physics::COLLIDED_FROM_LEFT){
 			if (mGooba->vx_last < 0){
 				mGooba->vx = Gooba::SPEED_X;
@@ -84,14 +82,37 @@ void GoobaNomalState::onCollision(Object*ob,int dir){
 			}
 		}
 	}
+}
+int GoobaState::getWidth(){
+	return Gooba::WIDTH;
+}
+int GoobaState::getHeight(){
+	return Gooba::HEIGHT;
+}
+float GoobaState::getSpeed(){
+	return Gooba::SPEED_X;
+}
+
+/////////////////////KoopaNomalState//////////////////
+
+const string GoobaNomalState::STATE_NAME = "gooba_nomal_state";
+string GoobaNomalState::getName(){
+	return STATE_NAME;
+}
+void GoobaNomalState::onCollision(Object*ob,int dir){
+	//xử lý va chạm, nếu chạm gạch thì quay đầu
+	//chạm mario từ bên trái,phải hoặc bên dưới thì mario chết
+	//chạm mario từ trên thì chuyển sang trạng thái Vulnerable;
+	string objName = ob->getName();
+	GoobaState::onCollision(ob, dir);
 	if (objName == Mario::OBJECT_NAME){
 		Mario* mario = (Mario*)ob;
 		if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT||dir==Physics::COLLIDED_FROM_BOTTOM){
-			mario->die();
+			//mario->die();
 		}
 		else if (dir == Physics::COLLIDED_FROM_TOP){
 			mario->jumpUp();
-			mGooba->die();
+			mGooba->setState(new GoobaDyingState(mGooba));
 		}
 	}
 }
@@ -99,37 +120,40 @@ GoobaNomalState::GoobaNomalState(Gooba* gooba)
 	:GoobaState(gooba){
 
 }
-///////////////////KoopaVulnerableState///////////////
 
-//const string KoopaVulnerableState::STATE_NAME = "koopa_vulnerable_state";
-//string KoopaVulnerableState::getName(){
-//	return STATE_NAME;
-//}
-//void KoopaVulnerableState::onCollision(Object*ob){
-//	//xử lý va chạm 
-//	//nếu chạm mario chuyển sang trạng thái bị đá SlidingState
-//}
+////////////////////GoobaDyingState////////////
+GoobaDyingState::GoobaDyingState(Gooba*gooba) : GoobaState(gooba){
+	last_time = GetTickCount();
+}
+const string GoobaDyingState::STATE_NAME = "gooba_dying_state";
+string GoobaDyingState::getName(){
+	return STATE_NAME;
+}
 
-
-/////////////////////////////////////////////////
-//const string KoopaSlidingState::STATE_NAME = "koopa_sliding_state";
-//string KoopaSlidingState::getName(){
-//	return STATE_NAME;
-//}
-//void KoopaSlidingState::onCollision(Object*ob){
-//	//xử lý va chạm 
-//	//nếu chạm mario từ trái hoặc phải thì mario chết
-//	//nếu chạm mario từ trên xuống thì dừng lại chuyển sang trạng thái vulnerable
-//	//nếu chạm gạch vở đc thì gach vở, đổi hướng.
-//	//nếu chạm kẻ thù (Goomba, koopa..) thì kẻ thù chết.
-//}
-
-/////////////////////////////KoopaAnimationFactory///////////////
+void GoobaDyingState::onCollision(Object*ob, int dir){
+	GoobaState::onCollision(ob, dir);
+	DWORD now = GetTickCount();
+	if (now - last_time >= Gooba::DYING_TIME){
+		mGooba->die();
+	}
+}
+int GoobaDyingState::getHeight(){
+	return Gooba::DYING_HEIGHT;
+}
+float GoobaDyingState::getSpeed(){
+	return Gooba::DYING_SPEED;
+}
+//////////////////////GoobaAnimationFactory//////////////
 Animation* GoobaAnimationFactory::createAnimation(){
-	string stateName = mGooba->getState()->getName();
 	Animation* result;
-
-	result = mGoobaWalkingAnim;
+	string stateName = mGooba->getState()->getName();
+	if (stateName == GoobaNomalState::STATE_NAME){
+		result = mGoobaWalkingAnim;
+	}
+	else{//dying state
+		result = mGoobaDyingAnim;
+	}
+	
 	result->Update();
 	return result;
 }

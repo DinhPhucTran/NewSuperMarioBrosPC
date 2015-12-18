@@ -15,6 +15,7 @@ class Gooba;
 class GoobaAnimationFactory : public AnimationFactory{
 	Gooba* mGooba;
 public:
+	
 	/*Animation* mGoobaLeftWalkAnim = new Animation(0, 3);
 	Animation* mGoobaRightWalkAnim = new Animation(4, 7);*///original value
 	Animation* mGoobaWalkingAnim = new Animation(40, 41);
@@ -30,6 +31,9 @@ public:
 	GoobaState(Gooba* gooba);
 	virtual void onCollision(Object* ob,int dir);
 	virtual string getName();
+	virtual int getWidth();
+	virtual int getHeight();
+	virtual float getSpeed();
 };
 
 class GoobaNomalState :public GoobaState{//trạng thái đi lại bình thường
@@ -38,6 +42,17 @@ public:
 	static const string STATE_NAME;
 	void onCollision(Object* ob,int dir)override;
 	string getName()override;
+};
+
+class GoobaDyingState:public GoobaState{
+	DWORD last_time;
+public:
+	GoobaDyingState(Gooba* gooba);
+	static const string STATE_NAME;
+	void onCollision(Object* ob, int dir)override;
+	string getName()override;
+	int getHeight()override;
+	float getSpeed()override;//DYING_SPEED
 };
 //
 //class KoopaVulnerableState :public KoopaTroopaState{//Trạng thái dể bị tổn thương, khi chui vào mai rùa
@@ -64,6 +79,10 @@ public:
 	static const int WIDTH;//16
 	static const int HEIGHT;//16
 	static const int ANIMATION_DELAY;//=10
+	static const int DYING_HEIGHT;//9
+	static const float DYING_SPEED;//0
+	static const int DYING_TIME;//500 miniseconds
+
 	AnimationFactory* mAnimationFactory;
 	//static Animation* 
 	static const string OBJECT_NAME;
