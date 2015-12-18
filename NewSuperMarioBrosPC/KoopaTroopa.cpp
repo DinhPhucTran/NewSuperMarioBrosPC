@@ -180,8 +180,8 @@ void KoopaVulnerableState::onCollision(Object*ob,int dir){
 		}
 	}
 	if (ob->getName() == Mario::OBJECT_NAME){
-		if (dir == Physics::COLLIDED_FROM_TOP){
-			if (ob->vx_last < 0){
+		if (dir == Physics::COLLIDED_FROM_TOP||dir==Physics::COLLIDED_FROM_BOTTOM){
+			if (ob->x >= mKoopa->x){
 				//slide qua trái
 				ob->y = mKoopa->top() + ob->height / 2 + 2;
 				mKoopa->x = ob->left() - mKoopa->width / 2 - 2;
