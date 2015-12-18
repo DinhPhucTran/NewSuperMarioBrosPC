@@ -188,3 +188,47 @@ void MarioStateRaccoon::onCollision(Object* ob,int dir){
 	
 }
 
+/////////////////////////MarioStateInvincible///////////////////////
+const string MarioStateInvincible::STATE_NAME = "mario_invincible";
+MarioStateInvincible::MarioStateInvincible(Mario* mario, MarioState* nextState):MarioState(mario){
+	mLastTime = GetTickCount();
+	mNextState = nextState;
+}
+string MarioStateInvincible::getName(){
+	return STATE_NAME;
+}
+void MarioStateInvincible::onCollision(Object* ob, int dir){
+	DWORD now = GetTickCount();
+	if (now - mLastTime >= Mario::INVINCIBLE_SWITCH_STATE_TIME){
+		mMario->setState(mNextState);
+	}
+	string objectName = ob->getName();
+	if (objectName == BrickGround::OBJECT_NAME || objectName == Pipe::OBJECT_NAME)
+	{
+		if (dir == Physics::COLLIDED_FROM_TOP){
+			mMario->y = ob->bottom() - mMario->height / 2;
+			mMario->vy = -0.000001;//note: không đc =0. nếu vy =0 thì sẽ gây ra lỗi người dùng có thể cho nó bay liên tục
+			mMario->ay = 0;
+			return;
+		}
+		if (dir == Physics::COLLIDED_FROM_BOTTOM)
+		{
+			mMario->vy = 0;
+			mMario->ay = 0;
+			mMario->y = ob->top() + mMario->height / 2;
+			return;
+		}
+		if (dir == Physics::COLLIDED_FROM_RIGHT)
+		{
+			mMario->x = ob->left() - mMario->width / 2;
+			mMario->ax = 0;
+			return;
+		}
+		if (dir == Physics::COLLIDED_FROM_LEFT)
+		{
+			mMario->x = ob->right() + mMario->width / 2;
+			mMario->ax = 0;
+			return;
+		}
+	}
+}

@@ -17,6 +17,7 @@ public:
 	static const float ACCELERATION_Y_PLUS;
 	static const float MAX_SPEED_X;
 	static const float MAX_SPEED_Y;
+	static const int INVINCIBLE_SWITCH_STATE_TIME;//2000 ms
 
 
 	AnimationFactory* mAnimationFactory;

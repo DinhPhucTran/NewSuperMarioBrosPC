@@ -13,6 +13,7 @@ const float Mario::ACCELERATION_Y = 0.009f;
 const float Mario::ACCELERATION_Y_PLUS = 0.012f;
 const float Mario::MAX_SPEED_X = 0.3f;
 const float Mario::MAX_SPEED_Y = 0.7f;
+const int Mario::INVINCIBLE_SWITCH_STATE_TIME = 2000;
 
 Mario::Mario(int x, int y, int width, int height, int vx, int vy, int vx_last, float aX, float aY, Animation* anim, CSprite * image, MarioState* state,AnimationFactory* animFactory) 
 	: Object(x, y, width, height, vx, vy, vx_last, aX, aY, anim, image){
@@ -105,15 +106,33 @@ void Mario::stop(){
 	ay = 0;
 }
 void Mario::die(){
-	y += 150;
-	string stateName = mMarioState->getName();
+	/*string stateName = mMarioState->getName();
+	MarioState* nextState = new MarioStateSmall(this);
 	if (stateName == MarioStateRaccoon::STATE_NAME){
-		setState(new MarioStateLarge(this));
+		delete nextState;
+		nextState = new MarioStateLarge(this);
 	}
 	else if (stateName == MarioStateLarge::STATE_NAME){
-		setState(new MarioStateSmall(this));
+		delete nextState;
+		nextState = (new MarioStateSmall(this));
 	}
 	else{
 		Object::die();
 	}
+	setState(new MarioStateInvincible(this, nextState));*/
+	y += 50;
+	string stateName = mMarioState->getName();
+	MarioState* nextState = new MarioStateSmall(this);
+	if (stateName == MarioStateRaccoon::STATE_NAME){
+		
+		nextState = new MarioStateLarge(this);
+	}
+	else if (stateName == MarioStateLarge::STATE_NAME){
+		
+		nextState = (new MarioStateSmall(this));
+	}
+	else{
+		Object::die();
+	}
+	setState(nextState);
 }

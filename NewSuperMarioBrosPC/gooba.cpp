@@ -82,6 +82,15 @@ void GoobaState::onCollision(Object*ob,int dir){
 			}
 		}
 	}
+	if (objName == KoopaTroopa::OBJECT_NAME){
+		KoopaTroopa* koopa = (KoopaTroopa*)ob;
+		string state = koopa->getState()->getName();
+		if (state == KoopaSlidingState::STATE_NAME){
+			if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT){
+				mGooba->setState(new GoobaDyingState(mGooba));
+			}
+		}
+	}
 }
 int GoobaState::getWidth(){
 	return Gooba::WIDTH;
@@ -126,11 +135,13 @@ string GoobaDyingState::getName(){
 }
 
 void GoobaDyingState::onCollision(Object*ob, int dir){
-	GoobaState::onCollision(ob, dir);
+	
 	DWORD now = GetTickCount();
 	if (now - last_time >= Gooba::DYING_TIME){
 		mGooba->die();
+		return;
 	}
+	GoobaState::onCollision(ob, dir);
 }
 int GoobaDyingState::getHeight(){
 	return Gooba::DYING_HEIGHT;

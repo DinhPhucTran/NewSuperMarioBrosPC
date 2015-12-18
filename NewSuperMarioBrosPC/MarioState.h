@@ -30,7 +30,7 @@ public:
 	void onBPress()override;//do nothing
 	void onCollision(Object* ob, int dir)override;
 
-	string getName();//return OBJECT_NAME
+	string getName()override;//return OBJECT_NAME
 };
 
 class MarioStateLarge  :public MarioState{
@@ -46,11 +46,11 @@ public:
 	void onBPress()override;//do nothing
 	void onCollision(Object* ob,int dir)override;
 
-	string getName();//return OBJECT_NAME
+	string getName()override;//return OBJECT_NAME
 };
 
 class MarioStateRaccoon : public MarioState{
-	Mario* mMario;
+	
 	int height = 28;
 	int width = 16;
 public:
@@ -62,7 +62,19 @@ public:
 	void onBPress() override;//turn around
 	void onCollision(Object* ob,int dir) override;
 
-	string getName();//return OBJECT_NAME
+	string getName()override;//return OBJECT_NAME
+};
+
+class MarioStateInvincible :public MarioState{
+private:
+	DWORD mLastTime;
+	MarioState* mNextState;
+public:
+	
+	static const string STATE_NAME;
+	MarioStateInvincible(Mario* mario,MarioState* nextState);
+	void onCollision(Object*ob, int dir)override;
+	string getName()override;
 };
 
 #endif

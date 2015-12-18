@@ -99,8 +99,8 @@ void KoopaNomalState::onCollision(Object*ob,int dir){
 	//xử lý va chạm, nếu chạm gạch thì quay đầu
 	//chạm mario từ bên trái,phải hoặc bên dưới thì mario chết
 	//chạm mario từ trên thì chuyển sang trạng thái Vulnerable;
-	string obName = ob->getName();
-	 if (ob->getName() == BrickGround::OBJECT_NAME || obName == Pipe::OBJECT_NAME){
+	string objName = ob->getName();
+	 if (objName == BrickGround::OBJECT_NAME || objName == Pipe::OBJECT_NAME){
 		if (dir == Physics::COLLIDED_FROM_LEFT){
 			if (mKoopa->vx_last < 0){
 				mKoopa->vx = KoopaTroopa::KOOPA_VELOCITY_X;
@@ -125,7 +125,7 @@ void KoopaNomalState::onCollision(Object*ob,int dir){
 			}
 		}
 	}
-	 else if (ob->getName() == Mario::OBJECT_NAME){
+	 else if (objName == Mario::OBJECT_NAME){
 		//chạm trái phải dưới -> mario chết
 		//trên thì chuyển sang vulnerable state;
      		if (dir == Physics::COLLIDED_FROM_TOP){
@@ -137,11 +137,16 @@ void KoopaNomalState::onCollision(Object*ob,int dir){
 			mKoopa->ax = 0;
 			mKoopa->setState(new KoopaVulnerableState(mKoopa));
 		}
-		/*if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT || dir == Physics::COLLIDED_FROM_BOTTOM){
-			ob->die();
-		}*/
-		//Mario ->onCollision() xử lý va chạm này
 	}
+	 //va chạm với rùa đang slide
+	 if (objName == RedKoopa::OBJECT_NAME || objName == KoopaTroopa::OBJECT_NAME){
+		 string stateName = ((KoopaTroopa*)ob)->getState()->getName();
+		 if (stateName == KoopaSlidingState::STATE_NAME){
+			 if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT){
+				 mKoopa->die();
+			 }
+		 }
+	 }
 }
 KoopaNomalState::KoopaNomalState(KoopaTroopa* koopa)
 	:KoopaTroopaState(koopa){
@@ -166,7 +171,8 @@ void KoopaVulnerableState::onCollision(Object*ob,int dir){
 	//nếu chạm mario chuyển sang trạng thái bị đá SlidingState
 	//Va chạm dưới với gạch, 
 	//va chạm trên dưới trái phải với mario;
-	if (ob->getName() == BrickGround::OBJECT_NAME){
+	string objName = ob->getName();
+	if (objName == BrickGround::OBJECT_NAME){
 		if (dir == Physics::COLLIDED_FROM_BOTTOM){
 			mKoopa->vy = 0;
 			mKoopa->ay = 0;
@@ -209,6 +215,15 @@ void KoopaVulnerableState::onCollision(Object*ob,int dir){
 			mKoopa->vx = -KoopaTroopa::KOOPA_SLIDING_SPEED_X;
 			mKoopa->vx_last = mKoopa->vx;
 			mKoopa->setState(new KoopaSlidingState(mKoopa));
+		}
+	}
+	//va chạm với rùa đang slide
+	if (objName == RedKoopa::OBJECT_NAME || objName == KoopaTroopa::OBJECT_NAME){
+		string stateName = ((KoopaTroopa*)ob)->getState()->getName();
+		if (stateName == KoopaSlidingState::STATE_NAME){
+			if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT){
+				mKoopa->die();
+			}
 		}
 	}
 }
@@ -264,11 +279,11 @@ void KoopaSlidingState::onCollision(Object*ob,int dir){
 			mKoopa->setState(new KoopaVulnerableState(mKoopa));
 		}
 	}
-	if (objName == Mario::OBJECT_NAME || objName == KoopaTroopa::OBJECT_NAME || objName == RedKoopa::OBJECT_NAME || objName == Gooba::OBJECT_NAME){
+	/*if (objName == KoopaTroopa::OBJECT_NAME || objName == RedKoopa::OBJECT_NAME || objName == Gooba::OBJECT_NAME){
 		if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT || dir == Physics::COLLIDED_FROM_BOTTOM){
-			ob->die();
+	
 		}
-	}
+	}*/
 	
 	
 }
