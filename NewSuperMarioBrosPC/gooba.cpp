@@ -5,11 +5,16 @@
 using namespace std;
 
 
-const float Gooba::SPEED_X = 0.13f;
+const float Gooba::SPEED_X = 0.08f;
+const int Gooba::WIDTH = 16;
+const int Gooba::HEIGHT = 16;
+const int Gooba::ANIMATION_DELAY = 10;
 Gooba::Gooba(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image)
 :Object(x, y, width, height, vx, vy, vx_last, ax, ay, anim, image){
 	mAnimationFactory = new GoobaAnimationFactory(this);
 	mState = new GoobaNomalState(this);
+	mAnim = mAnimationFactory->createAnimation();
+	mAnim->SetFrameDeplay(Gooba::ANIMATION_DELAY);
 }
 
 const string Gooba::OBJECT_NAME = "gooba";
@@ -53,7 +58,8 @@ void GoobaNomalState::onCollision(Object*ob,int dir){
 	//xử lý va chạm, nếu chạm gạch thì quay đầu
 	//chạm mario từ bên trái,phải hoặc bên dưới thì mario chết
 	//chạm mario từ trên thì chuyển sang trạng thái Vulnerable;
-	if (ob->getName() == BrickGround::OBJECT_NAME){
+	string objName = ob->getName();
+	if (objName == BrickGround::OBJECT_NAME || objName==Pipe::OBJECT_NAME){
 		if (dir == Physics::COLLIDED_FROM_LEFT){
 			if (mGooba->vx_last < 0){
 				mGooba->vx = Gooba::SPEED_X;
@@ -76,6 +82,16 @@ void GoobaNomalState::onCollision(Object*ob,int dir){
 				mGooba->vy = -0.000001;//gần bằng 0, không đc =0 sẽ gây ra lổi
 				mGooba->ay = 0;
 			}
+		}
+	}
+	if (objName == Mario::OBJECT_NAME){
+		Mario* mario = (Mario*)ob;
+		if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT||dir==Physics::COLLIDED_FROM_BOTTOM){
+			mario->die();
+		}
+		else if (dir == Physics::COLLIDED_FROM_TOP){
+			mario->jumpUp();
+			mGooba->die();
 		}
 	}
 }
@@ -113,12 +129,7 @@ Animation* GoobaAnimationFactory::createAnimation(){
 	string stateName = mGooba->getState()->getName();
 	Animation* result;
 
-	if (mGooba->vx_last < 0){
-		result = mGoobaLeftWalkAnim;
-	}
-	else{
-		result = mGoobaRightWalkAnim;
-	}
+	result = mGoobaWalkingAnim;
 	result->Update();
 	return result;
 }

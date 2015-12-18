@@ -56,8 +56,8 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	marioSmallSprite = new CSprite(_SpriteHandler, MARIO_SMALL_IMAGE, 16, 16, 50, 18);
 	marioLargeSprite = new CSprite(_SpriteHandler, MARIO_LARGE_IMAGE, 32, 32, 195, 10);
 
-	koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_IMAGE, 17, 28, 48, 16);
-	goobaSprite = new CSprite(_SpriteHandler, GOOBA, 32, 32, 12, 4);
+	koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 17, 28, 48, 16);
+	goobaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 17, 28, 48, 16);
 
 	KoopaTroopa* koopa2 =
 		new KoopaTroopa(200, GROUND_Y + 200, 17, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
@@ -74,9 +74,8 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	
 
 
-	Gooba* gooba = new Gooba(400, GROUND_Y+200, 32, 32, -Gooba::SPEED_X, 0, -Gooba::SPEED_X, 0, 0, NULL, goobaSprite);
-	gooba->setAnimationFactory(new GoobaAnimationFactory(gooba));
-	gooba->setAnimation(gooba->mAnimationFactory->createAnimation());
+	Gooba* gooba = new Gooba(400, GROUND_Y+200, Gooba::WIDTH, Gooba::HEIGHT, -Gooba::SPEED_X, 0, -Gooba::SPEED_X, 0, 0, NULL, goobaSprite);
+	;
 
 	
 	Mario* marioObject = new Mario(mario_x, mario_y, 32, 32, mario_vx, 0, 0, 0 , 0, NULL, marioLargeSprite, NULL, NULL);
