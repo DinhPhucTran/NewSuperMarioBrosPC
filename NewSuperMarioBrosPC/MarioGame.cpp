@@ -143,9 +143,11 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 	
 	qbSprite = new CSprite(_SpriteHandler, QBRICK_IMAGE, 16, 16, 5, 5);
-	qb1 = new QBrick(184, 73, 16, 16, 0, 0, 0, 0, 0, qbAnim1, qbSprite);
+	Gooba* hiddenGoomba = new Gooba(0, 0, Gooba::WIDTH, Gooba::HEIGHT, Gooba::SPEED_X,0,Gooba::SPEED_X,0,0,NULL,goobaSprite);
+	Gooba* hiddenGoomba1 = new Gooba(0, 0, Gooba::WIDTH, Gooba::HEIGHT, Gooba::SPEED_X, 0, Gooba::SPEED_X, 0, 0, NULL, goobaSprite);
+	qb1 = new QBrick(184, 73, 16, 16,hiddenGoomba, qbAnim1, qbSprite);
 	mObjectManager->addObject(qb1);
-	qb2 = new QBrick(184 + 16, 73, 16, 16, 0, 0, 0, 0, 0, qbAnim2, qbSprite);
+	qb2 = new QBrick(184 + 16, 73, 16, 16, hiddenGoomba1, qbAnim2, qbSprite);
 	mObjectManager->addObject(qb2);
 	
 

@@ -48,6 +48,10 @@ void MarioState::onCollision(Object* ob,int dir){
 
 		}*/
 		if (dir == Physics::COLLIDED_FROM_TOP){
+			if (objectName == QBrick::OBJECT_NAME){
+				QBrick* qBrick = (QBrick*)ob; 
+				qBrick->revealHiddenObject();
+			}
 			mMario->y = ob->bottom() - mMario->height / 2;
 			mMario->vy = -0.000001;//note: không đc =0. nếu vy =0 thì sẽ gây ra lỗi người dùng có thể cho nó bay liên tục
 			mMario->ay = 0;
@@ -109,6 +113,8 @@ void MarioState::onCollision(Object* ob,int dir){
 			//nếu trái phải trên thì chết
 		}
 	}
+	// va chaạm với QBrick;
+	
 }
 string MarioState::getName(){
 	return "mario_state";

@@ -1,18 +1,29 @@
 #ifndef _Q_BRICK_H
 #define _Q_BRICK_H
-#include "object.h"
+#include "StaticObject.h"
 #include "animation.h"
 #include <string>
 
-class QBrick :public Object
+class QBrick :public StaticObject
 {
+private:
+	Object* mHiddenObject;
+	Animation* createAnimation();
+	string mState;
 public:
-	Animation *anim;
+	static const float HIDDEN_OBJECT_Y_SPEED;//0.5f
+	static const string NORMAL_STATE;
+	static const string QUESTION_STATE;
+	Animation* mQuestionAnimation = new Animation(0, 3);
+	Animation* mNormalAnimation = new Animation(4, 4);
+	void setState(string QbrickState);
+	string getState();
+	void revealHiddenObject();
 	static const string OBJECT_NAME;
 	string getName();
-	void onCollision(Object* ob, int dir)override;
-	QBrick(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image);
-	void update(int t);
+	QBrick(int x, int y, int width, int height,Object* hiddenObject, Animation* anim, CSprite * image);
+	void render(int vpx, int vpy)override;
+	~QBrick();
 };
 
 #endif
