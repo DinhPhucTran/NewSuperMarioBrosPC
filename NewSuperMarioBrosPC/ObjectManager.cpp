@@ -13,28 +13,44 @@ ObjectManager* ObjectManager::getInstance(){
 }
 
 void ObjectManager::addObject(Object* ob){
-	mListObject.push_back(ob);
+	if (ob->isStaticObject()){
+		mListStaticObject.push_back(ob);
+	}
+	else{
+		mListObject.push_back(ob);
+	}
+	
 }
 
-int ObjectManager::removeObject(int position){
-	Object* ob;
-	try{
-		ob = mListObject[position];
-	}
-	catch (out_of_range exception){
-		return 0;
-	}
-	//delete ob;
-	ob = 0;
-	mListObject.erase(mListObject.begin() + position);
-	return 1;
-}
+//int ObjectManager::removeObject(int position){
+//	Object* ob;
+//	try{
+//		ob = mListObject[position];
+//	}
+//	catch (out_of_range exception){
+//		return 0;
+//	}
+//	//delete ob;
+//	ob = 0;
+//	mListObject.erase(mListObject.begin() + position);
+//	return 1;
+//}
 int ObjectManager::removeObject(Object *ob){
 	for (int i = 0; i < mListObject.size(); ++i){
 		if (mListObject[i] == ob){
-			mListObject.erase(mListObject.begin() + i);
+			//mListObject.erase(mListObject.begin() + i);
 			//delete ob;
-			ob = 0;
+			mListOfGarbageObject.push_back(ob);
+			mListObject[i] = 0;
+			return 1;
+		}
+	}
+	for (int i = 0; i < mListStaticObject.size(); ++i){
+		if (mListStaticObject[i] == ob){
+			//mListStaticObject.erase(mListObject.begin() + i);
+			//delete ob;
+			mListOfGarbageObject.push_back(ob);
+			mListStaticObject[i] = 0;
 			return 1;
 		}
 	}
@@ -42,20 +58,63 @@ int ObjectManager::removeObject(Object *ob){
 }
 
 void ObjectManager::checkCollition(){
-	for (int i = 0; i < mListObject.size()-1; ++i){
+	//for (int i = 0; i < mListObject.size()-1; ++i){
+	//	for (int j = i + 1; j < mListObject.size(); ++j){
+	//		Object *ob1, *ob2;
+	//		ob1 = mListObject[i];
+	//		ob2 = mListObject[j];
+	//		int dir = Physics::CollisionStatic(mListObject[i], mListObject[j]);
+	//		if (dir != 0){
+	//			if (ob1)
+	//				ob1->onCollision(ob2, dir);//ob 1 bị đụng trái thì ob2 bị đụng phải, tương tự trên dưới
+	//			if (ob2)
+	//				ob2->onCollision(ob1, -dir);
+	//		}
+	//	}
+	//}
+	
+	for (int i = 0; i < mListObject.size(); ++i){
 		for (int j = i + 1; j < mListObject.size(); ++j){
 			Object *ob1, *ob2;
 			ob1 = mListObject[i];
 			ob2 = mListObject[j];
-			int dir = Physics::CollisionStatic(mListObject[i], mListObject[j]);
+			if (ob1 == 0){//object này đả bị xóa, tiếp tục chạy sẽ gây lỗi
+				break;
+			}
+			else if (ob2 == 0){
+				continue;
+			}
+			int dir = Physics::CollisionStatic(ob1, ob2);
 			if (dir != 0){
-				if (ob1)
+				if (ob1!=0 && ob2 !=0)
 					ob1->onCollision(ob2, dir);//ob 1 bị đụng trái thì ob2 bị đụng phải, tương tự trên dưới
-				if (ob2)
+				if (ob2 != 0 && ob1 != 0)
 					ob2->onCollision(ob1, -dir);
 			}
 		}
+		//check collision for static object
+		for (int k = 0; k < mListStaticObject.size(); ++k){
+			Object *ob1, *ob2;
+			ob1 = mListObject[i];
+			ob2 = mListStaticObject[k];
+			if (ob1 == 0){//object này đả bị xóa, tiếp tục chạy sẽ gây lỗi
+				break;
+			}
+			else if (ob2 == 0){
+				continue;
+			}
+			int dir = Physics::CollisionStatic(ob1, ob2);
+			if (dir != 0){
+				if (ob1!=0 && ob2!=0){
+					ob1->onCollision(ob2, dir);
+				}
+				if (ob2!=0 && ob1!=0){
+					ob2->onCollision(ob1, -dir);
+				}
+			}
+		}
 	}
+	refeshList();
 }
 
 Mario* ObjectManager::getMario(){
@@ -71,17 +130,54 @@ Mario* ObjectManager::getMario(){
 }
 
 void ObjectManager::render(int vpx,int vpy){
-	/*for (int i = 0; i < mListObject.size() ; ++i){
-		mListObject[i]->render(vpx,vpy);
-	}*/
 
+	refeshList();
 	for (int i = mListObject.size() - 1; i >= 0; --i){
-		mListObject[i]->render(vpx, vpy);
+		Object* ob = mListObject[i];
+		if (ob == 0){
+			continue;
+		}else
+			ob->render(vpx, vpy);
+	}
+	for (int i = mListStaticObject.size() - 1; i >= 0; --i){
+		Object* ob = mListStaticObject[i];
+		if (ob == 0){
+			continue;
+		}else 
+			ob->render(vpx, vpy);
 	}
 }
 
 void ObjectManager::update(int t){
 	for (int i = 0; i < mListObject.size(); ++i){
-		mListObject[i]->update(t);
+		Object* ob = mListObject[i];
+		if (ob != 0)
+			ob->update(t);
+	}
+	for (int i = 0; i < mListStaticObject.size(); ++i){
+		Object* ob = mListStaticObject[i];
+		if (ob!=0)
+			ob->update(t);
+	}
+}
+void ObjectManager::refeshList(){
+	for (vector<Object*>::iterator itr = mListOfGarbageObject.begin(); itr != mListOfGarbageObject.end();itr++){
+ 		Object* ob = (*itr);
+		//delete ob;
+	}
+	mListOfGarbageObject.clear();
+
+
+	for (int i = 0; i < mListObject.size(); ++i){
+		Object* ob = mListObject[i];
+		if (ob == 0){
+			mListObject.erase(mListObject.begin() + i);
+		}
+	}
+	for (int i = 0; i < mListStaticObject.size(); ++i){
+		Object* ob = mListStaticObject[i];
+		if (ob == 0){
+			mListStaticObject.erase(mListStaticObject.begin() + i);
+		}
 	}
 }

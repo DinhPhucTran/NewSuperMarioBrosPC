@@ -11,6 +11,7 @@ public:
 	StaticObject(int x, int y, int width, int height);
 	virtual void update(int t)override;
 	virtual string getName()override;
+	int isStaticObject()override;
 };
 
 #endif

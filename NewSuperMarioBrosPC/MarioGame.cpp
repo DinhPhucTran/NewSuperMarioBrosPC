@@ -97,10 +97,10 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	
 	mObjectManager->addObject(marioObject);
 	mObjectManager->addObject(koopa);
+	
+	mObjectManager->addObject(gooba);
 	mObjectManager->addObject(koopa2);
 	mObjectManager->addObject(redKoopa);
-	mObjectManager->addObject(gooba);
-	
 
 
 
@@ -150,7 +150,9 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	qb2 = new QBrick(184 + 16, 73, 16, 16, hiddenGoomba1, qbAnim2, qbSprite);
 	mObjectManager->addObject(qb2);
 	
-
+	
+	
+	
 	mario = mObjectManager->getMario();
 
 }

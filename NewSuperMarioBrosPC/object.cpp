@@ -86,3 +86,6 @@ int Object::bottom() {
 void Object::die(){
 	ObjectManager::getInstance()->removeObject(this);
 }
+int Object::isStaticObject(){
+	return 0;
+}

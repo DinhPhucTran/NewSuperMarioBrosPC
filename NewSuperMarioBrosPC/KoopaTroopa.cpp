@@ -4,6 +4,7 @@
 #include"BrickGround.h"
 #include"Physics.h"
 #include <string>
+#include"Qbrick.h"
 using namespace std;
 
 KoopaTroopa::KoopaTroopa(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image) 
@@ -284,7 +285,12 @@ void KoopaSlidingState::onCollision(Object*ob,int dir){
 	
 		}
 	}*/
-	
+	if (objName == QBrick::OBJECT_NAME){
+		QBrick* qBrick = (QBrick*)ob;
+		if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT){
+			qBrick->revealHiddenObject();
+		}
+	}
 	
 }
 KoopaSlidingState::KoopaSlidingState(KoopaTroopa* koopa) 
@@ -328,8 +334,8 @@ KoopaAnimationFactory::KoopaAnimationFactory(KoopaTroopa*koopa){
 	mKoopa = koopa;
 }
 KoopaAnimationFactory::~KoopaAnimationFactory(){
-	delete mKoopaLeftWalkAnim;
+	/*delete mKoopaLeftWalkAnim;
 	delete mKoopaRightWalkAnim;
 	delete mKoopaSlidingAnim;
-	delete mKoopaVulnerableAnim;
+	delete mKoopaVulnerableAnim;*/
 }

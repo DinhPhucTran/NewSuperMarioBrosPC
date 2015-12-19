@@ -18,3 +18,6 @@ void StaticObject::update(int t){
 string StaticObject::getName(){
 	return OBJECT_NAME;
 }
+int StaticObject::isStaticObject(){
+	return 1;
+}

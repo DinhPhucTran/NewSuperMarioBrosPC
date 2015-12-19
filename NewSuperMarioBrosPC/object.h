@@ -33,6 +33,7 @@ public:
 	virtual void onCollision(Object* ob, int direction);
 	virtual void render(int vpx,int vpy);//ObjectManager thấy mario, rùa, goomba ... như là 1 Object, và cần hàm này để render. các lớp kế thừa phải override hàm này để vẽ đối tượng 
 	virtual void die();//các lớp kế thừa nên override hàm này để animation hóa cái chết, ví dụ mario thì bay lên rồi rơi xuống...
+	virtual int isStaticObject();
 
 	int left();		//trả vệ tọa độ x ở cạnh trái
 	int right();	//trả về tạo độ x cạnh phải
