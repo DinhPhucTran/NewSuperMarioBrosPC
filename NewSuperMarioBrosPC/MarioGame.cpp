@@ -162,8 +162,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 	qb1 = new QBrick(184, 73, 16, 16, mushroom1, qbAnim1, qbSprite);
 	mObjectManager->addObject(qb1);
-	/*qb2 = new QBrick(184 + 16, 73, 16, 16, mushroom2, qbAnim2, qbSprite);*/
-	qb2 = new QBrick(184 + 16, 73, 16, 16, leaf1, qbAnim2, qbSprite);
+	qb2 = new QBrick(184 + 16, 73, 16, 16, mushroom2, qbAnim2, qbSprite);
 	mObjectManager->addObject(qb2);
 	
 	CSprite *backgroundImage = new CSprite(_SpriteHandler, SCROLLBG_IMAGE, 4096, 432, 1, 1);
