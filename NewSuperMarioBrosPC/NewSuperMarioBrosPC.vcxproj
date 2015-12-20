@@ -71,9 +71,12 @@
     <ClInclude Include="animation.h" />
     <ClInclude Include="AnimationFactory.h" />
     <ClInclude Include="BrickGround.h" />
+    <ClInclude Include="Coin.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gooba.h" />
+    <ClInclude Include="GreenMushroom.h" />
     <ClInclude Include="KoopaTroopa.h" />
+    <ClInclude Include="Leaf.h" />
     <ClInclude Include="MarioAnimationFactory.h" />
     <ClInclude Include="MarioGame.h" />
     <ClInclude Include="MarioObject.h" />
@@ -85,15 +88,19 @@
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Qbrick.h" />
     <ClInclude Include="RedKoopa.h" />
+    <ClInclude Include="RedMushroom.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="StaticObject.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
+    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gooba.cpp" />
+    <ClCompile Include="GreenMushroom.cpp" />
     <ClCompile Include="KoopaTroopa.cpp" />
+    <ClCompile Include="Leaf.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MarioAnimationFactory.cpp" />
     <ClCompile Include="MarioGame.cpp" />
@@ -107,6 +114,7 @@
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="Qbrick.cpp" />
     <ClCompile Include="RedKoopa.cpp" />
+    <ClCompile Include="RedMushroom.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="utils.cpp" />
