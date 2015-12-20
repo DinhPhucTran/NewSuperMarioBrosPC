@@ -132,15 +132,15 @@ Mario* ObjectManager::getMario(){
 void ObjectManager::render(int vpx,int vpy){
 
 	refeshList();
-	for (int i = mListObject.size() - 1; i >= 0; --i){
-		Object* ob = mListObject[i];
+	for (vector<Object*>::iterator itr = mListObject.begin(); itr != mListObject.end();itr++){
+		Object* ob = (*itr);
 		if (ob == 0){
 			continue;
 		}else
 			ob->render(vpx, vpy);
 	}
-	for (int i = mListStaticObject.size() - 1; i >= 0; --i){
-		Object* ob = mListStaticObject[i];
+	for (vector<Object*>::iterator itr = mListStaticObject.begin(); itr != mListStaticObject.end(); itr++){
+		Object* ob = (*itr);
 		if (ob == 0){
 			continue;
 		}else 

@@ -34,19 +34,6 @@ void MarioState::onCollision(Object* ob,int dir){
 	}
 	if (objectName == BrickGround::OBJECT_NAME || objectName == Pipe::OBJECT_NAME || objectName == QBrick::OBJECT_NAME)
 	{
-		/*switch (dir){
-		case (-1) :
-		mMario->vy = 0;
-		mMario->ay = 0;
-		mMario->y = ob->top();
-
-		break;
-		case 1:
-		mMario->vy = 0;
-		mMario->ay = 0;
-		mMario->y = ob->top() + mMario->height / 2;
-
-		}*/
 		if (dir == Physics::COLLIDED_FROM_TOP){
 			if (objectName == QBrick::OBJECT_NAME){
 				QBrick* qBrick = (QBrick*)ob; 
@@ -120,10 +107,10 @@ string MarioState::getName(){
 	return "mario_state";
 }
 int MarioState::getWidth(){
-	return 0;
+	return 16;
 }
 int MarioState::getHeight(){
-	return 0;
+	return 27;
 }
 //================STATE SMALL==============
 const string MarioStateSmall::STATE_NAME = "mario_state_small";
@@ -249,4 +236,11 @@ void MarioStateInvincible::onCollision(Object* ob, int dir){
 			return;
 		}
 	}
+}
+
+int MarioStateInvincible::getHeight(){
+	return mNextState->getHeight();
+}
+int MarioStateInvincible::getWidth(){
+	return mNextState->getWidth();
 }

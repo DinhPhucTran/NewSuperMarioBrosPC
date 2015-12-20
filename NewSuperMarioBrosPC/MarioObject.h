@@ -10,6 +10,7 @@ class Mario :public Object{
 	MarioState* mMarioState;
 
 public:
+	MarioState* getState();
 	int isLeftButtonPress;
 	int isRightButtonPress;
 	static const float ACCELERATION_X;

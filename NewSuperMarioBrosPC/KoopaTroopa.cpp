@@ -5,6 +5,7 @@
 #include"Physics.h"
 #include <string>
 #include"Qbrick.h"
+#include"MarioState.h"
 using namespace std;
 
 KoopaTroopa::KoopaTroopa(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image) 
@@ -70,8 +71,10 @@ string KoopaTroopaState::getName(){
 }
 
 void KoopaTroopaState::onCollision(Object*ob,int dir){
+	//Tất cả các lơp kế thừa phải gọi hàm này nếu override
+	//chứa tất cả các loại va chạm chung mà mọi trạng thái đều xử lý như nhau
 
-	//khong xử lý va chạm, vì đây là trạng thái ảo
+	
 }
 KoopaTroopaState::KoopaTroopaState(KoopaTroopa* koopa){
 	mKoopa = koopa;
@@ -100,6 +103,7 @@ void KoopaNomalState::onCollision(Object*ob,int dir){
 	//xử lý va chạm, nếu chạm gạch thì quay đầu
 	//chạm mario từ bên trái,phải hoặc bên dưới thì mario chết
 	//chạm mario từ trên thì chuyển sang trạng thái Vulnerable;
+	KoopaTroopaState::onCollision(ob, dir);
 	string objName = ob->getName();
 	 if (objName == BrickGround::OBJECT_NAME || objName == Pipe::OBJECT_NAME){
 		if (dir == Physics::COLLIDED_FROM_LEFT){
@@ -126,10 +130,19 @@ void KoopaNomalState::onCollision(Object*ob,int dir){
 			}
 		}
 	}
-	 else if (objName == Mario::OBJECT_NAME){
+	else if (objName == Mario::OBJECT_NAME)
+	{
+		//Nếu mario invicible thì ko xử lý tiếp nữa
+		Mario* mario = (Mario*)ob;
+		string stateName = (mario->getState())->getName();
+		if (stateName == MarioStateInvincible::STATE_NAME){
+			return;
+		}
+
 		//chạm trái phải dưới -> mario chết
 		//trên thì chuyển sang vulnerable state;
-     		if (dir == Physics::COLLIDED_FROM_TOP){
+		else if (dir == Physics::COLLIDED_FROM_TOP)
+		{
 			if (mKoopa->vy > 0){
 				mKoopa->vy = -0.000001;//gần bằng 0, không đc =0 sẽ gây ra lổi
 				mKoopa->ay = 0;
@@ -172,6 +185,9 @@ void KoopaVulnerableState::onCollision(Object*ob,int dir){
 	//nếu chạm mario chuyển sang trạng thái bị đá SlidingState
 	//Va chạm dưới với gạch, 
 	//va chạm trên dưới trái phải với mario;
+
+
+	KoopaTroopaState::onCollision(ob, dir);
 	string objName = ob->getName();
 	if (objName == BrickGround::OBJECT_NAME){
 		if (dir == Physics::COLLIDED_FROM_BOTTOM){
@@ -186,8 +202,15 @@ void KoopaVulnerableState::onCollision(Object*ob,int dir){
 			}
 		}
 	}
+	//xử lý va chạm vs Mario
 	if (ob->getName() == Mario::OBJECT_NAME){
-		if (dir == Physics::COLLIDED_FROM_TOP||dir==Physics::COLLIDED_FROM_BOTTOM){
+		//Nếu mario invicible thì ko xử lý tiếp nữa
+		Mario* mario = (Mario*)ob;
+		string stateName = (mario->getState())->getName();
+		if (stateName == MarioStateInvincible::STATE_NAME){
+			return;
+		}
+		else if (dir == Physics::COLLIDED_FROM_TOP||dir==Physics::COLLIDED_FROM_BOTTOM){
 			if (ob->x >= mKoopa->x){
 				//slide qua trái
 				ob->y = mKoopa->top() + ob->height / 2 + 2;
@@ -247,6 +270,8 @@ void KoopaSlidingState::onCollision(Object*ob,int dir){
 	//nếu chạm mario từ trên xuống thì dừng lại chuyển sang trạng thái vulnerable
 	//nếu chạm gạch vở đc thì gach vở, đổi hướng.
 	//nếu chạm kẻ thù (Goomba, koopa..) thì kẻ thù chết.
+
+	KoopaTroopaState::onCollision(ob, dir);
 	string objName = ob->getName();
 	if (ob->getName() == BrickGround::OBJECT_NAME||ob->getName()==Pipe::OBJECT_NAME){
 		if (dir == Physics::COLLIDED_FROM_LEFT){
@@ -273,18 +298,21 @@ void KoopaSlidingState::onCollision(Object*ob,int dir){
 			}
 		}
 	}
+	//xử lý với mario
 	if (objName == Mario::OBJECT_NAME){
-		if (dir == Physics::COLLIDED_FROM_TOP){
+		//Nếu mario invicible thì ko xử lý tiếp nữa
+		Mario* mario = (Mario*)ob;
+		string stateName = (mario->getState())->getName();
+		if (stateName == MarioStateInvincible::STATE_NAME){
+			return;
+		}
+		else if (dir == Physics::COLLIDED_FROM_TOP){
 			mKoopa->vx = 0;
 			mKoopa->ax = 0;
 			mKoopa->setState(new KoopaVulnerableState(mKoopa));
 		}
 	}
-	/*if (objName == KoopaTroopa::OBJECT_NAME || objName == RedKoopa::OBJECT_NAME || objName == Gooba::OBJECT_NAME){
-		if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT || dir == Physics::COLLIDED_FROM_BOTTOM){
 	
-		}
-	}*/
 	if (objName == QBrick::OBJECT_NAME){
 		QBrick* qBrick = (QBrick*)ob;
 		if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT){

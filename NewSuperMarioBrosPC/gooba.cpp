@@ -1,5 +1,6 @@
 ﻿#include"gooba.h"
 #include <string>
+#include "MarioState.h"
 
 
 using namespace std;
@@ -115,7 +116,11 @@ void GoobaNomalState::onCollision(Object*ob,int dir){
 	string objName = ob->getName();
 	GoobaState::onCollision(ob, dir);
 	if (objName == Mario::OBJECT_NAME){
-		if (dir == Physics::COLLIDED_FROM_TOP){
+		string marioState = ((Mario*)ob)->getState()->getName();
+		if (marioState == MarioStateInvincible::STATE_NAME){
+			return;
+		}
+		else if (dir == Physics::COLLIDED_FROM_TOP){
 			mGooba->setState(new GoobaDyingState(mGooba));
 		}
 	}

@@ -75,6 +75,8 @@ public:
 	MarioStateInvincible(Mario* mario,MarioState* nextState);
 	void onCollision(Object*ob, int dir)override;
 	string getName()override;
+	int getWidth()override;
+	int getHeight()override;
 };
 
 #endif
