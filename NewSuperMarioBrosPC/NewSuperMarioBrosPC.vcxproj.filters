@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Mario">
       <UniqueIdentifier>{4f2b12cb-a96f-4e9a-b8c4-69c1f29353c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Items">
+      <UniqueIdentifier>{d8544751-d858-43a4-adb2-b2208ca85da6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Items">
+      <UniqueIdentifier>{2575a138-cfcb-474c-a17d-839aa378888e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation.h">
@@ -93,8 +99,22 @@
     <ClInclude Include="Qbrick.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Mushroom.h">
       <Filter>Header Files</Filter>
+=======
+    <ClInclude Include="Coin.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenMushroom.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="RedMushroom.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaf.h">
+      <Filter>Header Files\Items</Filter>
+>>>>>>> origin/master
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -158,8 +178,22 @@
     <ClCompile Include="Qbrick.cpp">
       <Filter>Source Files\Object</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Mushroom.cpp">
       <Filter>Source Files</Filter>
+=======
+    <ClCompile Include="Coin.cpp">
+      <Filter>Source Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenMushroom.cpp">
+      <Filter>Source Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="RedMushroom.cpp">
+      <Filter>Source Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp">
+      <Filter>Source Files\Items</Filter>
+>>>>>>> origin/master
     </ClCompile>
   </ItemGroup>
 </Project>

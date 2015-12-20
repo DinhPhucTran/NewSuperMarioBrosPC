@@ -13,8 +13,11 @@ const float Mario::ACCELERATION_Y = 0.009f;
 const float Mario::ACCELERATION_Y_PLUS = 0.012f;
 const float Mario::MAX_SPEED_X = 0.3f;
 const float Mario::MAX_SPEED_Y = 0.7f;
-const int Mario::INVINCIBLE_SWITCH_STATE_TIME = 2000;
+const int Mario::INVINCIBLE_SWITCH_STATE_TIME = 1000;
 
+MarioState* Mario::getState(){
+	return mMarioState;
+}
 Mario::Mario(int x, int y, int width, int height, int vx, int vy, int vx_last, float aX, float aY, Animation* anim, CSprite * image, MarioState* state,AnimationFactory* animFactory) 
 	: Object(x, y, width, height, vx, vy, vx_last, aX, aY, anim, image){
 	if (state != NULL){
@@ -51,15 +54,7 @@ void Mario::setState(MarioState* state){
 	string stateName = state->getName();
 	width = state->getWidth();
 	height = state->getHeight();
-	if (stateName == MarioStateRaccoon::STATE_NAME){
-		setAnimationFactory(RaccoonMarioAnimationFactory::getInstance(this));
-	}
-	else if (stateName == MarioStateLarge::STATE_NAME){
-		setAnimationFactory(LargeMarioAnimationFactory::getInstance(this));
-	}
-	else if (stateName == MarioStateSmall::STATE_NAME){
-		setAnimationFactory(SmallMarioAnimationFactory::getInstance(this));
-	}
+	setAnimationFactory(state->getAnimationFactory());
 }
 void Mario::setAnimationFactory(AnimationFactory* animFactory){
 	mAnimationFactory = animFactory;
@@ -106,21 +101,21 @@ void Mario::stop(){
 	ay = 0;
 }
 void Mario::die(){
-	/*string stateName = mMarioState->getName();
+	string stateName = mMarioState->getName();
 	MarioState* nextState = new MarioStateSmall(this);
 	if (stateName == MarioStateRaccoon::STATE_NAME){
-		delete nextState;
+		//delete nextState;
 		nextState = new MarioStateLarge(this);
 	}
 	else if (stateName == MarioStateLarge::STATE_NAME){
-		delete nextState;
+		//delete nextState;
 		nextState = (new MarioStateSmall(this));
 	}
 	else{
 		Object::die();
 	}
-	setState(new MarioStateInvincible(this, nextState));*/
-	y += 50;
+	setState(new MarioStateInvincible(this, nextState));
+	/*y += 50;
 	string stateName = mMarioState->getName();
 	MarioState* nextState = new MarioStateSmall(this);
 	if (stateName == MarioStateRaccoon::STATE_NAME){
@@ -134,5 +129,5 @@ void Mario::die(){
 	else{
 		Object::die();
 	}
-	setState(nextState);
+	setState(nextState);*/
 }

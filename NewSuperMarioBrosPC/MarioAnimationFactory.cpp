@@ -1,6 +1,7 @@
 ﻿#include"MarioAnimationFactory.h"
 #include<string>
 #include"game.h"
+#include"MarioState.h"
 using namespace std;
 
 
@@ -205,4 +206,41 @@ RaccoonMarioAnimationFactory::~RaccoonMarioAnimationFactory(){
 	delete leftStandAnim;
 	delete rightStandAnim;
 
+}
+////////////////////////////////InvincibleMarioAnimationFactory////////
+InvincibleMarioAnimationFactory::InvincibleMarioAnimationFactory(Mario* mario){
+	mMario = mario;
+	isBlanked = false;
+}
+InvincibleMarioAnimationFactory* InvincibleMarioAnimationFactory::sInstance;
+InvincibleMarioAnimationFactory* InvincibleMarioAnimationFactory::getInstance(Mario* mario){
+	if (sInstance == NULL){
+		sInstance = new InvincibleMarioAnimationFactory(mario);
+	}
+	else
+		sInstance->mMario = mario;
+	return sInstance;
+}
+
+Animation* InvincibleMarioAnimationFactory::createAnimation(){
+	Animation* result;
+	DWORD now = GetTickCount();
+	MarioStateInvincible * state =(MarioStateInvincible*)mMario->getState();
+	MarioState* lastState = state->mLastState;
+	MarioState* nextState = state->mNextState;
+	if ((now - state->getLastTime()) <= Mario::INVINCIBLE_SWITCH_STATE_TIME / 2){
+		result = lastState->getAnimationFactory()->createAnimation();
+	}
+	else{
+		result = nextState->getAnimationFactory()->createAnimation();
+	}
+	if (isBlanked){
+		isBlanked = false;
+		return result;
+	}
+	else{
+		isBlanked = true;
+		return blankAnimation;
+	}
+	
 }

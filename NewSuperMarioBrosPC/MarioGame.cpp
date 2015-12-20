@@ -10,6 +10,10 @@
 #include "MetalBlock.h"
 #include "Qbrick.h"
 #include "Mushroom.h"
+#include "Coin.h"
+#include "Leaf.h"
+#include "GreenMushroom.h"
+#include "RedMushroom.h"
 
 
 const float CMarioGame::GRAVITY_VELOCOTY = GRAV_VELOCITY;
@@ -23,6 +27,11 @@ QBrick *qb1;
 QBrick *qb2;
 Object *scrollBG;
 int marioXlast=0;
+Animation *coinAnim = new Animation(0, 2);
+Coin *coin;
+Leaf *leaf;
+GreenMushroom * greenmushroom;
+RedMushroom * redmushroom;
 
 CMarioGame::CMarioGame(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate) :
 CGame(hInstance, Name, Mode, IsFullScreen, FrameRate)
@@ -163,6 +172,22 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	CSprite *backgroundImage = new CSprite(_SpriteHandler, SCROLLBG_IMAGE, 4096, 432, 1, 1);
 	Animation *bgAnim = new Animation(0, 0);
 	scrollBG = new Object(1000, 216, 4096, 432, 0, 0, 0, 0, 0, bgAnim, backgroundImage);
+
+	/*coinSprite = new CSprite(_SpriteHandler, COIN, 16, 16, 3, 3);
+	coin = new Coin(150, 73, 16, 16, coinAnim, coinSprite);
+	mObjectManager->addObject(coin);
+
+	leafSprite = new CSprite(_SpriteHandler, LEAF, 16, 16, 1, 1);
+	leaf = new Leaf(100, 73, 16, 16, leafSprite);
+	mObjectManager->addObject(leaf);
+
+	greenmushroomSprite = new CSprite(_SpriteHandler, GREEN_MUSHROOM, 16, 16, 1, 1);
+	greenmushroom = new GreenMushroom(1447, 300, 16, 16, greenmushroomSprite);
+	mObjectManager->addObject(greenmushroom);
+
+	redmushroomSprite = new CSprite(_SpriteHandler, RED_MUSHROOM, 16, 16, 1, 1);
+	redmushroom = new RedMushroom(50, 50, 16, 16, redmushroomSprite);
+	mObjectManager->addObject(redmushroom);*/
 	
 	
 	mario = mObjectManager->getMario();

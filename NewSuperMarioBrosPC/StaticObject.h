@@ -9,6 +9,7 @@ public:
 	static const string OBJECT_NAME;
 	StaticObject(int x, int y, int width, int height, Animation* anim, CSprite * image);
 	StaticObject(int x, int y, int width, int height);
+	StaticObject(int x, int y, int width, int height, CSprite * image);
 	virtual void update(int t)override;
 	virtual string getName()override;
 	int isStaticObject()override;

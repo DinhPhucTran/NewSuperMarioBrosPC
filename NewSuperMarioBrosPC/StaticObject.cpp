@@ -12,6 +12,12 @@ StaticObject::StaticObject(int x, int y, int width, int height)
 
 }
 
+StaticObject::StaticObject(int x, int y, int width, int height, CSprite * image)
+: Object(x, y, width, height, 0, 0, 0, 0, 0, NULL, image)
+{
+
+}
+
 void StaticObject::update(int t){
 	//do nothing
 }

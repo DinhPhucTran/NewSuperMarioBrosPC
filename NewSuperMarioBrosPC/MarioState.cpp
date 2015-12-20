@@ -6,6 +6,7 @@
 #include "RedKoopa.h"
 #include "MetalBlock.h"
 #include "Qbrick.h"
+#include "MarioAnimationFactory.h"
 
 #include <string>
 using namespace std;
@@ -34,19 +35,6 @@ void MarioState::onCollision(Object* ob,int dir){
 	}
 	if (objectName == BrickGround::OBJECT_NAME || objectName == Pipe::OBJECT_NAME || objectName == QBrick::OBJECT_NAME)
 	{
-		/*switch (dir){
-		case (-1) :
-		mMario->vy = 0;
-		mMario->ay = 0;
-		mMario->y = ob->top();
-
-		break;
-		case 1:
-		mMario->vy = 0;
-		mMario->ay = 0;
-		mMario->y = ob->top() + mMario->height / 2;
-
-		}*/
 		if (dir == Physics::COLLIDED_FROM_TOP){
 			if (objectName == QBrick::OBJECT_NAME){
 				QBrick* qBrick = (QBrick*)ob; 
@@ -120,9 +108,12 @@ string MarioState::getName(){
 	return "mario_state";
 }
 int MarioState::getWidth(){
-	return 0;
+	return 16;
 }
 int MarioState::getHeight(){
+	return 27;
+}
+AnimationFactory* MarioState::getAnimationFactory(){
 	return 0;
 }
 //================STATE SMALL==============
@@ -153,6 +144,9 @@ int MarioStateSmall::getHeight(){
 int MarioStateSmall::getWidth(){
 	return width;
 }
+AnimationFactory* MarioStateSmall::getAnimationFactory(){
+	return SmallMarioAnimationFactory::getInstance(mMario);
+}
 //==================SATE_LARGE==============
 const string MarioStateLarge::STATE_NAME = "mario_state_large";
 MarioStateLarge::MarioStateLarge(Mario* mario) :MarioState(mario){
@@ -178,7 +172,9 @@ int MarioStateLarge::getHeight(){
 int MarioStateLarge::getWidth(){
 	return width;
 }
-
+AnimationFactory* MarioStateLarge::getAnimationFactory(){
+	return LargeMarioAnimationFactory::getInstance(mMario);
+}
 //==================SATE_RACON==============
 const string MarioStateRaccoon::STATE_NAME = "mario_state_raccoon";
 MarioStateRaccoon::MarioStateRaccoon(Mario* mario) :MarioState(mario){
@@ -206,10 +202,15 @@ void MarioStateRaccoon::onCollision(Object* ob,int dir){
 	
 }
 
+AnimationFactory* MarioStateRaccoon::getAnimationFactory(){
+	return RaccoonMarioAnimationFactory::getInstance(mMario);
+}
+
 /////////////////////////MarioStateInvincible///////////////////////
 const string MarioStateInvincible::STATE_NAME = "mario_invincible";
 MarioStateInvincible::MarioStateInvincible(Mario* mario, MarioState* nextState):MarioState(mario){
 	mLastTime = GetTickCount();
+	mLastState = mario->getState();
 	mNextState = nextState;
 }
 string MarioStateInvincible::getName(){
@@ -249,4 +250,18 @@ void MarioStateInvincible::onCollision(Object* ob, int dir){
 			return;
 		}
 	}
+}
+
+int MarioStateInvincible::getHeight(){
+	return mNextState->getHeight();
+}
+int MarioStateInvincible::getWidth(){
+	return mNextState->getWidth();
+}
+AnimationFactory* MarioStateInvincible::getAnimationFactory(){
+	return InvincibleMarioAnimationFactory::getInstance(mMario);
+}
+
+DWORD MarioStateInvincible::getLastTime(){
+	return mLastTime;
 }
