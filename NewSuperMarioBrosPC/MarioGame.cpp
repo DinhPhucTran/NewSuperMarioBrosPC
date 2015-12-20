@@ -21,6 +21,9 @@ Animation *qbAnim2 = new Animation(0, 3);
 CSprite *qbSprite;
 QBrick *qb1;
 QBrick *qb2;
+Object *scrollBG;
+int marioXlast=0;
+
 CMarioGame::CMarioGame(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate) :
 CGame(hInstance, Name, Mode, IsFullScreen, FrameRate)
 {
@@ -49,6 +52,8 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	_Background = CreateSurfaceFromFile(_d3ddv, BACKGROUND_FILE);
 
 	HRESULT res = D3DXCreateSprite(_d3ddv, &_SpriteHandler);
+
+	
 
 	//khởi tạo mario
 	mario_x = 20;
@@ -150,7 +155,9 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	qb2 = new QBrick(184 + 16, 73, 16, 16, hiddenGoomba1, qbAnim2, qbSprite);
 	mObjectManager->addObject(qb2);
 	
-	
+	CSprite *backgroundImage = new CSprite(_SpriteHandler, SCROLLBG_IMAGE, 4096, 432, 1, 1);
+	Animation *bgAnim = new Animation(0, 0);
+	scrollBG = new Object(1000, 216, 4096, 432, 0, 0, 0, 0, 0, bgAnim, backgroundImage);
 	
 	
 	mario = mObjectManager->getMario();
@@ -165,14 +172,11 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 
 
 	mObjectManager->update(t);
-	//
-	// Update all object status
+	
+	
+	
 	mario->ay -= GRAV_VELOCITY*t;
-	/*if (mario->y <= GROUND_Y){
-		mario->y = GROUND_Y;
-		mario->vy = 0;
-		mario->ay = 0;
-	}*/
+	
 	qbAnim1->Update();
 	if (Physics::ContainsPoint(qb1, mario->x, mario->top()))
 	{
@@ -186,22 +190,33 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 		qbAnim2->startFrame = 4;
 		qbAnim2->endFrame = 4;
 	}
-		
-
-	
 	
 	mObjectManager->checkCollition();
 
-	
+	////paralaxBackground
+	scrollBG->update(t);
+	scrollBG->ay = 0;
+	if (marioXlast < mario->x) // kiểm tra mario có thay đổi vị trí không
+		scrollBG->ax = 0.001f;
+	else if (marioXlast > mario->x)
+		scrollBG->ax = -0.001f;
+	else
+		scrollBG->vx = 0;
 
+	if (scrollBG->vx >= 0.1f)
+		scrollBG->vx = 0.1f;
+	else if (scrollBG->vx <= -0.1f)
+		scrollBG->vx = -0.1f;
+	marioXlast = mario->x;
+	////////
 
 	// Background
-	d3ddv->StretchRect(
+	/*d3ddv->StretchRect(
 	_Background,			// from
 	NULL,				// which portion?
 	_BackBuffer,		// to
 	NULL,				// which portion?
-	D3DTEXF_NONE);
+	D3DTEXF_NONE);*/
 
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
@@ -212,9 +227,12 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	if (vpx >= 2485) vpx = 2485;
 	xc += 1;
 	
+	
+	
+	scrollBG->render(vpx, vpy);
+
 	foregroundImage->Render(1424, 360 - 288, vpx, vpy);
-
-
+	
 	//render all object in game
 	mObjectManager->render(vpx,vpy);
 	//mario->render(vpx, vpy);
@@ -241,6 +259,7 @@ void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 		mario->isRightButtonPress = 1;
 		mario->ax = Mario::ACCELERATION_X;
 		mario->vx_last = mario->vx;//lưu lại vx để biết hướng của mario
+		
 	}
 	else
 	if (IsKeyDown(DIK_LEFT))
@@ -249,6 +268,7 @@ void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 		mario->isLeftButtonPress = 1;
 		mario->ax = -Mario::ACCELERATION_X;
 		mario->vx_last = mario->vx;
+		
 	}
 	else//all key release
 	{

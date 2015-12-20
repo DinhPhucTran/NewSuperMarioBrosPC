@@ -27,6 +27,7 @@
 #define KOOPA_TROOPA_GOOMBA_IMAGE L"KoopaRedGreenGoomba_16x28x17.png"
 #define FOREGROUND_IMAGE L"foreground.png"
 #define QBRICK_IMAGE L"qBrick.png"
+#define SCROLLBG_IMAGE L"scrollBG3.png"
 
 
 
