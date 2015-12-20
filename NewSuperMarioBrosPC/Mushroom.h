@@ -10,12 +10,19 @@
 #include "MarioObject.h"
 #include "animation.h"
 
-class Mushroom :public Object
+class RedMushroom :public Object
 {
 public:
 	static const string OBJECT_NAME;
-	Mushroom(int X, int Y, int Width, int Height, int vx, int vy, int vx_last, int ax, int ay, CSprite * Sprite);
+	RedMushroom(int X, int Y, int Width, int Height, int vx, int vy, int vx_last, int ax, int ay, CSprite * Sprite);
 	string getName();
 	void onCollision(Object * ob, int dir);
+};
+
+class GreenMushroom :public RedMushroom
+{
+public:
+	static const string OBJECT_NAME;
+	GreenMushroom(int X, int Y, int Width, int Height, int vx, int vy, int vx_last, int ax, int ay, CSprite * Sprite);
 };
 #endif

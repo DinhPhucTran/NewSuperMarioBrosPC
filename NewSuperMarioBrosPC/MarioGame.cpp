@@ -12,9 +12,6 @@
 #include "Mushroom.h"
 #include "Coin.h"
 #include "Leaf.h"
-#include "GreenMushroom.h"
-#include "RedMushroom.h"
-
 
 const float CMarioGame::GRAVITY_VELOCOTY = GRAV_VELOCITY;
 DWORD last = 0;
@@ -29,9 +26,7 @@ Object *scrollBG;
 int marioXlast=0;
 Animation *coinAnim = new Animation(0, 2);
 Coin *coin;
-Leaf *leaf;
-GreenMushroom * greenmushroom;
-RedMushroom * redmushroom;
+
 
 CMarioGame::CMarioGame(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate) :
 CGame(hInstance, Name, Mode, IsFullScreen, FrameRate)
@@ -79,7 +74,8 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 17, 28, 48, 16);
 	goobaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 17, 28, 48, 16);
 	mushroomSprite = new CSprite(_SpriteHandler, MUSHROOM_IMAGE, 16, 16, 1, 1);
-
+	greenmushroomSprite = new CSprite(_SpriteHandler, GREEN_MUSHROOM, 16, 16, 1, 1);
+	
 	KoopaTroopa* koopa2 =
 		new KoopaTroopa(200, GROUND_Y + 200, 17, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
 	
@@ -161,33 +157,27 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	Gooba* hiddenGoomba = new Gooba(0, 0, Gooba::WIDTH, Gooba::HEIGHT, Gooba::SPEED_X,0,Gooba::SPEED_X,0,0,NULL,goobaSprite);
 	Gooba* hiddenGoomba1 = new Gooba(0, 0, Gooba::WIDTH, Gooba::HEIGHT, Gooba::SPEED_X, 0, Gooba::SPEED_X, 0, 0, NULL, goobaSprite);
 
-	Mushroom * mushroom1 = new Mushroom(0, 0, 16, 16, 0, 0, 0, 0, 0, mushroomSprite);
-	Mushroom * mushroom2 = new Mushroom(0, 0, 16, 16, 0, 0, 0, 0, 0, mushroomSprite);
+	RedMushroom * mushroom1 = new RedMushroom(0, 0, 16, 16, 0, 0, 0, 0, 0, mushroomSprite);
+	GreenMushroom * mushroom2 = new GreenMushroom(0, 0, 16, 16, 0, 0, 0, 0, 0, greenmushroomSprite);
 
 	qb1 = new QBrick(184, 73, 16, 16, mushroom1, qbAnim1, qbSprite);
 	mObjectManager->addObject(qb1);
-	qb2 = new QBrick(184 + 16, 73, 16, 16, mushroom2, qbAnim2, qbSprite);
+	/*qb2 = new QBrick(184 + 16, 73, 16, 16, mushroom2, qbAnim2, qbSprite);*/
+	qb2 = new QBrick(184 + 16, 73, 16, 16, leaf1, qbAnim2, qbSprite);
 	mObjectManager->addObject(qb2);
 	
 	CSprite *backgroundImage = new CSprite(_SpriteHandler, SCROLLBG_IMAGE, 4096, 432, 1, 1);
 	Animation *bgAnim = new Animation(0, 0);
 	scrollBG = new Object(1000, 216, 4096, 432, 0, 0, 0, 0, 0, bgAnim, backgroundImage);
 
-	/*coinSprite = new CSprite(_SpriteHandler, COIN, 16, 16, 3, 3);
+	coinSprite = new CSprite(_SpriteHandler, COIN, 16, 16, 3, 3);
 	coin = new Coin(150, 73, 16, 16, coinAnim, coinSprite);
 	mObjectManager->addObject(coin);
 
-	leafSprite = new CSprite(_SpriteHandler, LEAF, 16, 16, 1, 1);
+	/*leafSprite = new CSprite(_SpriteHandler, LEAF, 16, 16, 1, 1);
 	leaf = new Leaf(100, 73, 16, 16, leafSprite);
-	mObjectManager->addObject(leaf);
+	mObjectManager->addObject(leaf);*/
 
-	greenmushroomSprite = new CSprite(_SpriteHandler, GREEN_MUSHROOM, 16, 16, 1, 1);
-	greenmushroom = new GreenMushroom(1447, 300, 16, 16, greenmushroomSprite);
-	mObjectManager->addObject(greenmushroom);
-
-	redmushroomSprite = new CSprite(_SpriteHandler, RED_MUSHROOM, 16, 16, 1, 1);
-	redmushroom = new RedMushroom(50, 50, 16, 16, redmushroomSprite);
-	mObjectManager->addObject(redmushroom);*/
 	
 	
 	mario = mObjectManager->getMario();

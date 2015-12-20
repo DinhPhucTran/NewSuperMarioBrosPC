@@ -1,22 +1,21 @@
 #ifndef _COIN_H
 #define _COIN_H
 #include "StaticObject.h"
+#include "sprite.h"
+#include "Physics.h"
+#include "MarioObject.h"
 #include "animation.h"
-#include <string>
 
 class Coin :public StaticObject
 {
 private:
 	Animation* createAnimation();
-	string mState;
 public:
 	Animation* mCoinAnimation = new Animation(0, 2);
-	static const string OBJECT_NAME;
-	string getName();
-	Coin(int x, int y, int width, int height, Animation* anim, CSprite * image);
 	void render(int vpx, int vpy)override;
-	void collision();
-	~Coin();
+	static const string OBJECT_NAME;
+	Coin(int X, int Y, int Width, int Height, Animation* anim, CSprite * Sprite);
+	string getName();
+	void onCollision(Object * ob, int dir);
 };
-
 #endif

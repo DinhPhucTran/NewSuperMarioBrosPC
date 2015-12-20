@@ -1,199 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\Object">
-      <UniqueIdentifier>{b854143a-f6cb-4b1d-8cf8-a0717a351d9b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Object">
-      <UniqueIdentifier>{228a9131-9676-49ea-a321-adc0fedd688f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Enemies">
-      <UniqueIdentifier>{5b4244a2-a9c4-4bd9-b684-0724e6758862}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Enemies">
-      <UniqueIdentifier>{f4182b4f-3dc4-49c7-8b35-9e242025e183}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Mario">
-      <UniqueIdentifier>{b72fb0de-ad6b-4e1c-a578-b64461a24838}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Mario">
-      <UniqueIdentifier>{4f2b12cb-a96f-4e9a-b8c4-69c1f29353c0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Items">
-      <UniqueIdentifier>{d8544751-d858-43a4-adb2-b2208ca85da6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Items">
-      <UniqueIdentifier>{2575a138-cfcb-474c-a17d-839aa378888e}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="animation.cpp" />
+    <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="gooba.cpp" />
+    <ClCompile Include="KoopaTroopa.cpp" />
+    <ClCompile Include="Leaf.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MarioAnimationFactory.cpp" />
+    <ClCompile Include="MarioGame.cpp" />
+    <ClCompile Include="MarioObject.cpp" />
+    <ClCompile Include="MarioState.cpp" />
+    <ClCompile Include="MetalBlock.cpp" />
+    <ClCompile Include="Mushroom.cpp" />
+    <ClCompile Include="object.cpp" />
+    <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="BrickGround.cpp" />
+    <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="Pipe.cpp" />
+    <ClCompile Include="Qbrick.cpp" />
+    <ClCompile Include="RedKoopa.cpp" />
+    <ClCompile Include="sprite.cpp" />
+    <ClCompile Include="StaticObject.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="animation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sprite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MarioGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="object.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="BrickGround.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="KoopaTroopa.h">
-      <Filter>Header Files\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RedKoopa.h">
-      <Filter>Header Files\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="gooba.h">
-      <Filter>Header Files\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="Physics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticObject.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipe.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="MarioObject.h">
-      <Filter>Header Files\Mario</Filter>
-    </ClInclude>
-    <ClInclude Include="MarioAnimationFactory.h">
-      <Filter>Header Files\Mario</Filter>
-    </ClInclude>
-    <ClInclude Include="MarioState.h">
-      <Filter>Header Files\Mario</Filter>
-    </ClInclude>
-    <ClInclude Include="MetalBlock.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Qbrick.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="Mushroom.h">
-      <Filter>Header Files</Filter>
-=======
-    <ClInclude Include="Coin.h">
-      <Filter>Header Files\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="GreenMushroom.h">
-      <Filter>Header Files\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="RedMushroom.h">
-      <Filter>Header Files\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Leaf.h">
-      <Filter>Header Files\Items</Filter>
->>>>>>> origin/master
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="sprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="animation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MarioGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="object.cpp">
-      <Filter>Source Files\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="BrickGround.cpp">
-      <Filter>Source Files\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="KoopaTroopa.cpp">
-      <Filter>Source Files\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="RedKoopa.cpp">
-      <Filter>Source Files\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="gooba.cpp">
-      <Filter>Source Files\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="Physics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticObject.cpp">
-      <Filter>Source Files\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipe.cpp">
-      <Filter>Source Files\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="MarioAnimationFactory.cpp">
-      <Filter>Source Files\Mario</Filter>
-    </ClCompile>
-    <ClCompile Include="MarioObject.cpp">
-      <Filter>Source Files\Mario</Filter>
-    </ClCompile>
-    <ClCompile Include="MarioState.cpp">
-      <Filter>Source Files\Mario</Filter>
-    </ClCompile>
-    <ClCompile Include="MetalBlock.cpp">
-      <Filter>Source Files\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Qbrick.cpp">
-      <Filter>Source Files\Object</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Mushroom.cpp">
-      <Filter>Source Files</Filter>
-=======
-    <ClCompile Include="Coin.cpp">
-      <Filter>Source Files\Items</Filter>
-    </ClCompile>
-    <ClCompile Include="GreenMushroom.cpp">
-      <Filter>Source Files\Items</Filter>
-    </ClCompile>
-    <ClCompile Include="RedMushroom.cpp">
-      <Filter>Source Files\Items</Filter>
-    </ClCompile>
-    <ClCompile Include="Leaf.cpp">
-      <Filter>Source Files\Items</Filter>
->>>>>>> origin/master
-    </ClCompile>
+    <ClInclude Include="animation.h" />
+    <ClInclude Include="AnimationFactory.h" />
+    <ClInclude Include="BrickGround.h" />
+    <ClInclude Include="Coin.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="gooba.h" />
+    <ClInclude Include="KoopaTroopa.h" />
+    <ClInclude Include="Leaf.h" />
+    <ClInclude Include="MarioAnimationFactory.h" />
+    <ClInclude Include="MarioGame.h" />
+    <ClInclude Include="MarioObject.h" />
+    <ClInclude Include="MarioState.h" />
+    <ClInclude Include="MetalBlock.h" />
+    <ClInclude Include="Mushroom.h" />
+    <ClInclude Include="object.h" />
+    <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="Physics.h" />
+    <ClInclude Include="Pipe.h" />
+    <ClInclude Include="Qbrick.h" />
+    <ClInclude Include="RedKoopa.h" />
+    <ClInclude Include="sprite.h" />
+    <ClInclude Include="StaticObject.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
 </Project>

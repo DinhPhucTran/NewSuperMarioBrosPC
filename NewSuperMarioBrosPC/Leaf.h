@@ -1,19 +1,18 @@
 #ifndef _LEAF_H
 #define _LEAF_H
-#include "StaticObject.h"
+#include "object.h"
+#include "sprite.h"
+#include "Physics.h"
+#include "MarioObject.h"
 #include "animation.h"
-#include <string>
 
-class Leaf :public StaticObject
+class Leaf :public Object
 {
-private:
 public:
 	static const string OBJECT_NAME;
+	Leaf(int X, int Y, int Width, int Height, int vx, int vy, int vx_last, int ax, int ay, CSprite * Sprite);
 	string getName();
-	Leaf(int x, int y, int width, int height, CSprite *image);
-	void render(int vpx, int vpy)override;
-	void collision();
-	~Leaf();
+	void onCollision(Object * ob, int dir);
 };
 
 #endif

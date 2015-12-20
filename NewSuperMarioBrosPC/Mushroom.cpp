@@ -1,19 +1,19 @@
 #include "Mushroom.h"
 
-const string Mushroom::OBJECT_NAME = "mushroom";
+const string RedMushroom::OBJECT_NAME = "redmushroom";
 
-Mushroom::Mushroom(int X, int Y, int Width, int Height, int vx, int vy, int vx_last, int ax, int ay, CSprite * Sprite) :
+RedMushroom::RedMushroom(int X, int Y, int Width, int Height, int vx, int vy, int vx_last, int ax, int ay, CSprite * Sprite) :
 Object(X, Y, Width, Height, vx, vy, vx_last, ax, ay, Sprite)
 {
 	mAnim = new Animation(0, 0);
 }
 
-string Mushroom::getName()
+string RedMushroom::getName()
 {
 	return OBJECT_NAME;
 }
 
-void Mushroom::onCollision(Object * ob, int dir)
+void RedMushroom::onCollision(Object * ob, int dir)
 {
 	string objectName = ob->getName();
 	if (objectName == BrickGround::OBJECT_NAME || objectName == Pipe::OBJECT_NAME || objectName == QBrick::OBJECT_NAME)
@@ -43,4 +43,11 @@ void Mushroom::onCollision(Object * ob, int dir)
 	{
 		die();
 	}
+}
+
+const string GreenMushroom::OBJECT_NAME = "greenmushroom";
+GreenMushroom::GreenMushroom(int X, int Y, int Width, int Height, int vx, int vy, int vx_last, int ax, int ay, CSprite * Sprite) :
+RedMushroom(X, Y, Width, Height, vx, vy, vx_last, ax, ay, Sprite)
+{
+	mAnim = new Animation(0, 0);
 }
