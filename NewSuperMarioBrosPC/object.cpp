@@ -27,6 +27,18 @@ Object::Object(int X, int Y, int Width, int Height, float Vx, float Vy, float vx
 	mAnim = anim;
 }
 
+Object::Object(int X, int Y, int Width, int Height, float Vx, float Vy, float vx_last, float aX, float aY, CSprite * Image) {
+	x = X;
+	y = Y;
+	width = Width;
+	height = Height;
+	vx = Vx;
+	vy = Vy;
+	ax = aX;// gia tốc x
+	ay = aY;// gia tốc y
+	Object::vx_last = vx_last;
+	mSprite = Image;
+}
 Object::Object(int X, int Y, int Width, int Height) {
 	x = X;
 	y = Y;

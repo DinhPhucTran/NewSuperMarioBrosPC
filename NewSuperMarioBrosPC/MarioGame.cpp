@@ -9,7 +9,7 @@
 #include "Pipe.h"
 #include "MetalBlock.h"
 #include "Qbrick.h"
-//#include "physics.h"
+#include "Mushroom.h"
 
 
 const float CMarioGame::GRAVITY_VELOCOTY = GRAV_VELOCITY;
@@ -69,6 +69,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 	koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 17, 28, 48, 16);
 	goobaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 17, 28, 48, 16);
+	mushroomSprite = new CSprite(_SpriteHandler, MUSHROOM_IMAGE, 16, 16, 1, 1);
 
 	KoopaTroopa* koopa2 =
 		new KoopaTroopa(200, GROUND_Y + 200, 17, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
@@ -150,9 +151,13 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	qbSprite = new CSprite(_SpriteHandler, QBRICK_IMAGE, 16, 16, 5, 5);
 	Gooba* hiddenGoomba = new Gooba(0, 0, Gooba::WIDTH, Gooba::HEIGHT, Gooba::SPEED_X,0,Gooba::SPEED_X,0,0,NULL,goobaSprite);
 	Gooba* hiddenGoomba1 = new Gooba(0, 0, Gooba::WIDTH, Gooba::HEIGHT, Gooba::SPEED_X, 0, Gooba::SPEED_X, 0, 0, NULL, goobaSprite);
-	qb1 = new QBrick(184, 73, 16, 16,hiddenGoomba, qbAnim1, qbSprite);
+
+	Mushroom * mushroom1 = new Mushroom(0, 0, 16, 16, 0, 0, 0, 0, 0, mushroomSprite);
+	Mushroom * mushroom2 = new Mushroom(0, 0, 16, 16, 0, 0, 0, 0, 0, mushroomSprite);
+
+	qb1 = new QBrick(184, 73, 16, 16, mushroom1, qbAnim1, qbSprite);
 	mObjectManager->addObject(qb1);
-	qb2 = new QBrick(184 + 16, 73, 16, 16, hiddenGoomba1, qbAnim2, qbSprite);
+	qb2 = new QBrick(184 + 16, 73, 16, 16, mushroom2, qbAnim2, qbSprite);
 	mObjectManager->addObject(qb2);
 	
 	CSprite *backgroundImage = new CSprite(_SpriteHandler, SCROLLBG_IMAGE, 4096, 432, 1, 1);
@@ -177,7 +182,7 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	
 	mario->ay -= GRAV_VELOCITY*t;
 	
-	qbAnim1->Update();
+	/*qbAnim1->Update();
 	if (Physics::ContainsPoint(qb1, mario->x, mario->top()))
 	{
 		qbAnim1->startFrame = 4;
@@ -189,7 +194,7 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	{
 		qbAnim2->startFrame = 4;
 		qbAnim2->endFrame = 4;
-	}
+	}*/
 	
 	mObjectManager->checkCollition();
 

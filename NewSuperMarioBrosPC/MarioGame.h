@@ -28,6 +28,7 @@
 #define FOREGROUND_IMAGE L"foreground.png"
 #define QBRICK_IMAGE L"qBrick.png"
 #define SCROLLBG_IMAGE L"scrollBG3.png"
+#define MUSHROOM_IMAGE L"redMushroom.png"
 
 
 
@@ -74,6 +75,7 @@ public:
 	CSprite * brick;
 	CSprite * mountain;
 	CSprite *foregroundImage;
+	CSprite * mushroomSprite;
 
 	int animationDelay=0;
 	//Object * fallBox;

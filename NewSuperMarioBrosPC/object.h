@@ -24,6 +24,7 @@ public:
 	CSprite * mSprite;
 	Animation* mAnim;
 	Object(int x, int y, int width, int height, float vx, float vy, float vx_last,  float ax, float ay, Animation* anim, CSprite * image);
+	Object(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, CSprite *image);
 	Object(int x, int y, int width, int height);
 	void setAnimation(Animation* anim);
 	Animation* getAnimation();

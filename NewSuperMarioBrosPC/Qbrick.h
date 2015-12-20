@@ -10,6 +10,7 @@ private:
 	Object* mHiddenObject;
 	Animation* createAnimation();
 	string mState;
+	int yLast;
 public:
 	static const float HIDDEN_OBJECT_Y_SPEED;//0.5f
 	static const string NORMAL_STATE;
@@ -23,6 +24,7 @@ public:
 	string getName();
 	QBrick(int x, int y, int width, int height,Object* hiddenObject, Animation* anim, CSprite * image);
 	void render(int vpx, int vpy)override;
+	void update(int t);
 	~QBrick();
 };
 
