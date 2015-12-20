@@ -40,7 +40,7 @@ public:
 	Animation *turnLeftAnimation = new Animation(0, 0);
 
 	
-	static SmallMarioAnimationFactory* getInstance(Mario* mario =NULL);
+	static SmallMarioAnimationFactory* getInstance(Mario* mario);
 	//contructor
 	
 	Animation* createAnimation()override;
@@ -53,7 +53,7 @@ private:
 	LargeMarioAnimationFactory(Mario* mario);
 	static LargeMarioAnimationFactory* sInstance;
 public:
-	static LargeMarioAnimationFactory* getInstance(Mario* mario=NULL);
+	static LargeMarioAnimationFactory* getInstance(Mario* mario);
 	Animation *rightWalkAnim = new Animation(15, 17);
 	Animation *leftWalkAnim = new Animation(11, 13);
 	Animation *rightStandAnim = new Animation(15, 15);
@@ -76,7 +76,7 @@ private:
 	RaccoonMarioAnimationFactory(Mario* mario);
 	static RaccoonMarioAnimationFactory* sInstance;
 public:
-	static RaccoonMarioAnimationFactory* getInstance(Mario* mario = NULL);
+	static RaccoonMarioAnimationFactory* getInstance(Mario* mario);
 	Animation *rightWalkAnim = new Animation(30, 32);
 	Animation *leftWalkAnim = new Animation(25, 27);
 	Animation *rightStandAnim = new Animation(30, 30);
@@ -92,6 +92,18 @@ public:
 
 	Animation* createAnimation()override;
 	~RaccoonMarioAnimationFactory();
+};
+
+class InvincibleMarioAnimationFactory : public AnimationFactory{
+private:
+	Mario* mMario;
+	InvincibleMarioAnimationFactory(Mario* mario);
+	static InvincibleMarioAnimationFactory* sInstance;
+	bool isBlanked;
+public:
+	Animation* blankAnimation = new Animation(9, 9);
+	Animation* createAnimation()override;
+	static InvincibleMarioAnimationFactory* getInstance(Mario* mario);
 };
 
 #endif

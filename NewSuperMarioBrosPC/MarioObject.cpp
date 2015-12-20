@@ -13,7 +13,7 @@ const float Mario::ACCELERATION_Y = 0.009f;
 const float Mario::ACCELERATION_Y_PLUS = 0.012f;
 const float Mario::MAX_SPEED_X = 0.3f;
 const float Mario::MAX_SPEED_Y = 0.7f;
-const int Mario::INVINCIBLE_SWITCH_STATE_TIME = 2000;
+const int Mario::INVINCIBLE_SWITCH_STATE_TIME = 1000;
 
 MarioState* Mario::getState(){
 	return mMarioState;
@@ -54,15 +54,7 @@ void Mario::setState(MarioState* state){
 	string stateName = state->getName();
 	width = state->getWidth();
 	height = state->getHeight();
-	if (stateName == MarioStateRaccoon::STATE_NAME){
-		setAnimationFactory(RaccoonMarioAnimationFactory::getInstance(this));
-	}
-	else if (stateName == MarioStateLarge::STATE_NAME){
-		setAnimationFactory(LargeMarioAnimationFactory::getInstance(this));
-	}
-	else if (stateName == MarioStateSmall::STATE_NAME){
-		setAnimationFactory(SmallMarioAnimationFactory::getInstance(this));
-	}
+	setAnimationFactory(state->getAnimationFactory());
 }
 void Mario::setAnimationFactory(AnimationFactory* animFactory){
 	mAnimationFactory = animFactory;

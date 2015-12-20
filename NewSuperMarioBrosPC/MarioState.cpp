@@ -6,6 +6,7 @@
 #include "RedKoopa.h"
 #include "MetalBlock.h"
 #include "Qbrick.h"
+#include "MarioAnimationFactory.h"
 
 #include <string>
 using namespace std;
@@ -112,6 +113,9 @@ int MarioState::getWidth(){
 int MarioState::getHeight(){
 	return 27;
 }
+AnimationFactory* MarioState::getAnimationFactory(){
+	return 0;
+}
 //================STATE SMALL==============
 const string MarioStateSmall::STATE_NAME = "mario_state_small";
 MarioStateSmall::MarioStateSmall(Mario* mario) :MarioState(mario){
@@ -140,6 +144,9 @@ int MarioStateSmall::getHeight(){
 int MarioStateSmall::getWidth(){
 	return width;
 }
+AnimationFactory* MarioStateSmall::getAnimationFactory(){
+	return SmallMarioAnimationFactory::getInstance(mMario);
+}
 //==================SATE_LARGE==============
 const string MarioStateLarge::STATE_NAME = "mario_state_large";
 MarioStateLarge::MarioStateLarge(Mario* mario) :MarioState(mario){
@@ -165,7 +172,9 @@ int MarioStateLarge::getHeight(){
 int MarioStateLarge::getWidth(){
 	return width;
 }
-
+AnimationFactory* MarioStateLarge::getAnimationFactory(){
+	return LargeMarioAnimationFactory::getInstance(mMario);
+}
 //==================SATE_RACON==============
 const string MarioStateRaccoon::STATE_NAME = "mario_state_raccoon";
 MarioStateRaccoon::MarioStateRaccoon(Mario* mario) :MarioState(mario){
@@ -193,10 +202,15 @@ void MarioStateRaccoon::onCollision(Object* ob,int dir){
 	
 }
 
+AnimationFactory* MarioStateRaccoon::getAnimationFactory(){
+	return RaccoonMarioAnimationFactory::getInstance(mMario);
+}
+
 /////////////////////////MarioStateInvincible///////////////////////
 const string MarioStateInvincible::STATE_NAME = "mario_invincible";
 MarioStateInvincible::MarioStateInvincible(Mario* mario, MarioState* nextState):MarioState(mario){
 	mLastTime = GetTickCount();
+	mLastState = mario->getState();
 	mNextState = nextState;
 }
 string MarioStateInvincible::getName(){
@@ -243,4 +257,11 @@ int MarioStateInvincible::getHeight(){
 }
 int MarioStateInvincible::getWidth(){
 	return mNextState->getWidth();
+}
+AnimationFactory* MarioStateInvincible::getAnimationFactory(){
+	return InvincibleMarioAnimationFactory::getInstance(mMario);
+}
+
+DWORD MarioStateInvincible::getLastTime(){
+	return mLastTime;
 }
