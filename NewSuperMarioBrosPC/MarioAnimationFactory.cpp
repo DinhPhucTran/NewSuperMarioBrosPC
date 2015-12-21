@@ -22,7 +22,7 @@ Animation* SmallMarioAnimationFactory::createAnimation(){
 	{//vy==0 mario đang đứng trên vật thể 
 		if (mMario->vx_last < 0)//quay trái
 		{
-			if (mMario->ax > 0 && mMario->isRightButtonPress == 1){//quay phải
+			if (mMario->ax > 0 && mMario->isRightButtonPressed == 1){//quay phải
 				result = turnRightAnimation;
 			}
 			else if (mMario->vx != 0)//mario đang đi
@@ -32,7 +32,7 @@ Animation* SmallMarioAnimationFactory::createAnimation(){
 			}
 		}
 		else{//vx_last >0 mario đang đi trái
-			if (mMario->ax < 0 && mMario->isLeftButtonPress == 1)//đang đổi hướng
+			if (mMario->ax < 0 && mMario->isLeftButtonPressed == 1)//đang đổi hướng
 			{
 				result = turnLeftAnimation;
 			}
@@ -99,7 +99,7 @@ Animation* LargeMarioAnimationFactory::createAnimation(){
 	{//vy==0 mario đang đứng trên vật thể 
 		if (mMario->vx_last < 0)//quay trái
 		{
-			if (mMario->ax > 0 && mMario->isRightButtonPress == 1){//quay phải
+			if (mMario->ax > 0 && mMario->isRightButtonPressed == 1){//quay phải
 				result = turnRightAnimation;
 			}
 			else if (mMario->vx != 0)//mario đang đi
@@ -109,7 +109,7 @@ Animation* LargeMarioAnimationFactory::createAnimation(){
 			}
 		}
 		else{//vx_last >0 mario đang đi trái
-			if (mMario->ax < 0 && mMario->isLeftButtonPress == 1)//đang đổi hướng
+			if (mMario->ax < 0 && mMario->isLeftButtonPressed == 1)//đang đổi hướng
 			{
 				result = turnLeftAnimation;
 			}
@@ -169,7 +169,7 @@ Animation* RaccoonMarioAnimationFactory::createAnimation(){
 	{//vy==0 mario đang đứng trên vật thể 
 		if (mMario->vx_last < 0)//quay trái
 		{
-			if (mMario->ax > 0 && mMario->isRightButtonPress == 1){//quay phải
+			if (mMario->ax > 0 && mMario->isRightButtonPressed == 1){//quay phải
 				result = turnRightAnimation;
 			}
 			else if (mMario->vx != 0)//mario đang đi
@@ -179,7 +179,7 @@ Animation* RaccoonMarioAnimationFactory::createAnimation(){
 			}
 		}
 		else{//vx_last >0 mario đang đi trái
-			if (mMario->ax < 0 && mMario->isLeftButtonPress==1)//đang đổi hướng
+			if (mMario->ax < 0 && mMario->isLeftButtonPressed==1)//đang đổi hướng
 			{
 				result = turnLeftAnimation;
 			}else if (mMario->vx != 0)//đang đi phải

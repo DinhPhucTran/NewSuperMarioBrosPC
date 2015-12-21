@@ -6,6 +6,7 @@
 #include <string>
 #include"Qbrick.h"
 #include"MarioState.h"
+#include "ObjectManager.h"
 using namespace std;
 
 KoopaTroopa::KoopaTroopa(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image) 
@@ -27,6 +28,7 @@ const int KoopaTroopa::SLIDING_ANIMATION_DELAY = 1;
 const float KoopaTroopa::KOOPA_VELOCITY_X = 0.1f;
 const float KoopaTroopa::KOOPA_SLIDING_SPEED_X = 0.35f;
 const float KoopaTroopa::KOOPA_VULNERABLE_SPEED_X = 0;
+const int KoopaTroopa::WAKE_UP_FROM_VULNERABLE_TIME = 10000;
 const string KoopaTroopa::OBJECT_NAME = "koopa_troopa";
 string KoopaTroopa::getName(){
 	return OBJECT_NAME;
@@ -78,6 +80,7 @@ void KoopaTroopaState::onCollision(Object*ob,int dir){
 }
 KoopaTroopaState::KoopaTroopaState(KoopaTroopa* koopa){
 	mKoopa = koopa;
+	
 }
 
 float KoopaTroopaState::getSpeed(){
@@ -99,13 +102,13 @@ const string KoopaNomalState::STATE_NAME = "koopa_nomal_state";
 string KoopaNomalState::getName(){
 	return STATE_NAME;
 }
-void KoopaNomalState::onCollision(Object*ob,int dir){
+void KoopaNomalState::onCollision(Object*ob, int dir){
 	//xử lý va chạm, nếu chạm gạch thì quay đầu
 	//chạm mario từ bên trái,phải hoặc bên dưới thì mario chết
 	//chạm mario từ trên thì chuyển sang trạng thái Vulnerable;
 	KoopaTroopaState::onCollision(ob, dir);
 	string objName = ob->getName();
-	 if (objName == BrickGround::OBJECT_NAME || objName == Pipe::OBJECT_NAME){
+	if (objName == BrickGround::OBJECT_NAME || objName == Pipe::OBJECT_NAME){
 		if (dir == Physics::COLLIDED_FROM_LEFT){
 			if (mKoopa->vx_last < 0){
 				mKoopa->vx = KoopaTroopa::KOOPA_VELOCITY_X;
@@ -118,7 +121,7 @@ void KoopaNomalState::onCollision(Object*ob,int dir){
 				mKoopa->vx_last = mKoopa->vx;
 			}
 		}
-		else if(dir == Physics::COLLIDED_FROM_BOTTOM){
+		else if (dir == Physics::COLLIDED_FROM_BOTTOM){
 			mKoopa->vy = 0;
 			mKoopa->ay = 0;
 			mKoopa->y = ob->top() + mKoopa->height / 2;// chỉnh lại tọa độ y
@@ -152,21 +155,25 @@ void KoopaNomalState::onCollision(Object*ob,int dir){
 			mKoopa->setState(new KoopaVulnerableState(mKoopa));
 		}
 	}
-	 //va chạm với rùa đang slide
-	 if (objName == RedKoopa::OBJECT_NAME || objName == KoopaTroopa::OBJECT_NAME){
-		 string stateName = ((KoopaTroopa*)ob)->getState()->getName();
-		 if (stateName == KoopaSlidingState::STATE_NAME){
-			 if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT){
-				 mKoopa->die();
-			 }
-		 }
-	 }
+	//va chạm với rùa đang slide
+	if (objName == RedKoopa::OBJECT_NAME || objName == KoopaTroopa::OBJECT_NAME){
+		string stateName = ((KoopaTroopa*)ob)->getState()->getName();
+		if (stateName == KoopaSlidingState::STATE_NAME){
+			if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT){
+				mKoopa->die();
+			}
+		}
+	}
 }
 KoopaNomalState::KoopaNomalState(KoopaTroopa* koopa)
 	:KoopaTroopaState(koopa){
 }
 
 ///////////////////KoopaVulnerableState///////////////
+KoopaVulnerableState::KoopaVulnerableState(KoopaTroopa* koopa)
+	: KoopaTroopaState(koopa){
+	mLastTime = GetTickCount();
+}
 
 
 const string KoopaVulnerableState::STATE_NAME = "koopa_vulnerable_state";
@@ -180,12 +187,26 @@ float KoopaVulnerableState::getSpeed(){
 	return KoopaTroopa::KOOPA_VULNERABLE_SPEED_X;
 }
 
-void KoopaVulnerableState::onCollision(Object*ob,int dir){
+void KoopaVulnerableState::onCollision(Object*ob, int dir){
 	//xử lý va chạm 
 	//nếu chạm mario chuyển sang trạng thái bị đá SlidingState
 	//Va chạm dưới với gạch, 
 	//va chạm trên dưới trái phải với mario;
-
+	DWORD now = GetTickCount();
+	if (now - mLastTime >= 10000){
+		Mario* mario = ObjectManager::getInstance()->getMario();
+		if (mario->x > mKoopa->x){//khi wake up thì rùa đi hướng về phía mario;
+			mKoopa->vx = KoopaTroopa::KOOPA_VELOCITY_X;
+			mKoopa->vx_last = mKoopa->vx;
+		}
+		else
+		{
+			mKoopa->vx = -KoopaTroopa::KOOPA_VELOCITY_X;
+			mKoopa->vx_last = mKoopa->vx;
+		}
+		mKoopa->setState(new KoopaNomalState(mKoopa));
+		return;
+	}
 
 	KoopaTroopaState::onCollision(ob, dir);
 	string objName = ob->getName();
@@ -252,10 +273,6 @@ void KoopaVulnerableState::onCollision(Object*ob,int dir){
 	}
 }
 
-KoopaVulnerableState::KoopaVulnerableState(KoopaTroopa* koopa) 
-	:KoopaTroopaState(koopa){
-	
-}
 
 
 /////////////////////////////////////////////////

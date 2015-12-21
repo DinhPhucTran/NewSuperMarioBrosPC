@@ -272,27 +272,45 @@ void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 {
 	
 	//DWORD now = GetTickCount();
+	if (IsKeyDown(DIK_X)){
+		mario->isAButtonPressed = 1;
+		mario->onAPress();
+	}
+	else{
+		mario->isAButtonPressed = 0;
+	}
+	if (IsKeyDown(DIK_Z)){
+		mario->isBButtonPressed = 1;
+		mario->onBPress();
+	}
+	else{
+		mario->isBButtonPressed = 0;
+	}
+
 	if (IsKeyDown(DIK_RIGHT))
 	{
-		mario->isLeftButtonPress = 0;
-		mario->isRightButtonPress = 1;
+		
+		mario->isRightButtonPressed = 1;
 		mario->ax = Mario::ACCELERATION_X;
 		mario->vx_last = mario->vx;//lưu lại vx để biết hướng của mario
-		
 	}
-	else
+	else{
+		mario->isRightButtonPressed = 0;
+	}
+
 	if (IsKeyDown(DIK_LEFT))
 	{
-		mario->isRightButtonPress = 0;
-		mario->isLeftButtonPress = 1;
+		
+		mario->isLeftButtonPressed = 1;
 		mario->ax = -Mario::ACCELERATION_X;
 		mario->vx_last = mario->vx;
 		
 	}
-	else//all key release
+	else{
+		mario->isLeftButtonPressed = 0;
+	}
+	if(mario->isLeftButtonPressed==0&&mario->isRightButtonPressed==0)//all key release
 	{
-		mario->isLeftButtonPress = 0;
-		mario->isRightButtonPress = 0;
 		if (mario->vx_last > 0)
 		{
 			//mario->vx -= 0.00000015f;
@@ -314,17 +332,17 @@ void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 	}
 	
 	
-
-	if (IsKeyDown(DIK_SPACE)){
-		last_time = GetTickCount();
-		if (mario->vy == 0){
-			if (GetTickCount() - last_time <= 100)
-				mario->jumpUp();
-			else{
-				mario->jumpUp();
-			}
-		}
-	}
+	
+	//if (IsKeyDown(DIK_SPACE)){
+	//	last_time = GetTickCount();
+	//	if (mario->vy == 0){
+	//		if (GetTickCount() - last_time <= 100)
+	//			mario->jumpUp();
+	//		else{
+	//			mario->jumpUp();
+	//		}
+	//	}
+	//}
 }
 
 void CMarioGame::OnKeyDown(int KeyCode)

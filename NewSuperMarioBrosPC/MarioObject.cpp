@@ -33,6 +33,10 @@ Mario::Mario(int x, int y, int width, int height, int vx, int vy, int vx_last, f
 		mAnimationFactory = SmallMarioAnimationFactory::getInstance(this);
 	}
 	mAnim = mAnimationFactory->createAnimation();
+	isAButtonPressed = 0;
+	isBButtonPressed = 0;
+	isLeftButtonPressed = 0;
+	isRightButtonPressed = 0;
 }
 const string Mario::OBJECT_NAME = "mario_object";
 
@@ -90,8 +94,8 @@ void Mario::update(int t){
 	}
 }
 void Mario::jumpUp(){
-	vy = 0;
-	ay = Mario::ACCELERATION_Y;
+	if(vy ==0)
+		ay = Mario::ACCELERATION_Y;
 	//vy = 0.5f;
 }
 void Mario::stop(){

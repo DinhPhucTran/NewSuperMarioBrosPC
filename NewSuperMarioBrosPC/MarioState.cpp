@@ -71,6 +71,7 @@ void MarioState::onCollision(Object* ob,int dir){
 		if (state == KoopaNomalState::STATE_NAME){
 			if (dir == Physics::COLLIDED_FROM_BOTTOM){
 				mMario->y = ob->top() + mMario->height / 2;
+				mMario->vy = 0;
 				mMario->jumpUp();
 			}
 			else if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT || dir == Physics::COLLIDED_FROM_TOP){
@@ -81,6 +82,7 @@ void MarioState::onCollision(Object* ob,int dir){
 		else if (state == KoopaSlidingState::STATE_NAME){
 			if (dir == Physics::COLLIDED_FROM_BOTTOM){
 				mMario->y = ob->top() + mMario->height / 2;
+				mMario->vy = 0;
 				mMario->jumpUp();
 			}
 			else if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT){
@@ -93,6 +95,7 @@ void MarioState::onCollision(Object* ob,int dir){
 		if (state == GoobaNomalState::STATE_NAME){
 			if (dir == Physics::COLLIDED_FROM_BOTTOM){
 				mMario->y = ob->top() + mMario->height / 2;
+				mMario->vy = 0;
 				mMario->jumpUp();
 			}
 			else if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT || dir == Physics::COLLIDED_FROM_TOP){
@@ -185,7 +188,7 @@ string MarioStateRaccoon::getName(){
 }
 
 void MarioStateRaccoon::onAPress(){
-	//jump;
+	mMario->jumpUp();
 }
 void MarioStateRaccoon::onBPress(){
 	//do nothing;

@@ -55,9 +55,9 @@ public:
 class KoopaVulnerableState :public KoopaTroopaState{//Trạng thái dể bị tổn thương, khi chui vào mai rùa
 	//ở trạng thái này mario đụng vào là xong :p
 private:
-
+	DWORD mLastTime;
 public:
-
+	KoopaVulnerableState();
 	static const string STATE_NAME;
 	void onCollision(Object* ob,int dir)override;
 	string getName()override;
@@ -94,6 +94,7 @@ public:
 	static float const KOOPA_VELOCITY_X;
 	static float const KOOPA_SLIDING_SPEED_X;
 	static float const KOOPA_VULNERABLE_SPEED_X; //= 0;
+	static const int WAKE_UP_FROM_VULNERABLE_TIME;//10,000 ms
 	AnimationFactory* mAnimationFactory;
 	static const string OBJECT_NAME;
 	string getName();
