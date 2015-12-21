@@ -231,6 +231,17 @@ void KoopaVulnerableState::onCollision(Object*ob, int dir){
 		if (stateName == MarioStateInvincible::STATE_NAME){
 			return;
 		}
+		else if (mario->isBButtonPressed){//nếu B pressed thì mario cầm rùa chứ ko đá rùa
+			//xử lý trường hợp mario cầm rùa
+			mKoopa->y = mario->y;
+			if (mario->vx_last > 0){
+				mKoopa->x = mario->right();
+			}
+			else{
+				mKoopa->x = mario->left();
+			}
+
+		}
 		else if (dir == Physics::COLLIDED_FROM_TOP||dir==Physics::COLLIDED_FROM_BOTTOM){
 			if (ob->x >= mKoopa->x){
 				//slide qua trái

@@ -49,7 +49,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	D3DXCreateSprite(d3ddv, &_SpriteHandler);
 
 	///font debug
-	D3DXCreateFont(d3ddv, 30, 30, FW_BOLD, 0, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, TEXT("Arial"), &fontArial);
+	//D3DXCreateFont(d3ddv, 30, 30, FW_BOLD, 0, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, TEXT("Arial"), &fontArial);
 	
 	//end
 
@@ -261,10 +261,10 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 
 	rect.top = 0;
 	rect.left = 20;
-	rect.right = 240;
+	rect.right = 440;//240
 	rect.bottom = 100;
-	char buffer[32] = { 0 };
-	sprintf_s(buffer, "Mx: %d / My: %d       ", mario->x, mario->y);
+	char buffer[64] = { 0 };
+	sprintf_s(buffer, " /A: %d/B: %d      ", mario->isAButtonPressed,mario->isBButtonPressed);//Mx: %d / My: %d
 	fontArial->DrawTextA(NULL, buffer, 20, &rect, DT_LEFT, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 

@@ -60,7 +60,7 @@ public:
 	Animation *leftStandAnim = new Animation(11, 11);
 	Animation *leftJumpUpAnim = new Animation(18, 18);
 	Animation *rightJumpUpAnim = new Animation(19, 19);
-	Animation *leftJumpDownAnim = new Animation(14, 14);
+	Animation *leftJumpDownAnim = new Animation(13, 13);
 	Animation *rightJumpDownAnim = new Animation(17, 17);
 	Animation *turnRightAnimation = new Animation(14, 14);
 	Animation *turnLeftAnimation = new Animation(10, 10);
