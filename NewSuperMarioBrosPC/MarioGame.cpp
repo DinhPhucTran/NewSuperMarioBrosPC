@@ -170,7 +170,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	scrollBG = new Object(1000, 216, 4096, 432, 0, 0, 0, 0, 0, bgAnim, backgroundImage);
 
 	coinSprite = new CSprite(_SpriteHandler, COIN, 16, 16, 3, 3);
-	coin = new Coin(150, 73, 16, 16, coinAnim, coinSprite);
+	coin = new Coin(150, 73, 18, 18, coinAnim, coinSprite);
 	mObjectManager->addObject(coin);
 
 	/*leafSprite = new CSprite(_SpriteHandler, LEAF, 16, 16, 1, 1);
