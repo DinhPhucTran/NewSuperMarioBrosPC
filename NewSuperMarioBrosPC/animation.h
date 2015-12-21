@@ -16,8 +16,9 @@ public:
 
 	Animation(int startFrame, int endFrame, int frameDelay = Animation::FRAME_DELAY_DEFAULT);
 	~Animation();
-	void Update();
+	virtual void Update();
 	void SetIndex(int index);
 	void SetFrameDeplay(int frameDelay);
 };
+
 #endif
