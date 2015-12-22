@@ -15,6 +15,7 @@ class KoopaAnimationFactory: public AnimationFactory{
 	KoopaTroopa* mKoopa;
 	
 public:
+	
 	KoopaAnimationFactory(KoopaTroopa* koopa);
 	Animation* mKoopaLeftWalkAnim = new Animation(4, 5);
 	Animation* mKoopaRightWalkAnim = new Animation(10,11);
@@ -86,6 +87,7 @@ class KoopaTroopa : public Object{
 protected:
 	KoopaTroopaState* mState;
 public:
+	int isBringedByMario;
 	static const int KOOPA_WIDTH;
 	static const int KOOPA_HEIGHT;
 	static const int KOOPA_VULNERABLE_HEIGHT;
@@ -104,6 +106,7 @@ public:
 	virtual void onCollision(Object* ob,int dir)override;
 	void render(int vpx,int vpy)override;
 	KoopaTroopa(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image);
+	void update(int t)override;
 };
 
 #endif

@@ -18,7 +18,7 @@ KoopaTroopa::KoopaTroopa(int x, int y, int width, int height, float vx, float vy
 		mAnimationFactory = new KoopaAnimationFactory(this);
 	if(mAnim==NULL)
 		mAnim = mAnimationFactory->createAnimation();
-	
+	isBringedByMario = 0;
 }
 const int KoopaTroopa::KOOPA_WIDTH = 16;
 const int KoopaTroopa::KOOPA_HEIGHT = 27;
@@ -65,7 +65,27 @@ void KoopaTroopa::setAnimationFactory(AnimationFactory* animFactory){
 void KoopaTroopa::render(int vpx, int vpy){
 	mSprite->Render(mAnimationFactory->createAnimation(), x, y, vpx, vpy);
 }
-
+void KoopaTroopa::update(int t){
+	Mario* mario = ObjectManager::getInstance()->getMario();
+	if (mario == NULL){ 
+		isBringedByMario = 0;
+		return; }
+	if (isBringedByMario == 1 && mario->isBButtonPressed == 1){
+		y = mario->y;
+		if (mario->vx_last > 0){
+			x = mario->right();
+		}
+		else{
+			x = mario->left();
+		}
+	}
+	else{
+		isBringedByMario = 0;
+		Object::update(t);
+	}
+	
+		
+}
 
 /////////////////////KoopaTroopaState/////////////////////
 string KoopaTroopaState::getName(){
@@ -195,6 +215,9 @@ void KoopaVulnerableState::onCollision(Object*ob, int dir){
 	DWORD now = GetTickCount();
 	if (now - mLastTime >= 10000){
 		Mario* mario = ObjectManager::getInstance()->getMario();
+		if (mario == 0){//mario dead already
+			return;
+		}
 		if (mario->x > mKoopa->x){//khi wake up thì rùa đi hướng về phía mario;
 			mKoopa->vx = KoopaTroopa::KOOPA_VELOCITY_X;
 			mKoopa->vx_last = mKoopa->vx;
@@ -203,6 +226,10 @@ void KoopaVulnerableState::onCollision(Object*ob, int dir){
 		{
 			mKoopa->vx = -KoopaTroopa::KOOPA_VELOCITY_X;
 			mKoopa->vx_last = mKoopa->vx;
+		}
+		if (mKoopa->isBringedByMario == 1){//mKoopa wake up mà mario vẫn cầm thì mario chết
+			mario->die();
+			mKoopa->isBringedByMario = 0;
 		}
 		mKoopa->setState(new KoopaNomalState(mKoopa));
 		return;
@@ -224,6 +251,7 @@ void KoopaVulnerableState::onCollision(Object*ob, int dir){
 		}
 	}
 	//xử lý va chạm vs Mario
+	
 	if (ob->getName() == Mario::OBJECT_NAME){
 		//Nếu mario invicible thì ko xử lý tiếp nữa
 		Mario* mario = (Mario*)ob;
@@ -233,14 +261,8 @@ void KoopaVulnerableState::onCollision(Object*ob, int dir){
 		}
 		else if (mario->isBButtonPressed){//nếu B pressed thì mario cầm rùa chứ ko đá rùa
 			//xử lý trường hợp mario cầm rùa
-			mKoopa->y = mario->y;
-			if (mario->vx_last > 0){
-				mKoopa->x = mario->right();
-			}
-			else{
-				mKoopa->x = mario->left();
-			}
-
+			mKoopa->isBringedByMario = 1;
+			
 		}
 		else if (dir == Physics::COLLIDED_FROM_TOP||dir==Physics::COLLIDED_FROM_BOTTOM){
 			if (ob->x >= mKoopa->x){
@@ -273,6 +295,7 @@ void KoopaVulnerableState::onCollision(Object*ob, int dir){
 			mKoopa->setState(new KoopaSlidingState(mKoopa));
 		}
 	}
+	
 	//va chạm với rùa đang slide
 	if (objName == RedKoopa::OBJECT_NAME || objName == KoopaTroopa::OBJECT_NAME){
 		string stateName = ((KoopaTroopa*)ob)->getState()->getName();

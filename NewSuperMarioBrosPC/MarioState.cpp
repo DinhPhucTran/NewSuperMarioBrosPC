@@ -16,10 +16,10 @@ MarioState::MarioState(Mario* mario){
 	mMario = mario;
 }
 void MarioState::onAPress(){
-	//do nothing
+	mMario->jumpUp();
 }
 void MarioState::onBPress(){
-	//do nothing
+	
 }
 void MarioState::onCollision(Object* ob,int dir){
 	string objectName = ob->getName();
