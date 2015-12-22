@@ -9,7 +9,8 @@
 #include "MarioAnimationFactory.h"
 #include "Leaf.h"
 #include "Mushroom.h"
-
+#include "MarioRaccoonTail.h"
+#include "ObjectManager.h"
 #include <string>
 using namespace std;
 
@@ -27,7 +28,7 @@ void MarioState::onCollision(Object* ob,int dir){
 	string objectName = ob->getName();
 	if (objectName == MetalBlock::OBJECT_NAME)
 	{
-		if (dir == Physics::COLLIDED_FROM_BOTTOM && mMario->top() >= ob->top())
+		if (dir == Physics::COLLIDED_FROM_BOTTOM && mMario->bottom()+8>=ob->top())
 		{
 			mMario->vy = 0;
 			mMario->ay = 0;
@@ -201,7 +202,8 @@ void MarioStateRaccoon::onAPress(){
 	mMario->jumpUp();
 }
 void MarioStateRaccoon::onBPress(){
-	//do nothing;
+	MarioRaccoonTail* tail = new MarioRaccoonTail(mMario, mMario->x, mMario->y, 0, 0);
+	//ObjectManager::getInstance()->addObject(tail);
 }
 int MarioStateRaccoon::getHeight(){
 	return height;
