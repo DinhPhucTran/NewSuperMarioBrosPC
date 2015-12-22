@@ -324,7 +324,7 @@ void KoopaSlidingState::onCollision(Object*ob,int dir){
 
 	KoopaTroopaState::onCollision(ob, dir);
 	string objName = ob->getName();
-	if (ob->getName() == BrickGround::OBJECT_NAME||ob->getName()==Pipe::OBJECT_NAME){
+	if (ob->getName() == BrickGround::OBJECT_NAME||ob->getName()==Pipe::OBJECT_NAME||QBrick::OBJECT_NAME == objName){
 		if (dir == Physics::COLLIDED_FROM_LEFT){
 			if (mKoopa->vx_last < 0){
 				mKoopa->vx = KoopaTroopa::KOOPA_SLIDING_SPEED_X;
