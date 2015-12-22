@@ -51,3 +51,6 @@ RedMushroom(X, Y, Width, Height, vx, vy, vx_last, ax, ay, Sprite)
 {
 	mAnim = new Animation(0, 0);
 }
+string GreenMushroom::getName(){
+	return OBJECT_NAME;
+}

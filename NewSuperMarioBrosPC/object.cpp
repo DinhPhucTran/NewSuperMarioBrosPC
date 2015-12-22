@@ -64,11 +64,13 @@ void Object::setSprite(CSprite* sprite){
 	Object::mSprite = sprite;
 }
 void Object::update(int t){
-	x += (int)(vx * t);
-	y += (int)(vy * t);
+	
 	vy += ay*t;
 	vx += ax*t;
 	ay -= CMarioGame::GRAVITY_VELOCOTY;
+	x += (int)(vx * t);
+	y += (int)(vy * t);
+	
 }
 Object::~Object() {
 	delete mSprite;

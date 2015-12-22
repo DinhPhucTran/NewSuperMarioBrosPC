@@ -7,6 +7,8 @@
 #include "MetalBlock.h"
 #include "Qbrick.h"
 #include "MarioAnimationFactory.h"
+#include "Leaf.h"
+#include "Mushroom.h"
 
 #include <string>
 using namespace std;
@@ -104,7 +106,15 @@ void MarioState::onCollision(Object* ob,int dir){
 			//nếu trái phải trên thì chết
 		}
 	}
-	// va chaạm với QBrick;
+	if (objectName == RedMushroom::OBJECT_NAME){
+		mMario->setState(new MarioStateLarge(mMario));
+	}
+	if (objectName == GreenMushroom::OBJECT_NAME){
+		
+	}
+	if (objectName == Leaf::OBJECT_NAME){
+		mMario->setState(new MarioStateRaccoon(mMario));
+	}
 	
 }
 string MarioState::getName(){
