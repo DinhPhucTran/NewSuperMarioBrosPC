@@ -19,12 +19,10 @@
 
 //#define MARIO_IMAGE_RIGHT L"mario3.bmp"
 //#define MARIO_IMAGE_LEFT L"mario3.bmp"
-#define GROUND_MIDDLE L"ground_middle.png"
 #define BRICK L"brick.png"
-#define CHECK_FALL L"checkFall.png"
 #define MARIO_SMALL_IMAGE L"marioSmall.png"
 #define MARIO_LARGE_IMAGE L"marioSprite32x32.png"
-#define KOOPA_TROOPA_GOOMBA_IMAGE L"KoopaRedGreenGoomba_16x28x17.png"
+#define KOOPA_TROOPA_GOOMBA_IMAGE L"enemies4.png"
 #define FOREGROUND_IMAGE L"foreground.png"
 #define QBRICK_IMAGE L"qBrick.png"
 #define SCROLLBG_IMAGE L"scrollBG3.png"

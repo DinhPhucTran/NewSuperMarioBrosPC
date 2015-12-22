@@ -71,22 +71,22 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 	marioLargeSprite = new CSprite(_SpriteHandler, MARIO_LARGE_IMAGE, 32, 32, 195, 10);
 
-	koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 17, 28, 48, 16);
-	goobaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 17, 28, 48, 16);
-	mushroomSprite = new CSprite(_SpriteHandler, MUSHROOM_IMAGE, 18, 18, 1, 1);
-	greenmushroomSprite = new CSprite(_SpriteHandler, GREEN_MUSHROOM, 18, 18, 1, 1);
+	koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);
+	goobaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);
+	mushroomSprite = new CSprite(_SpriteHandler, MUSHROOM_IMAGE, 16, 16, 1, 1);
+	greenmushroomSprite = new CSprite(_SpriteHandler, GREEN_MUSHROOM, 16, 16, 1, 1);
 	
 	KoopaTroopa* koopa2 =
-		new KoopaTroopa(200, GROUND_Y + 200, 17, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
+		new KoopaTroopa(200, GROUND_Y + 200, 16, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
 	
 	KoopaTroopa* koopa = 
-		new KoopaTroopa(450, GROUND_Y+200, 17, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
+		new KoopaTroopa(450, GROUND_Y+200, 16, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
 	koopa->setState(new KoopaNomalState(koopa));
 	
 
 	
 	KoopaTroopa* redKoopa = 
-		new RedKoopa(500, GROUND_Y+50, 17, 28,-KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
+		new RedKoopa(500, GROUND_Y+50, 16, 28,-KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
 	redKoopa->setState(new KoopaVulnerableState(redKoopa));
 	
 
@@ -153,12 +153,12 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	mObjectManager->addObject(mb2);
 
 	
-	qbSprite = new CSprite(_SpriteHandler, QBRICK_IMAGE, 18, 18, 5, 5);
+	qbSprite = new CSprite(_SpriteHandler, QBRICK_IMAGE, 16, 16, 5, 5);
 	Gooba* hiddenGoomba = new Gooba(0, 0, Gooba::WIDTH, Gooba::HEIGHT, Gooba::SPEED_X,0,Gooba::SPEED_X,0,0,NULL,goobaSprite);
 	Gooba* hiddenGoomba1 = new Gooba(0, 0, Gooba::WIDTH, Gooba::HEIGHT, Gooba::SPEED_X, 0, Gooba::SPEED_X, 0, 0, NULL, goobaSprite);
 
-	RedMushroom * mushroom1 = new RedMushroom(0, 0, 18, 18, 0, 0, 0, 0, 0, mushroomSprite);
-	GreenMushroom * mushroom2 = new GreenMushroom(0, 0, 18, 18, 0, 0, 0, 0, 0, greenmushroomSprite);
+	RedMushroom * mushroom1 = new RedMushroom(0, 0, 16, 16, 0, 0, 0, 0, 0, mushroomSprite);
+	GreenMushroom * mushroom2 = new GreenMushroom(0, 0, 16, 16, 0, 0, 0, 0, 0, greenmushroomSprite);
 
 	qb1 = new QBrick(184, 73, 16, 16, mushroom1, qbAnim1, qbSprite);
 	mObjectManager->addObject(qb1);
