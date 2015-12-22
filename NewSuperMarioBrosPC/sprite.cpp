@@ -139,9 +139,9 @@ void CSprite::Render(Animation *anim, int X, int Y, int vpx, int vpy)
 	//original value =((anim->startFrame % _SpritePerRow) * _Width + 1) + (anim->index % (anim->startFrame)) * (_Width);
 	else if (anim->startFrame <= 1)
 		srect.left = anim->index * _Width;
-	srect.top = (anim->index / _SpritePerRow) * (_Height)+1;//original value srect.top = (anim->index / _SpritePerRow) * (_Height)
+	srect.top = (anim->index / _SpritePerRow) * (_Height);//original value srect.top = (anim->index / _SpritePerRow) * (_Height)
 	srect.right = srect.left + _Width;//original value srect.right = srect.left + _Width-1
-	srect.bottom = srect.top + _Height ;//original value srect.bottom = srect.top + _Height + 1;
+	srect.bottom = srect.top + _Height;//original value srect.bottom = srect.top + _Height + 1;
 
 	D3DXVECTOR3 position((float)X, (float)Y, 0);
 
