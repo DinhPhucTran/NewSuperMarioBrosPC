@@ -12,7 +12,6 @@
 #include "Mushroom.h"
 #include "Coin.h"
 #include "Leaf.h"
-#include "ParaKoopa.h"
 const float CMarioGame::GRAVITY_VELOCOTY = GRAV_VELOCITY;
 DWORD last = 0;
 LPD3DXFONT fontArial;
@@ -89,7 +88,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 		new RedKoopa(500, GROUND_Y+50, 16, 28,-KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
 	redKoopa->setState(new KoopaVulnerableState(redKoopa));
 	
-	KoopaTroopa* paraKoopa = new KoopaTroopa(130, 100, ParaKoopa::SPEED_X, NULL, koopaTroopaSprite);
+	KoopaTroopa* paraKoopa = new KoopaTroopa(130, 100, KoopaTroopa::PARA_SPEED_X, NULL, koopaTroopaSprite);
 	paraKoopa->setState(new KoopaParaState(paraKoopa));
 
 

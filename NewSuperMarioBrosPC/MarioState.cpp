@@ -71,7 +71,7 @@ void MarioState::onCollision(Object* ob,int dir){
 	if (objectName == KoopaTroopa::OBJECT_NAME || objectName == RedKoopa::OBJECT_NAME){
 		KoopaTroopa* koopa = (KoopaTroopa*)ob;
 		string state = koopa->getState()->getName();
-		if (state == KoopaNomalState::STATE_NAME){
+		if (state == KoopaNomalState::STATE_NAME || state == KoopaParaState::STATE_NAME){
 			if (dir == Physics::COLLIDED_FROM_BOTTOM){
 				mMario->y = ob->top() + mMario->height / 2;
 				mMario->vy = 0;
