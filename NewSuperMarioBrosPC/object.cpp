@@ -6,6 +6,8 @@
 #include "marioGame.h"//to access global variable such at _SpriteHandler 
 using namespace std;
 
+
+const float Object::MAX_SPEED_Y = 0.4f;
 const string Object::OBJECT_NAME = "game_object";
 string Object::getName(){
 	return OBJECT_NAME;
@@ -67,7 +69,10 @@ void Object::update(int t){
 	
 	vy += ay*t;
 	vx += ax*t;
-	ay -= CMarioGame::GRAVITY_VELOCOTY;
+	if (vy > Object::MAX_SPEED_Y || vy < -Object::MAX_SPEED_Y){
+		ay = 0;
+	}
+	ay -= CMarioGame::GRAVITY_VELOCOTY*t;
 	x += (int)(vx * t);
 	y += (int)(vy * t);
 	

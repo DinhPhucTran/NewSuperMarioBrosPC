@@ -39,6 +39,7 @@ public:
 	virtual int getHeight();			//ví dụ Normal Troopa sẽ cao hơn Sliding Stroopa
 	virtual int getAnimationDelay();	//và Sliding Troopa lại có AnimationRate cao hơn và tốc độ cao hơn Normal Troopa
 	virtual float getSpeed();			//trong mỗi trạng thái nên định nghĩa những thuộc thay đổi này, width, height, animationDelay,Speed;
+	virtual void update(int t);
 };
 
 class KoopaNomalState:public KoopaTroopaState{//trạng thái đi lại bình thường
@@ -49,6 +50,7 @@ public:
 	void onCollision(Object* ob,int dir)override;
 	string getName()override;
 	KoopaNomalState(KoopaTroopa* koopa);
+
 
 
 };
@@ -66,6 +68,7 @@ public:
 	
 	int getHeight()override;//=16
 	float getSpeed()override;//=0;
+	void update(int t)override;
 };
 
 class KoopaSlidingState :public KoopaTroopaState{
@@ -83,11 +86,27 @@ public :
 	float getSpeed()override;//=0.5f
 };
 
+class KoopaParaState :public KoopaTroopaState{
+private:
+public:
+	static const string STATE_NAME;
+	void onCollision(Object* ob, int dir)override;
+	string getName()override;
+	KoopaParaState(KoopaTroopa* koopa);
+	float getSpeed()override;//0,085f
+	void update(int t)override;
+	
+};
+
 class KoopaTroopa : public Object{
 protected:
 	KoopaTroopaState* mState;
 public:
 	int isBringedByMario;
+	static const float PARA_FLYING_GRAVITY;
+	static const float PARA_MAX_SPEED_Y;//0.6 MARIO 0.7
+	static const float PARA_SPEED_X;
+	static const float PARA_ACCELERATION_Y;
 	static const int KOOPA_WIDTH;
 	static const int KOOPA_HEIGHT;
 	static const int KOOPA_VULNERABLE_HEIGHT;
@@ -106,6 +125,7 @@ public:
 	virtual void onCollision(Object* ob,int dir)override;
 	void render(int vpx,int vpy)override;
 	KoopaTroopa(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image);
+	KoopaTroopa(int x, int y, float vx,  Animation* anim, CSprite * image);
 	void update(int t)override;
 };
 

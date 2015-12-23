@@ -39,7 +39,7 @@
 
 
 
-#define GRAV_VELOCITY 0.0001f
+#define GRAV_VELOCITY 0.00007f;//0.0001f original value
 
 //#define VIEW_PORT_Y  600
 

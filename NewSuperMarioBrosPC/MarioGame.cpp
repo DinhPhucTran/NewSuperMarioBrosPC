@@ -12,7 +12,7 @@
 #include "Mushroom.h"
 #include "Coin.h"
 #include "Leaf.h"
-
+#include "ParaKoopa.h"
 const float CMarioGame::GRAVITY_VELOCOTY = GRAV_VELOCITY;
 DWORD last = 0;
 LPD3DXFONT fontArial;
@@ -89,6 +89,8 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 		new RedKoopa(500, GROUND_Y+50, 16, 28,-KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
 	redKoopa->setState(new KoopaVulnerableState(redKoopa));
 	
+	KoopaTroopa* paraKoopa = new KoopaTroopa(130, 100, ParaKoopa::SPEED_X, NULL, koopaTroopaSprite);
+	paraKoopa->setState(new KoopaParaState(paraKoopa));
 
 
 	Gooba* gooba = new Gooba(400, GROUND_Y+200, Gooba::WIDTH, Gooba::HEIGHT, -Gooba::SPEED_X, 0, -Gooba::SPEED_X, 0, 0, NULL, goobaSprite);
@@ -112,6 +114,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	mObjectManager->addObject(gooba);
 	mObjectManager->addObject(koopa2);
 	mObjectManager->addObject(redKoopa);
+	mObjectManager->addObject(paraKoopa);
 
 
 
@@ -194,7 +197,7 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	
 	
 	
-	mario->ay -= GRAV_VELOCITY*t;
+	//mario->ay -= GRAV_VELOCITY*t;
 	
 	/*qbAnim1->Update();
 	if (Physics::ContainsPoint(qb1, mario->x, mario->top()))
@@ -270,18 +273,14 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 
 void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 {
-	
-	//DWORD now = GetTickCount();
 	if (IsKeyDown(DIK_X)){
 		mario->isAButtonPressed = 1;
-		mario->onAPress();
 	}
 	else{
 		mario->isAButtonPressed = 0;
 	}
 	if (IsKeyDown(DIK_Z)){
 		mario->isBButtonPressed = 1;
-		mario->onBPress();
 	}
 	else{
 		mario->isBButtonPressed = 0;
@@ -289,7 +288,6 @@ void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 
 	if (IsKeyDown(DIK_RIGHT))
 	{
-		
 		mario->isRightButtonPressed = 1;
 		mario->ax = Mario::ACCELERATION_X;
 		mario->vx_last = mario->vx;//lưu lại vx để biết hướng của mario
@@ -349,9 +347,11 @@ void CMarioGame::OnKeyDown(int KeyCode)
 {
 	switch (KeyCode)
 	{
-	case DIK_SPACE:
-				
-		
+	case DIK_X:
+		mario->onAPress();
+		break;
+	case DIK_Z:
+		mario->onBPress();
 		break;
 	}
 	

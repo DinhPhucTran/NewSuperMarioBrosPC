@@ -14,7 +14,9 @@ class MarioAnimationFactory;//khai báo có lớp MarioAnimationFactory
 
 class Object {
 public:
+	
 	static const string OBJECT_NAME;
+	static const float MAX_SPEED_Y;
 	int x, y;
 	float ax;
 	float ay;

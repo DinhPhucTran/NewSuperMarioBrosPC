@@ -11,6 +11,15 @@ RedKoopa::RedKoopa(int x, int y, int width, int height, float vx, float vy, floa
 		mAnim = mAnimationFactory->createAnimation();
 	
 }
+RedKoopa::RedKoopa(int x, int y,float vx, Animation* anim, CSprite * image)
+	:KoopaTroopa(x, y, KoopaTroopa::KOOPA_WIDTH, KoopaTroopa::KOOPA_HEIGHT, vx, 0, vx, 0, 0, anim, image){
+	if (mState == NULL)
+		mState = new KoopaNomalState(this);
+	mAnimationFactory = new RedKoopaAnimationFactory(this);
+	if (mAnim == NULL)
+		mAnim = mAnimationFactory->createAnimation();
+
+}
 
 
 string RedKoopa::getName(){
