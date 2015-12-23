@@ -7,6 +7,7 @@
 #include"Qbrick.h"
 #include"MarioState.h"
 #include "ObjectManager.h"
+#include"MarioRaccoonTail.h"
 using namespace std;
 
 KoopaTroopa::KoopaTroopa(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image) 
@@ -93,6 +94,11 @@ string KoopaTroopaState::getName(){
 }
 
 void KoopaTroopaState::onCollision(Object*ob,int dir){
+	string objName = ob->getName();
+	if (objName == MarioRaccoonTail::OBJECT_NAME && MarioRaccoonTail::getInstance()->getState() == MarioRaccoonTail::STATE_ACTIVE){
+		mKoopa->vy = 0.5f;
+		mKoopa->setState(new KoopaVulnerableState(mKoopa));
+	}
 	//Tất cả các lơp kế thừa phải gọi hàm này nếu override
 	//chứa tất cả các loại va chạm chung mà mọi trạng thái đều xử lý như nhau
 
@@ -184,6 +190,7 @@ void KoopaNomalState::onCollision(Object*ob, int dir){
 			}
 		}
 	}
+	
 }
 KoopaNomalState::KoopaNomalState(KoopaTroopa* koopa)
 	:KoopaTroopaState(koopa){

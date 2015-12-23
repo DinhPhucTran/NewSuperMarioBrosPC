@@ -192,7 +192,9 @@ AnimationFactory* MarioStateLarge::getAnimationFactory(){
 //==================SATE_RACON==============
 const string MarioStateRaccoon::STATE_NAME = "mario_state_raccoon";
 MarioStateRaccoon::MarioStateRaccoon(Mario* mario) :MarioState(mario){
-
+	MarioRaccoonTail* mTail = MarioRaccoonTail::getInstance();
+	//mTail->setSprite(mMario->mSprite);//for debug only
+	ObjectManager::getInstance()->addObject(mTail);
 }
 string MarioStateRaccoon::getName(){
 	return STATE_NAME;
@@ -202,8 +204,9 @@ void MarioStateRaccoon::onAPress(){
 	mMario->jumpUp();
 }
 void MarioStateRaccoon::onBPress(){
-	MarioRaccoonTail* tail = new MarioRaccoonTail(mMario, mMario->x, mMario->y, 0, 0);
-	//ObjectManager::getInstance()->addObject(tail);
+	MarioRaccoonTail* tail = MarioRaccoonTail::getInstance();
+	if (tail->getState()==MarioRaccoonTail::STATE_INACTIVE)
+		tail->setState(MarioRaccoonTail::STATE_ACTIVE);
 }
 int MarioStateRaccoon::getHeight(){
 	return height;

@@ -3,8 +3,10 @@
 #include <string>
 #include "MarioObject.h"
 
+
 #include <string>
 using namespace std;
+class MarioRaccoonTail;
 class MarioState{
 protected:
 	Mario* mMario;
@@ -54,6 +56,7 @@ class MarioStateRaccoon : public MarioState{
 	
 	int height = 28;
 	int width = 16;
+	MarioRaccoonTail* mTail;
 public:
 	int getHeight()override;
 	int getWidth()override;

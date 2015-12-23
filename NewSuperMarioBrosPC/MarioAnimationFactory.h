@@ -66,6 +66,7 @@ public:
 	Animation *turnLeftAnimation = new Animation(10, 10);
 
 
+
 	Animation* createAnimation()override;
 	~LargeMarioAnimationFactory();
 };
@@ -89,6 +90,11 @@ public:
 	Animation *rightJumpDownAnim = new Animation(32, 32);
 	Animation *turnRightAnimation = new Animation(28, 28);
 	Animation *turnLeftAnimation = new Animation(24, 24);
+
+	Animation* RaccoonTailBack = new Animation(36, 36);
+	Animation* RaccoonTailFront = new Animation(37, 37);
+	Animation* RaccoonTailLeft = new Animation(38, 38);
+	Animation* RaccoonTailRight = new Animation(39, 39);
 
 	Animation* createAnimation()override;
 	~RaccoonMarioAnimationFactory();

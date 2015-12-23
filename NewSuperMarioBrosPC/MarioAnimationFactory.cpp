@@ -2,6 +2,7 @@
 #include<string>
 #include"game.h"
 #include"MarioState.h"
+#include "MarioRaccoonTail.h"
 using namespace std;
 
 
@@ -158,7 +159,22 @@ RaccoonMarioAnimationFactory* RaccoonMarioAnimationFactory::getInstance(Mario* m
 
 Animation* RaccoonMarioAnimationFactory::createAnimation(){
 	Animation* result;
-	if (mMario->vy > 0)//vy>0 => mario nhảy lên, vy<0 =>mario đang rớt xuống
+	MarioRaccoonTail* tail = MarioRaccoonTail::getInstance();
+	if (tail->getState()==MarioRaccoonTail::STATE_ACTIVE){
+		if (tail->mDirection == MarioRaccoonTail::DIRECTION_FRONT){
+			result = RaccoonTailFront;
+		}
+		else if (tail->mDirection == MarioRaccoonTail::DIRECTION_BACK){
+			result = RaccoonTailBack;
+		} 
+		else if (tail->mDirection == MarioRaccoonTail::DIRECTION_LEFT){
+			result = RaccoonTailLeft;
+		}
+		else {
+			result = RaccoonTailRight;
+		}
+	}
+	else if (mMario->vy > 0)//vy>0 => mario nhảy lên, vy<0 =>mario đang rớt xuống
 	{
 		if (mMario->vx_last < 0)//quay trái
 			result = leftJumpUpAnim;

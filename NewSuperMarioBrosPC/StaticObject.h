@@ -12,7 +12,7 @@ public:
 	StaticObject(int x, int y, int width, int height, CSprite * image);
 	virtual void update(int t)override;
 	virtual string getName()override;
-	int isStaticObject()override;
+	virtual int isStaticObject()override;
 };
 
 #endif

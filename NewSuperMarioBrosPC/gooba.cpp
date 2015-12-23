@@ -1,7 +1,7 @@
 ﻿#include"gooba.h"
 #include <string>
 #include "MarioState.h"
-
+#include "MarioRaccoonTail.h"
 
 using namespace std;
 
@@ -123,6 +123,9 @@ void GoobaNomalState::onCollision(Object*ob,int dir){
 		else if (dir == Physics::COLLIDED_FROM_TOP){
 			mGooba->setState(new GoobaDyingState(mGooba));
 		}
+	}
+	if (objName == MarioRaccoonTail::OBJECT_NAME && MarioRaccoonTail::getInstance()->getState()==MarioRaccoonTail::STATE_ACTIVE){
+		mGooba->die();
 	}
 }
 GoobaNomalState::GoobaNomalState(Gooba* gooba)
