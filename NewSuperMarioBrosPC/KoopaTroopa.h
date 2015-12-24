@@ -21,6 +21,8 @@ public:
 	Animation* mKoopaRightWalkAnim = new Animation(10,11);
 	Animation* mKoopaVulnerableAnim = new Animation(36, 36);
 	Animation* mKoopaSlidingAnim = new Animation(36, 39);
+	Animation* mKoopaLeftFlyAnim = new Animation(20, 23);
+	Animation* mKoopaRightFlyAnim = new Animation(24, 27);
 	Animation* createAnimation()override;
 	~KoopaAnimationFactory();
 };

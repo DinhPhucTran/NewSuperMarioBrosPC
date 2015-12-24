@@ -551,12 +551,21 @@ Animation* KoopaAnimationFactory::createAnimation(){
 	else if (stateName == KoopaSlidingState::STATE_NAME){
 		result = mKoopaSlidingAnim;
 	}
-	else {///normal state
+	else if(stateName == KoopaNomalState::STATE_NAME){///normal state
 		if (mKoopa->vx_last < 0){
 			result = mKoopaLeftWalkAnim;
 		}
 		else{
 			result = mKoopaRightWalkAnim;
+		}
+	}
+	else
+	{//Parastate
+		if (mKoopa->vx_last < 0){
+			result = mKoopaLeftFlyAnim;
+		}
+		else{
+			result = mKoopaRightFlyAnim;
 		}
 	}
 	result->Update();
