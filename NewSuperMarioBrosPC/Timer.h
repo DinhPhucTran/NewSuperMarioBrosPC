@@ -6,8 +6,7 @@ class Timer{
 private:
 	DWORD mLastTime;
 public:
-	Timer();
-	start(){
+	void start(){
 		mLastTime = GetTickCount();
 	};
 	int getIntervalTime(){
