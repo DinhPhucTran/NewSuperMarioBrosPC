@@ -292,7 +292,7 @@ void KoopaVulnerableState::onCollision(Object*ob, int dir){
 		if (stateName == MarioStateInvincible::STATE_NAME){
 			return;
 		}
-		else if (dir == Physics::COLLIDED_FROM_LEFT){
+		else if (dir == Physics::COLLIDED_FROM_LEFT&& mKoopa->isBringedByMario == 0){
 			if (mario->isBButtonPressed){//nếu B pressed thì mario cầm rùa chứ ko đá rùa
 				//xử lý trường hợp mario cầm rùa
 				mKoopa->isBringedByMario = 1;
@@ -303,7 +303,7 @@ void KoopaVulnerableState::onCollision(Object*ob, int dir){
 			mKoopa->vx_last = mKoopa->vx;
 			mKoopa->setState(new KoopaSlidingState(mKoopa));
 		}
-		else if (dir == Physics::COLLIDED_FROM_RIGHT){
+		else if (dir == Physics::COLLIDED_FROM_RIGHT && mKoopa->isBringedByMario == 0){
 			if (mario->isBButtonPressed){//nếu B pressed thì mario cầm rùa chứ ko đá rùa
 				//xử lý trường hợp mario cầm rùa
 				mKoopa->isBringedByMario = 1;
@@ -314,7 +314,10 @@ void KoopaVulnerableState::onCollision(Object*ob, int dir){
 			mKoopa->vx_last = mKoopa->vx;
 			mKoopa->setState(new KoopaSlidingState(mKoopa));
 		}
-		else if (dir == Physics::COLLIDED_FROM_TOP||dir==Physics::COLLIDED_FROM_BOTTOM){
+		else if (dir == Physics::COLLIDED_FROM_TOP || dir == Physics::COLLIDED_FROM_BOTTOM ){
+			if (mKoopa->isBringedByMario == 1){
+				return;
+			}
 			if (ob->x >= mKoopa->x){
 				//slide qua trái
 				ob->y = mKoopa->top() + ob->height / 2 + 2;
