@@ -13,7 +13,7 @@
 #include "Coin.h"
 #include "Leaf.h"
 const float CMarioGame::GRAVITY_VELOCOTY = GRAV_VELOCITY;
-DWORD last = 0;
+DWORD last, now;
 LPD3DXFONT fontArial;
 RECT rect;
 Animation *qbAnim1 = new Animation(0, 3);
@@ -25,7 +25,6 @@ Object *scrollBG;
 int marioXlast=0;
 Animation *coinAnim = new Animation(0, 2);
 Coin *coin;
-
 
 CMarioGame::CMarioGame(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate) :
 CGame(hInstance, Name, Mode, IsFullScreen, FrameRate)
@@ -43,7 +42,7 @@ CMarioGame::~CMarioGame()
 void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 {
 	srand((unsigned)time(NULL));
-
+	now = GetTickCount();
 	// TO-DO: not a very good place to initial sprite handler
 	D3DXCreateSprite(d3ddv, &_SpriteHandler);
 
@@ -141,11 +140,11 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	BrickGround * ground3 = new BrickGround(1153 + 176, 8, 352, 16);
 	mObjectManager->addObject(ground3);
 	BrickGround * ground4 = new BrickGround(1537 + 40, 8, 80, 16);
-	//mObjectManager->addObject(ground4);
+	mObjectManager->addObject(ground4);
 	BrickGround * ground5 = new BrickGround(1666 + 288, 8, 576, 16);
-	//mObjectManager->addObject(ground5);
+	mObjectManager->addObject(ground5);
 	BrickGround * ground6 = new BrickGround(2257 + 280, 8, 560, 16);
-	//mObjectManager->addObject(ground6);
+	mObjectManager->addObject(ground6);
 
 	Pipe * pipe1 = new Pipe(367, 40, 32, 48);
 	mObjectManager->addObject(pipe1);
@@ -189,28 +188,8 @@ int xc = 0;
 
 void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 {
-	// TO-DO: should enhance CGame to put a separate virtual method for updating game status
-
-
+	now = GetTickCount();
 	mObjectManager->update(t);
-	
-	
-	
-	//mario->ay -= GRAV_VELOCITY*t;
-	
-	/*qbAnim1->Update();
-	if (Physics::ContainsPoint(qb1, mario->x, mario->top()))
-	{
-		qbAnim1->startFrame = 4;
-		qbAnim1->endFrame = 4;
-	}
-
-	qbAnim2->Update();
-	if (Physics::ContainsPoint(qb2, mario->x, mario->top()))
-	{
-		qbAnim2->startFrame = 4;
-		qbAnim2->endFrame = 4;
-	}*/
 	
 	mObjectManager->checkCollition();
 
@@ -263,20 +242,25 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 
 	rect.top = 0;
 	rect.left = 20;
-	rect.right = 440;//240
+	rect.right = 640;//240
 	rect.bottom = 100;
 	char buffer[64] = { 0 };
-	sprintf_s(buffer, " /A: %d/B: %d      ", mario->isAButtonPressed,mario->isBButtonPressed);//Mx: %d / My: %d
+	sprintf_s(buffer, "%d / %d         ", mario->x, mario->y);//Mx: %d / My: %d
 	fontArial->DrawTextA(NULL, buffer, 20, &rect, DT_LEFT, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
 void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 {
 	if (IsKeyDown(DIK_X)){
-		mario->isAButtonPressed = 1;
+		if (mario->isAButtonPressed == 1)
+			if (now - last > 200)
+			{
+				mario->ay = Mario::ACCELERATION_Y_PLUS;
+				mario->isAButtonPressed = 0;
+			}
 	}
 	else{
-		mario->isAButtonPressed = 0;
+		last = now;
 	}
 	if (IsKeyDown(DIK_Z)){
 		mario->isBButtonPressed = 1;
@@ -347,6 +331,7 @@ void CMarioGame::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_X:
+		if (mario->vy==0)
 		mario->onAPress();
 		break;
 	case DIK_Z:
@@ -357,3 +342,13 @@ void CMarioGame::OnKeyDown(int KeyCode)
 }
 
 
+void CMarioGame::OnKeyUp(int KeyCode)
+{
+	switch (KeyCode)
+	{
+	case DIK_X:
+		last = now;
+		mario->isAButtonPressed = 1;
+		break;
+	}
+}

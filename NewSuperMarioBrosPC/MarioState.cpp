@@ -28,7 +28,7 @@ void MarioState::onCollision(Object* ob,int dir){
 	string objectName = ob->getName();
 	if (objectName == MetalBlock::OBJECT_NAME)
 	{
-		if (dir == Physics::COLLIDED_FROM_BOTTOM && mMario->bottom()+8>=ob->top())
+		if (dir == Physics::COLLIDED_FROM_BOTTOM && mMario->top() > ob->top() && mMario->bottom() + 6 >= ob ->top())//tránh trường hợp tự động đứng trên block khi chưa nhảy tới
 		{
 			mMario->vy = 0;
 			mMario->ay = 0;
