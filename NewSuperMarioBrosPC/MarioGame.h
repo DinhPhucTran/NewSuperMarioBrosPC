@@ -92,6 +92,7 @@ protected:
 	virtual void LoadResources(LPDIRECT3DDEVICE9 d3ddv)override;
 
 	virtual void OnKeyDown(int KeyCode)override;
+	virtual void OnKeyUp(int KeyCode)override;
 
 	void RenderBackground(int view_port_x, int view_port_y);
 };
