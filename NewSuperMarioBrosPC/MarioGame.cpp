@@ -107,8 +107,8 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	//marioObject->setState(new MarioStateLarge(marioObject));
 	
 	mObjectManager->addObject(marioObject);
-	mObjectManager->addObject(koopa);
-	
+
+	mObjectManager->addObject(koopa);	
 	mObjectManager->addObject(gooba);
 	mObjectManager->addObject(koopa2);
 	mObjectManager->addObject(redKoopa);
@@ -245,7 +245,7 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	rect.right = 640;//240
 	rect.bottom = 100;
 	char buffer[64] = { 0 };
-	sprintf_s(buffer, "%d / %d         ", mario->x, mario->y);//Mx: %d / My: %d
+	sprintf_s(buffer, "%f / %f         ", mario->vy, mario->ay);//Mx: %d / My: %d
 	fontArial->DrawTextA(NULL, buffer, 20, &rect, DT_LEFT, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
@@ -331,8 +331,8 @@ void CMarioGame::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_X:
-		if (mario->vy==0)
-		mario->onAPress();
+		if (abs(mario->vy - 0.f) <= 0.001f)
+			mario->onAPress();
 		break;
 	case DIK_Z:
 		mario->onBPress();
