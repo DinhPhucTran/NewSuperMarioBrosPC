@@ -14,11 +14,15 @@ public:
 	int isLeftButtonPressed;
 	int isRightButtonPressed;
 	int isAButtonPressed;
-	int isBButtonPressed;
+	int isBButtonPressed=0;
+	int isFlying;
+	static const float FLYING_Y_SPEED;
+	static const float FLYING_X_SPEED;
 	static const float ACCELERATION_X;
 	static const float ACCELERATION_Y;
 	static const float ACCELERATION_Y_PLUS;
 	static const float MAX_SPEED_X;
+	
 	static const float MAX_SPEED_Y;
 	static const int INVINCIBLE_SWITCH_STATE_TIME;//1000 ms
 

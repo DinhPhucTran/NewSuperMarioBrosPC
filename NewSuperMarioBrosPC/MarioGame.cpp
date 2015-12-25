@@ -266,7 +266,6 @@ void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 		if (mario->isAButtonPressed == 1){
 			if (GetTickCount() - lastTimeAPress >= 250 && GetTickCount() - lastTimeAPress<350)
 			{
-				//mario->powerJumpUp();
 				mario->ay += Mario::ACCELERATION_Y_PLUS - Mario::ACCELERATION_Y;
 				lastTimeAPress = 0;//để chặn việc liên tục tăng ay, chỉ cộng vào ay 1 lần
 			}
@@ -275,12 +274,12 @@ void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 			
 	}
 	
-	if (IsKeyDown(DIK_Z)){
-		mario->isBButtonPressed = 1;
-	}
-	else{
-		mario->isBButtonPressed = 0;
-	}
+	//if (IsKeyDown(DIK_Z)){
+	//	mario->isBButtonPressed = 1;
+	//}
+	//else{
+	//	mario->isBButtonPressed = 0;
+	//}
 
 	if (IsKeyDown(DIK_RIGHT))
 	{
@@ -326,30 +325,25 @@ void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 	}
 	
 	
-	
-	//if (IsKeyDown(DIK_SPACE)){
-	//	last_time = GetTickCount();
-	//	if (mario->vy == 0){
-	//		if (GetTickCount() - last_time <= 100)
-	//			mario->jumpUp();
-	//		else{
-	//			mario->jumpUp();
-	//		}
-	//	}
-	//}
 }
 
 void CMarioGame::OnKeyDown(int KeyCode)
 {
+	MarioState* marioState = mario->getState();
 	switch (KeyCode)
 	{
 	case DIK_X:
 		mario->isAButtonPressed = 1;
 		lastTimeAPress = GetTickCount();
-		mario->jumpUp();
+		
+		if (marioState->getName() == MarioStateRaccoon::STATE_NAME){
+			MarioStateRaccoon* raccoonState = (MarioStateRaccoon*)marioState;
+			raccoonState->timeFlying = GetTickCount();
+		}
 		mario->onAPress();
 		break;
 	case DIK_Z:
+		mario->isBButtonPressed = 1;
 		mario->onBPress();
 		break;
 	}
@@ -362,14 +356,10 @@ void CMarioGame::OnKeyUp(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_X:
-		if (GetTickCount() - lastTimeAPress <300)
-			{
-				if (mario->isAButtonPressed){
-					//mario->jumpUp();
-				}				
-			}
 		mario->isAButtonPressed = 0;
 		break;
+	case DIK_Z:
+		mario->isBButtonPressed = 0;
 	}
 }
 

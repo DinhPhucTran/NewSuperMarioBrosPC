@@ -13,6 +13,8 @@
 class RedMushroom :public Object
 {
 public:
+	static const int WIDTH;
+	static const int HEIGHT;
 	static const string OBJECT_NAME;
 	RedMushroom(int X, int Y, int Width, int Height, int vx, int vy, int vx_last, int ax, int ay, CSprite * Sprite);
 	string getName()override;
@@ -22,6 +24,8 @@ public:
 class GreenMushroom :public RedMushroom
 {
 public:
+	static const int WIDTH;
+	static const int HEIGHT;
 	static const string OBJECT_NAME;
 	GreenMushroom(int X, int Y, int Width, int Height, int vx, int vy, int vx_last, int ax, int ay, CSprite * Sprite);
 	string getName()override;

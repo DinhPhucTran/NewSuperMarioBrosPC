@@ -2,7 +2,7 @@
 #define _MARIO_STATE_H
 #include <string>
 #include "MarioObject.h"
-
+#include "Timer.h"
 
 #include <string>
 using namespace std;
@@ -14,6 +14,7 @@ public:
 	virtual void onAPress();
 	virtual void onBPress() ;
 	virtual void onCollision(Object* ob,int dir) ;
+	virtual void update(int t);
 	virtual std::string getName();
 	virtual int getHeight();//chiểu cao của mario ở trạng thái xác định;
 	virtual int getWidth();// chiều rộng của mario ở trạng thái xác định;
@@ -58,6 +59,8 @@ class MarioStateRaccoon : public MarioState{
 	int width = 16;
 	MarioRaccoonTail* mTail;
 public:
+	DWORD timeFlying;
+	static const int FLYING_TIME;
 	int getHeight()override;
 	int getWidth()override;
 	static const string STATE_NAME;
@@ -67,6 +70,7 @@ public:
 	void onCollision(Object* ob,int dir) override;
 	AnimationFactory* getAnimationFactory()override;
 	string getName()override;//return OBJECT_NAME
+	void update(int t)override;//mario raccon chuyển động bay
 };
 
 class MarioStateInvincible :public MarioState{
