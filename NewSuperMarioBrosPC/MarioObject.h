@@ -35,6 +35,7 @@ public:
 	void render(int vpx,int vpy)override;
 	void update(int t)override;
 	void jumpUp();
+	void powerJumpUp();
 	void stop();
 	void die()override;
 };

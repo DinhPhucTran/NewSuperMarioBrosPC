@@ -13,7 +13,7 @@
 #include "Coin.h"
 #include "Leaf.h"
 const float CMarioGame::GRAVITY_VELOCOTY = GRAV_VELOCITY;
-DWORD last, now;
+DWORD lastTimeAPress, nowTimeAPress;
 LPD3DXFONT fontArial;
 RECT rect;
 Animation *qbAnim1 = new Animation(0, 3);
@@ -42,7 +42,6 @@ CMarioGame::~CMarioGame()
 void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 {
 	srand((unsigned)time(NULL));
-	now = GetTickCount();
 	// TO-DO: not a very good place to initial sprite handler
 	D3DXCreateSprite(d3ddv, &_SpriteHandler);
 
@@ -188,7 +187,6 @@ int xc = 0;
 
 void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 {
-	now = GetTickCount();
 	mObjectManager->update(t);
 	
 	mObjectManager->checkCollition();
@@ -245,23 +243,25 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	rect.right = 640;//240
 	rect.bottom = 100;
 	char buffer[64] = { 0 };
-	sprintf_s(buffer, "%f / %f         ", mario->vy, mario->ay);//Mx: %d / My: %d
+	sprintf_s(buffer, "%d / %d         ", mario->isAButtonPressed, mario->isBButtonPressed);//Mx: %d / My: %d
 	fontArial->DrawTextA(NULL, buffer, 20, &rect, DT_LEFT, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
 void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 {
 	if (IsKeyDown(DIK_X)){
-		if (mario->isAButtonPressed == 1)
-			if (now - last > 200)
+		if (mario->isAButtonPressed == 1){
+			if (GetTickCount() - lastTimeAPress >= 250 && GetTickCount() - lastTimeAPress<350)
 			{
-				mario->ay = Mario::ACCELERATION_Y_PLUS;
-				mario->isAButtonPressed = 0;
+				//mario->powerJumpUp();
+				mario->ay += Mario::ACCELERATION_Y_PLUS - Mario::ACCELERATION_Y;
+				lastTimeAPress = 0;//để chặn việc liên tục tăng ay, chỉ cộng vào ay 1 lần
 			}
+		}
+			
+			
 	}
-	else{
-		last = now;
-	}
+	
 	if (IsKeyDown(DIK_Z)){
 		mario->isBButtonPressed = 1;
 	}
@@ -331,8 +331,10 @@ void CMarioGame::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_X:
-		if (abs(mario->vy - 0.f) <= 0.001f)
-			mario->onAPress();
+		mario->isAButtonPressed = 1;
+		lastTimeAPress = GetTickCount();
+		mario->jumpUp();
+		mario->onAPress();
 		break;
 	case DIK_Z:
 		mario->onBPress();
@@ -347,8 +349,13 @@ void CMarioGame::OnKeyUp(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_X:
-		last = now;
-		mario->isAButtonPressed = 1;
+		if (GetTickCount() - lastTimeAPress <300)
+			{
+				if (mario->isAButtonPressed){
+					//mario->jumpUp();
+				}				
+			}
+		mario->isAButtonPressed = 0;
 		break;
 	}
 }

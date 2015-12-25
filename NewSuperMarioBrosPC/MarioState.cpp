@@ -19,7 +19,7 @@ MarioState::MarioState(Mario* mario){
 	mMario = mario;
 }
 void MarioState::onAPress(){
-	mMario->jumpUp();
+	//mMario->jumpUp();
 }
 void MarioState::onBPress(){
 	
@@ -143,7 +143,7 @@ string MarioStateSmall::getName(){
 
 
 void MarioStateSmall::onAPress(){
-	mMario->jumpUp();
+	MarioState::onAPress();
 }
 void MarioStateSmall::onBPress(){
 	//do nothing
@@ -171,7 +171,7 @@ string MarioStateLarge::getName(){
 }
 
 void MarioStateLarge::onAPress(){
-	mMario->jumpUp();
+	MarioState::onAPress();
 }
 void MarioStateLarge::onBPress(){
 	//do nothing;
@@ -201,7 +201,7 @@ string MarioStateRaccoon::getName(){
 }
 
 void MarioStateRaccoon::onAPress(){
-	mMario->jumpUp();
+	MarioState::onAPress();
 }
 void MarioStateRaccoon::onBPress(){
 	MarioRaccoonTail* tail = MarioRaccoonTail::getInstance();

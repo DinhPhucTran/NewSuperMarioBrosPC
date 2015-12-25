@@ -9,10 +9,10 @@ using namespace std;
 
 
 const float Mario::ACCELERATION_X = 0.0015f;
-const float Mario::ACCELERATION_Y = 0.006f;//0.01f;
-const float Mario::ACCELERATION_Y_PLUS = 0.004f;
+const float Mario::ACCELERATION_Y = 0.008f;//0.01f;
+const float Mario::ACCELERATION_Y_PLUS = 0.014f;//0.0103
 const float Mario::MAX_SPEED_X = 0.3f;
-const float Mario::MAX_SPEED_Y = 0.5f;//0.7f
+const float Mario::MAX_SPEED_Y = 0.45f;//0.7f
 const int Mario::INVINCIBLE_SWITCH_STATE_TIME = 1000;
 
 MarioState* Mario::getState(){
@@ -95,7 +95,13 @@ void Mario::update(int t){
 	ay -= CMarioGame::GRAVITY_VELOCOTY*t;
 }
 void Mario::jumpUp(){
-	ay = Mario::ACCELERATION_Y;
+	if (vy==0)
+		ay = Mario::ACCELERATION_Y;
+}
+void Mario::powerJumpUp(){
+	if (vy == 0){
+		ay = Mario::ACCELERATION_Y_PLUS;
+	}
 }
 void Mario::stop(){
 	vx = 0;
