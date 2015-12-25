@@ -174,6 +174,12 @@ Animation* RaccoonMarioAnimationFactory::createAnimation(){
 			result = RaccoonTailRight;
 		}
 	}
+	else if (mMario->isFlying==1){
+		if (mMario->vx_last < 0)//quay trái
+			result = RaccoonFlyingLeft;
+		else
+			result = RaccoonFlyingRight;
+	}
 	else if (mMario->vy > 0)//vy>0 => mario nhảy lên, vy<0 =>mario đang rớt xuống
 	{
 		if (mMario->vx_last < 0)//quay trái

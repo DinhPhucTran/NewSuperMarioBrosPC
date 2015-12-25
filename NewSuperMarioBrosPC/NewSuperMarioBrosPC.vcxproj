@@ -71,6 +71,7 @@
     <ClInclude Include="animation.h" />
     <ClInclude Include="AnimationFactory.h" />
     <ClInclude Include="BrickGround.h" />
+    <ClInclude Include="cliststatic.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gooba.h" />
@@ -88,6 +89,7 @@
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Qbrick.h" />
+    <ClInclude Include="QuadTree.h" />
     <ClInclude Include="RedKoopa.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="StaticObject.h" />

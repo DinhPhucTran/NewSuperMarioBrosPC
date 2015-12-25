@@ -9,9 +9,11 @@ using namespace std;
 
 
 const float Mario::ACCELERATION_X = 0.0015f;
+const float Mario::FLYING_Y_SPEED = 0.14f;
+const float Mario::FLYING_X_SPEED = 0.18f;
 const float Mario::ACCELERATION_Y = 0.008f;//0.01f;
 const float Mario::ACCELERATION_Y_PLUS = 0.014f;//0.0103
-const float Mario::MAX_SPEED_X = 0.3f;
+const float Mario::MAX_SPEED_X = 0.25f;//0.3f
 const float Mario::MAX_SPEED_Y = 0.45f;//0.7f
 const int Mario::INVINCIBLE_SWITCH_STATE_TIME = 1000;
 
@@ -54,7 +56,7 @@ string Mario::getName(){
 }
 
 void Mario::setState(MarioState* state){
-	Mario::mMarioState = state;
+	mMarioState = state;
 	string stateName = state->getName();
 	width = state->getWidth();
 	height = state->getHeight();
@@ -69,30 +71,8 @@ void Mario::render(int vpx,int vpy){
 
 void Mario::update(int t){
 	
+	mMarioState->update(t);
 	
-	if (x <= 10)
-		x = 10;
-	if (x >=2800)
-		x = 2800;
-
-
-	x =x+ (int)(vx*t);
-	y +=(int)(vy*t);
-	vx = vx + ax*t;
-	vy += ay*t;
-	
-
-	if (vx >= Mario::MAX_SPEED_X || vx <= -Mario::MAX_SPEED_X){
-		ax = 0;
-		if (vx_last<0)
-			vx = -Mario::MAX_SPEED_X;
-		else vx = Mario::MAX_SPEED_X;
-	}
-	if (vy >= Mario::MAX_SPEED_Y || vy <= -Mario::MAX_SPEED_Y)
-	{
-		ay = 0;
-	}
-	ay -= CMarioGame::GRAVITY_VELOCOTY*t;
 }
 void Mario::jumpUp(){
 	if (vy==0)

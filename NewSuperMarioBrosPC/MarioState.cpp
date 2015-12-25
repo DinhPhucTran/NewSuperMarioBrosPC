@@ -11,6 +11,7 @@
 #include "Mushroom.h"
 #include "MarioRaccoonTail.h"
 #include "ObjectManager.h"
+#include "MarioGame.h"
 #include <string>
 using namespace std;
 
@@ -19,11 +20,38 @@ MarioState::MarioState(Mario* mario){
 	mMario = mario;
 }
 void MarioState::onAPress(){
-	//mMario->jumpUp();
+	mMario->jumpUp();
 }
 void MarioState::onBPress(){
 	
 }
+
+void MarioState::update(int t){
+	if (mMario->x <= 8)
+		mMario->x = 8;
+	if (mMario->x >= 2800)
+		mMario->x = 2800;
+
+
+	mMario->x = mMario->x + (int)(mMario->vx*t);
+	mMario->y += (int)(mMario->vy*t);
+	mMario->vx = mMario->vx + mMario->ax*t;
+	mMario->vy += mMario->ay*t;
+
+
+	if (mMario->vx >= Mario::MAX_SPEED_X || mMario->vx <= -Mario::MAX_SPEED_X){
+		mMario->ax = 0;
+		if (mMario->vx_last<0)
+			mMario->vx = -Mario::MAX_SPEED_X;
+		else mMario->vx = Mario::MAX_SPEED_X;
+	}
+	if (mMario->vy >= Mario::MAX_SPEED_Y || mMario->vy <= -Mario::MAX_SPEED_Y)
+	{
+		mMario->ay = 0;
+	}
+	mMario->ay -= CMarioGame::GRAVITY_VELOCOTY*t;
+}
+
 void MarioState::onCollision(Object* ob,int dir){
 	string objectName = ob->getName();
 	if (objectName == MetalBlock::OBJECT_NAME)
@@ -191,10 +219,14 @@ AnimationFactory* MarioStateLarge::getAnimationFactory(){
 }
 //==================SATE_RACON==============
 const string MarioStateRaccoon::STATE_NAME = "mario_state_raccoon";
+const int MarioStateRaccoon::FLYING_TIME = 300;
+
+
 MarioStateRaccoon::MarioStateRaccoon(Mario* mario) :MarioState(mario){
 	MarioRaccoonTail* mTail = MarioRaccoonTail::getInstance();
 	//mTail->setSprite(mMario->mSprite);//for debug only
 	ObjectManager::getInstance()->addObject(mTail);
+
 }
 string MarioStateRaccoon::getName(){
 	return STATE_NAME;
@@ -202,6 +234,7 @@ string MarioStateRaccoon::getName(){
 
 void MarioStateRaccoon::onAPress(){
 	MarioState::onAPress();
+	
 }
 void MarioStateRaccoon::onBPress(){
 	MarioRaccoonTail* tail = MarioRaccoonTail::getInstance();
@@ -218,6 +251,25 @@ void MarioStateRaccoon::onCollision(Object* ob,int dir){
 	//xử lý va chạm trong trường hợp mario Raccoon
 	MarioState::onCollision(ob,dir);
 	
+}
+void MarioStateRaccoon::update(int t){
+	if (GetTickCount() - timeFlying <= FLYING_TIME && mMario->vy < 0){//Flying
+		mMario->isFlying = 1;
+		mMario->vy = -Mario::FLYING_Y_SPEED;
+			mMario->vx = mMario->vx + mMario->ax*t;
+			if (mMario->vx >= Mario::FLYING_X_SPEED || mMario->vx <= -Mario::FLYING_X_SPEED){
+				mMario->ax = 0;
+				if (mMario->vx_last<0)
+					mMario->vx = -Mario::FLYING_X_SPEED;
+				else mMario->vx = Mario::FLYING_X_SPEED;
+			}
+			mMario->y += (int)(mMario->vy*t);
+			mMario->x += (int)(mMario->vx*t);
+	}
+	else{
+		mMario->isFlying = 0;
+		MarioState::update(t);
+	}
 }
 
 AnimationFactory* MarioStateRaccoon::getAnimationFactory(){
