@@ -10,6 +10,8 @@ class Leaf :public Object
 {
 public:
 	static const string OBJECT_NAME;
+	static const int HEIGHT;
+	static const int WIDTH;
 	Leaf(int X, int Y, int Width, int Height, int vx, int vy, int vx_last, int ax, int ay, CSprite * Sprite);
 	string getName()override;
 	void onCollision(Object * ob, int dir);
