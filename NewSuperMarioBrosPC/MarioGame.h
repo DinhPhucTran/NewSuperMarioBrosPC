@@ -27,6 +27,7 @@
 #define QBRICK_IMAGE L"qBrick.png"
 #define SCROLLBG_IMAGE L"scrollBG3.png"
 #define MUSHROOM_IMAGE L"redMushroom.png"
+#define GOLDBRICK_IMAGE L"goldBrick.png"
 #define COIN L"coin.png"
 #define LEAF L"leaf.png"
 #define GREEN_MUSHROOM L"greenMushroom.png"

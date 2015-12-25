@@ -108,6 +108,9 @@
     <ClInclude Include="Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GoldBrick.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sprite.cpp">
@@ -181,6 +184,9 @@
     </ClCompile>
     <ClCompile Include="MarioRaccoonTail.cpp">
       <Filter>Source Files\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="GoldBrick.cpp">
+      <Filter>Source Files\Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

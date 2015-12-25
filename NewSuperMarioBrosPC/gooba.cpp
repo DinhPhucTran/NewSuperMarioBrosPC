@@ -2,6 +2,8 @@
 #include <string>
 #include "MarioState.h"
 #include "MarioRaccoonTail.h"
+#include "Qbrick.h"
+#include "GoldBrick.h"
 
 using namespace std;
 
@@ -58,7 +60,7 @@ GoobaState::GoobaState(Gooba* gooba){
 
 void GoobaState::onCollision(Object*ob,int dir){
 	string objName = ob->getName();
-	if (objName == BrickGround::OBJECT_NAME || objName == Pipe::OBJECT_NAME){
+	if (objName == BrickGround::OBJECT_NAME || objName == Pipe::OBJECT_NAME || objName == QBrick::OBJECT_NAME || objName == GoldBrick::OBJECT_NAME){
 		if (dir == Physics::COLLIDED_FROM_LEFT){
 			if (mGooba->vx_last < 0){
 				mGooba->vx = Gooba::SPEED_X;

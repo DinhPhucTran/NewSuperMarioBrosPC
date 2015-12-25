@@ -1,0 +1,8 @@
+1 BrickGround
+2 Pipe
+3 MetalBlock
+4 QBrick
+5 GoldBrick
+6 Coin
+10 Gooba
+11 Koopa

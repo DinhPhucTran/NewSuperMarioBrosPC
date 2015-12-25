@@ -11,6 +11,7 @@
 #include "Mushroom.h"
 #include "MarioRaccoonTail.h"
 #include "ObjectManager.h"
+#include "GoldBrick.h"
 #include <string>
 using namespace std;
 
@@ -36,7 +37,7 @@ void MarioState::onCollision(Object* ob,int dir){
 			return;
 		}
 	}
-	if (objectName == BrickGround::OBJECT_NAME || objectName == Pipe::OBJECT_NAME || objectName == QBrick::OBJECT_NAME)
+	if (objectName == BrickGround::OBJECT_NAME || objectName == Pipe::OBJECT_NAME || objectName == QBrick::OBJECT_NAME || objectName == GoldBrick::OBJECT_NAME)
 	{
 		if (dir == Physics::COLLIDED_FROM_TOP){
 			if (objectName == QBrick::OBJECT_NAME){
