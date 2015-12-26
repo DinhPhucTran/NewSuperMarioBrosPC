@@ -73,7 +73,7 @@ void ObjectManager::checkCollition(){
 	//	}
 	//}
 	
-	for (int i = 0; i < mListObject.size(); ++i){
+	for (int i = 0; i < mListObject.size()-1; ++i){
 		for (int j = i + 1; j < mListObject.size(); ++j){
 			Object *ob1, *ob2;
 			ob1 = mListObject[i];

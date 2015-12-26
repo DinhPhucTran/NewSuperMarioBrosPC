@@ -85,7 +85,7 @@ void GoobaState::onCollision(Object*ob,int dir){
 			}
 		}
 	}
-	if (objName == KoopaTroopa::OBJECT_NAME){
+	if (objName == KoopaTroopa::OBJECT_NAME || objName == RedKoopa::OBJECT_NAME){
 		KoopaTroopa* koopa = (KoopaTroopa*)ob;
 		string state = koopa->getState()->getName();
 		if (state == KoopaSlidingState::STATE_NAME){

@@ -54,22 +54,7 @@ public:
 	int getHeight()override;
 	float getSpeed()override;//DYING_SPEED
 };
-//
-//class KoopaVulnerableState :public KoopaTroopaState{//Trạng thái dể bị tổn thương, khi chui vào mai rùa
-//	//ở trạng thái này mario đụng vào là xong :p
-//public:
-//	static const string STATE_NAME;
-//	void onCollision(Object* ob)override;
-//	string getName()override;
-//};
-//
-//class KoopaSlidingState :public KoopaTroopaState{
-//	//trạng thái bị mario đá, trượt từ đầu này sang đầu khác
-//public:
-//	static const string STATE_NAME;
-//	void onCollision(Object*ob)override;
-//	string getName()override;
-//};
+
 
 class Gooba : public Object{
 private:
