@@ -23,8 +23,9 @@ public:
 	static const float ACCELERATION_Y;
 	static const float ACCELERATION_Y_PLUS;
 	static const float MAX_SPEED_X;
-	
+	static const float POWER_SPEED_X_PLUS;
 	static const float MAX_SPEED_Y;
+	static const float POWER_JUMP_UP_SPEED;
 	static const int INVINCIBLE_SWITCH_STATE_TIME;//1000 ms
 
 

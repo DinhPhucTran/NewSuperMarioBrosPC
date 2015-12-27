@@ -19,6 +19,7 @@
 #include "Coin.h"
 #include "Leaf.h"
 #include "GoldBrick.h"
+#include "MarioPowerBar.h"
 using namespace std;
 
 const float CMarioGame::GRAVITY_VELOCOTY = GRAV_VELOCITY;
@@ -256,7 +257,9 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	rect.right = 640;//240
 	rect.bottom = 100;
 	char buffer[64] = { 0 };
-	sprintf_s(buffer, "%d %d" , mario->isAButtonPressed, mario->isBButtonPressed);//Mx: %d / My: %d
+	//sprintf_s(buffer, "%d %d" , mario->isAButtonPressed, mario->isBButtonPressed);//Mx: %d / My: %d
+	MarioPowerBar* powerBar = mario->getPowerBar();
+	sprintf_s(buffer, "%f %d", mario->vy, mario->isFlying);
 	fontArial->DrawTextA(NULL, buffer, 20, &rect, DT_LEFT, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
@@ -335,11 +338,6 @@ void CMarioGame::OnKeyDown(int KeyCode)
 	case DIK_X:
 		mario->isAButtonPressed = 1;
 		lastTimeAPress = GetTickCount();
-		
-		if (marioState->getName() == MarioStateRaccoon::STATE_NAME){
-			MarioStateRaccoon* raccoonState = (MarioStateRaccoon*)marioState;
-			raccoonState->timeFlying = GetTickCount();
-		}
 		mario->onAPress();
 		break;
 	case DIK_Z:

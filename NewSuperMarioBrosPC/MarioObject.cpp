@@ -1,4 +1,4 @@
-#include<string>
+﻿#include<string>
 #include"MarioObject.h"
 #include"MarioState.h"
 #include"MarioAnimationFactory.h"
@@ -15,7 +15,10 @@ const float Mario::FLYING_X_SPEED = 0.18f;
 const float Mario::ACCELERATION_Y = 0.008f;//0.01f;
 const float Mario::ACCELERATION_Y_PLUS = 0.014f;//0.0103
 const float Mario::MAX_SPEED_X = 0.2f;//0.3f
+const float Mario::POWER_SPEED_X_PLUS = 0.1f;//khi mario full ống power chạy ở vx = MAX_SPEED_X + POWER_SPEED_X_PLUS
 const float Mario::MAX_SPEED_Y = 0.45f;//0.7f
+const float Mario::POWER_JUMP_UP_SPEED = 0.05f;
+
 const int Mario::INVINCIBLE_SWITCH_STATE_TIME = 1000;
 
 MarioState* Mario::getState(){
@@ -35,8 +38,9 @@ Mario::Mario(int x, int y, int width, int height, int vx, int vy, int vx_last, f
 	else{
 		mAnimationFactory = SmallMarioAnimationFactory::getInstance(this);
 	}
-	mAnim = mAnimationFactory->createAnimation();
 	mPowerBar = new MarioPowerBar(this);
+	mAnim = mAnimationFactory->createAnimation();
+	
 	isAButtonPressed = 0;
 	isBButtonPressed = 0;
 	isLeftButtonPressed = 0;
@@ -75,7 +79,7 @@ void Mario::update(int t){
 	
 	mMarioState->update(t);
 	///for powerBar
-	if ((isBButtonPressed && isLeftButtonPressed) || (isBButtonPressed && isRightButtonPressed)){
+	if ((isBButtonPressed && isLeftButtonPressed && isRightButtonPressed==0) || (isBButtonPressed && isRightButtonPressed && isLeftButtonPressed==0)){
 		if (!mPowerBar->isStarted()){
 			mPowerBar->start();
 		}

@@ -40,14 +40,26 @@ void MarioState::update(int t){
 	mMario->vx = mMario->vx + mMario->ax*t;
 	mMario->vy += mMario->ay*t;
 
+	//xử lý tăng tốc mario nếu đang power
+	float powerSpeed, powerSpeedY=0;
+	
+	if (mMario->getPowerBar()->isPower()){
+		powerSpeed = Mario::MAX_SPEED_X;
+		powerSpeedY = Mario::POWER_JUMP_UP_SPEED;
+	}
+	else{
+		powerSpeed = (Mario::MAX_SPEED_X)*mMario->getPowerBar()->getState();
+		powerSpeedY = 0;
+	}
 
-	if (mMario->vx >= Mario::MAX_SPEED_X || mMario->vx <= -Mario::MAX_SPEED_X){
+	if (mMario->vx >= Mario::MAX_SPEED_X+ powerSpeed || mMario->vx <= -Mario::MAX_SPEED_X-powerSpeed){
 		mMario->ax = 0;
 		if (mMario->vx_last<0)
-			mMario->vx = -Mario::MAX_SPEED_X;
-		else mMario->vx = Mario::MAX_SPEED_X;
+			mMario->vx = -Mario::MAX_SPEED_X-powerSpeed;
+		else 
+			mMario->vx = Mario::MAX_SPEED_X+powerSpeed;
 	}
-	if (mMario->vy >= Mario::MAX_SPEED_Y || mMario->vy <= -Mario::MAX_SPEED_Y)
+	if (mMario->vy >= Mario::MAX_SPEED_Y +powerSpeedY || mMario->vy <= -Mario::MAX_SPEED_Y-powerSpeedY)
 	{
 		mMario->ay = 0;
 	}

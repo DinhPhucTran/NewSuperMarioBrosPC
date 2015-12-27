@@ -39,6 +39,8 @@ public:
 	Animation *turnRightAnimation = new Animation(1, 1);
 	Animation *turnLeftAnimation = new Animation(0, 0);
 
+	Animation *powerJumpLeft = new Animation(9, 9);
+	Animation *powerJumpRight = new Animation(8, 8);
 	
 	static SmallMarioAnimationFactory* getInstance(Mario* mario);
 	//contructor
@@ -65,7 +67,10 @@ public:
 	Animation *turnRightAnimation = new Animation(14, 14);
 	Animation *turnLeftAnimation = new Animation(10, 10);
 
-
+	Animation *powerRunLeft = new Animation(63, 65, 2);
+	Animation *powerRunRight = new Animation(60, 62, 2);
+	Animation *powerJumpLeft = new Animation(49, 49);
+	Animation *powerJumpRight = new Animation(34, 34);
 
 	Animation* createAnimation()override;
 	~LargeMarioAnimationFactory();
@@ -102,6 +107,9 @@ public:
 	Animation* RaccoonFlyingUpLeft = new Animation(46, 48, 3);
 	Animation* RaccoonFlyingUpRight = new Animation(50, 52, 3);
 
+	Animation* powerRunLeft = new Animation(56, 58,2);
+	Animation* powerRunRight = new Animation(53, 55,2);
+
 	Animation* createAnimation()override;
 	~RaccoonMarioAnimationFactory();
 };
@@ -113,7 +121,7 @@ private:
 	static InvincibleMarioAnimationFactory* sInstance;
 	bool isBlanked;
 public:
-	Animation* blankAnimation = new Animation(9, 9);
+	Animation* blankAnimation = new Animation(69, 69);
 	Animation* createAnimation()override;
 	static InvincibleMarioAnimationFactory* getInstance(Mario* mario);
 };
