@@ -3,7 +3,7 @@
 
 const int MarioPowerBar::INTERVAL_TIME_NEEDED = 2000;
 const int MarioPowerBar::POWER_TIME = 2000;
-const int MarioPowerBar::RACCOON_POWER_TIME = 5000;
+const int MarioPowerBar::RACCOON_POWER_TIME = 6000;
 MarioPowerBar::MarioPowerBar(Mario* mario){
 	mMario = mario;
 	mIsPower = 0;
@@ -20,9 +20,9 @@ void MarioPowerBar::update(){
 	if (mTimer.getTickCount() != 0){
 		if (mTimer.getIntervalTime() >= INTERVAL_TIME_NEEDED)
 		{
-			mPowerTimer.start();
-			mIsPower = 1;
-			mTimer.reset();
+				mPowerTimer.start();
+				mIsPower = 1;
+				mTimer.reset();			
 		}
 	}
 	string state = mMario->getState()->getName();

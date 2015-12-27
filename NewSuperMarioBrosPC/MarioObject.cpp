@@ -80,7 +80,7 @@ void Mario::update(int t){
 	mMarioState->update(t);
 	///for powerBar
 	if ((isBButtonPressed && isLeftButtonPressed && isRightButtonPressed==0) || (isBButtonPressed && isRightButtonPressed && isLeftButtonPressed==0)&&isFlying==0){
-		if (!mPowerBar->isStarted()){
+		if (!mPowerBar->isStarted()&&!mPowerBar->isPower()){
 			mPowerBar->start();
 		}
 	}
