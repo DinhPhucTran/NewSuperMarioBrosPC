@@ -81,6 +81,7 @@
     <ClInclude Include="MarioAnimationFactory.h" />
     <ClInclude Include="MarioGame.h" />
     <ClInclude Include="MarioObject.h" />
+    <ClInclude Include="MarioPowerBar.h" />
     <ClInclude Include="MarioRaccoonTail.h" />
     <ClInclude Include="MarioState.h" />
     <ClInclude Include="MetalBlock.h" />
@@ -109,6 +110,7 @@
     <ClCompile Include="MarioAnimationFactory.cpp" />
     <ClCompile Include="MarioGame.cpp" />
     <ClCompile Include="MarioObject.cpp" />
+    <ClCompile Include="MarioPowerBar.cpp" />
     <ClCompile Include="MarioRaccoonTail.cpp" />
     <ClCompile Include="MarioState.cpp" />
     <ClCompile Include="MetalBlock.cpp" />

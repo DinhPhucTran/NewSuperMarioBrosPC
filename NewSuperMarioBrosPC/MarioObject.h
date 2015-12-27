@@ -6,14 +6,15 @@
 using namespace std;
 class MarioState;//khai báo lớp MarioState,
 class AnimationFactory;//khai báo có lớp MarioAnimationFactory
+class MarioPowerBar;
 class Mario :public Object{
 	MarioState* mMarioState;
-
+	MarioPowerBar* mPowerBar;
 public:
 	MarioState* getState();
 	int isLeftButtonPressed;
 	int isRightButtonPressed;
-	int isAButtonPressed;
+	int isAButtonPressed=0;
 	int isBButtonPressed=0;
 	int isFlying;
 	static const float FLYING_Y_SPEED;
@@ -42,6 +43,7 @@ public:
 	void powerJumpUp();
 	void stop();
 	void die()override;
+	MarioPowerBar* getPowerBar();
 };
 
 #endif

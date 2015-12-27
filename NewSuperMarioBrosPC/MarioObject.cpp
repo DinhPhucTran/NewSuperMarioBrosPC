@@ -4,6 +4,7 @@
 #include"MarioAnimationFactory.h"
 #include"sprite.h"
 #include "marioGame.h"//to access global variable such at _SpriteHandler 
+#include "MarioPowerBar.h"
 using namespace std;
 
 
@@ -13,7 +14,7 @@ const float Mario::FLYING_Y_SPEED = 0.14f;
 const float Mario::FLYING_X_SPEED = 0.18f;
 const float Mario::ACCELERATION_Y = 0.008f;//0.01f;
 const float Mario::ACCELERATION_Y_PLUS = 0.014f;//0.0103
-const float Mario::MAX_SPEED_X = 0.25f;//0.3f
+const float Mario::MAX_SPEED_X = 0.2f;//0.3f
 const float Mario::MAX_SPEED_Y = 0.45f;//0.7f
 const int Mario::INVINCIBLE_SWITCH_STATE_TIME = 1000;
 
@@ -35,6 +36,7 @@ Mario::Mario(int x, int y, int width, int height, int vx, int vy, int vx_last, f
 		mAnimationFactory = SmallMarioAnimationFactory::getInstance(this);
 	}
 	mAnim = mAnimationFactory->createAnimation();
+	mPowerBar = new MarioPowerBar(this);
 	isAButtonPressed = 0;
 	isBButtonPressed = 0;
 	isLeftButtonPressed = 0;
@@ -72,7 +74,21 @@ void Mario::render(int vpx,int vpy){
 void Mario::update(int t){
 	
 	mMarioState->update(t);
+	///for powerBar
+	if ((isBButtonPressed && isLeftButtonPressed) || (isBButtonPressed && isRightButtonPressed)){
+		if (!mPowerBar->isStarted()){
+			mPowerBar->start();
+		}
+	}
+	else{
+		mPowerBar->reset();
+	}
 	
+	mPowerBar->update();
+}
+
+MarioPowerBar* Mario::getPowerBar(){
+	return mPowerBar;
 }
 void Mario::jumpUp(){
 	if (vy==0)

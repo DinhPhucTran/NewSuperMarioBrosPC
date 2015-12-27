@@ -110,12 +110,15 @@
     </ClInclude>
     <ClInclude Include="GoldBrick.h">
       <Filter>Header Files\Object</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="cliststatic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="QuadTree.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioPowerBar.h">
+      <Filter>Header Files\Mario</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="GoldBrick.cpp">
       <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioPowerBar.cpp">
+      <Filter>Source Files\Mario</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
