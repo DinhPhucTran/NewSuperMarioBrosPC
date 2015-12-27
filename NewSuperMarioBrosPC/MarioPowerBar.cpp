@@ -1,9 +1,9 @@
 #include "MarioPowerBar.h"
 #include "MarioState.h"
 
-const int MarioPowerBar::INTERVAL_TIME_NEEDED = 1000;
-const int MarioPowerBar::POWER_TIME = 2500;
-const int MarioPowerBar::RACCOON_POWER_TIME = 6000;
+const int MarioPowerBar::INTERVAL_TIME_NEEDED = 2000;
+const int MarioPowerBar::POWER_TIME = 2000;
+const int MarioPowerBar::RACCOON_POWER_TIME = 5000;
 MarioPowerBar::MarioPowerBar(Mario* mario){
 	mMario = mario;
 	mIsPower = 0;
@@ -22,6 +22,7 @@ void MarioPowerBar::update(){
 		{
 			mPowerTimer.start();
 			mIsPower = 1;
+			mTimer.reset();
 		}
 	}
 	string state = mMario->getState()->getName();

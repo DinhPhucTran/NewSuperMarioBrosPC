@@ -22,7 +22,8 @@ MarioState::MarioState(Mario* mario){
 	mMario = mario;
 }
 void MarioState::onAPress(){
-	mMario->jumpUp();
+	if (!mMario->isFlying)
+		mMario->jumpUp();
 }
 void MarioState::onBPress(){
 	
@@ -44,11 +45,11 @@ void MarioState::update(int t){
 	float powerSpeed, powerSpeedY=0;
 	
 	if (mMario->getPowerBar()->isPower()){
-		powerSpeed = Mario::MAX_SPEED_X;
+		powerSpeed = Mario::POWER_SPEED_X_PLUS;
 		powerSpeedY = Mario::POWER_JUMP_UP_SPEED;
 	}
 	else{
-		powerSpeed = (Mario::MAX_SPEED_X)*mMario->getPowerBar()->getState();
+		powerSpeed = (Mario::POWER_SPEED_X_PLUS)*mMario->getPowerBar()->getState();
 		powerSpeedY = 0;
 	}
 
