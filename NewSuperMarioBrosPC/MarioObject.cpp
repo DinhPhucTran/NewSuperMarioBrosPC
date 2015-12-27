@@ -15,8 +15,8 @@ const float Mario::FLYING_X_SPEED = 0.18f;
 const float Mario::ACCELERATION_Y = 0.008f;//0.01f;
 const float Mario::ACCELERATION_Y_PLUS = 0.014f;//0.0103
 const float Mario::MAX_SPEED_X = 0.2f;//0.3f
-const float Mario::POWER_SPEED_X_PLUS = 0.1f;//khi mario full ống power chạy ở vx = MAX_SPEED_X + POWER_SPEED_X_PLUS
-const float Mario::MAX_SPEED_Y = 0.45f;//0.7f
+const float Mario::POWER_SPEED_X_PLUS = 0.75f;//khi mario full ống power chạy ở vx = MAX_SPEED_X + POWER_SPEED_X_PLUS
+const float Mario::MAX_SPEED_Y = 0.35f;//0.45
 const float Mario::POWER_JUMP_UP_SPEED = 0.05f;
 
 const int Mario::INVINCIBLE_SWITCH_STATE_TIME = 1000;

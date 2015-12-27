@@ -59,7 +59,7 @@ void MarioState::update(int t){
 		else 
 			mMario->vx = Mario::MAX_SPEED_X+powerSpeed;
 	}
-	if (mMario->vy >= Mario::MAX_SPEED_Y +powerSpeedY || mMario->vy <= -Mario::MAX_SPEED_Y-powerSpeedY)
+	if (mMario->vy >= Mario::MAX_SPEED_Y +powerSpeedY || mMario->vy <= -Mario::MAX_SPEED_Y)
 	{
 		mMario->ay = 0;
 	}

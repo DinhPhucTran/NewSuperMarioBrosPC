@@ -1,7 +1,7 @@
 #include "MarioPowerBar.h"
 #include "MarioState.h"
 
-const int MarioPowerBar::INTERVAL_TIME_NEEDED = 2000;
+const int MarioPowerBar::INTERVAL_TIME_NEEDED = 1000;
 const int MarioPowerBar::POWER_TIME = 2500;
 const int MarioPowerBar::RACCOON_POWER_TIME = 6000;
 MarioPowerBar::MarioPowerBar(Mario* mario){
