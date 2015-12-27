@@ -1,6 +1,6 @@
 ﻿#include "MarioRaccoonTail.h"
 #include "ObjectManager.h"
-
+#include "Qbrick.h"
 const string MarioRaccoonTail::OBJECT_NAME = "mario_raccoon_tail";
 const int MarioRaccoonTail::WIDTH = 10;
 const int MarioRaccoonTail::HEIGHT = 6;
@@ -15,13 +15,13 @@ string MarioRaccoonTail::getName(){
 	return OBJECT_NAME;
 }
 MarioRaccoonTail::MarioRaccoonTail(Mario* mario,int x, int y, int width, int height)
-	:StaticObject(x,y,width,height){
+	:Object(x,y,width,height){
 	mMario = mario;
 	mLastTime = GetTickCount();
 	mState = STATE_INACTIVE;
 
 }
-MarioRaccoonTail::MarioRaccoonTail():StaticObject(0,0,MarioRaccoonTail::WIDTH,MarioRaccoonTail::HEIGHT){
+MarioRaccoonTail::MarioRaccoonTail():Object(0,0,MarioRaccoonTail::WIDTH,MarioRaccoonTail::HEIGHT){
 	mLastTime = GetTickCount();
 	mMario = ObjectManager::getInstance()->getMario();
 	mState = STATE_INACTIVE;
@@ -30,6 +30,12 @@ void MarioRaccoonTail::render(int vpx, int vpy){
 	//nếu va chạm thì vẽ hiệu ứng va chạm
 
 	
+}
+void MarioRaccoonTail::onCollision(Object* ob, int dir){
+	string objName = ob->getName();
+	if (objName == QBrick::OBJECT_NAME && getState()==MarioRaccoonTail::STATE_ACTIVE){
+		((QBrick*)ob)->revealHiddenObject();
+	}
 }
 string MarioRaccoonTail::getState(){
 	return mState;
@@ -41,6 +47,7 @@ void MarioRaccoonTail::setState(string state){
 	}
 	else if (state == STATE_INACTIVE){
 		mState = state;
+		mLastTime = 0;
 	}
 	
 }
@@ -150,10 +157,11 @@ void MarioRaccoonTail::update(int t){
 
 		}
 		else if (time >= 450){
-			x = -5; y = -5;
+			
 			mState = STATE_INACTIVE;
 		}
 	}
+	x = mMario->x; y = mMario->y;
 }
 MarioRaccoonTail* MarioRaccoonTail::sIntance;
 MarioRaccoonTail* MarioRaccoonTail::getInstance(){

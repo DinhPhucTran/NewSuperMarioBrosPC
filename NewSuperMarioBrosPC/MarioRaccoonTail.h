@@ -5,7 +5,7 @@
 #include <string>
 using namespace std;
 
-class MarioRaccoonTail :public StaticObject{
+class MarioRaccoonTail :public Object{
 private:
 	Mario* mMario;
 	static MarioRaccoonTail* sIntance;
@@ -31,8 +31,11 @@ public:
 	string getState();
 	void render(int vpx, int vpy)override;//render collision effect
 	void update(int t)override;
+	void onCollision(Object* ob, int dir);
 	string getName()override;
 	int isStaticObject()override;
+	
+	
 };
 
 #endif
