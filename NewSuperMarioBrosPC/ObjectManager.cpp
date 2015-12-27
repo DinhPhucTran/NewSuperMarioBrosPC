@@ -73,7 +73,7 @@ void ObjectManager::checkCollition(){
 	//	}
 	//}
 	
-	for (int i = 0; i < mListObject.size()-1; ++i){
+	for (int i = 0; i < mListObject.size(); ++i){
 		for (int j = i + 1; j < mListObject.size(); ++j){
 			Object *ob1, *ob2;
 			ob1 = mListObject[i];
@@ -151,8 +151,16 @@ void ObjectManager::render(int vpx,int vpy){
 void ObjectManager::update(int t){
 	for (int i = 0; i < mListObject.size(); ++i){
 		Object* ob = mListObject[i];
-		if (ob != 0)
-			ob->update(t);
+		if (ob != 0){
+			Mario* mario = getMario();
+			if (mario != NULL){
+				if (abs(ob->x - mario->x) < 450)//chỉ update khi mario tới gần
+					ob->update(t);
+			}
+			else ob->update(t);
+				
+		}
+			
 	}
 	for (int i = 0; i < mListStaticObject.size(); ++i){
 		Object* ob = mListStaticObject[i];
