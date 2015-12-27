@@ -161,7 +161,11 @@ void MarioRaccoonTail::update(int t){
 			mState = STATE_INACTIVE;
 		}
 	}
-	x = mMario->x; y = mMario->y;
+	if (mState == STATE_INACTIVE){
+		x = mMario->x; y = mMario->y;
+	}
+	
+	
 }
 MarioRaccoonTail* MarioRaccoonTail::sIntance;
 MarioRaccoonTail* MarioRaccoonTail::getInstance(){
