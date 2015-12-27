@@ -13,6 +13,7 @@
 #include "ObjectManager.h"
 #include "GoldBrick.h"
 #include "MarioGame.h"
+#include "MarioPowerBar.h"
 #include <string>
 using namespace std;
 
@@ -235,7 +236,7 @@ string MarioStateRaccoon::getName(){
 
 void MarioStateRaccoon::onAPress(){
 	MarioState::onAPress();
-	
+	timeFlying = GetTickCount();
 }
 void MarioStateRaccoon::onBPress(){
 	MarioRaccoonTail* tail = MarioRaccoonTail::getInstance();
@@ -254,18 +255,34 @@ void MarioStateRaccoon::onCollision(Object* ob,int dir){
 	
 }
 void MarioStateRaccoon::update(int t){
-	if (GetTickCount() - timeFlying <= FLYING_TIME && mMario->vy < 0){//Flying
-		mMario->isFlying = 1;
+	if (GetTickCount() - timeFlying <= FLYING_TIME && mMario->getPowerBar()->isPower() == 1){//Flying
+		mMario->isFlying = 1;//for Animation Factory know which animation to pick
+		mMario->vy = Mario::FLYING_Y_SPEED;
+				
+		mMario->vx = mMario->vx + mMario->ax*t;
+		if (mMario->vx >= Mario::FLYING_X_SPEED || mMario->vx <= -Mario::FLYING_X_SPEED){
+			mMario->ax = 0;
+			if (mMario->vx_last<0)
+				mMario->vx = -Mario::FLYING_X_SPEED;
+			else mMario->vx = Mario::FLYING_X_SPEED;
+		}
+		mMario->y += (int)(mMario->vy*t);
+		mMario->x += (int)(mMario->vx*t);
+	}
+	else if (GetTickCount() - timeFlying <= FLYING_TIME && mMario->vy<0){//Flying
+		mMario->isFlying = 1;//for Animation Factory know which animation to pick
 		mMario->vy = -Mario::FLYING_Y_SPEED;
-			mMario->vx = mMario->vx + mMario->ax*t;
-			if (mMario->vx >= Mario::FLYING_X_SPEED || mMario->vx <= -Mario::FLYING_X_SPEED){
-				mMario->ax = 0;
-				if (mMario->vx_last<0)
-					mMario->vx = -Mario::FLYING_X_SPEED;
-				else mMario->vx = Mario::FLYING_X_SPEED;
-			}
-			mMario->y += (int)(mMario->vy*t);
-			mMario->x += (int)(mMario->vx*t);
+
+		mMario->vx = mMario->vx + mMario->ax*t;
+		if (mMario->vx >= Mario::FLYING_X_SPEED || mMario->vx <= -Mario::FLYING_X_SPEED){
+			mMario->ax = 0;
+			if (mMario->vx_last<0)
+				mMario->vx = -Mario::FLYING_X_SPEED;
+			else mMario->vx = Mario::FLYING_X_SPEED;
+		}
+		mMario->y += (int)(mMario->vy*t);
+		mMario->x += (int)(mMario->vx*t);
+
 	}
 	else{
 		mMario->isFlying = 0;

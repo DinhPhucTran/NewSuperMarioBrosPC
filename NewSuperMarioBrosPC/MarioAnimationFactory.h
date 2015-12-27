@@ -98,6 +98,9 @@ public:
 
 	Animation* RaccoonFlyingLeft = new Animation(43, 45,3);
 	Animation* RaccoonFlyingRight = new Animation(40, 42,3);
+	
+	Animation* RaccoonFlyingUpLeft = new Animation(46, 48, 3);
+	Animation* RaccoonFlyingUpRight = new Animation(50, 52, 3);
 
 	Animation* createAnimation()override;
 	~RaccoonMarioAnimationFactory();
