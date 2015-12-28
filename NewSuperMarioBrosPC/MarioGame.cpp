@@ -20,6 +20,7 @@
 #include "Leaf.h"
 #include "GoldBrick.h"
 #include "MarioPowerBar.h"
+#include "PiranhaPlant.h"
 using namespace std;
 
 const float CMarioGame::GRAVITY_VELOCOTY = GRAV_VELOCITY;
@@ -74,6 +75,9 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 
 	marioLargeSprite = new CSprite(_SpriteHandler, MARIO_LARGE_IMAGE, 32, 32, 195, 10);
+	CSprite* piranha = new CSprite(_SpriteHandler, PIRANHA_PLANT, 20, 36, 100, 10);
+	PiranhaPlant* piranhaPlant = new PiranhaPlant(367, 39 + 36, piranha);
+
 
 	//koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);
 	//goobaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);
@@ -113,7 +117,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	//marioObject->setState(new MarioStateLarge(marioObject));
 	
 	mObjectManager->addObject(marioObject);
-
+	mObjectManager->addObject(piranhaPlant);
 	/*mObjectManager->addObject(koopa);	
 	mObjectManager->addObject(gooba);
 	mObjectManager->addObject(koopa2);

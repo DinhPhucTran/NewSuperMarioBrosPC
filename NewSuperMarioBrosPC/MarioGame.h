@@ -32,6 +32,7 @@
 #define LEAF L"leaf.png"
 #define GREEN_MUSHROOM L"greenMushroom.png"
 #define RED_MUSHROOM L"redMushroom.png"
+#define PIRANHA_PLANT L"PiranhaPlant10x20x36.png"
 
 
 #define GROUND_Y 45

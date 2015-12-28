@@ -1,6 +1,8 @@
 ﻿#include "MarioRaccoonTail.h"
 #include "ObjectManager.h"
+#include "Physics.h"
 #include "Qbrick.h"
+#include "Pipe.h"
 const string MarioRaccoonTail::OBJECT_NAME = "mario_raccoon_tail";
 const int MarioRaccoonTail::WIDTH = 10;
 const int MarioRaccoonTail::HEIGHT = 6;
@@ -35,6 +37,18 @@ void MarioRaccoonTail::onCollision(Object* ob, int dir){
 	string objName = ob->getName();
 	if (objName == QBrick::OBJECT_NAME && getState()==MarioRaccoonTail::STATE_ACTIVE){
 		((QBrick*)ob)->revealHiddenObject();
+	}
+	if (objName == Pipe::OBJECT_NAME){
+		if (dir == Physics::COLLIDED_FROM_LEFT)
+		{
+			x = ob->right() + width / 2;
+		}
+		else if (dir == Physics::COLLIDED_FROM_RIGHT){
+			x = ob->left() - width / 2;
+		}
+		else if (dir == Physics::COLLIDED_FROM_TOP){
+			
+		}
 	}
 }
 string MarioRaccoonTail::getState(){

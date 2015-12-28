@@ -90,6 +90,7 @@
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Pipe.h" />
+    <ClInclude Include="PiranhaPlant.h" />
     <ClInclude Include="Qbrick.h" />
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="RedKoopa.h" />
@@ -120,6 +121,7 @@
     <ClCompile Include="BrickGround.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Pipe.cpp" />
+    <ClCompile Include="PiranhaPlant.cpp" />
     <ClCompile Include="Qbrick.cpp" />
     <ClCompile Include="RedKoopa.cpp" />
     <ClCompile Include="sprite.cpp" />

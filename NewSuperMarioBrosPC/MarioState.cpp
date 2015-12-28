@@ -14,6 +14,7 @@
 #include "GoldBrick.h"
 #include "MarioGame.h"
 #include "MarioPowerBar.h"
+#include "PiranhaPlant.h"
 #include <string>
 using namespace std;
 
@@ -158,6 +159,10 @@ void MarioState::onCollision(Object* ob,int dir){
 	}
 	if (objectName == Leaf::OBJECT_NAME){
 		mMario->setState(new MarioStateRaccoon(mMario));
+	}
+	//xử lý với PiranhaPlant
+	if (objectName == PiranhaPlant::OBJECT_NAME){
+		mMario->die();
 	}
 	
 }

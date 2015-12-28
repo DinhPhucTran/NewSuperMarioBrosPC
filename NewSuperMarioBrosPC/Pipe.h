@@ -14,6 +14,7 @@ public:
 	static const string OBJECT_NAME;
 	Pipe(int x, int y, int width, int height);
 	virtual string getName()override;
+	int isStaticObject();
 };
 
 #endif
