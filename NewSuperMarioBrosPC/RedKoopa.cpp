@@ -25,6 +25,9 @@ RedKoopa::RedKoopa(int x, int y,float vx, Animation* anim, CSprite * image)
 string RedKoopa::getName(){
 	return RedKoopa::OBJECT_NAME;
 }
+void RedKoopa::update(int t){
+	mState->update(t);
+}
 
 ////////////////////////////////
 

@@ -9,7 +9,7 @@ public:
 	RedKoopa(int x, int y, float vx, Animation* anim, CSprite * image);
 	static const string OBJECT_NAME;;
 	string getName()override;
-	
+	void update(int t)override;
 };
 
 class RedKoopaAnimationFactory :public AnimationFactory{
