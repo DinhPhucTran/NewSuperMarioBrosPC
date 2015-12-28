@@ -12,5 +12,5 @@ Pipe::Pipe(int x, int y, int width, int height)
 : StaticObject(x, y, width, height){}
 
 int Pipe::isStaticObject(){
-	return 1;
+	return 0;
 }

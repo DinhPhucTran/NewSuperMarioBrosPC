@@ -74,7 +74,7 @@ void ObjectManager::checkCollition(){
 	//}
 	
 	for (int i = 0; i < mListObject.size(); ++i){
-		for (int j = i + 1; j < mListObject.size(); ++j){
+		for (int j = 0; j < mListObject.size(); ++j){
 			Object *ob1, *ob2;
 			ob1 = mListObject[i];
 			ob2 = mListObject[j];
@@ -132,18 +132,20 @@ Mario* ObjectManager::getMario(){
 void ObjectManager::render(int vpx,int vpy){
 
 	refeshList();
-	for (vector<Object*>::iterator itr = mListObject.begin(); itr != mListObject.end();itr++){
-		Object* ob = (*itr);
-		if (ob == 0){
-			continue;
-		}else
-			ob->render(vpx, vpy);
-	}
+
 	for (vector<Object*>::iterator itr = mListStaticObject.begin(); itr != mListStaticObject.end(); itr++){
 		Object* ob = (*itr);
 		if (ob == 0){
 			continue;
 		}else 
+			ob->render(vpx, vpy);
+	}
+	for (vector<Object*>::iterator itr = mListObject.begin(); itr != mListObject.end(); itr++){
+		Object* ob = (*itr);
+		if (ob == 0){
+			continue;
+		}
+		else
 			ob->render(vpx, vpy);
 	}
 }
