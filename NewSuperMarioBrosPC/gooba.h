@@ -20,6 +20,7 @@ public:
 	Animation* mGoobaRightWalkAnim = new Animation(4, 7);*///original value
 	Animation* mGoobaWalkingAnim = new Animation(40, 41);
 	Animation* mGoobaDyingAnim = new Animation(42, 42);
+	Animation* mGoobaDyingUpsideDown = new Animation(45, 45);
 	Animation* createAnimation()override;
 	GoobaAnimationFactory(Gooba* gooba);
 };
@@ -36,10 +37,21 @@ public:
 	virtual float getSpeed();
 };
 
+class GoobaDyingUpsideDown :public GoobaState{
+protected:
+	Gooba* mGooba;
+public:
+	static const string STATE_NAME;
+	GoobaDyingUpsideDown(Gooba* gooba);
+	void onCollision(Object* ob, int dir);
+	string getName()override;
+
+};
+
 class GoobaNomalState :public GoobaState{//trạng thái đi lại bình thường
 public:
-	GoobaNomalState(Gooba* goooba);
 	static const string STATE_NAME;
+	GoobaNomalState(Gooba* goooba);
 	void onCollision(Object* ob,int dir)override;
 	string getName()override;
 };
@@ -47,8 +59,8 @@ public:
 class GoobaDyingState:public GoobaState{
 	DWORD last_time;
 public:
+	static const string STATE_NAME;;
 	GoobaDyingState(Gooba* gooba);
-	static const string STATE_NAME;
 	void onCollision(Object* ob, int dir)override;
 	string getName()override;
 	int getHeight()override;

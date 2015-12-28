@@ -85,15 +85,6 @@ void GoobaState::onCollision(Object*ob,int dir){
 			}
 		}
 	}
-	if (objName == KoopaTroopa::OBJECT_NAME || objName == RedKoopa::OBJECT_NAME){
-		KoopaTroopa* koopa = (KoopaTroopa*)ob;
-		string state = koopa->getState()->getName();
-		if (state == KoopaSlidingState::STATE_NAME){
-			if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT){
-				mGooba->setState(new GoobaDyingState(mGooba));
-			}
-		}
-	}
 }
 int GoobaState::getWidth(){
 	return Gooba::WIDTH;
@@ -126,8 +117,18 @@ void GoobaNomalState::onCollision(Object*ob,int dir){
 			mGooba->setState(new GoobaDyingState(mGooba));
 		}
 	}
+	if (objName == KoopaTroopa::OBJECT_NAME || objName == RedKoopa::OBJECT_NAME){
+		KoopaTroopa* koopa = (KoopaTroopa*)ob;
+		string state = koopa->getState()->getName();
+		if (state == KoopaSlidingState::STATE_NAME){
+			if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT){
+				mGooba->setState(new GoobaDyingState(mGooba));
+			}
+		}
+	}
 	if (objName == MarioRaccoonTail::OBJECT_NAME && MarioRaccoonTail::getInstance()->getState()==MarioRaccoonTail::STATE_ACTIVE){
-		mGooba->die();
+		mGooba->vy = 0.5f;
+		mGooba->setState(new GoobaDyingUpsideDown(mGooba));
 	}
 }
 GoobaNomalState::GoobaNomalState(Gooba* gooba)
@@ -159,12 +160,26 @@ int GoobaDyingState::getHeight(){
 float GoobaDyingState::getSpeed(){
 	return Gooba::DYING_SPEED;
 }
+//////////////////////GoobaDyingUpsideDown//////////////
+const string GoobaDyingUpsideDown::STATE_NAME = "goomba_dying_upside_down";
+GoobaDyingUpsideDown::GoobaDyingUpsideDown(Gooba* gooba):GoobaState(gooba){
+	mGooba = gooba;
+}
+string GoobaDyingUpsideDown::getName(){
+	return STATE_NAME;
+}
+void GoobaDyingUpsideDown::onCollision(Object* ob, int dir){
+
+}
 //////////////////////GoobaAnimationFactory//////////////
 Animation* GoobaAnimationFactory::createAnimation(){
 	Animation* result;
 	string stateName = mGooba->getState()->getName();
 	if (stateName == GoobaNomalState::STATE_NAME){
 		result = mGoobaWalkingAnim;
+	}
+	else if (stateName == GoobaDyingUpsideDown::STATE_NAME){
+		result = mGoobaDyingUpsideDown;
 	}
 	else{//dying state
 		result = mGoobaDyingAnim;
