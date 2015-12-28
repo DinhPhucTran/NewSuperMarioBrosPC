@@ -42,6 +42,9 @@ Animation* RedKoopaAnimationFactory::createAnimation(){
 	if (stateName == KoopaVulnerableState::STATE_NAME){
 		result = mKoopaVulnerableAnim;
 	}
+	else if (stateName == KoopaUpsideDown::STATE_NAME){
+		result = mKoopaUpsideDownAnim;
+	}
 	else if (stateName == KoopaSlidingState::STATE_NAME){
 		result = mKoopaSlidingAnim;
 	}

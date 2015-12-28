@@ -233,7 +233,8 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 	int vpx = mario->x - 100;
-	int vpy = 240;
+	int vpy = 240;//int vpy = 240;
+	
 	//int vpx = xc;
 	if (vpx <= 0) vpx = 0;
 	if (vpx >= 2485) vpx = 2485;
@@ -259,7 +260,7 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	char buffer[64] = { 0 };
 	//sprintf_s(buffer, "%d %d" , mario->isAButtonPressed, mario->isBButtonPressed);//Mx: %d / My: %d
 	MarioPowerBar* powerBar = mario->getPowerBar();
-	sprintf_s(buffer, "%f %d", mario->vy, mario->isFlying);
+	sprintf_s(buffer, "%f %d", mario->getPowerBar()->getState(), mario->getPowerBar()->isPower());
 	fontArial->DrawTextA(NULL, buffer, 20, &rect, DT_LEFT, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 

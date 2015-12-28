@@ -64,7 +64,6 @@ KoopaTroopaState* KoopaTroopa::getState(){
 }
 void KoopaTroopa::setState(KoopaTroopaState* state){
 	if (state != NULL){
-		delete mState;// giải phóng mState hiện tại
 		mState = state;
 	}
 	this->width = mState->getWidth();//thay đối lại kích thước của Koopa ứng với trạng thái
@@ -103,7 +102,8 @@ void KoopaTroopaState::onCollision(Object*ob,int dir){
 	string objName = ob->getName();
 	if (objName == MarioRaccoonTail::OBJECT_NAME && MarioRaccoonTail::getInstance()->getState() == MarioRaccoonTail::STATE_ACTIVE){
 		mKoopa->vy = 0.5f;
-		mKoopa->setState(new KoopaVulnerableState(mKoopa));
+		mKoopa->vx = 0.5f;
+		mKoopa->setState(new KoopaUpsideDown(mKoopa));
 	}
 	if (objName == MetalBlock::OBJECT_NAME)
 	{
@@ -245,6 +245,7 @@ void KoopaVulnerableState::onCollision(Object*ob, int dir){
 	//nếu chạm mario chuyển sang trạng thái bị đá SlidingState
 	//Va chạm dưới với gạch, 
 	//va chạm trên dưới trái phải với mario;
+	KoopaTroopaState::onCollision(ob, dir);
 	DWORD now = GetTickCount();
 	if (now - mLastTime >= 10000){
 		Mario* mario = ObjectManager::getInstance()->getMario();
@@ -268,7 +269,7 @@ void KoopaVulnerableState::onCollision(Object*ob, int dir){
 		return;
 	}
 
-	KoopaTroopaState::onCollision(ob, dir);
+	
 	string objName = ob->getName();
 	if (objName == BrickGround::OBJECT_NAME){
 		if (dir == Physics::COLLIDED_FROM_BOTTOM){
@@ -370,7 +371,7 @@ void KoopaVulnerableState::update(int t){
 	}
 }
 
-/////////////////////////////////////////////////
+///////////////////////KoopaSlidingState//////////////////////////
 
 const string KoopaSlidingState::STATE_NAME = "koopa_sliding_state";
 string KoopaSlidingState::getName(){
@@ -542,7 +543,17 @@ void KoopaParaState::update(int t){
 	mKoopa->x += (int)(mKoopa->vx * t);
 	mKoopa->y += (int)(mKoopa->vy * t);
 }
-
+////////////////////////////////////////////
+string const KoopaUpsideDown::STATE_NAME = "koopa_upside_down_state";
+KoopaUpsideDown::KoopaUpsideDown(KoopaTroopa* koopa) :KoopaVulnerableState(koopa){
+	
+}
+string KoopaUpsideDown::getName(){
+	return STATE_NAME;
+}
+void KoopaUpsideDown::onCollision(Object* ob, int dir){
+	KoopaVulnerableState::onCollision(ob, dir);
+}
 /////////////////////////////KoopaAnimationFactory///////////////
 
 Animation* KoopaAnimationFactory::createAnimation(){
@@ -550,6 +561,9 @@ Animation* KoopaAnimationFactory::createAnimation(){
 	Animation* result;
 	if (stateName == KoopaVulnerableState::STATE_NAME){
 		result = mKoopaVulnerableAnim;
+	}
+	else if (stateName == KoopaUpsideDown::STATE_NAME){
+		result = mKoopaUpsideDownAnim;
 	}
 	else if (stateName == KoopaSlidingState::STATE_NAME){
 		result = mKoopaSlidingAnim;

@@ -23,6 +23,7 @@ public:
 	Animation* mKoopaSlidingAnim = new Animation(36, 39);
 	Animation* mKoopaLeftFlyAnim = new Animation(20, 23);
 	Animation* mKoopaRightFlyAnim = new Animation(24, 27);
+	Animation* mKoopaUpsideDownAnim = new Animation(43, 43);
 	Animation* createAnimation()override;
 	~KoopaAnimationFactory();
 };
@@ -47,7 +48,6 @@ public:
 class KoopaNomalState:public KoopaTroopaState{//trạng thái đi lại bình thường
 
 public:
-
 	static const string STATE_NAME;
 	void onCollision(Object* ob,int dir)override;
 	string getName()override;
@@ -62,10 +62,9 @@ class KoopaVulnerableState :public KoopaTroopaState{//Trạng thái dể bị t�
 private:
 	DWORD mLastTime;
 public:
-	KoopaVulnerableState();
 	static const string STATE_NAME;
-	void onCollision(Object* ob,int dir)override;
-	string getName()override;
+	virtual void onCollision(Object* ob, int dir)override;
+	virtual string getName()override;
 	KoopaVulnerableState(KoopaTroopa* koopa);
 	
 	int getHeight()override;//=16
@@ -95,9 +94,19 @@ public:
 	void onCollision(Object* ob, int dir)override;
 	string getName()override;
 	KoopaParaState(KoopaTroopa* koopa);
-	float getSpeed()override;//0,085f
+	float getSpeed()override;//PARA_SPEED_X;
 	void update(int t)override;
 	
+};
+class KoopaUpsideDown :public KoopaVulnerableState{
+public:
+	static const string STATE_NAME;
+	void onCollision(Object* ob, int dir)override;
+	string getName()override;
+	KoopaUpsideDown(KoopaTroopa* koopa);
+	//void update(int t)override;
+	//int getHeight()override;
+	//float getSpeed()override;
 };
 
 class KoopaTroopa : public Object{
