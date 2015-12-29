@@ -144,6 +144,9 @@
     <ClInclude Include="FirePiranhaAnimationFactory.h">
       <Filter>Header Files\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="FireBall.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sprite.cpp">
@@ -240,6 +243,9 @@
       <Filter>Source Files\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="FirePiranhaAnimationFactory.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="FireBall.cpp">
       <Filter>Source Files\Enemies</Filter>
     </ClCompile>
   </ItemGroup>

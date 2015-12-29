@@ -13,7 +13,7 @@ PiranhaPlant::PiranhaPlant(int x, int y, CSprite* image, CSprite * PipeImage) :O
 	mAnim = PiranhaAnimation;
 	mMario = ObjectManager::getInstance()->getMario();
 	mTimeToMove.start();
-	mDistance = height;
+	mDistance = height+5;
 	mIsGoUp = 0;
 	pipeSprite = PipeImage;
 	initY = y - height / 2 - PipeImage->_Height / 2 + 1;
@@ -26,15 +26,15 @@ string PiranhaPlant::getName(){
 void PiranhaPlant::update(int t){
 	// chuyển động lên xuống
 	if (mTimeToMove.getIntervalTime() >= TIME_TO_MOVE){
+		if (mDistance < 0 && abs(mMario->x - x) <= 18 + 12){
+			return;
+		}
 		if (mMario == NULL){
 			mMario = ObjectManager::getInstance()->getMario();
 			return;
 		}
 		if (mIsGoUp==0){				
 			if (mDistance < 0){
-				if (abs(mMario->x - x) <= 18+8){
-					return;
-				}
 				mIsGoUp = 1;
 				mTimeToMove.start();
 			}
@@ -44,7 +44,7 @@ void PiranhaPlant::update(int t){
 		else if (mIsGoUp == 1 ){
 			y += (int)(SPEED_Y*t);
 			mDistance += (int)(SPEED_Y*t);
-			if (mDistance >= height){
+			if (mDistance >= height+5){
 				mIsGoUp = 0;
 				mTimeToMove.start();
 			}
@@ -77,5 +77,5 @@ void PiranhaPlant::onCollision(Object* ob, int dir){
 void PiranhaPlant::render(int vpx, int vpy){
 	mAnim->Update();
 	mSprite->Render(mAnim, x, y, vpx, vpy);
-	pipeSprite->Render(pipeAnim, x, initY, vpx, vpy);
+	//pipeSprite->Render(pipeAnim, x, initY, vpx, vpy);
 }

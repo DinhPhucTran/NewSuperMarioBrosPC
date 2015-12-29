@@ -15,8 +15,10 @@
 #include "MarioGame.h"
 #include "MarioPowerBar.h"
 #include "PiranhaPlant.h"
+#include "FirePiranha.h"
 #include <string>
 #include "KoopaTroopaState.h"
+#include "FireBall.h"
 using namespace std;
 
 //================STATE====================
@@ -162,7 +164,7 @@ void MarioState::onCollision(Object* ob,int dir){
 		mMario->setState(new MarioStateRaccoon(mMario));
 	}
 	//xử lý với PiranhaPlant
-	if (objectName == PiranhaPlant::OBJECT_NAME){
+	if (objectName == PiranhaPlant::OBJECT_NAME || objectName == FirePiranha::OBJECT_NAME || objectName == FireBall::OBJECT_NAME){
 		mMario->die();
 	}
 	

@@ -82,6 +82,8 @@ Object::~Object() {
 }
 
 void Object::render(int vpx, int vpy){
+	if (mAnim!=0)
+		mAnim->Update();
 	if (mSprite!=NULL)
 		mSprite->Render(mAnim, x, y, vpx, vpy);
 }

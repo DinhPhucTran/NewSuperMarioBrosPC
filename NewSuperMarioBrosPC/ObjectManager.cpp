@@ -120,6 +120,9 @@ void ObjectManager::checkCollition(){
 Mario* ObjectManager::getMario(){
 	for (int i = 0; i < mListObject.size(); ++i){
 		Object* ob = mListObject[i];
+		if (ob == NULL){
+			return NULL;
+		}
 		string obName = ob->getName();
 
 		if (obName == Mario::OBJECT_NAME){
