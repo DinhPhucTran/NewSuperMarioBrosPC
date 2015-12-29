@@ -20,7 +20,7 @@
 #include "Leaf.h"
 #include "GoldBrick.h"
 #include "MarioPowerBar.h"
-#include "PiranhaPlant.h"
+#include "FirePiranha.h"
 #include "KoopaTroopaState.h"
 using namespace std;
 
@@ -76,10 +76,10 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 
 	marioLargeSprite = new CSprite(_SpriteHandler, MARIO_LARGE_IMAGE, 32, 32, 195, 10);
-	CSprite* piranha = new CSprite(_SpriteHandler, PIRANHA_PLANT, 20, 36, 100, 10);
+	CSprite* piranhaSprite = new CSprite(_SpriteHandler, PIRANHA_PLANT, 20, 36, 100, 10);
 	CSprite *pipeSprite = new CSprite(_SpriteHandler, PIPE_IMAGE, 32, 32, 1, 1);
-	PiranhaPlant* piranhaPlant = new PiranhaPlant(368, 39 + 36, piranha, pipeSprite);
-
+	PiranhaPlant* piranhaPlant = new PiranhaPlant(1808, 31 + 28, piranhaSprite, pipeSprite);
+	FirePiranha* firePiranha = new FirePiranha(367 + 1, 39 + 24 + FirePiranha::HEIGHT / 2, piranhaSprite, pipeSprite);///x+1 do sai số
 
 	//koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);
 	//goobaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);
@@ -120,6 +120,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	
 	mObjectManager->addObject(marioObject);
 	mObjectManager->addObject(piranhaPlant);
+	mObjectManager->addObject(firePiranha);
 	/*mObjectManager->addObject(koopa);	
 	mObjectManager->addObject(gooba);
 	mObjectManager->addObject(koopa2);

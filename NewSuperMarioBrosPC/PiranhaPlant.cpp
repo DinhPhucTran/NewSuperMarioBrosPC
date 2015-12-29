@@ -13,10 +13,10 @@ PiranhaPlant::PiranhaPlant(int x, int y, CSprite* image, CSprite * PipeImage) :O
 	mAnim = PiranhaAnimation;
 	mMario = ObjectManager::getInstance()->getMario();
 	mTimeToMove.start();
-	mDistance = HEIGHT;
+	mDistance = height;
 	mIsGoUp = 0;
 	pipeSprite = PipeImage;
-	initY = y - HEIGHT / 2 - PipeImage->_Height / 2 + 1;
+	initY = y - height / 2 - PipeImage->_Height / 2 + 1;
 }
 
 string PiranhaPlant::getName(){
@@ -44,7 +44,7 @@ void PiranhaPlant::update(int t){
 		else if (mIsGoUp == 1 ){
 			y += (int)(SPEED_Y*t);
 			mDistance += (int)(SPEED_Y*t);
-			if (mDistance >= HEIGHT){
+			if (mDistance >= height){
 				mIsGoUp = 0;
 				mTimeToMove.start();
 			}

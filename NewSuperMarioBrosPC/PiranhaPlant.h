@@ -13,6 +13,7 @@ using namespace std;
 
 class PiranhaPlant :public Object
 {
+protected:
 	Mario* mMario;
 	Timer mTimeToMove;
 	int mDistance;//==HEIGHT
@@ -29,9 +30,9 @@ public:
 	static const float SPEED_Y;//0.1f;
 	PiranhaPlant(int x, int y, CSprite* image, CSprite * PipeImage);
 
-	void update(int t)override;
+	virtual void update(int t)override;
 	void onCollision(Object *ob, int dir)override;
 	void render(int vpx, int vpy)override;
-	string getName()override;
+	virtual string getName()override;
 };
 #endif

@@ -7,7 +7,7 @@ public:
 	
 	RedKoopa(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image);
 	RedKoopa(int x, int y, float vx, Animation* anim, CSprite * image);
-	static const string OBJECT_NAME;;
+	static const string OBJECT_NAME;
 	string getName()override;
 	void update(int t)override;
 };
