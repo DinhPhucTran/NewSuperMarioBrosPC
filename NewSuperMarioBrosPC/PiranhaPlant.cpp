@@ -7,12 +7,14 @@ const int PiranhaPlant::HEIGHT = 24;
 const int PiranhaPlant::WIDTH = 16;
 const int PiranhaPlant::TIME_TO_MOVE = 1000;
 const float PiranhaPlant::SPEED_Y = 0.08f;
-PiranhaPlant::PiranhaPlant(int x, int y, CSprite* image) :Object(x,y,WIDTH,HEIGHT,0,0,0,0,0,image){
+PiranhaPlant::PiranhaPlant(int x, int y, CSprite* image, CSprite * PipeImage) :Object(x, y, WIDTH, HEIGHT, 0, 0, 0, 0, 0, image){
 	mAnim = PiranhaAnimation;
 	mMario = ObjectManager::getInstance()->getMario();
 	mTimeToMove.start();
 	mDistance = HEIGHT;
 	mIsGoUp = 0;
+	pipeSprite = PipeImage;
+	initY = y - 27;
 }
 
 string PiranhaPlant::getName(){
@@ -68,4 +70,5 @@ int PiranhaPlant::isStaticObject(){//để đc render phía sau ống khói
 void PiranhaPlant::render(int vpx, int vpy){
 	mAnim->Update();
 	mSprite->Render(mAnim, x, y, vpx, vpy);
+	pipeSprite->Render(pipeAnim, x, initY, vpx, vpy);
 }

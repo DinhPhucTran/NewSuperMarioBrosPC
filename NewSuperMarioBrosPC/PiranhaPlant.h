@@ -17,14 +17,17 @@ class PiranhaPlant :public Object
 	Timer mTimeToMove;
 	int mDistance;//==HEIGHT
 	int mIsGoUp;
+	int initY;
 public:
 	Animation* PiranhaAnimation = new Animation(8, 9);
+	Animation* pipeAnim = new Animation(0, 0);
+	CSprite * pipeSprite;
 	static string const OBJECT_NAME;
 	static const int HEIGHT;//24
 	static const int WIDTH;//16
 	static const int TIME_TO_MOVE;//1000
 	static const float SPEED_Y;//0.1f;
-	PiranhaPlant(int x, int y, CSprite* image);
+	PiranhaPlant(int x, int y, CSprite* image, CSprite * PipeImage);
 	int isStaticObject() override;
 	void update(int t)override;
 	void onCollision(Object *ob, int dir)override;

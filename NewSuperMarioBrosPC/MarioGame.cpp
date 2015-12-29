@@ -76,7 +76,8 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 	marioLargeSprite = new CSprite(_SpriteHandler, MARIO_LARGE_IMAGE, 32, 32, 195, 10);
 	CSprite* piranha = new CSprite(_SpriteHandler, PIRANHA_PLANT, 20, 36, 100, 10);
-	PiranhaPlant* piranhaPlant = new PiranhaPlant(367, 39 + 36, piranha);
+	CSprite *pipeSprite = new CSprite(_SpriteHandler, PIPE_IMAGE, 32, 32, 1, 1);
+	PiranhaPlant* piranhaPlant = new PiranhaPlant(368, 39 + 36, piranha, pipeSprite);
 
 
 	//koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);
