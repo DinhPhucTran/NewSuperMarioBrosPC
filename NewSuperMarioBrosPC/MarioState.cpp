@@ -16,6 +16,7 @@
 #include "MarioPowerBar.h"
 #include "PiranhaPlant.h"
 #include <string>
+#include "KoopaTroopaState.h"
 using namespace std;
 
 //================STATE====================

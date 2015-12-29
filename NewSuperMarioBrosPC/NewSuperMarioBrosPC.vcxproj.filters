@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Mario">
       <UniqueIdentifier>{4f2b12cb-a96f-4e9a-b8c4-69c1f29353c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Enemies\KoopaTroopa">
+      <UniqueIdentifier>{91b1acee-151d-49cf-893a-2c949e6c04ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Enemies\KoopaTroopa">
+      <UniqueIdentifier>{584f6d94-78e3-4b7f-82ee-ff1aeb347cbd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation.h">
@@ -57,14 +63,8 @@
     <ClInclude Include="BrickGround.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
-    <ClInclude Include="KoopaTroopa.h">
-      <Filter>Header Files\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="AnimationFactory.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RedKoopa.h">
-      <Filter>Header Files\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="gooba.h">
       <Filter>Header Files\Enemies</Filter>
@@ -123,6 +123,21 @@
     <ClInclude Include="PiranhaPlant.h">
       <Filter>Header Files\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="RedKoopaAnimationFactory.h">
+      <Filter>Header Files\Enemies\KoopaTroopa</Filter>
+    </ClInclude>
+    <ClInclude Include="KoopaTroopa.h">
+      <Filter>Header Files\Enemies\KoopaTroopa</Filter>
+    </ClInclude>
+    <ClInclude Include="RedKoopa.h">
+      <Filter>Header Files\Enemies\KoopaTroopa</Filter>
+    </ClInclude>
+    <ClInclude Include="KoopaTroopaState.h">
+      <Filter>Header Files\Enemies\KoopaTroopa</Filter>
+    </ClInclude>
+    <ClInclude Include="KoopaTroopaAnimationFactory.h">
+      <Filter>Header Files\Enemies\KoopaTroopa</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sprite.cpp">
@@ -151,12 +166,6 @@
     </ClCompile>
     <ClCompile Include="BrickGround.cpp">
       <Filter>Source Files\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="KoopaTroopa.cpp">
-      <Filter>Source Files\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="RedKoopa.cpp">
-      <Filter>Source Files\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="gooba.cpp">
       <Filter>Source Files\Enemies</Filter>
@@ -205,6 +214,21 @@
     </ClCompile>
     <ClCompile Include="PiranhaPlant.cpp">
       <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="RedKoopaAnimationFactory.cpp">
+      <Filter>Source Files\Enemies\KoopaTroopa</Filter>
+    </ClCompile>
+    <ClCompile Include="RedKoopa.cpp">
+      <Filter>Source Files\Enemies\KoopaTroopa</Filter>
+    </ClCompile>
+    <ClCompile Include="KoopaTroopa.cpp">
+      <Filter>Source Files\Enemies\KoopaTroopa</Filter>
+    </ClCompile>
+    <ClCompile Include="KoopaTroopaState.cpp">
+      <Filter>Source Files\Enemies\KoopaTroopa</Filter>
+    </ClCompile>
+    <ClCompile Include="KoopaTroopaAnimationFactory.cpp">
+      <Filter>Source Files\Enemies\KoopaTroopa</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

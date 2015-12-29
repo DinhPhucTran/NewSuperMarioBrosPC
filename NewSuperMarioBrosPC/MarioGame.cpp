@@ -21,6 +21,7 @@
 #include "GoldBrick.h"
 #include "MarioPowerBar.h"
 #include "PiranhaPlant.h"
+#include "KoopaTroopaState.h"
 using namespace std;
 
 const float CMarioGame::GRAVITY_VELOCOTY = GRAV_VELOCITY;

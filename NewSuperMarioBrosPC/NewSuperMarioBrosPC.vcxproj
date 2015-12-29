@@ -77,6 +77,8 @@
     <ClInclude Include="GoldBrick.h" />
     <ClInclude Include="gooba.h" />
     <ClInclude Include="KoopaTroopa.h" />
+    <ClInclude Include="KoopaTroopaAnimationFactory.h" />
+    <ClInclude Include="KoopaTroopaState.h" />
     <ClInclude Include="Leaf.h" />
     <ClInclude Include="MarioAnimationFactory.h" />
     <ClInclude Include="MarioGame.h" />
@@ -94,6 +96,7 @@
     <ClInclude Include="Qbrick.h" />
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="RedKoopa.h" />
+    <ClInclude Include="RedKoopaAnimationFactory.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="StaticObject.h" />
     <ClInclude Include="Timer.h" />
@@ -106,6 +109,8 @@
     <ClCompile Include="GoldBrick.cpp" />
     <ClCompile Include="gooba.cpp" />
     <ClCompile Include="KoopaTroopa.cpp" />
+    <ClCompile Include="KoopaTroopaAnimationFactory.cpp" />
+    <ClCompile Include="KoopaTroopaState.cpp" />
     <ClCompile Include="Leaf.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MarioAnimationFactory.cpp" />
@@ -124,6 +129,7 @@
     <ClCompile Include="PiranhaPlant.cpp" />
     <ClCompile Include="Qbrick.cpp" />
     <ClCompile Include="RedKoopa.cpp" />
+    <ClCompile Include="RedKoopaAnimationFactory.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="utils.cpp" />

@@ -4,7 +4,7 @@
 #include "MarioRaccoonTail.h"
 #include "Qbrick.h"
 #include "GoldBrick.h"
-
+#include "KoopaTroopaState.h"
 using namespace std;
 
 

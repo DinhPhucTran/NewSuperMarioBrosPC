@@ -1,7 +1,9 @@
-﻿#include "PiranhaPlant.h"
+﻿#include"RedKoopa.h"
+#include "PiranhaPlant.h"
 #include "MarioRaccoonTail.h"
 #include "Physics.h"
 #include "ObjectManager.h"
+#include "KoopaTroopaState.h"
 const string PiranhaPlant::OBJECT_NAME = "piranha_plant";
 const int PiranhaPlant::HEIGHT = 24;
 const int PiranhaPlant::WIDTH = 16;
@@ -60,6 +62,13 @@ void PiranhaPlant::onCollision(Object* ob, int dir){
 
 		string state = tail->getState();
 		if (state == MarioRaccoonTail::STATE_ACTIVE){
+			die();
+		}
+	}
+	if (objName == KoopaTroopa::OBJECT_NAME || objName == RedKoopa::OBJECT_NAME){
+		KoopaTroopa* koopa = (KoopaTroopa*)ob;
+		string state = koopa->getState()->getName();
+		if (state == KoopaSlidingState::STATE_NAME){
 			die();
 		}
 	}
