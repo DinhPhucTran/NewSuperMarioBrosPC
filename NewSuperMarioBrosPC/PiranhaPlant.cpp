@@ -16,7 +16,7 @@ PiranhaPlant::PiranhaPlant(int x, int y, CSprite* image, CSprite * PipeImage) :O
 	mDistance = HEIGHT;
 	mIsGoUp = 0;
 	pipeSprite = PipeImage;
-	initY = y - 27;
+	initY = y - HEIGHT / 2 - PipeImage->_Height / 2 + 1;
 }
 
 string PiranhaPlant::getName(){
@@ -73,9 +73,7 @@ void PiranhaPlant::onCollision(Object* ob, int dir){
 		}
 	}
 }
-int PiranhaPlant::isStaticObject(){//để đc render phía sau ống khói
-	return 1;
-}
+
 void PiranhaPlant::render(int vpx, int vpy){
 	mAnim->Update();
 	mSprite->Render(mAnim, x, y, vpx, vpy);

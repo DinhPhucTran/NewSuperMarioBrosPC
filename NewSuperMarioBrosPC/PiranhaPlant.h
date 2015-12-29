@@ -28,7 +28,7 @@ public:
 	static const int TIME_TO_MOVE;//1000
 	static const float SPEED_Y;//0.1f;
 	PiranhaPlant(int x, int y, CSprite* image, CSprite * PipeImage);
-	int isStaticObject() override;
+
 	void update(int t)override;
 	void onCollision(Object *ob, int dir)override;
 	void render(int vpx, int vpy)override;
