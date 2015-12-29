@@ -238,7 +238,10 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 	int vpx = mario->x - 100;
-	int vpy = 240;//int vpy = 240;
+	int vpy;
+	if (mario->y > 120)
+		vpy = mario->y + 120;
+	else vpy = 240;
 	
 	//int vpx = xc;
 	if (vpx <= 0) vpx = 0;
