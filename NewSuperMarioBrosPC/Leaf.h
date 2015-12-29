@@ -9,6 +9,7 @@
 class Leaf :public Object
 {
 public:
+	static const float SPEED_Y;
 	static const string OBJECT_NAME;
 	static const int HEIGHT;
 	static const int WIDTH;

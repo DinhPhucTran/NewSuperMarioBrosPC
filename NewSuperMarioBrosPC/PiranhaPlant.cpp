@@ -77,5 +77,5 @@ void PiranhaPlant::onCollision(Object* ob, int dir){
 void PiranhaPlant::render(int vpx, int vpy){
 	mAnim->Update();
 	mSprite->Render(mAnim, x, y, vpx, vpy);
-	//pipeSprite->Render(pipeAnim, x, initY, vpx, vpy);
+	pipeSprite->Render(pipeAnim, x, initY, vpx, vpy);
 }

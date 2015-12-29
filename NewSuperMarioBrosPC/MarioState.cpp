@@ -155,13 +155,15 @@ void MarioState::onCollision(Object* ob,int dir){
 		}
 	}
 	if (objectName == RedMushroom::OBJECT_NAME){
-		mMario->setState(new MarioStateLarge(mMario));
+		MarioStateInvincible* stateInvincibleLarge = new MarioStateInvincible(mMario,new MarioStateLarge(mMario));
+		mMario->setState(stateInvincibleLarge);
 	}
 	if (objectName == GreenMushroom::OBJECT_NAME){
 		
 	}
 	if (objectName == Leaf::OBJECT_NAME){
-		mMario->setState(new MarioStateRaccoon(mMario));
+		MarioStateInvincible* stateInvincibleRaccoon = new MarioStateInvincible(mMario, new MarioStateRaccoon(mMario));
+		mMario->setState(stateInvincibleRaccoon);
 	}
 	//xử lý với PiranhaPlant
 	if (objectName == PiranhaPlant::OBJECT_NAME || objectName == FirePiranha::OBJECT_NAME || objectName == FireBall::OBJECT_NAME){

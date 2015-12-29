@@ -5,6 +5,7 @@
 #include "Qbrick.h"
 #include "GoldBrick.h"
 #include "KoopaTroopaState.h"
+#include "MetalBlock.h"
 using namespace std;
 
 
@@ -83,6 +84,16 @@ void GoobaState::onCollision(Object*ob,int dir){
 				mGooba->vy = -0.000001;//gần bằng 0, không đc =0 sẽ gây ra lổi
 				mGooba->ay = 0;
 			}
+		}
+	}
+	if (objName == MetalBlock::OBJECT_NAME)
+	{
+		if (dir == Physics::COLLIDED_FROM_BOTTOM && mGooba->bottom() + 8 >= ob->top())
+		{
+			mGooba->vy = 0;
+			mGooba->ay = 0;
+			mGooba->y = ob->top() + mGooba->height / 2;
+			return;
 		}
 	}
 }

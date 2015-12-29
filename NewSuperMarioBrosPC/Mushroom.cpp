@@ -5,7 +5,7 @@ const int RedMushroom::WIDTH = 16;
 const int RedMushroom::HEIGHT = 16;
 
 RedMushroom::RedMushroom(int X, int Y, int Width, int Height, int vx, int vy, int vx_last, int ax, int ay, CSprite * Sprite) :
-Object(X, Y, Width, Height, vx, vy, vx_last, ax, ay, Sprite)
+	Object(X, Y, Width, Height, vx, vy, vx_last, ax, ay, Sprite)
 {
 	mAnim = new Animation(0, 0);
 }
@@ -40,6 +40,17 @@ void RedMushroom::onCollision(Object * ob, int dir)
 			return;
 		}
 	}
+	if (objectName == MetalBlock::OBJECT_NAME)
+	{
+		if (dir == Physics::COLLIDED_FROM_BOTTOM && bottom() + 8 >= ob->top())
+		{
+			vy = 0;
+			ay = 0;
+			y = ob->top() + height / 2;
+			return;
+		}
+	}
+	
 
 	if (objectName == Mario::OBJECT_NAME)
 	{
@@ -51,7 +62,7 @@ const string GreenMushroom::OBJECT_NAME = "greenmushroom";
 const int GreenMushroom::WIDTH = 16;
 const int GreenMushroom::HEIGHT = 16;
 GreenMushroom::GreenMushroom(int X, int Y, int Width, int Height, int vx, int vy, int vx_last, int ax, int ay, CSprite * Sprite) :
-RedMushroom(X, Y, Width, Height, vx, vy, vx_last, ax, ay, Sprite)
+	RedMushroom(X, Y, Width, Height, vx, vy, vx_last, ax, ay, Sprite)
 {
 	mAnim = new Animation(0, 0);
 }
