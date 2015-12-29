@@ -2,9 +2,10 @@
 #define _FIRE_PIRANHA_
 
 #include "PiranhaPlant.h"
-class FirePiranhaAnimationFactory;
+class AnimationFactory;
 class FirePiranha :public PiranhaPlant{
-	FirePiranhaAnimationFactory* mAnimFactory;
+protected:
+	AnimationFactory* mAnimFactory;
 	int mIsShooting;
 public:
 	FirePiranha(int x, int y, CSprite* image, CSprite* pipeImage);

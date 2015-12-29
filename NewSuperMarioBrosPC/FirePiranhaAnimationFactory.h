@@ -20,4 +20,21 @@ public:
 	Animation* createAnimation()override;
 };
 
+class RedFirePiranhaAnimationFactory : public AnimationFactory{
+	FirePiranha* mPiranha;
+	Mario* mMario;
+public:
+	RedFirePiranhaAnimationFactory(FirePiranha* piranha, Mario* mario = 0);
+	Animation* mLeftUpAnim = new Animation(2, 3);
+	Animation* mLeftDownAnim = new Animation(0, 1);
+	Animation* mRightUpAnim = new Animation(4, 5);
+	Animation* mRightDownAnim = new Animation(6, 7);
+	Animation* mShootingLeftUp = new Animation(2, 2);
+	Animation* mShootingLeftDown = new Animation(0, 0);
+	Animation* mShootingRightUp = new Animation(4, 4);
+	Animation* mShootingRightDown = new Animation(6, 6);
+	Animation* createAnimation()override;
+};
+
+
 #endif
