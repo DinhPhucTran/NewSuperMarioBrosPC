@@ -48,9 +48,11 @@
 
 class CMarioGame : public CGame
 {
+	static CMarioGame* sInstance;
 public:
 	static const float GRAVITY_VELOCOTY;
 	CMarioGame(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate);
+	static CMarioGame* getInstance();
 	~CMarioGame();
 
 	LPD3DXSPRITE _SpriteHandler;

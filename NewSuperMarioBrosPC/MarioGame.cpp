@@ -33,12 +33,16 @@ int marioXlast=0;
 Animation *coinAnim = new Animation(0, 2);
 Coin *coin;
 
+CMarioGame* CMarioGame::sInstance;
+CMarioGame* CMarioGame::getInstance(){
+	return sInstance;
+}
 void LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler, char * file);
 
 CMarioGame::CMarioGame(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate) :
 CGame(hInstance, Name, Mode, IsFullScreen, FrameRate)
 {
-	
+	sInstance = this;
 }
 
 CMarioGame::~CMarioGame()
@@ -78,13 +82,17 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	marioLargeSprite = new CSprite(_SpriteHandler, MARIO_LARGE_IMAGE, 32, 32, 195, 10);
 	CSprite* piranhaSprite = new CSprite(_SpriteHandler, PIRANHA_PLANT, 20, 36, 100, 10);
 	CSprite *pipeSprite = new CSprite(_SpriteHandler, PIPE_IMAGE, 32, 32, 1, 1);
+	koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);
+	goobaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);
+	mushroomSprite = new CSprite(_SpriteHandler, MUSHROOM_IMAGE, 16, 16, 1, 1);
+	greenmushroomSprite = new CSprite(_SpriteHandler, GREEN_MUSHROOM, 16, 16, 1, 1);
+	leafSprite = new CSprite(_SpriteHandler, LEAF, 16, 16, 1, 1);
+
+
 	PiranhaPlant* piranhaPlant = new PiranhaPlant(1808, 31 + 28, piranhaSprite, pipeSprite);
 	FirePiranha* firePiranha = new FirePiranha(367 + 1, 39 + 24 + FirePiranha::HEIGHT / 2, piranhaSprite, pipeSprite);///x+1 do sai số
 
-	//koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);
-	//goobaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);
-	//mushroomSprite = new CSprite(_SpriteHandler, MUSHROOM_IMAGE, 16, 16, 1, 1);
-	//greenmushroomSprite = new CSprite(_SpriteHandler, GREEN_MUSHROOM, 16, 16, 1, 1);
+	
 	
 	/*KoopaTroopa* koopa2 =
 		new KoopaTroopa(200, GROUND_Y + 200, 16, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
@@ -188,9 +196,8 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	coin = new Coin(150, 73, 18, 18, coinAnim, coinSprite);
 	mObjectManager->addObject(coin);*/
 
-	/*leafSprite = new CSprite(_SpriteHandler, LEAF, 16, 16, 1, 1);
-	leaf = new Leaf(100, 73, 16, 16, leafSprite);
-	mObjectManager->addObject(leaf);*/
+	
+	
 
 	
 	
