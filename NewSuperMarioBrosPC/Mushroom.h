@@ -16,7 +16,7 @@ public:
 	static const int WIDTH;
 	static const int HEIGHT;
 	static const string OBJECT_NAME;
-	RedMushroom(int X, int Y, int Width, int Height, int vx, int vy, int vx_last, int ax, int ay, CSprite * Sprite);
+	RedMushroom(int X, int Y, int Width, int Height, float vx, float vy, float vx_last, float ax, float ay, CSprite * Sprite);
 	string getName()override;
 	virtual void onCollision(Object * ob, int dir);
 };
@@ -27,7 +27,7 @@ public:
 	static const int WIDTH;
 	static const int HEIGHT;
 	static const string OBJECT_NAME;
-	GreenMushroom(int X, int Y, int Width, int Height, int vx, int vy, int vx_last, int ax, int ay, CSprite * Sprite);
+	GreenMushroom(int X, int Y, int Width, int Height, float vx, float vy, float vx_last, float ax, float ay, CSprite * Sprite);
 	string getName()override;
 };
 #endif

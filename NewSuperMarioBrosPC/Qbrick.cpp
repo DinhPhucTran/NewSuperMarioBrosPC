@@ -61,14 +61,14 @@ void QBrick::revealHiddenObject(){
 			if (state == MarioStateSmall::STATE_NAME){
 				mHiddenObject = 
 					new RedMushroom(x, y + 16, RedMushroom::WIDTH, RedMushroom::HEIGHT, QBrick::HIDDEN_OBJECT_Y_SPEED, 0, HIDDEN_OBJECT_Y_SPEED, 0, 0, CMarioGame::getInstance()->mushroomSprite);
-				mHiddenObject->vx = QBrick::HIDDEN_OBJECT_Y_SPEED;
+				//mHiddenObject->vx = QBrick::HIDDEN_OBJECT_Y_SPEED;
 				ObjectManager::getInstance()->addObject(mHiddenObject);
 				mHiddenObject = NULL;
 				setState(QBrick::NORMAL_STATE);
 			}
 			else {
 				mHiddenObject = new Leaf(x, y + 16, RedMushroom::WIDTH, RedMushroom::HEIGHT, 0, Leaf::SPEED_Y, 0, 0, 0, CMarioGame::getInstance()->leafSprite);
-				mHiddenObject->vy = Leaf::SPEED_Y;
+				//mHiddenObject->vy = Leaf::SPEED_Y;
 				ObjectManager::getInstance()->addObject(mHiddenObject);
 				mHiddenObject = NULL;
 				setState(QBrick::NORMAL_STATE);
