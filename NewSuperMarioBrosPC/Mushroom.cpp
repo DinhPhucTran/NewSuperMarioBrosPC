@@ -4,7 +4,7 @@ const string RedMushroom::OBJECT_NAME = "redmushroom";
 const int RedMushroom::WIDTH = 16;
 const int RedMushroom::HEIGHT = 16;
 
-RedMushroom::RedMushroom(int X, int Y, int Width, int Height, int vx, int vy, int vx_last, int ax, int ay, CSprite * Sprite) :
+RedMushroom::RedMushroom(int X, int Y, int Width, int Height, float vx, float vy, float vx_last, float ax, float ay, CSprite * Sprite) :
 	Object(X, Y, Width, Height, vx, vy, vx_last, ax, ay, Sprite)
 {
 	mAnim = new Animation(0, 0);
@@ -61,7 +61,7 @@ void RedMushroom::onCollision(Object * ob, int dir)
 const string GreenMushroom::OBJECT_NAME = "greenmushroom";
 const int GreenMushroom::WIDTH = 16;
 const int GreenMushroom::HEIGHT = 16;
-GreenMushroom::GreenMushroom(int X, int Y, int Width, int Height, int vx, int vy, int vx_last, int ax, int ay, CSprite * Sprite) :
+GreenMushroom::GreenMushroom(int X, int Y, int Width, int Height, float vx, float vy, float vx_last, float ax, float ay, CSprite * Sprite) :
 	RedMushroom(X, Y, Width, Height, vx, vy, vx_last, ax, ay, Sprite)
 {
 	mAnim = new Animation(0, 0);

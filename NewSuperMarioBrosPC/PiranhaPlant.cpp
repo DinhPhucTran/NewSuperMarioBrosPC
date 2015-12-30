@@ -9,20 +9,28 @@ const int PiranhaPlant::HEIGHT = 24;
 const int PiranhaPlant::WIDTH = 16;
 const int PiranhaPlant::TIME_TO_MOVE = 1000;
 const float PiranhaPlant::SPEED_Y = 0.08f;
-PiranhaPlant::PiranhaPlant(int x, int y, CSprite* image, CSprite * PipeImage) :Object(x, y, WIDTH, HEIGHT, 0, 0, 0, 0, 0, image){
+PiranhaPlant::PiranhaPlant(int x, int y, CSprite* image, CSprite * PipeImage) :Object(x, y, HEIGHT, WIDTH, 0, 0, 0, 0, 0, image){
 	mAnim = PiranhaAnimation;
 	mMario = ObjectManager::getInstance()->getMario();
+	height = HEIGHT;
+	width = WIDTH;
 	mTimeToMove.start();
-	mDistance = height+5;
+	mDistance = HEIGHT+3;
 	mIsGoUp = 0;
 	pipeSprite = PipeImage;
-	initY = y - height / 2 - PipeImage->_Height / 2 + 1;
+	initY = y - getHeight() / 2 - PipeImage->_Height / 2 + 1;
 }
 
 string PiranhaPlant::getName(){
 	return OBJECT_NAME;
 }
 
+int PiranhaPlant::getHeight(){
+	return PiranhaPlant::HEIGHT;
+}
+int PiranhaPlant::getWidth(){
+	return PiranhaPlant::WIDTH;
+}
 void PiranhaPlant::update(int t){
 	// chuyển động lên xuống
 	if (mTimeToMove.getIntervalTime() >= TIME_TO_MOVE){
@@ -44,7 +52,7 @@ void PiranhaPlant::update(int t){
 		else if (mIsGoUp == 1 ){
 			y += (int)(SPEED_Y*t);
 			mDistance += (int)(SPEED_Y*t);
-			if (mDistance >= height+5){
+			if (mDistance >= height+3){
 				mIsGoUp = 0;
 				mTimeToMove.start();
 			}

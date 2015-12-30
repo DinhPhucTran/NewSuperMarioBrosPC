@@ -8,8 +8,8 @@ const float Leaf::SPEED_Y = -0.1f;
 const int Leaf::WIDTH = 16;
 const int Leaf::HEIGHT = 16;
 
-Leaf::Leaf(int X, int Y, int Width, int Height, int vx, int vy, int vx_last, int ax, int ay, CSprite * Sprite) :
-Object(X, Y, Width, Height, vx, vy, vx_last, ax, ay, Sprite)
+Leaf::Leaf(int X, int Y, int Width, int Height, float vx, float vy, float vx_last, float ax, float ay, CSprite * Sprite) :
+	Object(X, Y, Width, Height, vx, vy, vx_last, ax, ay, Sprite)
 {
 	mAnim = new Animation(0, 0);
 }

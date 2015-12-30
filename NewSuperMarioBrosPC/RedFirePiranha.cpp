@@ -7,4 +7,12 @@ RedFirePiranha::RedFirePiranha(int x, int y, CSprite* image, CSprite* pipeImage)
 	height = HEIGHT;
 	width = WIDTH;
 	mAnimFactory = new RedFirePiranhaAnimationFactory(this);
+	initY = y - HEIGHT / 2 - pipeImage->_Height/2 + 1;
+	mDistance = HEIGHT + 5;
+}
+int RedFirePiranha::getHeight(){
+	return RedFirePiranha::HEIGHT;
+}
+int RedFirePiranha::getWidth(){
+	return RedFirePiranha::WIDTH;
 }
