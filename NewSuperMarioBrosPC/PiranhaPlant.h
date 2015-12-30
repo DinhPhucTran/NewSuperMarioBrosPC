@@ -31,6 +31,8 @@ public:
 	PiranhaPlant(int x, int y, CSprite* image, CSprite * PipeImage);
 
 	virtual void update(int t)override;
+	int virtual getHeight();
+	int virtual getWidth();
 	void onCollision(Object *ob, int dir)override;
 	void render(int vpx, int vpy)override;
 	virtual string getName()override;

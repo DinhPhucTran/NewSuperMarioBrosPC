@@ -13,6 +13,8 @@ FirePiranha::FirePiranha(int x, int y, CSprite* image, CSprite* pipeImage):Piran
 	height = FIRE_PIRANHA_HEIGHT;
 	width = FIRE_PIRANHA_WIDTH;
 	mAnimFactory = new FirePiranhaAnimationFactory(this, mMario);
+	initY = y - FIRE_PIRANHA_HEIGHT / 2 - pipeImage->_Height/2;
+	mDistance = FIRE_PIRANHA_HEIGHT + 5;
 }
 
 string FirePiranha::getName(){
@@ -62,6 +64,12 @@ int FirePiranha::isShooting(){
 }
 void FirePiranha::shooting(){
 	//shootting a fire
-	FireBall* fireBall = new FireBall(x, y, mSprite);//fireball sprite nằm chung với FirePiranha
+	FireBall* fireBall = new FireBall(x, y+height/4, mSprite);//fireball sprite nằm chung với FirePiranha
 	ObjectManager::getInstance()->addObject(fireBall);
+}
+int FirePiranha::getHeight(){
+	return FIRE_PIRANHA_HEIGHT;
+}
+int FirePiranha::getWidth(){
+	return FIRE_PIRANHA_WIDTH;
 }

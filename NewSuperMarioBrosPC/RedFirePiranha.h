@@ -8,7 +8,8 @@ public:
 	static const int WIDTH;
 	static const int HEIGHT;
 	RedFirePiranha(int x, int y, CSprite* image, CSprite* pipe);
-
+	virtual int getHeight()override;
+	virtual int getWidth()override;
 };
 
 #endif

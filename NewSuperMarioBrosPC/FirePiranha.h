@@ -20,6 +20,8 @@ public:
 	void render(int vpx, int vpy)override;
 	void shooting();
 	int isShooting();
+	virtual int getHeight()override;
+	virtual int getWidth()override;
 
 };
 
