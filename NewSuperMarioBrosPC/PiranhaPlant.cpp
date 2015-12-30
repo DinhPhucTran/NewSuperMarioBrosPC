@@ -15,7 +15,7 @@ PiranhaPlant::PiranhaPlant(int x, int y, CSprite* image, CSprite * PipeImage) :O
 	height = HEIGHT;
 	width = WIDTH;
 	mTimeToMove.start();
-	mDistance = HEIGHT+3;
+	mDistance = HEIGHT+5;
 	mIsGoUp = 0;
 	pipeSprite = PipeImage;
 	initY = y - getHeight() / 2 - PipeImage->_Height / 2 + 1;
@@ -52,7 +52,7 @@ void PiranhaPlant::update(int t){
 		else if (mIsGoUp == 1 ){
 			y += (int)(SPEED_Y*t);
 			mDistance += (int)(SPEED_Y*t);
-			if (mDistance >= height+3){
+			if (mDistance >= height+5){
 				mIsGoUp = 0;
 				mTimeToMove.start();
 			}

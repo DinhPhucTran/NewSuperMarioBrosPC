@@ -9,7 +9,7 @@ using namespace std;
 
 
 
-const float Mario::ACCELERATION_X = 0.0015f;
+const float Mario::ACCELERATION_X = 0.0006f;//0.0015f
 const float Mario::FLYING_Y_SPEED = 0.14f;
 const float Mario::FLYING_X_SPEED = 0.2f;//0.18f
 const float Mario::ACCELERATION_Y = 0.008f;//0.01f;

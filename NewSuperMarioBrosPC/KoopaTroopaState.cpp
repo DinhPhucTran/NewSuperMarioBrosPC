@@ -226,10 +226,10 @@ void KoopaVulnerableState::onCollision(Object*ob, int dir){
 			mKoopa->vx_last = mKoopa->vx;
 			mKoopa->setState(new KoopaSlidingState(mKoopa));
 		}
-		else if (dir == Physics::COLLIDED_FROM_TOP || dir == Physics::COLLIDED_FROM_BOTTOM){
-			if (mKoopa->isBringedByMario == 1){
-				return;
-			}
+		else if (dir == Physics::COLLIDED_FROM_TOP){
+			//if (mKoopa->isBringedByMario == 1){
+			//	return;
+			//}
 			if (ob->x >= mKoopa->x){
 				//slide qua trái
 				ob->y = mKoopa->top() + ob->height / 2 + 2;
@@ -241,6 +241,22 @@ void KoopaVulnerableState::onCollision(Object*ob, int dir){
 			else{
 				//slide qua phải
 				ob->y = mKoopa->top() + ob->height / 2 + 2;
+				mKoopa->x = ob->right() + mKoopa->width / 2 + 2;
+				mKoopa->vx = KoopaTroopa::KOOPA_SLIDING_SPEED_X;
+				mKoopa->vx_last = mKoopa->vx;
+				mKoopa->setState(new KoopaSlidingState(mKoopa));
+			}
+		}
+		else if (dir == Physics::COLLIDED_FROM_BOTTOM){
+			if (ob->x >= mKoopa->x){
+				//slide qua trái
+				mKoopa->x = ob->left() - mKoopa->width / 2 - 2;
+				mKoopa->vx = -KoopaTroopa::KOOPA_SLIDING_SPEED_X;
+				mKoopa->vx_last = mKoopa->vx;
+				mKoopa->setState(new KoopaSlidingState(mKoopa));
+			}
+			else{
+				//slide qua phải
 				mKoopa->x = ob->right() + mKoopa->width / 2 + 2;
 				mKoopa->vx = KoopaTroopa::KOOPA_SLIDING_SPEED_X;
 				mKoopa->vx_last = mKoopa->vx;

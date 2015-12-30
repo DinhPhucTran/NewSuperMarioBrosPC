@@ -73,8 +73,16 @@ void Object::update(int t){
 		ay = 0;
 	}
 	ay -= CMarioGame::GRAVITY_VELOCOTY*t;
-	x += (int)(vx * t);
-	y += (int)(vy * t);
+
+	dx += (int)(vx * t);
+	int temp = (int)dx;
+	x += temp;
+	dx -= temp;
+	
+	dy += (int)(vy*t);
+	temp = (int)dy;
+	y += temp;
+	dy -= temp;
 	
 }
 Object::~Object() {

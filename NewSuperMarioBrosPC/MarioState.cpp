@@ -26,7 +26,7 @@ MarioState::MarioState(Mario* mario){
 	mMario = mario;
 }
 void MarioState::onAPress(){
-	if (!mMario->isFlying)
+	//if (!mMario->isFlying)
 		mMario->jumpUp();
 }
 void MarioState::onBPress(){
@@ -39,9 +39,16 @@ void MarioState::update(int t){
 	if (mMario->x >= 2800)
 		mMario->x = 2800;
 
+	mMario->dx += (mMario->vx*t);
+	int temp = (int)mMario->dx;
+	mMario->x += temp;
+	mMario->dx -= temp;
 
-	mMario->x = mMario->x + (int)(mMario->vx*t);
-	mMario->y += (int)(mMario->vy*t);
+	mMario->dy += (mMario->vy*t);
+	temp = (int)(mMario->dy);
+	mMario->y += temp;
+	mMario->dy -= temp;
+
 	mMario->vx = mMario->vx + mMario->ax*t;
 	mMario->vy += mMario->ay*t;
 
@@ -289,8 +296,18 @@ void MarioStateRaccoon::update(int t){
 				mMario->vx = -Mario::FLYING_X_SPEED;
 			else mMario->vx = Mario::FLYING_X_SPEED;
 		}
-		mMario->y += (int)(mMario->vy*t);
-		mMario->x += (int)(mMario->vx*t);
+		mMario->dx += (mMario->vx*t);
+		int temp = (int)mMario->dx;
+		mMario->x += temp;
+		mMario->dx -= temp;
+
+		mMario->dy += (mMario->vy*t);
+		temp = (int)(mMario->dy);
+		mMario->y += temp;
+		mMario->dy -= temp;
+
+		//mMario->y += (int)(mMario->vy*t);
+		//mMario->x += (int)(mMario->vx*t);
 	}
 	else if (GetTickCount() - timeFlying <= FLYING_TIME && mMario->vy<0){//Flying
 		mMario->isFlying = 1;//for Animation Factory know which animation to pick
@@ -303,8 +320,17 @@ void MarioStateRaccoon::update(int t){
 				mMario->vx = -Mario::FLYING_X_SPEED;
 			else mMario->vx = Mario::FLYING_X_SPEED;
 		}
-		mMario->y += (int)(mMario->vy*t);
-		mMario->x += (int)(mMario->vx*t);
+		mMario->dx += (mMario->vx*t);
+		int temp = (int)mMario->dx;
+		mMario->x += temp;
+		mMario->dx -= temp;
+
+		mMario->dy += (mMario->vy*t);
+		temp = (int)(mMario->dy);
+		mMario->y += temp;
+		mMario->dy -= temp;
+		//mMario->y += (int)(mMario->vy*t);
+		//mMario->x += (int)(mMario->vx*t);
 
 	}
 	else{

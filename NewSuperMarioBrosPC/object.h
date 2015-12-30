@@ -20,6 +20,7 @@ public:
 	int x, y;
 	float ax;
 	float ay;
+	float dx = 0, dy = 0;//chứa phần giá trị bị mất khi cast int -> float
 	int width, height;
 	float vx, vy;
 	float vx_last;//vx của mario trước khi dừng, để xác định hướng di chuyển của mario

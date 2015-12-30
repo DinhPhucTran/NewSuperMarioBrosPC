@@ -9,7 +9,6 @@ class FireBall :public Object{
 	Mario* mMario;
 	int isUp;
 	int isRight;
-	float dx=0, dy=0;//để chứa giá trị bị mất khi chuyển kiểu float->int
 public:
 	static const int HEIGHT;
 	static const int WIDTH;
