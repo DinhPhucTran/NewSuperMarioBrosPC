@@ -83,6 +83,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	marioLargeSprite = new CSprite(_SpriteHandler, MARIO_LARGE_IMAGE, 32, 32, 195, 10);
 	CSprite* piranhaSprite = new CSprite(_SpriteHandler, PIRANHA_PLANT, 20, 36, 100, 10);
 	CSprite *pipeSprite = new CSprite(_SpriteHandler, PIPE_IMAGE, 32, 32, 1, 1);
+	pipe32x40Sprite = new CSprite(_SpriteHandler, PIPE_IMAGE_40, 32, 40, 1, 1);
 	koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);
 	goobaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);
 	mushroomSprite = new CSprite(_SpriteHandler, MUSHROOM_IMAGE, 16, 16, 1, 1);
@@ -92,7 +93,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 	PiranhaPlant* piranhaPlant = new PiranhaPlant(1808, 31 + 28, piranhaSprite, pipeSprite);
 	FirePiranha* firePiranha = new FirePiranha(1871 + 1, 39 + 24 + FirePiranha::HEIGHT / 2, piranhaSprite, pipeSprite);///x+1 do sai số
-	RedFirePiranha* redFirePiranha = new RedFirePiranha(367 + 1, 39 + 24 + RedFirePiranha::HEIGHT / 2, piranhaSprite, pipeSprite);///x+1 do sai số
+	RedFirePiranha* redFirePiranha = new RedFirePiranha(367 + 1, 39 + 24 + RedFirePiranha::HEIGHT / 2, piranhaSprite, pipe32x40Sprite);///x+1 do sai số
 	
 	
 	/*KoopaTroopa* koopa2 =

@@ -34,6 +34,7 @@
 #define RED_MUSHROOM L"redMushroom.png"
 #define PIRANHA_PLANT L"PiranhaPlant10x20x36.png"
 #define PIPE_IMAGE L"pipe32.png"
+#define PIPE_IMAGE_40 L"Pipe32x40.png"
 
 
 #define GROUND_Y 45
@@ -86,6 +87,7 @@ public:
 	CSprite *leafSprite;
 	CSprite *greenmushroomSprite;
 	CSprite *redmushroomSprite;
+	CSprite *pipe32x40Sprite;
 
 	int animationDelay=0;
 	//Object * fallBox;
