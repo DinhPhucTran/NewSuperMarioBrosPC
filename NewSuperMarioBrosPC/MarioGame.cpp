@@ -23,6 +23,7 @@
 #include "FirePiranha.h"
 #include "KoopaTroopaState.h"
 #include "RedFirePiranha.h"
+
 using namespace std;
 
 const float CMarioGame::GRAVITY_VELOCOTY = GRAV_VELOCITY;
@@ -132,11 +133,15 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 	//marioObject->setAnimationFactory(LargeMarioAnimationFactory::getInstance(marioObject));
 	//marioObject->setState(new MarioStateLarge(marioObject));
+
+	Gooba* paraGoomba = new Gooba(200, 50, Gooba::WIDTH, Gooba::HEIGHT, Gooba::SPEED_X, 0, Gooba::SPEED_X, 0, 0, NULL, goobaSprite);
+	paraGoomba->setState(new GoobaParaState(paraGoomba));
 	
 	mObjectManager->addObject(marioObject);
 	mObjectManager->addObject(piranhaPlant);
 	mObjectManager->addObject(firePiranha);
 	mObjectManager->addObject(redFirePiranha);
+	mObjectManager->addObject(paraGoomba);
 	/*mObjectManager->addObject(koopa);	
 	mObjectManager->addObject(gooba);
 	mObjectManager->addObject(koopa2);

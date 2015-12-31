@@ -35,6 +35,7 @@ public:
 	virtual int getWidth();
 	virtual int getHeight();
 	virtual float getSpeed();
+	virtual void update(int t);
 };
 
 class GoobaDyingUpsideDown :public GoobaState{
@@ -59,7 +60,7 @@ public:
 class GoobaDyingState:public GoobaState{
 	DWORD last_time;
 public:
-	static const string STATE_NAME;;
+	static const string STATE_NAME;
 	GoobaDyingState(Gooba* gooba);
 	void onCollision(Object* ob, int dir)override;
 	string getName()override;
@@ -67,12 +68,26 @@ public:
 	float getSpeed()override;//DYING_SPEED
 };
 
+class GoobaParaState:public GoobaState{
+protected:
+	Gooba* mGooba;
+public:
+	static const string STATE_NAME;
+	string getName()override;
+	GoobaParaState(Gooba* gooba);
+	void onCollision(Object* ob, int dir)override;
+
+	void update(int t)override;
+};
+
+
 
 class Gooba : public Object{
 private:
 	GoobaState* mState;
 public:
 	static const float SPEED_X;
+	static const float SPEED_Y; //para goomba
 	static const int WIDTH;//16
 	static const int HEIGHT;//16
 	static const int ANIMATION_DELAY;//=10
@@ -90,6 +105,7 @@ public:
 	void onCollision(Object* ob, int dir)override;
 	void render(int vpx, int vpy)override;
 	Gooba(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image);
+	void update(int t)override;
 };
 
 #endif

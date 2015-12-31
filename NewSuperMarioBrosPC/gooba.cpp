@@ -6,10 +6,12 @@
 #include "GoldBrick.h"
 #include "KoopaTroopaState.h"
 #include "MetalBlock.h"
+#include "MarioGame.h"
 using namespace std;
 
 
 const float Gooba::SPEED_X = 0.08f;
+const float Gooba::SPEED_Y = 0.15f;
 const int Gooba::WIDTH = 16;
 const int Gooba::HEIGHT = 16;
 const int Gooba::ANIMATION_DELAY = 10;
@@ -49,6 +51,9 @@ void Gooba::setState(GoobaState* goobaState){
 	height = mState->getHeight();
 	vx = mState->getSpeed();
 }
+void Gooba::update(int t){
+	mState->update(t);
+}
 
 
 /////////////////////GoobaState/////////////////////
@@ -59,6 +64,25 @@ GoobaState::GoobaState(Gooba* gooba){
 	mGooba = gooba;
 }
 
+void GoobaState::update(int t){
+	mGooba->vy += mGooba->ay*t;
+	mGooba->vx += mGooba->ax*t;
+	if (mGooba->vy > Object::MAX_SPEED_Y || mGooba->vy < -Object::MAX_SPEED_Y){
+		mGooba->ay = 0;
+	}
+	mGooba->ay -= CMarioGame::GRAVITY_VELOCOTY*t;
+
+	mGooba->dx += (int)(mGooba->vx * t);
+	int temp = (int)mGooba->dx;
+	mGooba->x += temp;
+	mGooba->dx -= temp;
+
+	mGooba->dy += (int)(mGooba->vy*t);
+	temp = (int)mGooba->dy;
+	mGooba->y += temp;
+	mGooba->dy -= temp;
+
+}
 void GoobaState::onCollision(Object*ob,int dir){
 	string objName = ob->getName();
 	if (objName == BrickGround::OBJECT_NAME || objName == Pipe::OBJECT_NAME || objName == QBrick::OBJECT_NAME || objName == GoldBrick::OBJECT_NAME){
@@ -182,11 +206,33 @@ string GoobaDyingUpsideDown::getName(){
 void GoobaDyingUpsideDown::onCollision(Object* ob, int dir){
 
 }
+///////////////////////////
+const string GoobaParaState::STATE_NAME = "goomba_para";
+string GoobaParaState::getName(){
+	return STATE_NAME;
+}
+
+GoobaParaState::GoobaParaState(Gooba* gooba):GoobaState(gooba){
+
+}
+void GoobaParaState::update(int t){
+
+}
+void GoobaParaState::onCollision(Object *ob, int dir){
+	GoobaState::onCollision(ob, dir);
+	string objName = ob->getName();
+	if (objName == Mario::OBJECT_NAME){
+		if (dir == Physics::COLLIDED_FROM_TOP){
+			mGooba->setState(new GoobaNomalState(mGooba));
+		}
+	}
+}
+
 //////////////////////GoobaAnimationFactory//////////////
 Animation* GoobaAnimationFactory::createAnimation(){
 	Animation* result;
 	string stateName = mGooba->getState()->getName();
-	if (stateName == GoobaNomalState::STATE_NAME){
+	if (stateName == GoobaNomalState::STATE_NAME || stateName == GoobaParaState::STATE_NAME){
 		result = mGoobaWalkingAnim;
 	}
 	else if (stateName == GoobaDyingUpsideDown::STATE_NAME){
