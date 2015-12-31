@@ -25,7 +25,14 @@ MarioRaccoonTail::MarioRaccoonTail(Mario* mario,int x, int y, int width, int hei
 }
 MarioRaccoonTail::MarioRaccoonTail():Object(0,0,MarioRaccoonTail::WIDTH,MarioRaccoonTail::HEIGHT){
 	mLastTime = GetTickCount();
-	mMario = ObjectManager::getInstance()->getMario();
+	if (mMario == 0){
+		mMario = ObjectManager::getInstance()->getMario();
+	}
+	else{
+		x = mMario->x;
+		y = mMario->y;
+	}
+	
 	mState = STATE_INACTIVE;
 }
 void MarioRaccoonTail::render(int vpx, int vpy){

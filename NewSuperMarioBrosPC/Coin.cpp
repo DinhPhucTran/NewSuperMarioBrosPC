@@ -3,7 +3,11 @@
 const string Coin::OBJECT_NAME = "coin";
 
 Coin::Coin(int X, int Y, int Width, int Height, Animation* anim, CSprite * Sprite) :
-StaticObject(X, Y, Width, Height, anim, Sprite){
+	StaticObject(X, Y, Width, Height, anim, Sprite){
+}
+
+Coin::Coin(int X, int Y, int Width, int Height, CSprite * Sprite) :
+	StaticObject(X, Y, Width, Height, mCoinAnimation, Sprite){
 }
 
 string Coin::getName()

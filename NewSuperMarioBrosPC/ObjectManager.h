@@ -23,7 +23,7 @@ public:
 	void update(int t);
 	void render(int vpx, int vpy);
 	void refeshList();//xóa Null pointer khỏi danh sách và giải phóng vùng nhớ
-
+	vector<Object*> getStaticObjectList();
 };
 
 #endif

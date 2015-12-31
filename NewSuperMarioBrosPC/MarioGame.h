@@ -27,7 +27,7 @@
 #define QBRICK_IMAGE L"qBrick.png"
 #define SCROLLBG_IMAGE L"scrollBG3.png"
 #define MUSHROOM_IMAGE L"redMushroom.png"
-#define GOLDBRICK_IMAGE L"goldBrick.png"
+#define GOLDBRICK_IMAGE_AND_BUTTON L"goldBrickAndButton.png"
 #define COIN L"coin.png"
 #define LEAF L"leaf.png"
 #define GREEN_MUSHROOM L"greenMushroom.png"
@@ -80,7 +80,7 @@ public:
 	CSprite * koopaTroopaSprite;
 	CSprite * ground_middle;
 	CSprite * brick;
-	CSprite * mountain;
+	CSprite *mountain;
 	CSprite *foregroundImage;
 	CSprite * mushroomSprite;
 	CSprite *coinSprite;
@@ -88,6 +88,12 @@ public:
 	CSprite *greenmushroomSprite;
 	CSprite *redmushroomSprite;
 	CSprite *pipe32x40Sprite;
+	CSprite *goldBrickAndPButton;
+	CSprite *pipeSprite;
+	CSprite* piranhaSprite;
+	CSprite * qbSprite;
+	
+
 
 	int animationDelay=0;
 	//Object * fallBox;
@@ -102,5 +108,6 @@ protected:
 	virtual void OnKeyUp(int KeyCode)override;
 
 	void RenderBackground(int view_port_x, int view_port_y);
+	void LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler, char* file);
 };
 #endif

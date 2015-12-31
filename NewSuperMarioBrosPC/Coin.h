@@ -15,6 +15,7 @@ public:
 	void render(int vpx, int vpy)override;
 	static const string OBJECT_NAME;
 	Coin(int X, int Y, int Width, int Height, Animation* anim, CSprite * Sprite);
+	Coin(int X, int Y, int Width, int Height, CSprite * Sprite);
 	string getName();
 	void onCollision(Object * ob, int dir);
 };

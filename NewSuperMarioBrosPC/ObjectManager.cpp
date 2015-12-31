@@ -169,8 +169,14 @@ void ObjectManager::update(int t){
 	}
 	for (int i = 0; i < mListStaticObject.size(); ++i){
 		Object* ob = mListStaticObject[i];
-		if (ob!=0)
-			ob->update(t);
+		if (ob != 0){
+			Mario* mario = getMario();
+			if (mario != NULL){
+				if (abs(ob->x - mario->x) < 450)//chỉ update khi mario tới gần
+					ob->update(t);
+			}
+			else ob->update(t);
+		}
 	}
 }
 void ObjectManager::refeshList(){
@@ -179,6 +185,7 @@ void ObjectManager::refeshList(){
 		//delete ob;
 	}
 	mListOfGarbageObject.clear();
+
 
 
 	for (int i = 0; i < mListObject.size(); ++i){
@@ -193,4 +200,21 @@ void ObjectManager::refeshList(){
 			mListStaticObject.erase(mListStaticObject.begin() + i);
 		}
 	}
+
+	/*for (vector<Object*>::iterator itr = mListObject.begin(); itr != mListObject.end(); itr++){
+		Object* ob = (*itr);
+		if (ob == 0){
+			mListObject.erase(itr);
+		}
+	}
+	for (vector<Object*>::iterator itr = mListStaticObject.begin(); itr != mListStaticObject.end(); itr++){
+		Object* ob = (*itr);
+		if (ob == 0){
+			mListObject.erase(itr);
+		}
+	}*/
+}
+
+vector<Object*> ObjectManager::getStaticObjectList(){
+	return mListStaticObject;
 }

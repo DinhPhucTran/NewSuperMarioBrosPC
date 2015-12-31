@@ -81,14 +81,19 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 
 	marioLargeSprite = new CSprite(_SpriteHandler, MARIO_LARGE_IMAGE, 32, 32, 195, 10);
-	CSprite* piranhaSprite = new CSprite(_SpriteHandler, PIRANHA_PLANT, 20, 36, 100, 10);
-	CSprite *pipeSprite = new CSprite(_SpriteHandler, PIPE_IMAGE, 32, 32, 1, 1);
+	piranhaSprite = new CSprite(_SpriteHandler, PIRANHA_PLANT, 20, 36, 100, 10);
+	pipeSprite = new CSprite(_SpriteHandler, PIPE_IMAGE, 32, 32, 1, 1);
 	pipe32x40Sprite = new CSprite(_SpriteHandler, PIPE_IMAGE_40, 32, 40, 1, 1);
 	koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);
 	goobaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);
 	mushroomSprite = new CSprite(_SpriteHandler, MUSHROOM_IMAGE, 16, 16, 1, 1);
 	greenmushroomSprite = new CSprite(_SpriteHandler, GREEN_MUSHROOM, 16, 16, 1, 1);
 	leafSprite = new CSprite(_SpriteHandler, LEAF, 16, 16, 1, 1);
+	goldBrickAndPButton = new CSprite(_SpriteHandler, GOLDBRICK_IMAGE_AND_BUTTON, 16, 16, 1, 8);
+	coinSprite = new CSprite(_SpriteHandler, COIN, 16, 16, 3, 3);
+	qbSprite = new CSprite(_SpriteHandler, QBRICK_IMAGE, 16, 16, 5, 5);
+	
+
 
 
 	PiranhaPlant* piranhaPlant = new PiranhaPlant(1808, 31 + 28, piranhaSprite, pipeSprite);
@@ -117,7 +122,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	
 
 	
-	Mario* marioObject = new Mario(mario_x, mario_y, 32, 32, mario_vx, 0, 0, 0 , 0, NULL, marioLargeSprite, NULL, NULL);
+	Mario* marioObject = new Mario(mario_x, mario_y, 32, 32, mario_vx, 0, 0, 0, 0, NULL, marioLargeSprite, NULL, NULL);
 	
 	
 	//marioObject->setAnimationFactory(SmallMarioAnimationFactory::getInstance(marioObject));
@@ -129,9 +134,9 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	//marioObject->setState(new MarioStateLarge(marioObject));
 	
 	mObjectManager->addObject(marioObject);
-	mObjectManager->addObject(piranhaPlant);
-	mObjectManager->addObject(firePiranha);
-	mObjectManager->addObject(redFirePiranha);
+	//mObjectManager->addObject(piranhaPlant);
+	//mObjectManager->addObject(firePiranha);
+	//mObjectManager->addObject(redFirePiranha);
 	/*mObjectManager->addObject(koopa);	
 	mObjectManager->addObject(gooba);
 	mObjectManager->addObject(koopa2);
@@ -382,7 +387,7 @@ void CMarioGame::OnKeyUp(int KeyCode)
 	}
 }
 
-void LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler, char* file)
+void CMarioGame::LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler, char* file)
 {
 	ifstream infile(file);
 	string line;
@@ -426,9 +431,9 @@ void LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler, char* file)
 		}
 		else if (v[0] == 4)
 		{
-			CSprite * qbSprite = new CSprite(_SpriteHandler, QBRICK_IMAGE, 16, 16, 5, 5);
+			
 			Animation *qbAnim = new Animation(0, 3);
-			CSprite *mushroomSprite = new CSprite(_SpriteHandler, MUSHROOM_IMAGE, 16, 16, 1, 1);
+			
 			if (v[5] == 100)
 			{
 				RedMushroom * mushroom = new RedMushroom(0, 0, 16, 16, 0, 0, 0, 0, 0, mushroomSprite);
@@ -443,27 +448,27 @@ void LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler, char* file)
 		}
 		else if (v[0] == 5)
 		{
-			CSprite * goldSprite = new CSprite(_SpriteHandler, GOLDBRICK_IMAGE, 16, 16, 5, 5);
+			
 			Animation * goldAnim = new Animation(0, 4);
-			GoldBrick * goldBrick = new GoldBrick(v[1], v[2], v[3], v[4], goldAnim, goldSprite);
+			GoldBrick * goldBrick = new GoldBrick(v[1], v[2], v[3], v[4], goldAnim, goldBrickAndPButton,v[5]);
 			obManager->addObject(goldBrick);
 		}
 		else if (v[0] == 6)
 		{
-			CSprite * coinSprite = new CSprite(_SpriteHandler, COIN, 16, 16, 3, 3);
+			
 			Coin *coin = new Coin(v[1], v[2], 16, 16, coinAnim, coinSprite);
 			obManager->addObject(coin);
 		}
 
 		else if (v[0] == 10)
 		{
-			CSprite * goobaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);
+			
 			Gooba* gooba = new Gooba(v[1], v[2], Gooba::WIDTH, Gooba::HEIGHT, -Gooba::SPEED_X, 0, -Gooba::SPEED_X, 0, 0, NULL, goobaSprite);
 			obManager->addObject(gooba);
 		}
 		else if (v[0] == 11)
 		{
-			CSprite * koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);			
+			//CSprite * koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);			
 			if (v[3] == 1)
 			{
 				KoopaTroopa* koopa =
