@@ -11,7 +11,8 @@ using namespace std;
 
 
 const float Gooba::SPEED_X = 0.08f;
-const float Gooba::SPEED_Y = 0.15f;
+const float Gooba::SPEED_Y_PLUS = 0.15f;
+const float Gooba::SPEED_Y = 0.05f;
 const int Gooba::WIDTH = 16;
 const int Gooba::HEIGHT = 16;
 const int Gooba::ANIMATION_DELAY = 10;
@@ -216,7 +217,20 @@ GoobaParaState::GoobaParaState(Gooba* gooba):GoobaState(gooba){
 
 }
 void GoobaParaState::update(int t){
+	mGooba->vy += mGooba->ay*t;
+	mGooba->vx += mGooba->ax*t;
+	
+	mGooba->ay -= CMarioGame::GRAVITY_VELOCOTY*t;
 
+	mGooba->dx += (int)(mGooba->vx * t);
+	int temp = (int)mGooba->dx;
+	mGooba->x += temp;
+	mGooba->dx -= temp;
+
+	mGooba->dy += (int)(mGooba->vy*t);
+	temp = (int)mGooba->dy;
+	mGooba->y += temp;
+	mGooba->dy -= temp;
 }
 void GoobaParaState::onCollision(Object *ob, int dir){
 	GoobaState::onCollision(ob, dir);

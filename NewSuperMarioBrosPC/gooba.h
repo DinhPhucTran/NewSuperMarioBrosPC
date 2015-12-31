@@ -72,6 +72,9 @@ class GoobaParaState:public GoobaState{
 protected:
 	Gooba* mGooba;
 public:
+	Timer mTimeToFly;
+	static const int TIME_TO_JUMP;///250
+	static const int TIME_TO_SUPPER_JUMP;
 	static const string STATE_NAME;
 	string getName()override;
 	GoobaParaState(Gooba* gooba);
@@ -88,12 +91,14 @@ private:
 public:
 	static const float SPEED_X;
 	static const float SPEED_Y; //para goomba
+	static const float SPEED_Y_PLUS;
 	static const int WIDTH;//16
 	static const int HEIGHT;//16
 	static const int ANIMATION_DELAY;//=10
 	static const int DYING_HEIGHT;//9
 	static const float DYING_SPEED;//0
 	static const int DYING_TIME;//500 miniseconds
+	
 
 	AnimationFactory* mAnimationFactory;
 	//static Animation* 
