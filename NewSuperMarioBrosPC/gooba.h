@@ -7,8 +7,13 @@
 #include"BrickGround.h"
 #include "Physics.h"
 #include "Pipe.h"
-#include"RedKoopa.h"
+
+
 #include "Timer.h"
+
+#include "MarioGame.h"
+#include "MetalBlock.h"
+
 
 using namespace std;
 
@@ -16,14 +21,13 @@ class Gooba;
 class GoobaAnimationFactory : public AnimationFactory{
 	Gooba* mGooba;
 public:
-	
-	/*Animation* mGoobaLeftWalkAnim = new Animation(0, 3);
-	Animation* mGoobaRightWalkAnim = new Animation(4, 7);*///original value
-	Animation* mGoobaWalkingAnim = new Animation(40, 41);
-	Animation* mGoobaDyingAnim = new Animation(42, 42);
-	Animation* mGoobaDyingUpsideDown = new Animation(45, 45);
-	Animation* createAnimation()override;
 
+
+	Animation* mGoobaWalkingAnim = new Animation(0, 1);
+	Animation* mGoobaDyingAnim = new Animation(6, 6);
+	Animation* mGoobaFlyingAnim = new Animation(2, 5);
+	Animation* createAnimation()override;
+	Animation* mGoobaDyingUpsideDown = new Animation(45, 45);
 	Animation* mParaGoobaWalking = new Animation(6, 7);
 	Animation* mParaGoobaFlying = new Animation(6, 9, 2);
 	GoobaAnimationFactory(Gooba* gooba);
@@ -34,7 +38,7 @@ protected:
 	Gooba* mGooba;
 public:
 	GoobaState(Gooba* gooba);
-	virtual void onCollision(Object* ob,int dir);
+	virtual void onCollision(Object* ob, int dir);
 	virtual string getName();
 	virtual int getWidth();
 	virtual int getHeight();
@@ -50,27 +54,28 @@ public:
 	GoobaDyingUpsideDown(Gooba* gooba);
 	void onCollision(Object* ob, int dir);
 	string getName()override;
-
 };
 
 class GoobaNomalState :public GoobaState{//trạng thái đi lại bình thường
 public:
-	static const string STATE_NAME;
 	GoobaNomalState(Gooba* goooba);
-	void onCollision(Object* ob,int dir)override;
+	static const string STATE_NAME;
+	void onCollision(Object* ob, int dir)override;
 	string getName()override;
 };
 
-class GoobaDyingState:public GoobaState{
+class GoobaDyingState :public GoobaState{
 	DWORD last_time;
 public:
-	static const string STATE_NAME;
+
 	GoobaDyingState(Gooba* gooba);
+	static const string STATE_NAME;
 	void onCollision(Object* ob, int dir)override;
 	string getName()override;
 	int getHeight()override;
 	float getSpeed()override;//DYING_SPEED
 };
+
 
 class GoobaParaState:public GoobaState{
 protected:
@@ -89,13 +94,34 @@ public:
 };
 
 
+//
+//class KoopaVulnerableState :public KoopaTroopaState{//Trạng thái dể bị tổn thương, khi chui vào mai rùa
+//	//ở trạng thái này mario đụng vào là xong :p
+//public:
+//	static const string STATE_NAME;
+//	void onCollision(Object* ob)override;
+//	string getName()override;
+//};
+//
+//class KoopaSlidingState :public KoopaTroopaState{
+//	//trạng thái bị mario đá, trượt từ đầu này sang đầu khác
+//public:
+//	static const string STATE_NAME;
+//	void onCollision(Object*ob)override;
+//	string getName()override;
+//};
+
 
 class Gooba : public Object{
-private:
+protected:
 	GoobaState* mState;
 public:
 	int isJump = 0;
 	int isFly = 0;
+	static const float PARA_FLYING_GRAVITY;
+	static const float PARA_MAX_SPEED_Y;//0.6 MARIO 0.7
+	static const float PARA_SPEED_X;
+	static const float PARA_ACCELERATION_Y;
 	static const float SPEED_X;
 	static const float FLYING_ACCELERATION; //para goomba
 	static const float FLYING_GRAVITY;
@@ -119,6 +145,8 @@ public:
 	void render(int vpx, int vpy)override;
 	Gooba(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image);
 	void update(int t)override;
+	Gooba(int x, int y, float vx, Animation* anim, CSprite * image);
+
 };
 
 #endif
