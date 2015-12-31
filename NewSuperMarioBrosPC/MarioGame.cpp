@@ -134,9 +134,9 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	//marioObject->setState(new MarioStateLarge(marioObject));
 	
 	mObjectManager->addObject(marioObject);
-	//mObjectManager->addObject(piranhaPlant);
-	//mObjectManager->addObject(firePiranha);
-	//mObjectManager->addObject(redFirePiranha);
+	mObjectManager->addObject(piranhaPlant);
+	mObjectManager->addObject(firePiranha);
+	mObjectManager->addObject(redFirePiranha);
 	/*mObjectManager->addObject(koopa);	
 	mObjectManager->addObject(gooba);
 	mObjectManager->addObject(koopa2);

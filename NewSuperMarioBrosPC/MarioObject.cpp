@@ -112,6 +112,9 @@ void Mario::stop(){
 void Mario::die(){
 	string stateName = mMarioState->getName();
 	MarioState* nextState = new MarioStateSmall(this);
+	if (stateName == MarioStateInvincible::STATE_NAME){
+		return;
+	}
 	if (stateName == MarioStateRaccoon::STATE_NAME){
 		//delete nextState;
 		nextState = new MarioStateLarge(this);

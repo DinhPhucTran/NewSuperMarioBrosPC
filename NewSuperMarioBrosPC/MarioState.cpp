@@ -358,35 +358,7 @@ void MarioStateInvincible::onCollision(Object* ob, int dir){
 	if (now - mLastTime >= Mario::INVINCIBLE_SWITCH_STATE_TIME){
 		mMario->setState(mNextState);
 	}
-	string objectName = ob->getName();
-	if (objectName == BrickGround::OBJECT_NAME || objectName == Pipe::OBJECT_NAME)
-	{
-		if (dir == Physics::COLLIDED_FROM_TOP){
-			mMario->y = ob->bottom() - mMario->height / 2;
-			mMario->vy = -0.000001;//note: không đc =0. nếu vy =0 thì sẽ gây ra lỗi người dùng có thể cho nó bay liên tục
-			mMario->ay = 0;
-			return;
-		}
-		if (dir == Physics::COLLIDED_FROM_BOTTOM)
-		{
-			mMario->vy = 0;
-			mMario->ay = 0;
-			mMario->y = ob->top() + mMario->height / 2;
-			return;
-		}
-		if (dir == Physics::COLLIDED_FROM_RIGHT)
-		{
-			mMario->x = ob->left() - mMario->width / 2;
-			mMario->ax = 0;
-			return;
-		}
-		if (dir == Physics::COLLIDED_FROM_LEFT)
-		{
-			mMario->x = ob->right() + mMario->width / 2;
-			mMario->ax = 0;
-			return;
-		}
-	}
+	MarioState::onCollision(ob, dir);
 }
 
 int MarioStateInvincible::getHeight(){
