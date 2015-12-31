@@ -147,9 +147,9 @@ void MarioState::onCollision(Object* ob,int dir){
 			}
 		}
 	}
-	if (objectName == Gooba::OBJECT_NAME){
+	if (objectName == Gooba::OBJECT_NAME ){
 		string state = ((Gooba*)ob)->getState()->getName();
-		if (state == GoobaNomalState::STATE_NAME){
+		if (state == GoobaNomalState::STATE_NAME || state == GoobaParaState::STATE_NAME){
 			if (dir == Physics::COLLIDED_FROM_BOTTOM){
 				mMario->y = ob->top() + mMario->height / 2;
 				mMario->vy = 0;
