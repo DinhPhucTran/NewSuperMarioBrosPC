@@ -2,10 +2,7 @@
 #include <string>
 #include "MarioState.h"
 #include "MarioRaccoonTail.h"
-#include "Qbrick.h"
-#include "GoldBrick.h"
-#include "KoopaTroopaState.h"
-#include "MetalBlock.h"
+
 using namespace std;
 
 
@@ -23,13 +20,27 @@ Gooba::Gooba(int x, int y, int width, int height, float vx, float vy, float vx_l
 	mAnim = mAnimationFactory->createAnimation();
 	mAnim->SetFrameDeplay(Gooba::ANIMATION_DELAY);
 }
+Gooba::Gooba(int x, int y, float vx, Animation* anim, CSprite * image)
+:Object(x, y, Gooba::WIDTH, Gooba::HEIGHT, vx, 0, vx, 0, 0, anim, image){
 
+	if (mAnimationFactory == NULL)
+		mAnimationFactory = new GoobaAnimationFactory(this);
+	if (mState == NULL){
+		mState = new GoobaNomalState(this);
+		if (mAnim == NULL)
+			mAnim = mAnimationFactory->createAnimation();
+	}
+}
+
+const float Gooba::PARA_FLYING_GRAVITY = 0.00009f;
+const float Gooba::PARA_SPEED_X = 0.085f;
+const float Gooba::PARA_ACCELERATION_Y = 0.004f;
 const string Gooba::OBJECT_NAME = "gooba";
 string Gooba::getName(){
 	return OBJECT_NAME;
 }
-void Gooba::onCollision(Object* ob,int dir){
-	mState->onCollision(ob,dir);
+void Gooba::onCollision(Object* ob, int dir){
+	mState->onCollision(ob, dir);
 }
 GoobaState* Gooba::getState(){
 	return mState;
@@ -43,11 +54,16 @@ void Gooba::render(int vpx, int vpy){
 	mSprite->Render(mAnimationFactory->createAnimation(), x, y, vpx, vpy);
 }
 void Gooba::setState(GoobaState* goobaState){
-	delete mState;
-	mState = goobaState;
+	if (goobaState != NULL){
+		delete mState;// giải phóng mState hiện tại
+		mState = goobaState;
+	}
 	width = mState->getWidth();
 	height = mState->getHeight();
 	vx = mState->getSpeed();
+}
+void Gooba::update(int t){
+	mState->update(t);
 }
 
 
@@ -59,9 +75,9 @@ GoobaState::GoobaState(Gooba* gooba){
 	mGooba = gooba;
 }
 
-void GoobaState::onCollision(Object*ob,int dir){
+void GoobaState::onCollision(Object*ob, int dir){
 	string objName = ob->getName();
-	if (objName == BrickGround::OBJECT_NAME || objName == Pipe::OBJECT_NAME || objName == QBrick::OBJECT_NAME || objName == GoldBrick::OBJECT_NAME){
+	if (objName == BrickGround::OBJECT_NAME || objName == Pipe::OBJECT_NAME){
 		if (dir == Physics::COLLIDED_FROM_LEFT){
 			if (mGooba->vx_last < 0){
 				mGooba->vx = Gooba::SPEED_X;
@@ -86,16 +102,6 @@ void GoobaState::onCollision(Object*ob,int dir){
 			}
 		}
 	}
-	if (objName == MetalBlock::OBJECT_NAME)
-	{
-		if (dir == Physics::COLLIDED_FROM_BOTTOM && mGooba->bottom() + 8 >= ob->top())
-		{
-			mGooba->vy = 0;
-			mGooba->ay = 0;
-			mGooba->y = ob->top() + mGooba->height / 2;
-			return;
-		}
-	}
 }
 int GoobaState::getWidth(){
 	return Gooba::WIDTH;
@@ -106,14 +112,24 @@ int GoobaState::getHeight(){
 float GoobaState::getSpeed(){
 	return Gooba::SPEED_X;
 }
+void GoobaState::update(int t){
+	mGooba->vy += mGooba->ay*t;
+	mGooba->vx += mGooba->ax*t;
+	if (mGooba->vy > Object::MAX_SPEED_Y || mGooba->vy < -Object::MAX_SPEED_Y){
+		mGooba->ay = 0;
+	}
+	mGooba->ay -= CMarioGame::GRAVITY_VELOCOTY*t;
+	mGooba->x += (int)(mGooba->vx * t);
+	mGooba->y += (int)(mGooba->vy * t);
+}
 
-/////////////////////KoopaNomalState//////////////////
+/////////////////////GoobaNomalState//////////////////
 
 const string GoobaNomalState::STATE_NAME = "gooba_nomal_state";
 string GoobaNomalState::getName(){
 	return STATE_NAME;
 }
-void GoobaNomalState::onCollision(Object*ob,int dir){
+void GoobaNomalState::onCollision(Object*ob, int dir){
 	//xử lý va chạm, nếu chạm gạch thì quay đầu
 	//chạm mario từ bên trái,phải hoặc bên dưới thì mario chết
 	//chạm mario từ trên thì chuyển sang trạng thái Vulnerable;
@@ -128,22 +144,12 @@ void GoobaNomalState::onCollision(Object*ob,int dir){
 			mGooba->setState(new GoobaDyingState(mGooba));
 		}
 	}
-	if (objName == KoopaTroopa::OBJECT_NAME || objName == RedKoopa::OBJECT_NAME){
-		KoopaTroopa* koopa = (KoopaTroopa*)ob;
-		string state = koopa->getState()->getName();
-		if (state == KoopaSlidingState::STATE_NAME){
-			if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT){
-				mGooba->setState(new GoobaDyingState(mGooba));
-			}
-		}
-	}
-	if (objName == MarioRaccoonTail::OBJECT_NAME && MarioRaccoonTail::getInstance()->getState()==MarioRaccoonTail::STATE_ACTIVE){
-		mGooba->vy = 0.5f;
-		mGooba->setState(new GoobaDyingUpsideDown(mGooba));
+	if (objName == MarioRaccoonTail::OBJECT_NAME && MarioRaccoonTail::getInstance()->getState() == MarioRaccoonTail::STATE_ACTIVE){
+		mGooba->die();
 	}
 }
 GoobaNomalState::GoobaNomalState(Gooba* gooba)
-	:GoobaState(gooba){
+:GoobaState(gooba){
 
 }
 
@@ -157,7 +163,7 @@ string GoobaDyingState::getName(){
 }
 
 void GoobaDyingState::onCollision(Object*ob, int dir){
-	
+
 	DWORD now = GetTickCount();
 	if (now - last_time >= Gooba::DYING_TIME){
 		mGooba->die();
@@ -171,17 +177,93 @@ int GoobaDyingState::getHeight(){
 float GoobaDyingState::getSpeed(){
 	return Gooba::DYING_SPEED;
 }
-//////////////////////GoobaDyingUpsideDown//////////////
-const string GoobaDyingUpsideDown::STATE_NAME = "goomba_dying_upside_down";
-GoobaDyingUpsideDown::GoobaDyingUpsideDown(Gooba* gooba):GoobaState(gooba){
-	mGooba = gooba;
+
+////////////////////GoobaParaState////////////
+float GoobaParaState::getSpeed(){
+	return Gooba::PARA_SPEED_X;
 }
-string GoobaDyingUpsideDown::getName(){
-	return STATE_NAME;
-}
-void GoobaDyingUpsideDown::onCollision(Object* ob, int dir){
+GoobaParaState::GoobaParaState(Gooba* gooba)
+:GoobaState(gooba){
 
 }
+void GoobaParaState::onCollision(Object*ob, int dir){
+	GoobaState::onCollision(ob, dir);
+	string objName = ob->getName();
+
+	if (objName == BrickGround::OBJECT_NAME || objName == Pipe::OBJECT_NAME || objName == MetalBlock::OBJECT_NAME){
+		if (dir == Physics::COLLIDED_FROM_LEFT){
+			if (mGooba->vx_last < 0){
+				mGooba->vx = Gooba::PARA_SPEED_X;
+				mGooba->vx_last = mGooba->vx;
+			}
+		}
+		else if (dir == Physics::COLLIDED_FROM_RIGHT){
+			if (mGooba->vx_last > 0){
+				mGooba->vx = -Gooba::PARA_SPEED_X;
+				mGooba->vx_last = mGooba->vx;
+			}
+		}
+		else if (dir == Physics::COLLIDED_FROM_BOTTOM){
+			mGooba->vy = 0;
+			mGooba->ay = 0;
+			mGooba->y = ob->top() + mGooba->height / 2;// chỉnh lại tọa độ y
+		}
+		else if (dir == Physics::COLLIDED_FROM_TOP){
+			if (mGooba->vy > 0){
+				mGooba->vy = -0.000001;//gần bằng 0, không đc =0 sẽ gây ra lổi
+				mGooba->ay = 0;
+			}
+		}
+	}
+	else if (objName == Mario::OBJECT_NAME)
+	{
+		//Nếu mario invicible thì ko xử lý tiếp nữa
+		Mario* mario = (Mario*)ob;
+		string stateName = (mario->getState())->getName();
+		if (stateName == MarioStateInvincible::STATE_NAME){
+			return;
+		}
+
+		//chạm trái phải dưới -> mario chết
+		//trên thì chuyển sang vulnerable state;
+		else if (dir == Physics::COLLIDED_FROM_TOP)
+		{
+			if (mGooba->vy > 0){
+				mGooba->vy = -0.000001;//gần bằng 0, không đc =0 sẽ gây ra lổi
+				mGooba->ay = 0;
+			}
+			mGooba->vx = 0;
+			mGooba->ax = 0;
+			mGooba->setState(new GoobaNomalState(mGooba));
+		}
+	}
+}
+const string GoobaParaState::STATE_NAME = "gooba_para_state";
+
+string GoobaParaState::getName(){
+	return STATE_NAME;
+}
+void GoobaParaState::update(int t){
+	if (mGooba->vy == 0){
+		mGooba->ay = Gooba::PARA_ACCELERATION_Y;
+	}
+	if (mGooba->x <= 10)
+		mGooba->x = 10;
+	if (mGooba->x >= 2800)
+		mGooba->x = 2800;
+
+
+	mGooba->vy += mGooba->ay*t;
+	mGooba->vx += mGooba->ax*t;
+	if (mGooba->vy > Object::MAX_SPEED_Y || mGooba->vy < -Object::MAX_SPEED_Y){
+		mGooba->ay = 0;
+	}
+	mGooba->ay -= Gooba::PARA_FLYING_GRAVITY*t;
+	mGooba->x += (int)(mGooba->vx * t);
+	mGooba->y += (int)(mGooba->vy * t);
+}
+
+
 //////////////////////GoobaAnimationFactory//////////////
 Animation* GoobaAnimationFactory::createAnimation(){
 	Animation* result;
@@ -189,13 +271,13 @@ Animation* GoobaAnimationFactory::createAnimation(){
 	if (stateName == GoobaNomalState::STATE_NAME){
 		result = mGoobaWalkingAnim;
 	}
-	else if (stateName == GoobaDyingUpsideDown::STATE_NAME){
-		result = mGoobaDyingUpsideDown;
-	}
-	else{//dying state
+	else if (stateName == GoobaDyingState::STATE_NAME){
 		result = mGoobaDyingAnim;
 	}
-	
+	else{
+		result = mGoobaFlyingAnim;
+	}
+
 	result->Update();
 	return result;
 }
