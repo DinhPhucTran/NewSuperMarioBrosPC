@@ -85,15 +85,14 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	piranhaSprite = new CSprite(_SpriteHandler, PIRANHA_PLANT, 20, 36, 100, 10);
 	pipeSprite = new CSprite(_SpriteHandler, PIPE_IMAGE, 32, 32, 1, 1);
 	pipe32x40Sprite = new CSprite(_SpriteHandler, PIPE_IMAGE_40, 32, 40, 1, 1);
-	koopaTroopaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);
-	goobaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 18, 32, 48, 16);
+	koopaTroopaGoombaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 22, 32, 48, 16);
 	mushroomSprite = new CSprite(_SpriteHandler, MUSHROOM_IMAGE, 16, 16, 1, 1);
 	greenmushroomSprite = new CSprite(_SpriteHandler, GREEN_MUSHROOM, 16, 16, 1, 1);
 	leafSprite = new CSprite(_SpriteHandler, LEAF, 16, 16, 1, 1);
 	goldBrickAndPButton = new CSprite(_SpriteHandler, GOLDBRICK_IMAGE_AND_BUTTON, 16, 16, 1, 8);
 	coinSprite = new CSprite(_SpriteHandler, COIN, 16, 16, 3, 3);
 	qbSprite = new CSprite(_SpriteHandler, QBRICK_IMAGE, 16, 16, 5, 5);
-	
+	paraGoombaSprite = new CSprite(_SpriteHandler, PARA_GOOMBA, 32, 32, 4, 4);
 
 
 
@@ -134,7 +133,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	//marioObject->setAnimationFactory(LargeMarioAnimationFactory::getInstance(marioObject));
 	//marioObject->setState(new MarioStateLarge(marioObject));
 
-	Gooba* paraGoomba = new Gooba(200, 50, Gooba::WIDTH, Gooba::HEIGHT, Gooba::SPEED_X, 0, Gooba::SPEED_X, 0, 0, NULL, goobaSprite);
+	Gooba* paraGoomba = new Gooba(200, 50, Gooba::WIDTH, Gooba::HEIGHT, Gooba::SPEED_X, 0, Gooba::SPEED_X, 0, 0, NULL, koopaTroopaGoombaSprite);
 	paraGoomba->setState(new GoobaParaState(paraGoomba));
 	
 	mObjectManager->addObject(marioObject);
@@ -468,8 +467,12 @@ void CMarioGame::LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler,
 		else if (v[0] == 10)
 		{
 			
-			Gooba* gooba = new Gooba(v[1], v[2], Gooba::WIDTH, Gooba::HEIGHT, -Gooba::SPEED_X, 0, -Gooba::SPEED_X, 0, 0, NULL, goobaSprite);
+			Gooba* gooba = new Gooba(v[1], v[2], Gooba::WIDTH, Gooba::HEIGHT, -Gooba::SPEED_X, 0, -Gooba::SPEED_X, 0, 0, NULL, koopaTroopaGoombaSprite);
+			if (v[3] == 1){
+				gooba->setState(new GoobaParaState(gooba));
+			}
 			obManager->addObject(gooba);
+			
 		}
 		else if (v[0] == 11)
 		{
@@ -477,20 +480,20 @@ void CMarioGame::LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler,
 			if (v[3] == 1)
 			{
 				KoopaTroopa* koopa =
-					new KoopaTroopa(v[1], v[2], 16, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
+					new KoopaTroopa(v[1], v[2], 16, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaGoombaSprite);
 				koopa->setState(new KoopaNomalState(koopa));
 				obManager->addObject(koopa);
 			}
 			else if (v[3] == 2)
 			{
-				KoopaTroopa* paraKoopa = new KoopaTroopa(v[1], v[2], KoopaTroopa::PARA_SPEED_X, NULL, koopaTroopaSprite);
+				KoopaTroopa* paraKoopa = new KoopaTroopa(v[1], v[2], KoopaTroopa::PARA_SPEED_X, NULL, koopaTroopaGoombaSprite);
 				paraKoopa->setState(new KoopaParaState(paraKoopa));
 				obManager->addObject(paraKoopa);
 			}
 			else if (v[3] == 3)
 			{
 				KoopaTroopa* vulnerableKoopa =
-					new RedKoopa(v[1], v[2], 16, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
+					new RedKoopa(v[1], v[2], 16, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaGoombaSprite);
 				vulnerableKoopa->setState(new KoopaVulnerableState(vulnerableKoopa));
 				obManager->addObject(vulnerableKoopa);
 			}

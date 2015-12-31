@@ -35,6 +35,7 @@
 #define PIRANHA_PLANT L"PiranhaPlant10x20x36.png"
 #define PIPE_IMAGE L"pipe32.png"
 #define PIPE_IMAGE_40 L"Pipe32x40.png"
+#define PARA_GOOMBA L"paraGoomba.png"
 
 
 #define GROUND_Y 45
@@ -76,8 +77,7 @@ public:
 
 	CSprite * marioSmallSprite;
 	CSprite * marioLargeSprite;
-	CSprite * goobaSprite;
-	CSprite * koopaTroopaSprite;
+	CSprite * koopaTroopaGoombaSprite;
 	CSprite * ground_middle;
 	CSprite * brick;
 	CSprite *mountain;
@@ -92,7 +92,7 @@ public:
 	CSprite *pipeSprite;
 	CSprite* piranhaSprite;
 	CSprite * qbSprite;
-	
+	CSprite * paraGoombaSprite;
 
 
 	int animationDelay=0;

@@ -8,6 +8,7 @@
 #include "Physics.h"
 #include "Pipe.h"
 #include"RedKoopa.h"
+#include "Timer.h"
 
 using namespace std;
 
@@ -22,6 +23,9 @@ public:
 	Animation* mGoobaDyingAnim = new Animation(42, 42);
 	Animation* mGoobaDyingUpsideDown = new Animation(45, 45);
 	Animation* createAnimation()override;
+
+	Animation* mParaGoobaWalking = new Animation(6, 7);
+	Animation* mParaGoobaFlying = new Animation(6, 9, 2);
 	GoobaAnimationFactory(Gooba* gooba);
 };
 
@@ -40,7 +44,7 @@ public:
 
 class GoobaDyingUpsideDown :public GoobaState{
 protected:
-	Gooba* mGooba;
+	//Gooba* mGooba;
 public:
 	static const string STATE_NAME;
 	GoobaDyingUpsideDown(Gooba* gooba);
@@ -71,6 +75,7 @@ public:
 class GoobaParaState:public GoobaState{
 protected:
 	Gooba* mGooba;
+	Mario* mMario;
 public:
 	Timer mTimeToFly;
 	static const int TIME_TO_JUMP;///250
@@ -89,8 +94,11 @@ class Gooba : public Object{
 private:
 	GoobaState* mState;
 public:
+	int isJump = 0;
+	int isFly = 0;
 	static const float SPEED_X;
-	static const float SPEED_Y; //para goomba
+	static const float FLYING_ACCELERATION; //para goomba
+	static const float FLYING_GRAVITY;
 	static const float SPEED_Y_PLUS;
 	static const int WIDTH;//16
 	static const int HEIGHT;//16

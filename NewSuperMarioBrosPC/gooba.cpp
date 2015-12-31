@@ -12,7 +12,8 @@ using namespace std;
 
 const float Gooba::SPEED_X = 0.08f;
 const float Gooba::SPEED_Y_PLUS = 0.15f;
-const float Gooba::SPEED_Y = 0.05f;
+const float Gooba::FLYING_ACCELERATION = 0.0025f;
+const float Gooba::FLYING_GRAVITY = 0.000019f;
 const int Gooba::WIDTH = 16;
 const int Gooba::HEIGHT = 16;
 const int Gooba::ANIMATION_DELAY = 10;
@@ -46,11 +47,17 @@ void Gooba::render(int vpx, int vpy){
 	mSprite->Render(mAnimationFactory->createAnimation(), x, y, vpx, vpy);
 }
 void Gooba::setState(GoobaState* goobaState){
-	delete mState;
+	//delete mState;
 	mState = goobaState;
 	width = mState->getWidth();
 	height = mState->getHeight();
-	vx = mState->getSpeed();
+	if (vx < 0){
+		vx = -mState->getSpeed();
+	}
+	else{
+		vx = mState->getSpeed();
+	}
+	
 }
 void Gooba::update(int t){
 	mState->update(t);
@@ -214,23 +221,60 @@ string GoobaParaState::getName(){
 }
 
 GoobaParaState::GoobaParaState(Gooba* gooba):GoobaState(gooba){
-
+	mGooba = gooba;
+	mMario = ObjectManager::getInstance()->getMario();
+	mTimeToFly.start();
 }
 void GoobaParaState::update(int t){
+	if (mMario != 0){
+		if (mMario->x < mGooba->x){
+			mGooba->vx = -getSpeed();
+		}
+		else{
+			mGooba->vx = getSpeed();
+		}
+	}
+	else{
+		mMario = ObjectManager::getInstance()->getMario();
+	}
 	mGooba->vy += mGooba->ay*t;
 	mGooba->vx += mGooba->ax*t;
 	
-	mGooba->ay -= CMarioGame::GRAVITY_VELOCOTY*t;
-
+	//mGooba->ay -= CMarioGame::GRAVITY_VELOCOTY*t;
+	mGooba->ay -= Gooba::FLYING_GRAVITY*t;
 	mGooba->dx += (int)(mGooba->vx * t);
 	int temp = (int)mGooba->dx;
 	mGooba->x += temp;
 	mGooba->dx -= temp;
-
+	
 	mGooba->dy += (int)(mGooba->vy*t);
 	temp = (int)mGooba->dy;
 	mGooba->y += temp;
 	mGooba->dy -= temp;
+	
+	int intervalTime = mTimeToFly.getIntervalTime();
+	if ((intervalTime >= 500 && intervalTime< 520) || (intervalTime >1000 && intervalTime< 1020) ){
+		if (mGooba->vy == 0){
+			mGooba->ay = Gooba::FLYING_ACCELERATION / 2;
+			mGooba->isJump = 1;
+		}
+		
+	}
+
+	if (intervalTime >= 1500){
+		
+		if (mGooba->vy == 0){
+			mGooba->ay = Gooba::FLYING_ACCELERATION;
+			mGooba->isFly = 1;
+			
+		}
+		
+	}
+	if (intervalTime >= 2000){
+		mGooba->isFly = 0;
+		mTimeToFly.start();
+	}
+	
 }
 void GoobaParaState::onCollision(Object *ob, int dir){
 	GoobaState::onCollision(ob, dir);
@@ -240,14 +284,26 @@ void GoobaParaState::onCollision(Object *ob, int dir){
 			mGooba->setState(new GoobaNomalState(mGooba));
 		}
 	}
+	if (objName == MarioRaccoonTail::OBJECT_NAME && MarioRaccoonTail::getInstance()->getState() == MarioRaccoonTail::STATE_ACTIVE){
+		mGooba->vy = 0.5f;
+		mGooba->setState(new GoobaDyingUpsideDown(mGooba));
+	}
+
 }
 
 //////////////////////GoobaAnimationFactory//////////////
 Animation* GoobaAnimationFactory::createAnimation(){
 	Animation* result;
 	string stateName = mGooba->getState()->getName();
-	if (stateName == GoobaNomalState::STATE_NAME || stateName == GoobaParaState::STATE_NAME){
+	if (stateName == GoobaNomalState::STATE_NAME ){
 		result = mGoobaWalkingAnim;
+	}
+	else if (stateName == GoobaParaState::STATE_NAME)
+	{
+		if (mGooba->vy>0){
+			result = mParaGoobaFlying;
+		}else 
+			result = mParaGoobaWalking;
 	}
 	else if (stateName == GoobaDyingUpsideDown::STATE_NAME){
 		result = mGoobaDyingUpsideDown;
