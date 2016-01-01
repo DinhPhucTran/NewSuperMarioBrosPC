@@ -5,5 +5,6 @@
 5 GoldBrick
 6 Coin
 10 Gooba
-11 Koopa
-12 Piranha
+11 Koopa	1:NomalState 	2:KoopaParaState 	3:VulnerableState
+12 RedKoopa	1:NomalState 	3:VulnerableState 
+13 Piranha
