@@ -9,9 +9,9 @@ class QBrick :public StaticObject
 private:
 	Object* mHiddenObject;
 	Animation* createAnimation();
-	string mState;
 	int yLast;
 public:
+	string mState;
 	static const float HIDDEN_OBJECT_Y_SPEED;//0.5f
 	static const string NORMAL_STATE;
 	static const string QUESTION_STATE;
@@ -25,6 +25,7 @@ public:
 	QBrick(int x, int y, int width, int height,Object* hiddenObject, Animation* anim, CSprite * image);
 	void render(int vpx, int vpy)override;
 	void update(int t);
+	string getHiddenObjectName();
 	~QBrick();
 };
 

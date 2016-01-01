@@ -17,6 +17,7 @@ public:
 	int isAButtonPressed=0;
 	int isBButtonPressed=0;
 	int isFlying;
+	int score;
 	static const float FLYING_Y_SPEED;
 	static const float FLYING_X_SPEED;
 	static const float ACCELERATION_X;

@@ -88,9 +88,8 @@ public:
 	CSprite * paraGoombaSprite;
 	CSprite * itemsSprite;
 
-
+	int score;
 	int animationDelay=0;
-	//Object * fallBox;
 protected:
 	LPDIRECT3DSURFACE9 _Background;
 

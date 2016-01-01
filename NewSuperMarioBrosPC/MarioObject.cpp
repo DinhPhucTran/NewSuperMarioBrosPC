@@ -45,6 +45,7 @@ Mario::Mario(int x, int y, int width, int height, int vx, int vy, int vx_last, f
 	isBButtonPressed = 0;
 	isLeftButtonPressed = 0;
 	isRightButtonPressed = 0;
+	score = 0;
 }
 const string Mario::OBJECT_NAME = "mario_object";
 

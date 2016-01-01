@@ -20,6 +20,7 @@
 #include "KoopaTroopaState.h"
 #include "FireBall.h"
 #include "SuperStar.h"
+#include "Coin.h"
 using namespace std;
 
 //================STATE====================
@@ -97,6 +98,8 @@ void MarioState::onCollision(Object* ob,int dir){
 			if (objectName == QBrick::OBJECT_NAME){
 				QBrick* qBrick = (QBrick*)ob; 
 				qBrick->revealHiddenObject();
+				//if (qBrick->getHiddenObjectName() == Coin::OBJECT_NAME)
+					mMario->score = mMario->score + 100;
 			}
 			mMario->y = ob->bottom() - mMario->height / 2;
 			mMario->vy = -0.000001;//note: không đc =0. nếu vy =0 thì sẽ gây ra lỗi người dùng có thể cho nó bay liên tục
