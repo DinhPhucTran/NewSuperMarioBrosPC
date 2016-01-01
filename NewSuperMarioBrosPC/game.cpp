@@ -240,7 +240,7 @@ void CGame::Run()
 	int done = 0;
 	DWORD frame_start = GetTickCount();;
 
-	DWORD tick_per_frame = 100 / _FrameRate;
+	DWORD tick_per_frame = 1000 / _FrameRate;
 
 	//trace(L">>> Main game loop has been started");
 
@@ -259,13 +259,17 @@ void CGame::Run()
 		if (_DeltaTime >= tick_per_frame)
 		{
 			frame_start = now;
-			UpdateWorld(_DeltaTime);
+			//UpdateWorld(_DeltaTime);
 			_RenderFrame();
+			_ProcessKeyBoard();
+
+			ProcessInput(_d3ddv, _DeltaTime);
+		}
+		else{
+			Sleep(tick_per_frame - _DeltaTime);
 		}
 
-		_ProcessKeyBoard();
 
-		ProcessInput(_d3ddv, _DeltaTime);
 	}
 
 	//trace(L"Main game loop has ended");
