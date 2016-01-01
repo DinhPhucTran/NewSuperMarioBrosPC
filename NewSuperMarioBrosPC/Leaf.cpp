@@ -11,14 +11,14 @@ const int Leaf::HEIGHT = 16;
 Leaf::Leaf(int X, int Y, int Width, int Height, float vx, float vy, float vx_last, float ax, float ay, CSprite * Sprite) :
 	Object(X, Y, Width, Height, vx, vy, vx_last, ax, ay, Sprite)
 {
-	mAnim = new Animation(0, 0);
+	mAnim = new Animation(5,5);
 	vy = SPEED_Y;
 	vx = -0.002f;
 }
 Leaf::Leaf(int X, int Y, CSprite * Sprite) :
 Object(X, Y, WIDTH, HEIGHT, 0, 0, 0, 0, 0, Sprite)
 {
-	mAnim = new Animation(0, 0);
+	mAnim = new Animation(5, 5);
 }
 
 void Leaf::update(int t){

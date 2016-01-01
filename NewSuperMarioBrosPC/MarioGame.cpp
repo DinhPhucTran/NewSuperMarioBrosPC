@@ -85,14 +85,10 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	pipeSprite = new CSprite(_SpriteHandler, PIPE_IMAGE, 32, 32, 1, 1);
 	pipe32x40Sprite = new CSprite(_SpriteHandler, PIPE_IMAGE_40, 32, 40, 1, 1);
 	koopaTroopaGoombaSprite = new CSprite(_SpriteHandler, KOOPA_TROOPA_GOOMBA_IMAGE, 22, 32, 48, 16);
-	mushroomSprite = new CSprite(_SpriteHandler, MUSHROOM_IMAGE, 16, 16, 1, 1);
-	greenmushroomSprite = new CSprite(_SpriteHandler, GREEN_MUSHROOM, 16, 16, 1, 1);
-	leafSprite = new CSprite(_SpriteHandler, LEAF, 16, 16, 1, 1);
 	goldBrickAndPButton = new CSprite(_SpriteHandler, GOLDBRICK_IMAGE_AND_BUTTON, 16, 16, 1, 8);
-	coinSprite = new CSprite(_SpriteHandler, COIN, 16, 16, 3, 3);
 	qbSprite = new CSprite(_SpriteHandler, QBRICK_IMAGE, 16, 16, 5, 5);
 	paraGoombaSprite = new CSprite(_SpriteHandler, PARA_GOOMBA, 32, 32, 4, 4);
-	superStarSprite = new CSprite(_SpriteHandler, SUPER_STAR, 20, 20, 1, 1);
+	itemsSprite = new CSprite(_SpriteHandler, ITEMS_SPRITE, 16, 16, 7, 7);
 
 
 	
@@ -131,7 +127,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	//marioObject->setAnimationFactory(LargeMarioAnimationFactory::getInstance(marioObject));
 	//marioObject->setState(new MarioStateLarge(marioObject));
 
-	SuperStar* superStar = new SuperStar(100, 100, superStarSprite);
+	SuperStar* superStar = new SuperStar(100, 100, itemsSprite);
 	
 	
 	mObjectManager->addObject(marioObject);
@@ -447,10 +443,25 @@ void CMarioGame::LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler,
 			
 			Animation *qbAnim = new Animation(0, 3);
 			
-			if (v[5] == 100)
+			if (v[5] == 1)
 			{
-				RedMushroom * mushroom = new RedMushroom(0, 0, 16, 16, 0, 0, 0, 0, 0, mushroomSprite);
+				RedMushroom * mushroom = new RedMushroom(0, 0, 16, 16, 0, 0, 0, 0, 0, itemsSprite);
 				QBrick *qBrick = new QBrick(v[1], v[2], v[3], v[4], mushroom, qbAnim, qbSprite);
+				obManager->addObject(qBrick);
+			}
+			else if (v[5] == 2){//coin
+				Coin * mushroom = new Coin(0, 0, 16, 16, itemsSprite);
+				QBrick *qBrick = new QBrick(v[1], v[2], v[3], v[4], mushroom, qbAnim, qbSprite);
+				obManager->addObject(qBrick);
+			}
+			else if (v[5] == 3){//superStar
+				SuperStar * superStar = new SuperStar(0,0, itemsSprite);
+				QBrick *qBrick = new QBrick(v[1], v[2], v[3], v[4], superStar, qbAnim, qbSprite);
+				obManager->addObject(qBrick);
+			}
+			else if (v[5] == 4){//one up
+				GreenMushroom * oneUp = new GreenMushroom(0, 0, 16, 16, 0, 0, 0, 0, 0, itemsSprite);
+				QBrick *qBrick = new QBrick(v[1], v[2], v[3], v[4], oneUp, qbAnim, qbSprite);
 				obManager->addObject(qBrick);
 			}
 			else
@@ -469,7 +480,7 @@ void CMarioGame::LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler,
 		else if (v[0] == 6)
 		{
 			
-			Coin *coin = new Coin(v[1], v[2], 16, 16, coinAnim, coinSprite);
+			Coin *coin = new Coin(v[1], v[2], 16, 16, coinAnim, itemsSprite);
 			obManager->addObject(coin);
 		}
 
@@ -522,6 +533,7 @@ void CMarioGame::LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler,
 				obManager->addObject(redFirePiranha);
 			}
 		}
+	
 		/*PiranhaPlant* piranhaPlant = new PiranhaPlant(1808, 31 + 28, piranhaSprite, pipeSprite);
 		FirePiranha* firePiranha = new FirePiranha(1871 + 1, 39 + 24 + FirePiranha::HEIGHT / 2, piranhaSprite, pipeSprite);///x+1 do sai số
 		RedFirePiranha* redFirePiranha = new RedFirePiranha(367 + 1, 39 + 24 + RedFirePiranha::HEIGHT / 2, piranhaSprite, pipe32x40Sprite);///x+1 do sai số*/

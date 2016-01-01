@@ -11,14 +11,14 @@ const int SuperStar::HEIGHT = 16;
 SuperStar::SuperStar(int X, int Y, int Width, int Height, float vx, float vy, float vx_last, float ax, float ay, CSprite * Sprite) :
 Object(X, Y, Width, Height, vx, vy, vx_last, ax, ay, Sprite)
 {
-	mAnim = new Animation(0, 0);
+	mAnim = new Animation(6, 6);
 	vy = SPEED_Y;
 	vx = -0.002f;
 }
 SuperStar::SuperStar(int X, int Y, CSprite * Sprite) :
 Object(X, Y, WIDTH, HEIGHT, 0, 0, 0, 0, 0, Sprite)
 {
-	mAnim = new Animation(0, 0);
+	mAnim = new Animation(6, 6);
 }
 
 void SuperStar::update(int t){

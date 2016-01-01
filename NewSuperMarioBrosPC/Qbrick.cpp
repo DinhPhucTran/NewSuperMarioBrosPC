@@ -4,6 +4,7 @@
 #include "Mushroom.h"
 #include "MarioState.h"
 #include "MarioGame.h"
+#include "Coin.h"
 const string QBrick::NORMAL_STATE = "normal_question_brick_state";
 const string QBrick::QUESTION_STATE = "hidden_item_state";
 const float QBrick::HIDDEN_OBJECT_Y_SPEED = 0.1f;
@@ -60,14 +61,14 @@ void QBrick::revealHiddenObject(){
 			string state = mario->getState()->getName();
 			if (state == MarioStateSmall::STATE_NAME){
 				mHiddenObject = 
-					new RedMushroom(x, y + 16, RedMushroom::WIDTH, RedMushroom::HEIGHT, QBrick::HIDDEN_OBJECT_Y_SPEED, 0, HIDDEN_OBJECT_Y_SPEED, 0, 0, CMarioGame::getInstance()->mushroomSprite);
+					new RedMushroom(x, y + 16, RedMushroom::WIDTH, RedMushroom::HEIGHT, QBrick::HIDDEN_OBJECT_Y_SPEED, 0, HIDDEN_OBJECT_Y_SPEED, 0, 0, CMarioGame::getInstance()->itemsSprite);
 				//mHiddenObject->vx = QBrick::HIDDEN_OBJECT_Y_SPEED;
 				ObjectManager::getInstance()->addObject(mHiddenObject);
 				mHiddenObject = NULL;
 				setState(QBrick::NORMAL_STATE);
 			}
 			else {
-				mHiddenObject = new Leaf(x, y + 16, RedMushroom::WIDTH, RedMushroom::HEIGHT, 0, Leaf::SPEED_Y, 0, 0, 0, CMarioGame::getInstance()->leafSprite);
+				mHiddenObject = new Leaf(x, y + 16, RedMushroom::WIDTH, RedMushroom::HEIGHT, 0, Leaf::SPEED_Y, 0, 0, 0, CMarioGame::getInstance()->itemsSprite);
 				//mHiddenObject->vy = Leaf::SPEED_Y;
 				ObjectManager::getInstance()->addObject(mHiddenObject);
 				mHiddenObject = NULL;
@@ -77,7 +78,9 @@ void QBrick::revealHiddenObject(){
 		else {
 			mHiddenObject->x = x;
 			mHiddenObject->y = y + 16;
-			
+			if (mHiddenObject->getName() == Coin::OBJECT_NAME){
+				mHiddenObject->vx = 0.3;
+			}
 			ObjectManager::getInstance()->addObject(mHiddenObject);
 			mHiddenObject = NULL;
 			setState(QBrick::NORMAL_STATE);

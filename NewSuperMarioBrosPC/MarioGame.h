@@ -26,17 +26,13 @@
 #define FOREGROUND_IMAGE_2 L"foreground2.png"
 #define QBRICK_IMAGE L"qBrick.png"
 #define SCROLLBG_IMAGE L"scrollBG3.png"
-#define MUSHROOM_IMAGE L"redMushroom.png"
 #define GOLDBRICK_IMAGE_AND_BUTTON L"goldBrickAndButton.png"
-#define COIN L"coin.png"
-#define LEAF L"leaf.png"
-#define GREEN_MUSHROOM L"greenMushroom.png"
-#define RED_MUSHROOM L"redMushroom.png"
 #define PIRANHA_PLANT L"PiranhaPlant10x20x36.png"
 #define PIPE_IMAGE L"pipe32.png"
 #define PIPE_IMAGE_40 L"Pipe32x40.png"
 #define PARA_GOOMBA L"paraGoomba.png"
 #define SUPER_STAR L"SuperStar.png"
+#define ITEMS_SPRITE L"items.png"
 
 
 #define GROUND_Y 45
@@ -83,18 +79,14 @@ public:
 	CSprite * brick;
 	CSprite *mountain;
 	CSprite *foregroundImage;
-	CSprite * mushroomSprite;
-	CSprite *coinSprite;
-	CSprite *leafSprite;
 	CSprite *greenmushroomSprite;
-	CSprite *redmushroomSprite;
 	CSprite *pipe32x40Sprite;
 	CSprite *goldBrickAndPButton;
 	CSprite *pipeSprite;
 	CSprite* piranhaSprite;
 	CSprite * qbSprite;
 	CSprite * paraGoombaSprite;
-	CSprite * superStarSprite;
+	CSprite * itemsSprite;
 
 
 	int animationDelay=0;

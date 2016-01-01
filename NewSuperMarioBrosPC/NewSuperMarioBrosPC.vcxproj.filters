@@ -215,15 +215,6 @@
     <ClCompile Include="Qbrick.cpp">
       <Filter>Source Files\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Mushroom.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Leaf.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MarioRaccoonTail.cpp">
       <Filter>Source Files\Mario</Filter>
     </ClCompile>
@@ -264,6 +255,15 @@
       <Filter>Source Files\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="SuperStar.cpp">
+      <Filter>Source Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp">
+      <Filter>Source Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Source Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Mushroom.cpp">
       <Filter>Source Files\Items</Filter>
     </ClCompile>
   </ItemGroup>

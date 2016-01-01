@@ -11,7 +11,7 @@ class Coin :public StaticObject
 private:
 	Animation* createAnimation();
 public:
-	Animation* mCoinAnimation = new Animation(0, 2);
+	Animation* mCoinAnimation = new Animation(1, 3);
 	void render(int vpx, int vpy)override;
 	static const string OBJECT_NAME;
 	Coin(int X, int Y, int Width, int Height, Animation* anim, CSprite * Sprite);

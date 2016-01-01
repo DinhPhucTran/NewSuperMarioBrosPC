@@ -7,7 +7,7 @@ const int RedMushroom::HEIGHT = 16;
 RedMushroom::RedMushroom(int X, int Y, int Width, int Height, float vx, float vy, float vx_last, float ax, float ay, CSprite * Sprite) :
 	Object(X, Y, Width, Height, vx, vy, vx_last, ax, ay, Sprite)
 {
-	mAnim = new Animation(0, 0);
+	mAnim = new Animation(4, 4);
 }
 
 string RedMushroom::getName()
