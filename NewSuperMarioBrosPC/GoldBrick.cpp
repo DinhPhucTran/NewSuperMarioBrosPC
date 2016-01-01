@@ -40,7 +40,7 @@ void GoldBrick::switchToCoin(){
 	}
 	CMarioGame* marioGame = CMarioGame::getInstance();
 	CSprite* coinSprite = marioGame->itemsSprite;
-	Coin* coin = new Coin(x, y, 16, 16, coinSprite);
+	StaticCoin* coin = new StaticCoin(x, y, 16, 16, coinSprite);
 	ObjectManager::getInstance()->addObject(coin);
 	die();
 }

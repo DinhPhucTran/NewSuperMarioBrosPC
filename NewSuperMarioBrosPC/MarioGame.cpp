@@ -68,7 +68,6 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	HRESULT res = D3DXCreateSprite(_d3ddv, &_SpriteHandler);
 
 	
-
 	//khởi tạo mario
 	mario_x = 20;
 	mario_y = GROUND_Y + 100;;
@@ -87,30 +86,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	goldBrickAndPButton = new CSprite(_SpriteHandler, GOLDBRICK_IMAGE_AND_BUTTON, 16, 16, 1, 8);
 	qbSprite = new CSprite(_SpriteHandler, QBRICK_IMAGE, 16, 16, 5, 5);
 	paraGoombaSprite = new CSprite(_SpriteHandler, PARA_GOOMBA, 32, 32, 4, 4);
-	itemsSprite = new CSprite(_SpriteHandler, ITEMS_SPRITE, 16, 16, 7, 7);
-
-
-	
-	
-	
-	/*KoopaTroopa* koopa2 =
-		new KoopaTroopa(200, GROUND_Y + 200, 16, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
-	
-	KoopaTroopa* koopa = 
-		new KoopaTroopa(450, GROUND_Y+200, 16, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
-	koopa->setState(new KoopaNomalState(koopa));
-	
-
-	
-	KoopaTroopa* redKoopa = 
-		new RedKoopa(500, GROUND_Y+50, 16, 28,-KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaSprite);
-	redKoopa->setState(new KoopaVulnerableState(redKoopa));
-	
-	KoopaTroopa* paraKoopa = new KoopaTroopa(130, 100, KoopaTroopa::PARA_SPEED_X, NULL, koopaTroopaSprite);
-	paraKoopa->setState(new KoopaParaState(paraKoopa));*/
-
-
-	//Gooba* gooba = new Gooba(400, GROUND_Y+200, Gooba::WIDTH, Gooba::HEIGHT, -Gooba::SPEED_X, 0, -Gooba::SPEED_X, 0, 0, NULL, goobaSprite);
+	itemsSprite = new CSprite(_SpriteHandler, ITEMS_SPRITE, 16, 16, 8, 8);
 	
 
 	
@@ -128,18 +104,9 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 	SuperStar* superStar = new SuperStar(100, 100, itemsSprite);
 	
-	
 	mObjectManager->addObject(marioObject);
-	mObjectManager->addObject(superStar);
-	//mObjectManager->addObject(piranhaPlant);
-	//mObjectManager->addObject(firePiranha);
-	//mObjectManager->addObject(redFirePiranha);
+	//mObjectManager->addObject(superStar);
 	
-	/*mObjectManager->addObject(koopa);	
-	mObjectManager->addObject(gooba);
-	mObjectManager->addObject(koopa2);
-	mObjectManager->addObject(redKoopa);
-	mObjectManager->addObject(paraKoopa);*/
 
 	int mapLevel = MAP_LEVEL;
 	if (mapLevel == 1){
@@ -235,9 +202,9 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	rect.right = 640;//240
 	rect.bottom = 100;
 	char buffer[64] = { 0 };
-	//sprintf_s(buffer, "%d %d" , mario->isAButtonPressed, mario->isBButtonPressed);//Mx: %d / My: %d
+	sprintf_s(buffer, "Mx: %d / My: %d                ", mario->x, mario->y);//Mx: %d / My: %d
 	MarioPowerBar* powerBar = mario->getPowerBar();
-	sprintf_s(buffer, "%f %d", mario->getPowerBar()->getState(), mario->getPowerBar()->isPower());
+	//sprintf_s(buffer, "%f %d", mario->getPowerBar()->getState(), mario->getPowerBar()->isPower());
 	fontArial->DrawTextA(NULL, buffer, 20, &rect, DT_LEFT, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
@@ -393,8 +360,8 @@ void CMarioGame::LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler,
 				obManager->addObject(qBrick);
 			}
 			else if (v[5] == 2){//coin
-				Coin * mushroom = new Coin(0, 0, 16, 16, itemsSprite);
-				QBrick *qBrick = new QBrick(v[1], v[2], v[3], v[4], mushroom, qbAnim, qbSprite);
+				Coin * coin = new Coin(0, 0, 16, 16, itemsSprite);
+				QBrick *qBrick = new QBrick(v[1], v[2], v[3], v[4], coin, qbAnim, qbSprite);
 				obManager->addObject(qBrick);
 			}
 			else if (v[5] == 3){//superStar
@@ -423,7 +390,7 @@ void CMarioGame::LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler,
 		else if (v[0] == 6)
 		{
 			
-			Coin *coin = new Coin(v[1], v[2], 16, 16, coinAnim, itemsSprite);
+			StaticCoin *coin = new StaticCoin(v[1], v[2], 16, 16, coinAnim, itemsSprite);
 			obManager->addObject(coin);
 		}
 

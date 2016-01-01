@@ -76,10 +76,10 @@ void QBrick::revealHiddenObject(){
 			}
 		}
 		else {
-			mHiddenObject->x = x;
-			mHiddenObject->y = y + 16;
+			//mHiddenObject->x = x;
+			//mHiddenObject->y = y + 16;
 			if (mHiddenObject->getName() == Coin::OBJECT_NAME){
-				mHiddenObject->vx = 0.3;
+				mHiddenObject = new Coin(x, y + 16, 16, 16, 0, 0.4f, 0, 0, 0, CMarioGame::getInstance()->itemsSprite);
 			}
 			ObjectManager::getInstance()->addObject(mHiddenObject);
 			mHiddenObject = NULL;
@@ -95,4 +95,11 @@ void QBrick::update(int t)
 	ay -= 0.006f;
 	if (y <= yLast)
 		y = yLast;
+}
+
+string QBrick::getHiddenObjectName()
+{
+	if (mHiddenObject!=NULL)
+		return mHiddenObject->getName();
+	return "None";
 }
