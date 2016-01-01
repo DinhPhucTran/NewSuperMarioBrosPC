@@ -14,8 +14,10 @@ public:
 	static const int HEIGHT;
 	static const int WIDTH;
 	Leaf(int X, int Y, int Width, int Height, float vx, float vy, float vx_last, float ax, float ay, CSprite * Sprite);
+	Leaf(int X, int Y, CSprite * Sprite);
 	string getName()override;
 	void onCollision(Object * ob, int dir);
+	void update(int t)override;
 };
 
 #endif
