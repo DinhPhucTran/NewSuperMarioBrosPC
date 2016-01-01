@@ -96,9 +96,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 
 
-	PiranhaPlant* piranhaPlant = new PiranhaPlant(1808, 31 + 28, piranhaSprite, pipeSprite);
-	FirePiranha* firePiranha = new FirePiranha(1871 + 1, 39 + 24 + FirePiranha::HEIGHT / 2, piranhaSprite, pipeSprite);///x+1 do sai số
-	RedFirePiranha* redFirePiranha = new RedFirePiranha(367 + 1, 39 + 24 + RedFirePiranha::HEIGHT / 2, piranhaSprite, pipe32x40Sprite);///x+1 do sai số
+	
 	
 	
 	/*KoopaTroopa* koopa2 =
@@ -136,10 +134,11 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	Gooba* paraGoomba = new Gooba(200, 50, Gooba::WIDTH, Gooba::HEIGHT, Gooba::SPEED_X, 0, Gooba::SPEED_X, 0, 0, NULL, koopaTroopaGoombaSprite);
 	paraGoomba->setState(new GoobaParaState(paraGoomba));
 	
+	
 	mObjectManager->addObject(marioObject);
-	mObjectManager->addObject(piranhaPlant);
-	mObjectManager->addObject(firePiranha);
-	mObjectManager->addObject(redFirePiranha);
+	//mObjectManager->addObject(piranhaPlant);
+	//mObjectManager->addObject(firePiranha);
+	//mObjectManager->addObject(redFirePiranha);
 	mObjectManager->addObject(paraGoomba);
 	/*mObjectManager->addObject(koopa);	
 	mObjectManager->addObject(gooba);
@@ -508,6 +507,24 @@ void CMarioGame::LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler,
 				obManager->addObject(vulnerableKoopa);
 			}
 		}
+		else if (v[0] == 12){
+			if (v[3] == 1)//Piranha Plant
+			{
+				PiranhaPlant* piranhaPlant = new PiranhaPlant(v[1], v[2], piranhaSprite, pipeSprite);
+				obManager->addObject(piranhaPlant);
+			}
+			else if (v[3] == 2){//FirePiranha Plant
+				FirePiranha* firePiranha = new FirePiranha(v[1], v[2], piranhaSprite, pipeSprite);
+				obManager->addObject(firePiranha);
+			}
+			else if (v[3] == 3){//RedFire Piranha Plant
+				RedFirePiranha* redFirePiranha = new RedFirePiranha(v[1], v[2], piranhaSprite, pipe32x40Sprite);
+				obManager->addObject(redFirePiranha);
+			}
+		}
+		/*PiranhaPlant* piranhaPlant = new PiranhaPlant(1808, 31 + 28, piranhaSprite, pipeSprite);
+		FirePiranha* firePiranha = new FirePiranha(1871 + 1, 39 + 24 + FirePiranha::HEIGHT / 2, piranhaSprite, pipeSprite);///x+1 do sai số
+		RedFirePiranha* redFirePiranha = new RedFirePiranha(367 + 1, 39 + 24 + RedFirePiranha::HEIGHT / 2, piranhaSprite, pipe32x40Sprite);///x+1 do sai số*/
 		
 
 
