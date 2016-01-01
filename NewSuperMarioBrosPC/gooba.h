@@ -78,6 +78,7 @@ protected:
 	Mario* mMario;
 public:
 	Timer mTimeToFly;
+	Timer mTimeToHuntMario;
 	static const int TIME_TO_JUMP;///250
 	static const int TIME_TO_SUPPER_JUMP;
 	static const string STATE_NAME;

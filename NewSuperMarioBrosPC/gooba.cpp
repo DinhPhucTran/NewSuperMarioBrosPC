@@ -96,6 +96,7 @@ void GoobaState::onCollision(Object*ob, int dir){
 	if (objName == BrickGround::OBJECT_NAME || objName == Pipe::OBJECT_NAME || objName == QBrick::OBJECT_NAME || objName == GoldBrick::OBJECT_NAME){
 		if (dir == Physics::COLLIDED_FROM_LEFT){
 			if (mGooba->vx_last < 0){
+				mGooba->x = ob->right() + mGooba->getState()->getWidth() / 2;
 				mGooba->vx = Gooba::SPEED_X;
 				mGooba->vx_last = mGooba->vx;
 			}
@@ -103,6 +104,7 @@ void GoobaState::onCollision(Object*ob, int dir){
 		else if (dir == Physics::COLLIDED_FROM_RIGHT){
 			if (mGooba->vx_last > 0){
 				mGooba->vx = -Gooba::SPEED_X;
+				mGooba->x = ob->left() - mGooba->getState()->getWidth() / 2 -2 ;
 				mGooba->vx_last = mGooba->vx;
 			}
 		}
@@ -224,19 +226,10 @@ GoobaParaState::GoobaParaState(Gooba* gooba) :GoobaState(gooba){
 	mGooba = gooba;
 	mMario = ObjectManager::getInstance()->getMario();
 	mTimeToFly.start();
+	mTimeToHuntMario.start();
 }
 void GoobaParaState::update(int t){
-	if (mMario != 0){
-		if (mMario->x < mGooba->x){
-			mGooba->vx = -getSpeed();
-		}
-		else{
-			mGooba->vx = getSpeed();
-		}
-	}
-	else{
-		mMario = ObjectManager::getInstance()->getMario();
-	}
+	
 	mGooba->vy += mGooba->ay*t;
 	mGooba->vx += mGooba->ax*t;
 
@@ -261,18 +254,34 @@ void GoobaParaState::update(int t){
 
 	}
 
-	if (intervalTime >= 1500){
+	if (intervalTime >= 1700){
 
 		if (mGooba->vy == 0){
 			mGooba->ay = Gooba::FLYING_ACCELERATION;
 			mGooba->isFly = 1;
-
 		}
+		
 
 	}
 	if (intervalTime >= 2000){
 		mGooba->isFly = 0;
 		mTimeToFly.start();
+	}
+	if (mTimeToHuntMario.getIntervalTime() >= 3000){
+		if (mMario != 0){//tìm và săn mario -> đi về phía mario
+			if (mMario->x < mGooba->x){
+				mGooba->vx = -getSpeed();
+				mGooba->vx_last = mGooba->vx;
+			}
+			else{
+				mGooba->vx = getSpeed();
+				mGooba->vx_last = mGooba->vx;
+			}
+		}
+		else{
+			mMario = ObjectManager::getInstance()->getMario();
+		}
+		mTimeToHuntMario.start();
 	}
 
 }
@@ -280,8 +289,23 @@ void GoobaParaState::onCollision(Object *ob, int dir){
 	GoobaState::onCollision(ob, dir);
 	string objName = ob->getName();
 	if (objName == Mario::OBJECT_NAME){
-		if (dir == Physics::COLLIDED_FROM_TOP){
-			mGooba->setState(new GoobaNomalState(mGooba));
+		if (objName == Mario::OBJECT_NAME){
+			string marioState = ((Mario*)ob)->getState()->getName();
+			if (marioState == MarioStateInvincible::STATE_NAME){
+				return;
+			}
+			else if (dir == Physics::COLLIDED_FROM_TOP){
+				mGooba->setState(new GoobaNomalState(mGooba));
+			}
+		}
+	}
+	if (objName == KoopaTroopa::OBJECT_NAME || objName == RedKoopa::OBJECT_NAME){
+		KoopaTroopa* koopa = (KoopaTroopa*)ob;
+		string state = koopa->getState()->getName();
+		if (state == KoopaSlidingState::STATE_NAME){
+			if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT){
+				mGooba->setState(new GoobaDyingState(mGooba));
+			}
 		}
 	}
 	if (objName == MarioRaccoonTail::OBJECT_NAME && MarioRaccoonTail::getInstance()->getState() == MarioRaccoonTail::STATE_ACTIVE){
