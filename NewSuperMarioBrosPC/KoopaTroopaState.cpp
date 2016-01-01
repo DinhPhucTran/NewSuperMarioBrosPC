@@ -4,6 +4,7 @@
 #include "MarioState.h"
 #include "Qbrick.h"
 #include "MetalBlock.h"
+#include "GoldBrick.h"
 /////////////////////KoopaTroopaState/////////////////////
 string KoopaTroopaState::getName(){
 	return "koopa_state";
@@ -87,7 +88,7 @@ void KoopaNomalState::onCollision(Object*ob, int dir){
 	KoopaTroopaState::onCollision(ob, dir);
 	string objName = ob->getName();
 
-	if (objName == BrickGround::OBJECT_NAME || objName == Pipe::OBJECT_NAME || objName == QBrick::OBJECT_NAME){
+	if (objName == BrickGround::OBJECT_NAME || objName == Pipe::OBJECT_NAME || objName == QBrick::OBJECT_NAME || objName == GoldBrick::OBJECT_NAME){
 		if (dir == Physics::COLLIDED_FROM_LEFT){
 			if (mKoopa->vx_last < 0){
 				mKoopa->vx = KoopaTroopa::KOOPA_VELOCITY_X;
@@ -219,7 +220,7 @@ void KoopaVulnerableState::onCollision(Object*ob, int dir){
 
 
 	string objName = ob->getName();
-	if (objName == BrickGround::OBJECT_NAME){
+	if (objName == BrickGround::OBJECT_NAME || GoldBrick::OBJECT_NAME == objName){
 		if (dir == Physics::COLLIDED_FROM_BOTTOM){
 			mKoopa->vy = 0;
 			mKoopa->ay = 0;
@@ -356,7 +357,7 @@ void KoopaSlidingState::onCollision(Object*ob, int dir){
 
 	KoopaTroopaState::onCollision(ob, dir);
 	string objName = ob->getName();
-	if (ob->getName() == BrickGround::OBJECT_NAME || ob->getName() == Pipe::OBJECT_NAME || QBrick::OBJECT_NAME == objName){
+	if (ob->getName() == BrickGround::OBJECT_NAME || ob->getName() == Pipe::OBJECT_NAME || QBrick::OBJECT_NAME == objName || objName == GoldBrick::OBJECT_NAME){
 		if (dir == Physics::COLLIDED_FROM_LEFT){
 			if (mKoopa->vx_last < 0){
 				mKoopa->vx = KoopaTroopa::KOOPA_SLIDING_SPEED_X;
@@ -381,6 +382,7 @@ void KoopaSlidingState::onCollision(Object*ob, int dir){
 			}
 		}
 	}
+
 	//xử lý với mario
 	if (objName == Mario::OBJECT_NAME){
 		//Nếu mario invicible thì ko xử lý tiếp nữa
