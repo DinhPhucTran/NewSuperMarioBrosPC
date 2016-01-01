@@ -158,6 +158,10 @@ void GoobaNomalState::onCollision(Object*ob, int dir){
 		if (marioState == MarioStateInvincible::STATE_NAME){
 			return;
 		}
+		else if (marioState == MarioStateSuperInvincible::STATE_NAME){
+			mGooba->vy = 0.5f;
+			mGooba->setState(new GoobaDyingUpsideDown(mGooba));
+		}
 		else if (dir == Physics::COLLIDED_FROM_TOP){
 			mGooba->setState(new GoobaDyingState(mGooba));
 		}
@@ -175,6 +179,7 @@ void GoobaNomalState::onCollision(Object*ob, int dir){
 		mGooba->vy = 0.5f;
 		mGooba->setState(new GoobaDyingUpsideDown(mGooba));
 	}
+	
 }
 GoobaNomalState::GoobaNomalState(Gooba* gooba)
 	:GoobaState(gooba){
@@ -294,7 +299,13 @@ void GoobaParaState::onCollision(Object *ob, int dir){
 			if (marioState == MarioStateInvincible::STATE_NAME){
 				return;
 			}
-			else if (dir == Physics::COLLIDED_FROM_TOP){
+			else if (marioState == MarioStateSuperInvincible::STATE_NAME){
+				mGooba->vy = 0.5f;
+				mGooba->setState(new GoobaDyingUpsideDown(mGooba));
+				return;
+			}
+			
+			if (dir == Physics::COLLIDED_FROM_TOP){
 				mGooba->setState(new GoobaNomalState(mGooba));
 			}
 		}

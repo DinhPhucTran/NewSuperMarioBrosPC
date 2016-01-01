@@ -76,7 +76,6 @@ public:
 class MarioStateInvincible :public MarioState{
 private:
 	DWORD mLastTime;
-	
 public:
 	MarioState* mNextState;
 	MarioState* mLastState;
@@ -90,4 +89,22 @@ public:
 	AnimationFactory* getAnimationFactory()override;
 };
 
+class MarioStateSuperInvincible :public MarioState{
+private:
+	Timer mDuration;
+public:
+	static const int MAINTAIN_TIME;//7000
+	MarioState* mLastState;
+	static const string STATE_NAME;
+	MarioStateSuperInvincible(Mario* mario);
+	void onCollision(Object*ob, int dir)override;
+	string getName()override;
+	int getWidth()override;
+	int getHeight()override;
+	AnimationFactory* getAnimationFactory()override;
+	int getRemainTime();
+	void update(int t)override;
+	void onAPress()override;
+	void onBPress()override;
+};
 #endif

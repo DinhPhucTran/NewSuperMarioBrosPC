@@ -121,12 +121,13 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 	
 	Mario* marioObject = new Mario(mario_x, mario_y, 32, 32, mario_vx, 0, 0, 0, 0, NULL, marioLargeSprite, NULL, NULL);
-	
+
+	marioObject->setState(new MarioStateRaccoon(marioObject));
+	marioObject->setState(new MarioStateSuperInvincible(marioObject));
 	
 	//marioObject->setAnimationFactory(SmallMarioAnimationFactory::getInstance(marioObject));
 	//marioObject->setState(new MarioStateSmall(marioObject));
-	marioObject->setAnimationFactory(RaccoonMarioAnimationFactory::getInstance(marioObject));
-	marioObject->setState(new MarioStateRaccoon(marioObject));
+	//marioObject->setAnimationFactory(RaccoonMarioAnimationFactory::getInstance(marioObject));
 
 	//marioObject->setAnimationFactory(LargeMarioAnimationFactory::getInstance(marioObject));
 	//marioObject->setState(new MarioStateLarge(marioObject));

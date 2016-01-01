@@ -102,7 +102,7 @@ SmallMarioAnimationFactory* SmallMarioAnimationFactory::getInstance(Mario* mario
 		sInstance->mMario = mario;
 	return sInstance;
 }
-//========================================
+//================LargeMarioAnimationFactory========================
 LargeMarioAnimationFactory::LargeMarioAnimationFactory(Mario* mario){
 	mMario = mario;
 }

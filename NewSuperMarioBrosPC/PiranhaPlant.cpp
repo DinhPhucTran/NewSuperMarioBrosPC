@@ -1,6 +1,7 @@
 ﻿#include"RedKoopa.h"
 #include "PiranhaPlant.h"
 #include "MarioRaccoonTail.h"
+#include "MarioState.h"
 #include "Physics.h"
 #include "ObjectManager.h"
 #include "KoopaTroopaState.h"
@@ -77,6 +78,12 @@ void PiranhaPlant::onCollision(Object* ob, int dir){
 		KoopaTroopa* koopa = (KoopaTroopa*)ob;
 		string state = koopa->getState()->getName();
 		if (state == KoopaSlidingState::STATE_NAME){
+			die();
+		}
+	}
+	if (objName == Mario::OBJECT_NAME){
+		string state = mMario->getState()->getName();
+		if (state == MarioStateSuperInvincible::STATE_NAME){
 			die();
 		}
 	}

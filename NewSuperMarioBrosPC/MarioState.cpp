@@ -416,3 +416,97 @@ AnimationFactory* MarioStateInvincible::getAnimationFactory(){
 DWORD MarioStateInvincible::getLastTime(){
 	return mLastTime;
 }
+
+/////////////////////////MarioStateSuperInvincible///////////////////////
+const string MarioStateSuperInvincible::STATE_NAME = "mario_super_invincible";
+const int MarioStateSuperInvincible::MAINTAIN_TIME = 7000;
+MarioStateSuperInvincible::MarioStateSuperInvincible(Mario* mario) :MarioState(mario){
+	mDuration.start();
+	if (mario!=0)
+		mLastState = mario->getState();
+	
+}
+string MarioStateSuperInvincible::getName(){
+	return STATE_NAME;
+}
+void MarioStateSuperInvincible::onCollision(Object* ob, int dir){
+	DWORD now = GetTickCount();
+	if (mDuration.getIntervalTime() >= MAINTAIN_TIME){
+		if (mLastState != 0){
+			mMario->setState(mLastState);
+		}
+		else{
+			mMario->setState(new MarioStateSmall(mMario));
+		}
+		
+	}
+	string objectName = ob->getName();
+	if (objectName == MetalBlock::OBJECT_NAME)
+	{
+		if (dir == Physics::COLLIDED_FROM_BOTTOM && mMario->top() > ob->top() && mMario->bottom() + 8 >= ob->top())//tránh trường hợp tự động đứng trên block khi chưa nhảy tới
+		{
+			mMario->vy = 0;
+			mMario->ay = 0;
+			mMario->y = ob->top() + mMario->height / 2;
+			return;
+		}
+	}
+	if (objectName == BrickGround::OBJECT_NAME || objectName == Pipe::OBJECT_NAME || objectName == QBrick::OBJECT_NAME || objectName == GoldBrick::OBJECT_NAME)
+	{
+		if (dir == Physics::COLLIDED_FROM_TOP){
+			if (objectName == QBrick::OBJECT_NAME){
+				QBrick* qBrick = (QBrick*)ob;
+				qBrick->revealHiddenObject();
+			}
+			mMario->y = ob->bottom() - mMario->height / 2;
+			mMario->vy = -0.000001;//note: không đc =0. nếu vy =0 thì sẽ gây ra lỗi người dùng có thể cho nó bay liên tục
+			mMario->ay = 0;
+			return;
+		}
+		if (dir == Physics::COLLIDED_FROM_BOTTOM)
+		{
+			mMario->vy = 0;
+			mMario->ay = 0;
+			mMario->y = ob->top() + mMario->height / 2;
+			return;
+		}
+		if (dir == Physics::COLLIDED_FROM_RIGHT)
+		{
+			mMario->x = ob->left() - mMario->width / 2;
+			mMario->ax = 0;
+			return;
+		}
+		if (dir == Physics::COLLIDED_FROM_LEFT)
+		{
+			mMario->x = ob->right() + mMario->width / 2;
+			mMario->ax = 0;
+			return;
+		}
+	}
+	
+}
+
+int MarioStateSuperInvincible::getHeight(){
+	return mLastState->getHeight();
+}
+int MarioStateSuperInvincible::getWidth(){
+	return mLastState->getWidth();
+}
+AnimationFactory* MarioStateSuperInvincible::getAnimationFactory(){
+	//return SuperInvincibleMarioAnimationFactory::getInstance(mMario);
+	return mLastState->getAnimationFactory();
+}
+
+int MarioStateSuperInvincible::getRemainTime(){
+	return mDuration.getIntervalTime();
+}
+
+void MarioStateSuperInvincible::update(int t){
+	mLastState->update(t);
+}
+void MarioStateSuperInvincible::onAPress(){
+	mLastState->onAPress();
+}
+void MarioStateSuperInvincible::onBPress(){
+	mLastState->onBPress();
+}

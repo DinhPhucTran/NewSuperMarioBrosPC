@@ -104,6 +104,11 @@ void KoopaNomalState::onCollision(Object*ob, int dir){
 		if (stateName == MarioStateInvincible::STATE_NAME){
 			return;
 		}
+		else if(stateName == MarioStateSuperInvincible::STATE_NAME){
+			mKoopa->vy = 0.5f;
+			mKoopa->vx = 0.5f;
+			mKoopa->setState(new KoopaUpsideDown(mKoopa));
+		}
 
 		//chạm trái phải dưới -> mario chết
 		//trên thì chuyển sang vulnerable state;
@@ -202,6 +207,12 @@ void KoopaVulnerableState::onCollision(Object*ob, int dir){
 		Mario* mario = (Mario*)ob;
 		string stateName = (mario->getState())->getName();
 		if (stateName == MarioStateInvincible::STATE_NAME){
+			return;
+		}
+		else if (stateName == MarioStateSuperInvincible::STATE_NAME){
+			mKoopa->vy = 0.5f;
+			mKoopa->vx = 0.5f;
+			mKoopa->setState(new KoopaUpsideDown(mKoopa));
 			return;
 		}
 		else if (dir == Physics::COLLIDED_FROM_LEFT&& mKoopa->isBringedByMario == 0){
@@ -346,7 +357,13 @@ void KoopaSlidingState::onCollision(Object*ob, int dir){
 		if (stateName == MarioStateInvincible::STATE_NAME){
 			return;
 		}
-		else if (dir == Physics::COLLIDED_FROM_TOP){
+		else if (stateName == MarioStateSuperInvincible::STATE_NAME){
+			mKoopa->vy = 0.5f;
+			mKoopa->vx = 0.5f;
+			mKoopa->setState(new KoopaUpsideDown(mKoopa));
+			return;
+		}
+		if (dir == Physics::COLLIDED_FROM_TOP){
 			mKoopa->vx = 0;
 			mKoopa->ax = 0;
 			mKoopa->setState(new KoopaVulnerableState(mKoopa));
@@ -420,6 +437,12 @@ void KoopaParaState::onCollision(Object*ob, int dir){
 		Mario* mario = (Mario*)ob;
 		string stateName = (mario->getState())->getName();
 		if (stateName == MarioStateInvincible::STATE_NAME){
+			return;
+		}
+		else if (stateName == MarioStateSuperInvincible::STATE_NAME){
+			mKoopa->vy = 0.5f;
+			mKoopa->vx = 0.5f;
+			mKoopa->setState(new KoopaUpsideDown(mKoopa));
 			return;
 		}
 
