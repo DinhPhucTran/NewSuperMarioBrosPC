@@ -43,6 +43,9 @@
     <Filter Include="Source Files\Items">
       <UniqueIdentifier>{f0916218-f8c7-4fde-857b-645ea5aa0c07}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Enemies\Piranha">
+      <UniqueIdentifier>{cd129543-edf1-46cf-a8af-d4adecfab341}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation.h">
@@ -114,9 +117,6 @@
     <ClInclude Include="MarioPowerBar.h">
       <Filter>Header Files\Mario</Filter>
     </ClInclude>
-    <ClInclude Include="PiranhaPlant.h">
-      <Filter>Header Files\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="RedKoopaAnimationFactory.h">
       <Filter>Header Files\Enemies\KoopaTroopa</Filter>
     </ClInclude>
@@ -132,18 +132,6 @@
     <ClInclude Include="KoopaTroopaAnimationFactory.h">
       <Filter>Header Files\Enemies\KoopaTroopa</Filter>
     </ClInclude>
-    <ClInclude Include="FirePiranha.h">
-      <Filter>Header Files\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="FirePiranhaAnimationFactory.h">
-      <Filter>Header Files\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="FireBall.h">
-      <Filter>Header Files\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="RedFirePiranha.h">
-      <Filter>Header Files\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>Header Files\Items</Filter>
     </ClInclude>
@@ -155,6 +143,21 @@
     </ClInclude>
     <ClInclude Include="SuperStar.h">
       <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="FirePiranha.h">
+      <Filter>Header Files\Enemies\Piranha</Filter>
+    </ClInclude>
+    <ClInclude Include="FireBall.h">
+      <Filter>Header Files\Enemies\Piranha</Filter>
+    </ClInclude>
+    <ClInclude Include="FirePiranhaAnimationFactory.h">
+      <Filter>Header Files\Enemies\Piranha</Filter>
+    </ClInclude>
+    <ClInclude Include="PiranhaPlant.h">
+      <Filter>Header Files\Enemies\Piranha</Filter>
+    </ClInclude>
+    <ClInclude Include="RedFirePiranha.h">
+      <Filter>Header Files\Enemies\Piranha</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
