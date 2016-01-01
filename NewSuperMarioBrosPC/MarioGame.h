@@ -36,7 +36,7 @@
 #define PIPE_IMAGE L"pipe32.png"
 #define PIPE_IMAGE_40 L"Pipe32x40.png"
 #define PARA_GOOMBA L"paraGoomba.png"
-
+#define SUPER_STAR L"SuperStar.png"
 
 
 #define GROUND_Y 45
@@ -94,6 +94,7 @@ public:
 	CSprite* piranhaSprite;
 	CSprite * qbSprite;
 	CSprite * paraGoombaSprite;
+	CSprite * superStarSprite;
 
 
 	int animationDelay=0;

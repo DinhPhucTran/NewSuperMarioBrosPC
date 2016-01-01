@@ -37,6 +37,12 @@
     <Filter Include="Header Files\Enemies\KoopaTroopa">
       <UniqueIdentifier>{584f6d94-78e3-4b7f-82ee-ff1aeb347cbd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Items">
+      <UniqueIdentifier>{c2dbc430-1b07-4021-ad9d-ce8f62d94555}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Items">
+      <UniqueIdentifier>{f0916218-f8c7-4fde-857b-645ea5aa0c07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation.h">
@@ -93,15 +99,6 @@
     <ClInclude Include="Qbrick.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Mushroom.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Leaf.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MarioRaccoonTail.h">
       <Filter>Header Files\Mario</Filter>
     </ClInclude>
@@ -149,6 +146,18 @@
     </ClInclude>
     <ClInclude Include="RedFirePiranha.h">
       <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaf.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Mushroom.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="SuperStar.h">
+      <Filter>Header Files\Items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +262,9 @@
     </ClCompile>
     <ClCompile Include="RedFirePiranha.cpp">
       <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SuperStar.cpp">
+      <Filter>Source Files\Items</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

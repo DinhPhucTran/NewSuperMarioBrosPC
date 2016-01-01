@@ -23,6 +23,7 @@
 #include "FirePiranha.h"
 #include "KoopaTroopaState.h"
 #include "RedFirePiranha.h"
+#include "SuperStar.h"
 
 using namespace std;
 
@@ -91,7 +92,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	coinSprite = new CSprite(_SpriteHandler, COIN, 16, 16, 3, 3);
 	qbSprite = new CSprite(_SpriteHandler, QBRICK_IMAGE, 16, 16, 5, 5);
 	paraGoombaSprite = new CSprite(_SpriteHandler, PARA_GOOMBA, 32, 32, 4, 4);
-
+	superStarSprite = new CSprite(_SpriteHandler, SUPER_STAR, 20, 20, 1, 1);
 
 
 	
@@ -130,15 +131,15 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	//marioObject->setAnimationFactory(LargeMarioAnimationFactory::getInstance(marioObject));
 	//marioObject->setState(new MarioStateLarge(marioObject));
 
-	Gooba* paraGoomba = new Gooba(200, 50, Gooba::WIDTH, Gooba::HEIGHT, Gooba::SPEED_X, 0, Gooba::SPEED_X, 0, 0, NULL, koopaTroopaGoombaSprite);
-	paraGoomba->setState(new GoobaParaState(paraGoomba));
+	SuperStar* superStar = new SuperStar(100, 100, superStarSprite);
 	
 	
 	mObjectManager->addObject(marioObject);
+	mObjectManager->addObject(superStar);
 	//mObjectManager->addObject(piranhaPlant);
 	//mObjectManager->addObject(firePiranha);
 	//mObjectManager->addObject(redFirePiranha);
-	mObjectManager->addObject(paraGoomba);
+	
 	/*mObjectManager->addObject(koopa);	
 	mObjectManager->addObject(gooba);
 	mObjectManager->addObject(koopa2);
