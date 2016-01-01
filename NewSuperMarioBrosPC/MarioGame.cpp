@@ -50,8 +50,6 @@ CGame(hInstance, Name, Mode, IsFullScreen, FrameRate)
 CMarioGame::~CMarioGame()
 {
 	delete mObjectManager;
-	delete marioSmallSprite;
-	delete marioLargeSprite;
 }
 
 void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
@@ -81,7 +79,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	mario_vy = 0;
 
 
-	marioLargeSprite = new CSprite(_SpriteHandler, MARIO_LARGE_IMAGE, 32, 32, 195, 10);
+	marioSprite = new CSprite(_SpriteHandler, MARIO_LARGE_IMAGE, 32, 32, 195, 10);
 	piranhaSprite = new CSprite(_SpriteHandler, PIRANHA_PLANT, 20, 36, 100, 10);
 	pipeSprite = new CSprite(_SpriteHandler, PIPE_IMAGE, 32, 32, 1, 1);
 	pipe32x40Sprite = new CSprite(_SpriteHandler, PIPE_IMAGE_40, 32, 40, 1, 1);
@@ -120,9 +118,9 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	
 
 	
-	Mario* marioObject = new Mario(mario_x, mario_y, 32, 32, mario_vx, 0, 0, 0, 0, NULL, marioLargeSprite, NULL, NULL);
+	Mario* marioObject = new Mario(mario_x, mario_y, 32, 32, mario_vx, 0, 0, 0, 0, NULL, marioSprite, NULL, NULL);
 
-	marioObject->setState(new MarioStateRaccoon(marioObject));
+	marioObject->setState(new MarioStateSmall(marioObject));
 	marioObject->setState(new MarioStateSuperInvincible(marioObject));
 	
 	//marioObject->setAnimationFactory(SmallMarioAnimationFactory::getInstance(marioObject));

@@ -28,7 +28,7 @@ public:
 	//Animation *turnLeftAnimation = new Animation(31, 31);
 	//animation for file smallMario.png
 
-	Animation *rightWalkAnim = new Animation(4, 5);
+	Animation *rightWalkAnim = new Animation(4, 5);//4 5
 	Animation *leftWalkAnim = new Animation(2, 3);
 	Animation *rightStandAnim = new Animation(4, 4);
 	Animation *leftStandAnim = new Animation(2, 2);
@@ -124,6 +124,33 @@ public:
 	Animation* blankAnimation = new Animation(69, 69);
 	Animation* createAnimation()override;
 	static InvincibleMarioAnimationFactory* getInstance(Mario* mario);
+};
+
+class SuperInvincibleMarioSmallAnimationFactory :public AnimationFactory{
+private:
+	Mario* mMario;
+	SuperInvincibleMarioSmallAnimationFactory(Mario* mario);
+
+	static SuperInvincibleMarioSmallAnimationFactory* sInstance;
+public:
+	Animation *rightWalkAnim = new Animation(82, 85,3);
+	Animation *leftWalkAnim = new Animation(72, 75,3);
+	Animation *rightStandAnim = new Animation(82, 83);
+	Animation *leftStandAnim = new Animation(72, 73);
+	Animation *leftJumpUpAnim = new Animation(76, 77);
+	Animation *rightJumpUpAnim = new Animation(86, 87);
+	Animation *leftJumpDownAnim = new Animation(76, 77);
+	Animation *rightJumpDownAnim = new Animation(86, 87);
+	Animation *turnRightAnimation = new Animation(80, 81);
+	Animation *turnLeftAnimation = new Animation(70, 71);
+
+	Animation *powerJumpLeft = new Animation(78, 79);
+	Animation *powerJumpRight = new Animation(88, 89);
+
+	static SuperInvincibleMarioSmallAnimationFactory* getInstance(Mario* mario);
+	//contructor
+
+	Animation* createAnimation()override;
 };
 
 #endif

@@ -20,7 +20,6 @@
 //#define MARIO_IMAGE_RIGHT L"mario3.bmp"
 //#define MARIO_IMAGE_LEFT L"mario3.bmp"
 #define BRICK L"brick.png"
-#define MARIO_SMALL_IMAGE L"marioSmall.png"
 #define MARIO_LARGE_IMAGE L"marioSprite32x32.png"
 #define KOOPA_TROOPA_GOOMBA_IMAGE L"enemies4.png"
 #define FOREGROUND_IMAGE L"foreground.png"
@@ -77,8 +76,8 @@ public:
 
 	//LPDIRECT3DSURFACE9 Background;
 
-	CSprite * marioSmallSprite;
-	CSprite * marioLargeSprite;
+	
+	CSprite * marioSprite;
 	CSprite * koopaTroopaGoombaSprite;
 	CSprite * ground_middle;
 	CSprite * brick;

@@ -494,6 +494,9 @@ int MarioStateSuperInvincible::getWidth(){
 }
 AnimationFactory* MarioStateSuperInvincible::getAnimationFactory(){
 	//return SuperInvincibleMarioAnimationFactory::getInstance(mMario);
+	if (mLastState->getName() == MarioStateSmall::STATE_NAME){
+		return SuperInvincibleMarioSmallAnimationFactory::getInstance(mMario);
+	}
 	return mLastState->getAnimationFactory();
 }
 

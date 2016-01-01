@@ -355,3 +355,96 @@ Animation* InvincibleMarioAnimationFactory::createAnimation(){
 	}
 	
 }
+
+
+///////////////////////////////
+SuperInvincibleMarioSmallAnimationFactory::SuperInvincibleMarioSmallAnimationFactory(Mario* mario){
+	mMario = mario;
+}
+
+Animation* SuperInvincibleMarioSmallAnimationFactory::createAnimation(){
+	Animation* result;
+	int isPower;
+	if (mMario->getPowerBar() == NULL){
+		isPower = 0;
+	}
+	else
+	{
+		isPower = mMario->getPowerBar()->isPower();
+	}
+
+	if (mMario->vy > 0)//vy>0 => mario nhảy lên, vy<0 =>mario đang rớt xuống
+	{
+		if (mMario->vx_last < 0)//quay trái
+		{
+			if (isPower){
+				result = powerJumpLeft;
+			}
+			else{
+				result = leftJumpUpAnim;
+			}
+		}
+		else{
+			if (isPower){
+				result = powerJumpRight;
+			}
+			else{
+				result = rightJumpUpAnim;
+			}
+		}
+	}
+	else if (mMario->vy == 0)
+	{//vy==0 mario đang đứng trên vật thể 
+		if (mMario->vx_last < 0)//quay trái
+		{
+			if (mMario->ax > 0 && mMario->isRightButtonPressed == 1){//quay phải
+				result = turnRightAnimation;
+			}
+			else if (mMario->vx != 0)//mario đang đi
+				result = leftWalkAnim;
+			else{//mario đang đứng yên
+				result = leftStandAnim;
+			}
+		}
+		else{//vx_last >0 mario đang đi trái
+			if (mMario->ax < 0 && mMario->isLeftButtonPressed == 1)//đang đổi hướng
+			{
+				result = turnLeftAnimation;
+			}
+			else if (mMario->vx != 0)//đang đi phải
+				result = rightWalkAnim;
+			else
+				result = rightStandAnim;
+		}
+	}
+	else
+	{//mario đang rơi
+		if (mMario->vx_last < 0)//quay trái
+		{
+			result = leftJumpDownAnim;
+			if (isPower){
+				result == powerJumpLeft;
+			}
+		}
+		else{
+			result = rightJumpDownAnim;
+			if (isPower){
+				result = powerJumpRight;
+			}
+		}
+	}
+	result->Update();
+	return result;
+}
+
+
+
+SuperInvincibleMarioSmallAnimationFactory* SuperInvincibleMarioSmallAnimationFactory::sInstance;//define singleton
+SuperInvincibleMarioSmallAnimationFactory* SuperInvincibleMarioSmallAnimationFactory::getInstance(Mario* mario){
+	if (SuperInvincibleMarioSmallAnimationFactory::sInstance == NULL){
+		SuperInvincibleMarioSmallAnimationFactory::sInstance = new SuperInvincibleMarioSmallAnimationFactory(mario);
+	}
+	else
+		sInstance->mMario = mario;
+	return sInstance;
+}
