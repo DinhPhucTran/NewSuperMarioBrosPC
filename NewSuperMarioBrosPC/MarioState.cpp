@@ -19,6 +19,7 @@
 #include <string>
 #include "KoopaTroopaState.h"
 #include "FireBall.h"
+#include "SuperStar.h"
 using namespace std;
 
 //================STATE====================
@@ -167,6 +168,10 @@ void MarioState::onCollision(Object* ob,int dir){
 	}
 	if (objectName == GreenMushroom::OBJECT_NAME){
 		
+	}
+	if (objectName == SuperStar::OBJECT_NAME){
+		MarioStateSuperInvincible* superInvincible = new MarioStateSuperInvincible(mMario);
+		mMario->setState(superInvincible);
 	}
 	if (objectName == Leaf::OBJECT_NAME){
 		MarioStateInvincible* stateInvincibleRaccoon = new MarioStateInvincible(mMario, new MarioStateRaccoon(mMario));
