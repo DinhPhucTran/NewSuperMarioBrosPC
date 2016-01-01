@@ -71,7 +71,6 @@
     <ClInclude Include="animation.h" />
     <ClInclude Include="AnimationFactory.h" />
     <ClInclude Include="BrickGround.h" />
-    <ClInclude Include="cliststatic.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="FireBall.h" />
     <ClInclude Include="FirePiranha.h" />

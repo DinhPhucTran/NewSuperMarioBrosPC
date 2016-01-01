@@ -56,7 +56,6 @@ CMarioGame::~CMarioGame()
 void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 {
 	srand((unsigned)time(NULL));
-	// TO-DO: not a very good place to initial sprite handler
 	D3DXCreateSprite(d3ddv, &_SpriteHandler);
 
 	///font debug
@@ -155,74 +154,18 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 	D3DXCreateFont(d3ddv, 30, 0, FW_BOLD, 0, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, TEXT("Arial"), &fontArial);
 
-	//CSprite* nen = new CSprite(_SpriteHandler, L"nen.png", 48, 16, 1, 1);
-	//Animation *nenAnim = new Animation(0, 0);
-
-	/*for (int i = 0; i < 20; ++i){
-		BrickGround* brickGround = new BrickGround(i*(nen->_Width), 16,48,16, nenAnim, nen);
-		mObjectManager->addObject(brickGround);
-	}*/
-	/*mObjectManager->addObject(new BrickGround(300, GROUND_Y + 16, 48, 16, nenAnim, nen));
-	mObjectManager->addObject(new BrickGround(500, GROUND_Y + 16, 48, 16, nenAnim, nen));
-	BrickGround* brickGround = new BrickGround(100, GROUND_Y + 54, 48, 16, nenAnim, nen);
-	mObjectManager->addObject(brickGround);*/
-
 	
-	/*BrickGround * ground1 = new BrickGround(315, 8, 624, 16);
-	mObjectManager->addObject(ground1);
-	BrickGround * ground2 = new BrickGround(620 + 230, 16, 464, 32);
-	mObjectManager->addObject(ground2);
-	BrickGround * ground3 = new BrickGround(1153 + 176, 8, 352, 16);
-	mObjectManager->addObject(ground3);
-	BrickGround * ground4 = new BrickGround(1537 + 40, 8, 80, 16);
-	mObjectManager->addObject(ground4);
-	BrickGround * ground5 = new BrickGround(1666 + 288, 8, 576, 16);
-	mObjectManager->addObject(ground5);
-	BrickGround * ground6 = new BrickGround(2257 + 280, 8, 560, 16);
-	mObjectManager->addObject(ground6);*/
-
-
-	
-
-
-	/*Pipe * pipe1 = new Pipe(367, 40, 32, 48);
-	mObjectManager->addObject(pipe1);
-	MetalBlock *mb1 = new MetalBlock(263, 40, 48, 48);
-	mObjectManager->addObject(mb1);
-	MetalBlock *mb2 = new MetalBlock(295, 56, 48, 80);
-	mObjectManager->addObject(mb2);*/
-
-	
-	/*qbSprite = new CSprite(_SpriteHandler, QBRICK_IMAGE, 16, 16, 5, 5);
-	Gooba* hiddenGoomba = new Gooba(0, 0, Gooba::WIDTH, Gooba::HEIGHT, Gooba::SPEED_X,0,Gooba::SPEED_X,0,0,NULL,goobaSprite);
-	Gooba* hiddenGoomba1 = new Gooba(0, 0, Gooba::WIDTH, Gooba::HEIGHT, Gooba::SPEED_X, 0, Gooba::SPEED_X, 0, 0, NULL, goobaSprite);
-
-	RedMushroom * mushroom1 = new RedMushroom(0, 0, 16, 16, 0, 0, 0, 0, 0, mushroomSprite);
-	GreenMushroom * mushroom2 = new GreenMushroom(0, 0, 16, 16, 0, 0, 0, 0, 0, greenmushroomSprite);
-
-	qb1 = new QBrick(184, 73, 16, 16, mushroom1, qbAnim1, qbSprite);
-	mObjectManager->addObject(qb1);
-	qb2 = new QBrick(184 + 16, 73, 16, 16, mushroom2, qbAnim2, qbSprite);
-	mObjectManager->addObject(qb2);*/
 	
 	CSprite *backgroundImage = new CSprite(_SpriteHandler, SCROLLBG_IMAGE, 4096, 432, 1, 1);
 	Animation *bgAnim = new Animation(0, 0);
 	scrollBG = new Object(1000, 216, 4096, 432, 0, 0, 0, 0, 0, bgAnim, backgroundImage);
-
-	/*coinSprite = new CSprite(_SpriteHandler, COIN, 16, 16, 3, 3);
-	coin = new Coin(150, 73, 18, 18, coinAnim, coinSprite);
-	mObjectManager->addObject(coin);*/
-
-	
-	
-
 	
 	
 	mario = mObjectManager->getMario();
 
 }
 
-int xc = 0;
+//int xc = 0;
 
 void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 {
@@ -272,7 +215,7 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	//int vpx = xc;
 	if (vpx <= 0) vpx = 0;
 	if (vpx >= 2485) vpx = 2485;
-	xc += 1;
+	//xc += 1;
 	
 	
 	
@@ -513,12 +456,29 @@ void CMarioGame::LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler,
 			else if (v[3] == 3)
 			{
 				KoopaTroopa* vulnerableKoopa =
+					new KoopaTroopa(v[1], v[2], 16, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaGoombaSprite);
+				vulnerableKoopa->setState(new KoopaVulnerableState(vulnerableKoopa));
+				obManager->addObject(vulnerableKoopa);
+			}
+		}
+		else if (v[0] == 12)
+		{		
+			if (v[3] == 1)
+			{
+				RedKoopa* koopa =
+					new RedKoopa(v[1], v[2], 16, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaGoombaSprite);
+				koopa->setState(new KoopaNomalState(koopa));
+				obManager->addObject(koopa);
+			}
+			else if (v[3] == 3)
+			{
+				RedKoopa* vulnerableKoopa =
 					new RedKoopa(v[1], v[2], 16, 28, -KoopaTroopa::KOOPA_VELOCITY_X, 0, -KoopaTroopa::KOOPA_VELOCITY_X, 0, 0, NULL, koopaTroopaGoombaSprite);
 				vulnerableKoopa->setState(new KoopaVulnerableState(vulnerableKoopa));
 				obManager->addObject(vulnerableKoopa);
 			}
 		}
-		else if (v[0] == 12){
+		else if (v[0] == 13){
 			if (v[3] == 1)//Piranha Plant
 			{
 				PiranhaPlant* piranhaPlant = new PiranhaPlant(v[1], v[2], piranhaSprite, pipeSprite);

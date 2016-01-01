@@ -23,6 +23,22 @@ void KoopaTroopaState::onCollision(Object*ob, int dir){
 			mKoopa->vy = 0;
 			mKoopa->ay = 0;
 			mKoopa->y = ob->top() + mKoopa->height / 2;
+			if (mKoopa->getName() == RedKoopa::OBJECT_NAME) {
+				if (mKoopa->x > ob->right())
+				{
+					if (mKoopa->vx_last > 0){
+						mKoopa->vx = -KoopaTroopa::KOOPA_VELOCITY_X;
+						mKoopa->vx_last = mKoopa->vx;
+					}
+				}
+				else if (mKoopa->x < ob->left())
+				{
+					if (mKoopa->vx_last < 0){
+						mKoopa->vx = KoopaTroopa::KOOPA_VELOCITY_X;
+						mKoopa->vx_last = mKoopa->vx;
+					}
+				}
+			}
 			return;
 		}
 	}
@@ -88,6 +104,22 @@ void KoopaNomalState::onCollision(Object*ob, int dir){
 			mKoopa->vy = 0;
 			mKoopa->ay = 0;
 			mKoopa->y = ob->top() + mKoopa->height / 2;// chỉnh lại tọa độ y
+			if (mKoopa->getName() == RedKoopa::OBJECT_NAME) {
+				if (mKoopa->x > ob->right())
+				{
+					if (mKoopa->vx_last > 0){
+						mKoopa->vx = -KoopaTroopa::KOOPA_VELOCITY_X;
+						mKoopa->vx_last = mKoopa->vx;
+					}
+				}
+				else if (mKoopa->x < ob->left())
+				{
+					if (mKoopa->vx_last < 0){
+						mKoopa->vx = KoopaTroopa::KOOPA_VELOCITY_X;
+						mKoopa->vx_last = mKoopa->vx;
+					}
+				}
+			}
 		}
 		else if (dir == Physics::COLLIDED_FROM_TOP){
 			if (mKoopa->vy > 0){

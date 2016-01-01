@@ -19,7 +19,7 @@ int Physics::CollisionStatic(Object *o1, Object *o2)
 	//0: không đụng độ
 	if (o1->vy < 0)
 	{
-		if (ContainsPoint(o2, o1->x, o1->bottom()))
+		if (ContainsPoint(o2, o1->x - o1->width / 4, o1->bottom()) || ContainsPoint(o2, o1->x + o1->width / 4, o1->bottom()))
 		{
 			//o1->vy = 0;
 			//o1->y = o2->top() + o1->height / 2;
@@ -29,20 +29,20 @@ int Physics::CollisionStatic(Object *o1, Object *o2)
 
 	if (o1->vy > 0)
 	{
-		if (ContainsPoint(o2, o1->x, o1->top()))
+		if (ContainsPoint(o2, o1->x - o1->width / 5, o1->top()) || ContainsPoint(o2, o1->x + o1->width / 5, o1->top()))
 		{
 			//o1->vy = -o1->vy;
 			return -1;
 		}
 	}
 
-	if (ContainsPoint(o2, o1->right(), o1->y))
+	if (ContainsPoint(o2, o1->right(), o1->y - o1->height / 4) || ContainsPoint(o2, o1->right(), o1->y + o1->height / 4))
 	{
 		//o1->x = o2->left() - o1->width / 2;
 		return 2;
 	}
 
-	if (ContainsPoint(o2, o1->left(), o1->y))
+	if (ContainsPoint(o2, o1->left(), o1->y - o1->height / 4) || ContainsPoint(o2, o1->left(), o1->y + o1->height / 4))
 	{
 		//o1->x = o2->right() + o1->width / 2;
 		return -2;

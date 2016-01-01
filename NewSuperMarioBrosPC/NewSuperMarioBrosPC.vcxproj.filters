@@ -108,9 +108,6 @@
     <ClInclude Include="GoldBrick.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
-    <ClInclude Include="cliststatic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="QuadTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
