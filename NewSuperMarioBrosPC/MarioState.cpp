@@ -147,11 +147,11 @@ void MarioState::onCollision(Object* ob,int dir){
 			}
 		}
 	}
-	if (objectName == Gooba::OBJECT_NAME ){
+	if (objectName == Gooba::OBJECT_NAME){
 		string state = ((Gooba*)ob)->getState()->getName();
 		if (state == GoobaNomalState::STATE_NAME || state == GoobaParaState::STATE_NAME){
 			if (dir == Physics::COLLIDED_FROM_BOTTOM){
-				mMario->y = ob->top() + mMario->height / 2;
+				mMario->y = ob->top() + mMario->height / 2+2;
 				mMario->vy = 0;
 				mMario->jumpUp();
 			}
@@ -358,7 +358,49 @@ void MarioStateInvincible::onCollision(Object* ob, int dir){
 	if (now - mLastTime >= Mario::INVINCIBLE_SWITCH_STATE_TIME){
 		mMario->setState(mNextState);
 	}
-	MarioState::onCollision(ob, dir);
+	string objectName = ob->getName();
+	if (objectName == MetalBlock::OBJECT_NAME)
+	{
+		if (dir == Physics::COLLIDED_FROM_BOTTOM && mMario->top() > ob->top() && mMario->bottom() + 8 >= ob->top())//tránh trường hợp tự động đứng trên block khi chưa nhảy tới
+		{
+			mMario->vy = 0;
+			mMario->ay = 0;
+			mMario->y = ob->top() + mMario->height / 2;
+			return;
+		}
+	}
+	if (objectName == BrickGround::OBJECT_NAME || objectName == Pipe::OBJECT_NAME || objectName == QBrick::OBJECT_NAME || objectName == GoldBrick::OBJECT_NAME)
+	{
+		if (dir == Physics::COLLIDED_FROM_TOP){
+			if (objectName == QBrick::OBJECT_NAME){
+				QBrick* qBrick = (QBrick*)ob;
+				qBrick->revealHiddenObject();
+			}
+			mMario->y = ob->bottom() - mMario->height / 2;
+			mMario->vy = -0.000001;//note: không đc =0. nếu vy =0 thì sẽ gây ra lỗi người dùng có thể cho nó bay liên tục
+			mMario->ay = 0;
+			return;
+		}
+		if (dir == Physics::COLLIDED_FROM_BOTTOM)
+		{
+			mMario->vy = 0;
+			mMario->ay = 0;
+			mMario->y = ob->top() + mMario->height / 2;
+			return;
+		}
+		if (dir == Physics::COLLIDED_FROM_RIGHT)
+		{
+			mMario->x = ob->left() - mMario->width / 2;
+			mMario->ax = 0;
+			return;
+		}
+		if (dir == Physics::COLLIDED_FROM_LEFT)
+		{
+			mMario->x = ob->right() + mMario->width / 2;
+			mMario->ax = 0;
+			return;
+		}
+	}
 }
 
 int MarioStateInvincible::getHeight(){
