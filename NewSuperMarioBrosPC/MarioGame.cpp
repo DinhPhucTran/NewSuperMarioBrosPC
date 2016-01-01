@@ -147,9 +147,16 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	mObjectManager->addObject(redKoopa);
 	mObjectManager->addObject(paraKoopa);*/
 
-
-
-	foregroundImage = new CSprite(_SpriteHandler, FOREGROUND_IMAGE, 2848, 720, 1, 1);
+	int mapLevel = MAP_LEVEL;
+	if (mapLevel == 1){
+		foregroundImage = new CSprite(_SpriteHandler, FOREGROUND_IMAGE, 2848, 720, 1, 1);
+		LoadMap(mObjectManager, _SpriteHandler, "map1-1.txt");
+	}
+	else{
+		foregroundImage = new CSprite(_SpriteHandler, FOREGROUND_IMAGE_2, 2848, 720, 1, 1);
+		LoadMap(mObjectManager, _SpriteHandler, "map1-2.txt");
+	}
+		
 
 	D3DXCreateFont(d3ddv, 30, 0, FW_BOLD, 0, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, TEXT("Arial"), &fontArial);
 
@@ -178,7 +185,10 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	mObjectManager->addObject(ground5);
 	BrickGround * ground6 = new BrickGround(2257 + 280, 8, 560, 16);
 	mObjectManager->addObject(ground6);*/
-	LoadMap(mObjectManager, _SpriteHandler, "map1-1.txt");
+
+
+	
+
 
 	/*Pipe * pipe1 = new Pipe(367, 40, 32, 48);
 	mObjectManager->addObject(pipe1);
@@ -498,6 +508,7 @@ void CMarioGame::LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler,
 				obManager->addObject(vulnerableKoopa);
 			}
 		}
+		
 
 
 	}

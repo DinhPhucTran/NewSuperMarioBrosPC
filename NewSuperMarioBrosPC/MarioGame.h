@@ -13,7 +13,7 @@
 #include "gooba.h"
 
 
-
+#define MAP_LEVEL 1;
 #define DIRECT_LEFT 0;
 #define DIRECT_RIGHT 1;
 
@@ -24,6 +24,7 @@
 #define MARIO_LARGE_IMAGE L"marioSprite32x32.png"
 #define KOOPA_TROOPA_GOOMBA_IMAGE L"enemies4.png"
 #define FOREGROUND_IMAGE L"foreground.png"
+#define FOREGROUND_IMAGE_2 L"foreground2.png"
 #define QBRICK_IMAGE L"qBrick.png"
 #define SCROLLBG_IMAGE L"scrollBG3.png"
 #define MUSHROOM_IMAGE L"redMushroom.png"
@@ -36,6 +37,7 @@
 #define PIPE_IMAGE L"pipe32.png"
 #define PIPE_IMAGE_40 L"Pipe32x40.png"
 #define PARA_GOOMBA L"paraGoomba.png"
+
 
 
 #define GROUND_Y 45

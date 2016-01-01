@@ -6,3 +6,4 @@
 6 Coin
 10 Gooba
 11 Koopa
+12 Piranha
