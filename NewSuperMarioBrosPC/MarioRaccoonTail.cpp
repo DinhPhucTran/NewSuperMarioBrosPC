@@ -193,7 +193,9 @@ MarioRaccoonTail* MarioRaccoonTail::getInstance(){
 	if (sIntance == NULL){
 		sIntance = new MarioRaccoonTail();
 	}
-	
+	Mario* mario = ObjectManager::getInstance()->getMario();
+	sIntance->x = mario->x;
+	sIntance->y = mario->y;
 	return sIntance;
 }
 int MarioRaccoonTail::isStaticObject(){
