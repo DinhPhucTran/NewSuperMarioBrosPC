@@ -8,3 +8,4 @@
 11 Koopa	1:NomalState 	2:KoopaParaState 	3:VulnerableState
 12 RedKoopa	1:NomalState 	3:VulnerableState 
 13 Piranha
+14 GoombaFactory x,y,DIRECTION_RIGHT:1 || LEFT:0
