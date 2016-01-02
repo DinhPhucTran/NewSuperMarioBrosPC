@@ -92,7 +92,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	
 	Mario* marioObject = new Mario(mario_x, mario_y, 32, 32, mario_vx, 0, 0, 0, 0, NULL, marioSprite, NULL, NULL);
 
-	marioObject->setState(new MarioStateSmall(marioObject));
+	marioObject->setState(new MarioStateLarge(marioObject));
 	marioObject->setState(new MarioStateSuperInvincible(marioObject));
 	
 	//marioObject->setAnimationFactory(SmallMarioAnimationFactory::getInstance(marioObject));
