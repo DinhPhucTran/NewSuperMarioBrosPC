@@ -156,8 +156,8 @@ void MarioState::onCollision(Object* ob,int dir){
 		if (state == GoobaNomalState::STATE_NAME || state == GoobaParaState::STATE_NAME){
 			if (dir == Physics::COLLIDED_FROM_BOTTOM){
 				mMario->y = ob->top() + mMario->height / 2+2;
-				mMario->vy = 0;
-				mMario->jumpUp();
+				mMario->vy = 0.25f;
+				//mMario->jumpUp();
 			}
 			else if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT || dir == Physics::COLLIDED_FROM_TOP){
 				mMario->die();

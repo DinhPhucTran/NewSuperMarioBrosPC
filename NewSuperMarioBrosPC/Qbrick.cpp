@@ -76,14 +76,21 @@ void QBrick::revealHiddenObject(){
 			}
 		}
 		else {
-			//mHiddenObject->x = x;
-			//mHiddenObject->y = y + 16;
-			if (mHiddenObject->getName() == Coin::OBJECT_NAME){
+			string name = mHiddenObject->getName();
+			if (name == Coin::OBJECT_NAME){
 				mHiddenObject = new Coin(x, y + 16, 16, 16, 0, 0.4f, 0, 0, 0, CMarioGame::getInstance()->itemsSprite);
+				ObjectManager::getInstance()->addObject(mHiddenObject);
+				mHiddenObject = NULL;
+				setState(QBrick::NORMAL_STATE);
+			} 
+			else{
+				mHiddenObject->x = x;
+				mHiddenObject->y = y+16;
+				ObjectManager::getInstance()->addObject(mHiddenObject);
+				mHiddenObject = NULL;
+				setState(QBrick::NORMAL_STATE);
 			}
-			ObjectManager::getInstance()->addObject(mHiddenObject);
-			mHiddenObject = NULL;
-			setState(QBrick::NORMAL_STATE);
+			
 		}
 	}
 }

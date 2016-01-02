@@ -5,6 +5,7 @@
 #include "Physics.h"
 #include "ObjectManager.h"
 #include "KoopaTroopaState.h"
+#include "BrickGround.h"
 const string PiranhaPlant::OBJECT_NAME = "piranha_plant";
 const int PiranhaPlant::HEIGHT = 24;
 const int PiranhaPlant::WIDTH = 16;

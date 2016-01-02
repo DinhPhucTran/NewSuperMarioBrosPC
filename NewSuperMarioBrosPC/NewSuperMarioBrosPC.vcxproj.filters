@@ -159,6 +159,9 @@
     <ClInclude Include="RedFirePiranha.h">
       <Filter>Header Files\Enemies\Piranha</Filter>
     </ClInclude>
+    <ClInclude Include="GoobaFactory.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sprite.cpp">
@@ -265,6 +268,9 @@
     </ClCompile>
     <ClCompile Include="Mushroom.cpp">
       <Filter>Source Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="GoobaFactory.cpp">
+      <Filter>Source Files\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

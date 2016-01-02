@@ -13,7 +13,7 @@
 #include "gooba.h"
 
 
-#define MAP_LEVEL 2;
+#define MAP_LEVEL 1;
 #define DIRECT_LEFT 0;
 #define DIRECT_RIGHT 1;
 
@@ -33,6 +33,7 @@
 #define PARA_GOOMBA L"paraGoomba.png"
 #define SUPER_STAR L"SuperStar.png"
 #define ITEMS_SPRITE L"items.png"
+#define HORIZONTAL_PIPE L"HorizonPipe32.png"
 
 
 #define GROUND_Y 45
@@ -87,6 +88,7 @@ public:
 	CSprite * qbSprite;
 	CSprite * paraGoombaSprite;
 	CSprite * itemsSprite;
+	CSprite* horizontalPipe;
 
 	int score;
 	int animationDelay=0;

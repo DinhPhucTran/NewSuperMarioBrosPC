@@ -78,6 +78,7 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="GoldBrick.h" />
     <ClInclude Include="gooba.h" />
+    <ClInclude Include="GoobaFactory.h" />
     <ClInclude Include="KoopaTroopa.h" />
     <ClInclude Include="KoopaTroopaAnimationFactory.h" />
     <ClInclude Include="KoopaTroopaState.h" />
@@ -115,6 +116,7 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="GoldBrick.cpp" />
     <ClCompile Include="gooba.cpp" />
+    <ClCompile Include="GoobaFactory.cpp" />
     <ClCompile Include="KoopaTroopa.cpp" />
     <ClCompile Include="KoopaTroopaAnimationFactory.cpp" />
     <ClCompile Include="KoopaTroopaState.cpp" />
