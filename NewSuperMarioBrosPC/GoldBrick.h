@@ -2,15 +2,16 @@
 #define _GOLD_BRICK_H
 #include "StaticObject.h"
 #include "animation.h"
+#include "Timer.h"
 #include <string>
 
 class GoldBrick;
 class PButton :public StaticObject{
 private:
-
+	Timer mTimeRevert;
 public:
 	int isPressed = 0;
-	
+	static const int TIME_REVERT;//6000ms
 	static const string OBJECT_NAME;
 	string getName()override;
 	Animation* mNormalButtonAnimation = new Animation(5, 5);
@@ -19,6 +20,7 @@ public:
 	void swithGoldBrickToCoin();
 	void render(int vpx, int vpy)override;
 	void onCollision(Object* ob, int dir)override;
+	void update(int t)override;
 };
 
 class GoldBrick :public StaticObject
@@ -37,7 +39,7 @@ public:
 	string getState();
 	static const string OBJECT_NAME;
 	string getName();
-	GoldBrick(int x, int y, int width, int height, Animation* anim, CSprite * image, int isContainPButton = 0);
+	GoldBrick(int x, int y, int width, int height, Animation* anim=0, CSprite * image=0, int isContainPButton = 0);
 	void render(int vpx, int vpy)override;
 	void switchToCoin();
 	void onCollision(Object* ob, int dir)override;

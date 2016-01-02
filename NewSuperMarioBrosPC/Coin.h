@@ -44,6 +44,7 @@ public:
 	static const string OBJECT_NAME;
 	StaticCoin(int X, int Y, int Width, int Height, Animation* anim, CSprite * Sprite);
 	StaticCoin(int X, int Y, int Width, int Height, CSprite * Sprite);
+	void switchToGoldBrick();
 	string getName();
 	void onCollision(Object * ob, int dir);
 };

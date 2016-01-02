@@ -1,4 +1,5 @@
 #include "Coin.h"
+#include "GoldBrick.h"
 
 const string Coin::OBJECT_NAME = "coin";
 
@@ -84,4 +85,12 @@ Animation* StaticCoin::createAnimation(){
 }
 void StaticCoin::render(int vpx, int vpy){
 	mSprite->Render(createAnimation(), x, y, vpx, vpy);
+}
+
+void StaticCoin::switchToGoldBrick(){
+	CMarioGame* marioGame = CMarioGame::getInstance();
+	CSprite* goldBrickSprite = marioGame->goldBrickAndPButton;
+	GoldBrick* gBrick = new GoldBrick(x, y, 16, 16,0 ,goldBrickSprite);
+	ObjectManager::getInstance()->addObject(gBrick);
+	die();
 }

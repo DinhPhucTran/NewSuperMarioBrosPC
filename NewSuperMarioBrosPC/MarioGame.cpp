@@ -305,7 +305,27 @@ void CMarioGame::OnKeyUp(int KeyCode)
 		break;
 	case DIK_Z:
 		mario->isBButtonPressed = 0;
+		break;
+	case DIK_1:
+		mario->x = 1000;
+		break;
+	case DIK_2:
+		mario->x = 2000;
+		break;
+	case DIK_3:
+		mario->x = 3000;
+		break;
+	case DIK_R:
+		mario->setState(new MarioStateRaccoon(mario));
+		break;
+	case DIK_S:
+		mario->setState(new MarioStateSmall(mario));
+		break;
+	case DIK_I:
+		mario->setState(new MarioStateSuperInvincible(mario));
+		break;
 	}
+	
 }
 
 void CMarioGame::LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler, char* file)

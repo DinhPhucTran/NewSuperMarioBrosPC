@@ -5,6 +5,7 @@
 class Timer{
 private:
 	DWORD mLastTime;
+	int mIsReset;
 public:
 	Timer(){
 		mLastTime = 0;
@@ -14,12 +15,16 @@ public:
 	}
 	void reset(){
 		mLastTime = 0;
+		mIsReset = 1;
 	}
 	int getIntervalTime(){
 		return (GetTickCount() - mLastTime);
 	}
 	DWORD getTickCount(){
 		return mLastTime;
+	}
+	int isReset(){
+		return mIsReset;
 	}
 };
 

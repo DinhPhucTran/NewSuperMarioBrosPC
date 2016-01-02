@@ -85,7 +85,13 @@ void GoldBrick::onCollision(Object* ob, int dir){
 	if (objName == KoopaTroopa::OBJECT_NAME || objName == RedKoopa::OBJECT_NAME){
 		KoopaTroopa* koopa = (KoopaTroopa*)ob;
 		if (koopa->getState()->getName() == KoopaSlidingState::STATE_NAME){
-			if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT){
+			if (mIsContainPButton){
+				revealPButton();
+			}
+			else if (mIsStatic){
+				return;
+			}
+			else if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT){
 				die();
 			}
 		}
@@ -94,6 +100,7 @@ void GoldBrick::onCollision(Object* ob, int dir){
 
 
 const string PButton::OBJECT_NAME = "p_button";
+const int PButton::TIME_REVERT = 6000;
 string PButton::getName(){
 	return OBJECT_NAME;
 }
@@ -111,8 +118,14 @@ void PButton::swithGoldBrickToCoin(){
 				GoldBrick* goldBrick = (GoldBrick*)ob;
 				goldBrick->switchToCoin();
 			}
+			if (ob->getName() == StaticCoin::OBJECT_NAME){
+				//switch to GoldBrick
+				StaticCoin* staticCoin = (StaticCoin*)ob;
+				staticCoin->switchToGoldBrick();
+			}
 		}
 	}
+	mTimeRevert.start();
 	isPressed = 1;
 }
 void PButton::render(int vpx, int vpy){
@@ -135,6 +148,12 @@ void PButton::onCollision(Object* ob, int dir){
 		}
 	}
 }
+void PButton::update(int t){
+	if (mTimeRevert.getIntervalTime() >= TIME_REVERT &&mTimeRevert.getIntervalTime() < TIME_REVERT+28){
+		swithGoldBrickToCoin();
+		mTimeRevert.reset();
+	}
+}
 PButton::PButton(int x,int y, CSprite*pButtonSprite) :StaticObject(x, y, 16, 16, pButtonSprite){
-
+	mTimeRevert.reset();
 }
