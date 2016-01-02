@@ -119,6 +119,7 @@ public:
 	void onCollision(Object* ob, int dir)override;
 	void render(int vpx, int vpy)override;
 	Gooba(int x, int y, int width, int height, float vx, float vy, float vx_last, float ax, float ay, Animation* anim, CSprite * image);
+	Gooba(int x, int y, float vx);
 	void update(int t)override;
 };
 

@@ -27,7 +27,13 @@ Gooba::Gooba(int x, int y, int width, int height, float vx, float vy, float vx_l
 	mAnim = mAnimationFactory->createAnimation();
 	mAnim->SetFrameDeplay(Gooba::ANIMATION_DELAY);
 }
-
+Gooba::Gooba(int x, int y, float vx) :Object(x, y, WIDTH, HEIGHT, vx, 0, vx, 0, 0,0,0){
+	mSprite = CMarioGame::getInstance()->koopaTroopaGoombaSprite;
+	mAnimationFactory = new GoobaAnimationFactory(this);
+	mState = new GoobaNomalState(this);
+	mAnim = mAnimationFactory->createAnimation();
+	mAnim->SetFrameDeplay(Gooba::ANIMATION_DELAY);
+}
 const string Gooba::OBJECT_NAME = "gooba";
 string Gooba::getName(){
 	return OBJECT_NAME;

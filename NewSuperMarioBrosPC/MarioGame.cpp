@@ -24,7 +24,7 @@
 #include "KoopaTroopaState.h"
 #include "RedFirePiranha.h"
 #include "SuperStar.h"
-
+#include "GoobaFactory.h"
 using namespace std;
 
 const float CMarioGame::GRAVITY_VELOCOTY = GRAV_VELOCITY;
@@ -87,6 +87,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	qbSprite = new CSprite(_SpriteHandler, QBRICK_IMAGE, 16, 16, 5, 5);
 	paraGoombaSprite = new CSprite(_SpriteHandler, PARA_GOOMBA, 32, 32, 4, 4);
 	itemsSprite = new CSprite(_SpriteHandler, ITEMS_SPRITE, 16, 16, 8, 8);
+	horizontalPipe = new CSprite(_SpriteHandler, HORIZONTAL_PIPE, 34, 34, 8, 2);
 	
 
 	
@@ -103,8 +104,9 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	//marioObject->setState(new MarioStateLarge(marioObject));
 
 	SuperStar* superStar = new SuperStar(100, 100, itemsSprite);
-	
+	GoobaFactory* goombaFactory = new GoobaFactory(400, 128, 1);
 	mObjectManager->addObject(marioObject);
+	//mObjectManager->addObject(goombaFactory);
 	//mObjectManager->addObject(superStar);
 	
 
@@ -459,6 +461,10 @@ void CMarioGame::LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler,
 				RedFirePiranha* redFirePiranha = new RedFirePiranha(v[1], v[2], piranhaSprite, pipe32x40Sprite);
 				obManager->addObject(redFirePiranha);
 			}
+		}
+		else if (v[0] == 14){
+			GoobaFactory* goombaFactory = new GoobaFactory(v[1], v[2], v[3]);
+			obManager->addObject(goombaFactory);
 		}
 	
 		/*PiranhaPlant* piranhaPlant = new PiranhaPlant(1808, 31 + 28, piranhaSprite, pipeSprite);
