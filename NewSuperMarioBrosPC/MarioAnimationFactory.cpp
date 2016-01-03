@@ -137,7 +137,7 @@ Animation* LargeMarioAnimationFactory::createAnimation(){
 		}
 		
 	}
-	else if (mMario->isKickKoopa.isReset() == 0){
+	else if (mMario->isKickKoopa.isReset() == 0 && mMario->isBButtonPressed == 0){
 		if (mMario->vx_last < 0)//quay trái
 			result = kickKoopaLeft;
 		else
@@ -275,7 +275,7 @@ Animation* RaccoonMarioAnimationFactory::createAnimation(){
 		else
 			result = sitDownRight;
 	}
-	else if(mMario->isKickKoopa.isReset()==0){
+	else if (mMario->isKickKoopa.isReset()==0 && mMario->isBringingKoopa == 0){
 		if (mMario->vx_last < 0)//quay trái
 			result = kickKoopaLeft;
 		else
@@ -547,7 +547,7 @@ Animation* SuperRaccoonMarioAnimationFactory::createAnimation(){
 		else
 			result = sitDownRight;
 	}
-	else if (mMario->isKickKoopa.isReset() == 0){
+	else if (mMario->isKickKoopa.isReset() == 0 && mMario->isBButtonPressed == 0){
 		if (mMario->vx_last < 0)//quay trái
 			result = kickKoopaLeft;
 		else
@@ -695,7 +695,7 @@ Animation* SuperLargeMarioAnimationFactory::createAnimation(){
 		}
 
 	}
-	else if (mMario->isKickKoopa.isReset() == 0){
+	else if (mMario->isKickKoopa.isReset() == 0 && mMario->isBButtonPressed == 0){
 		if (mMario->vx_last < 0)//quay trái
 			result = kickKoopaLeft;
 		else
