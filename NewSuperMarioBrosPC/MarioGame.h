@@ -13,7 +13,7 @@
 #include "gooba.h"
 
 
-#define MAP_LEVEL 2;
+#define MAP_LEVEL 1;
 #define DIRECT_LEFT 0;
 #define DIRECT_RIGHT 1;
 
@@ -68,7 +68,7 @@ public:
 	LPD3DXFONT fontArial;
 	ObjectManager* mObjectManager = ObjectManager::getInstance();
 	Mario* mario;
-
+	MarioState *lastState;
 	DWORD last_time;		// this is to control the animate rate of kitty
 
 	//LPDIRECT3DSURFACE9 Background;
@@ -93,6 +93,7 @@ public:
 
 	int score;
 	int animationDelay=0;
+	int mapLevel = MAP_LEVEL;
 protected:
 	LPDIRECT3DSURFACE9 _Background;
 

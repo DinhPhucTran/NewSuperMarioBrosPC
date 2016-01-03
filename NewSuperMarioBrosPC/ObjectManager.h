@@ -17,6 +17,7 @@ public:
 	static ObjectManager* getInstance();
 	void addObject(Object*ob);
 	int removeObject(Object* ob);//đánh dấu ob thành NULL
+	void removeAllObject();
 	//int removeObject(int position);
 	void checkCollition();
 	Mario* getMario();

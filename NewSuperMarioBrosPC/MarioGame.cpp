@@ -60,26 +60,16 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	srand((unsigned)time(NULL));
 	D3DXCreateSprite(d3ddv, &_SpriteHandler);
 
-	///font debug
-	//D3DXCreateFont(d3ddv, 30, 30, FW_BOLD, 0, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, TEXT("Arial"), &fontArial);
-	
-	//end
-
-	//_Background = CreateSurfaceFromFile(_d3ddv, BACKGROUND_FILE);
-
 	HRESULT res = D3DXCreateSprite(_d3ddv, &_SpriteHandler);
-
 	
 	//khởi tạo mario
 	mario_x = 20;
-	mario_y = GROUND_Y + 100;;
-
-	
+	mario_y = 100;	
 	mario_vx = 0;
 	mario_vx_last = 1.0f;
 	mario_vy = 0;
 
-
+	////init sprites
 	marioSprite = new CSprite(_SpriteHandler, MARIO_LARGE_IMAGE, 32, 32, 195, 10);
 	piranhaSprite = new CSprite(_SpriteHandler, PIRANHA_PLANT, 20, 36, 100, 10);
 	pipeSprite = new CSprite(_SpriteHandler, PIPE_IMAGE, 32, 32, 1, 1);
@@ -92,26 +82,34 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	horizontalPipe = new CSprite(_SpriteHandler, HORIZONTAL_PIPE, 34, 34, 8, 2);
 	doorPipeSprite = new CSprite(_SpriteHandler, PIPEDOOR_IMAGE, 32, 32, 4, 4);
 	
-
+	//return to last state
+	Mario* marioObject;
+	if (lastState != NULL)
+	{
+		marioObject = new Mario(mario_x, mario_y, 32, 32, mario_vx, 0, 0, 0, 0, NULL, marioSprite, NULL, NULL);
+		if (lastState->getName() == MarioStateLarge::STATE_NAME)
+			marioObject->setState(new MarioStateLarge(marioObject));
+		else if (lastState->getName() == MarioStateSuperInvincible::STATE_NAME)
+			marioObject->setState(new MarioStateSuperInvincible(marioObject));
+		else if (lastState->getName() == MarioStateRaccoon::STATE_NAME)
+			marioObject->setState(new MarioStateRaccoon(marioObject));
+		else
+			marioObject->setState(new MarioStateSmall(marioObject));
+	}
+		
+	else
+	{
+		marioObject = new Mario(mario_x, mario_y, 32, 32, mario_vx, 0, 0, 0, 0, NULL, marioSprite, NULL, NULL);
+		marioObject->setState(new MarioStateLarge(marioObject));
+		marioObject->setState(new MarioStateSuperInvincible(marioObject));
+	}
 	
-	Mario* marioObject = new Mario(mario_x, mario_y, 32, 32, mario_vx, 0, 0, 0, 0, NULL, marioSprite, NULL, NULL);
-
-	marioObject->setState(new MarioStateLarge(marioObject));
-	marioObject->setState(new MarioStateSuperInvincible(marioObject));
-	
-	//marioObject->setAnimationFactory(SmallMarioAnimationFactory::getInstance(marioObject));
-	//marioObject->setState(new MarioStateSmall(marioObject));
-	//marioObject->setAnimationFactory(RaccoonMarioAnimationFactory::getInstance(marioObject));
-
-	//marioObject->setAnimationFactory(LargeMarioAnimationFactory::getInstance(marioObject));
-	//marioObject->setState(new MarioStateLarge(marioObject));
 
 	SuperStar* superStar = new SuperStar(100, 100, itemsSprite);
 	GoobaFactory* goombaFactory = new GoobaFactory(400, 128, 1);
 	mObjectManager->addObject(marioObject);
 	//mObjectManager->addObject(goombaFactory);
 	//mObjectManager->addObject(superStar);
-	
 
 	
 		
@@ -121,8 +119,6 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	
 	
 	CSprite *backgroundImage = new CSprite(_SpriteHandler, SCROLLBG_IMAGE, 4096, 432, 1, 1);
-	
-	int mapLevel = MAP_LEVEL;
 	if (mapLevel == 1){
 		foregroundImage = new CSprite(_SpriteHandler, FOREGROUND_IMAGE, 2848, 720, 1, 1);
 		LoadMap(mObjectManager, _SpriteHandler, "map1-1.txt");
@@ -147,6 +143,17 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	
 	mObjectManager->checkCollition();
 
+	////go to next map
+	if (mario->x > 2700)
+	{
+		lastState = mario->getState();
+		mObjectManager->removeAllObject();
+		if (mapLevel == 1)
+			mapLevel = 2;
+		else
+			mapLevel = 1;
+		LoadResources(d3ddv);
+	}
 	////paralaxBackground
 	scrollBG->update(t);
 	scrollBG->ay = 0;
@@ -167,25 +174,16 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 			scrollBG->vx = -0.1f;
 		marioXlast = mario->x;
 	}
-	
-	////////
-
-	// Background
-	/*d3ddv->StretchRect(
-	_Background,			// from
-	NULL,				// which portion?
-	_BackBuffer,		// to
-	NULL,				// which portion?
-	D3DTEXF_NONE);*/
-
+	//////
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-	int mapLevel = MAP_LEVEL;
 	int vpx;
 	int vpy;
 	if (mario->y > 120)
 	{
 		vpx = mario->x - 90;
 		vpy = mario->y + 72;
+		if (vpy > 420)
+			vpy = 420;
 	}
 	else if (mario->y < -20)
 	{
@@ -210,7 +208,7 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	
 	//int vpx = xc;
 	if (vpx <= 0) vpx = 0;
-	if (vpx >= 2480) vpx = 2480;
+	if (vpx >= 2490) vpx = 2490;
 	//xc += 1;
 	
 	
@@ -234,9 +232,8 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	rect.right = 640;//240
 	rect.bottom = 100;
 	char buffer[64] = { 0 };
-	sprintf_s(buffer, "Mx: %d / My: %d                ", mario->x, mario->y);//Mx: %d / My: %d
+	sprintf_s(buffer, "Mx: %d / My: %d                ", mario->x, mario->y);
 	MarioPowerBar* powerBar = mario->getPowerBar();
-	//sprintf_s(buffer, "%f %d", mario->getPowerBar()->getState(), mario->getPowerBar()->isPower());
 	fontArial->DrawTextA(NULL, buffer, 20, &rect, DT_LEFT, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 

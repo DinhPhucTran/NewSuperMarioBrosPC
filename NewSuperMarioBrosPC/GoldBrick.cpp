@@ -101,7 +101,7 @@ void GoldBrick::onCollision(Object* ob, int dir){
 
 
 const string PButton::OBJECT_NAME = "p_button";
-const int PButton::TIME_REVERT = 10000;
+const int PButton::TIME_REVERT = 20000;
 string PButton::getName(){
 	return OBJECT_NAME;
 }

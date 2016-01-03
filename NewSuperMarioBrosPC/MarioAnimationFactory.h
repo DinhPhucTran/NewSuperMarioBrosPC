@@ -277,7 +277,7 @@ private:
 	static MarioBigGoingToBonusRoomAnimationFactory* sInstance;
 
 public:
-	Animation *anim = new Animation(36, 36);
+	Animation *anim = new Animation(119, 119);
 	static MarioBigGoingToBonusRoomAnimationFactory* getInstance(Mario* mario);
 	Animation* createAnimation()override;
 };
@@ -289,7 +289,7 @@ private:
 	static MarioRaccoonGoingToBonusRoomAnimationFactory* sInstance;
 
 public:
-	Animation *anim = new Animation(119, 119);
+	Animation *anim = new Animation(36, 36);
 	static MarioRaccoonGoingToBonusRoomAnimationFactory* getInstance(Mario* mario);
 	Animation* createAnimation()override;
 };

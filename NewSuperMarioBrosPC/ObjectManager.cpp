@@ -218,3 +218,8 @@ void ObjectManager::refeshList(){
 vector<Object*> ObjectManager::getStaticObjectList(){
 	return mListStaticObject;
 }
+
+void ObjectManager::removeAllObject(){
+	mListObject.clear();
+	mListStaticObject.clear();
+}
