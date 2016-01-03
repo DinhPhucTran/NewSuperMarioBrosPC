@@ -33,6 +33,7 @@ private:
 	int mIsStatic = 0;
 public:
 	static const string NORMAL_STATE;
+	static const string STATIC_STATE;
 	Animation* mAnimation = new Animation(0, 4);
 	Animation* mStaticBrickAnimation = new Animation(7, 7);
 	void setState(string QbrickState);

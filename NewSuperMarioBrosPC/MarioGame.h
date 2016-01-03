@@ -13,7 +13,7 @@
 #include "gooba.h"
 
 
-#define MAP_LEVEL 1;
+#define MAP_LEVEL 2;
 #define DIRECT_LEFT 0;
 #define DIRECT_RIGHT 1;
 
@@ -26,6 +26,7 @@
 #define FOREGROUND_IMAGE_2 L"foreground2.png"
 #define QBRICK_IMAGE L"qBrick.png"
 #define SCROLLBG_IMAGE L"scrollBG3.png"
+#define SCROLLBG_IMAGE_2 L"scrollBGHills.png"
 #define GOLDBRICK_IMAGE_AND_BUTTON L"goldBrickAndButton.png"
 #define PIRANHA_PLANT L"PiranhaPlant10x20x36.png"
 #define PIPE_IMAGE L"pipe32.png"

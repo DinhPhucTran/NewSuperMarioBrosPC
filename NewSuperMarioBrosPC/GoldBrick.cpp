@@ -5,6 +5,7 @@
 #include "MarioGame.h"
 #include "MarioRaccoonTail.h"
 const string GoldBrick::NORMAL_STATE = "normal_gold_brick_state";
+const string GoldBrick::STATIC_STATE = "static_gold_brick";
 GoldBrick::GoldBrick(int x, int y, int width, int height, Animation* anim, CSprite * image,int isContainPButton) :
 StaticObject(x, y, width, height, anim, image){
 	mIsContainPButton = isContainPButton;

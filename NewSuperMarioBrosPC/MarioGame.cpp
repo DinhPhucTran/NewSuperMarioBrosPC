@@ -110,15 +110,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	//mObjectManager->addObject(superStar);
 	
 
-	int mapLevel = MAP_LEVEL;
-	if (mapLevel == 1){
-		foregroundImage = new CSprite(_SpriteHandler, FOREGROUND_IMAGE, 2848, 720, 1, 1);
-		LoadMap(mObjectManager, _SpriteHandler, "map1-1.txt");
-	}
-	else{
-		foregroundImage = new CSprite(_SpriteHandler, FOREGROUND_IMAGE_2, 2848, 720, 1, 1);
-		LoadMap(mObjectManager, _SpriteHandler, "map1-2.txt");
-	}
+	
 		
 
 	D3DXCreateFont(d3ddv, 30, 0, FW_BOLD, 0, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, TEXT("Arial"), &fontArial);
@@ -126,10 +118,20 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	
 	
 	CSprite *backgroundImage = new CSprite(_SpriteHandler, SCROLLBG_IMAGE, 4096, 432, 1, 1);
+	
+	int mapLevel = MAP_LEVEL;
+	if (mapLevel == 1){
+		foregroundImage = new CSprite(_SpriteHandler, FOREGROUND_IMAGE, 2848, 720, 1, 1);
+		LoadMap(mObjectManager, _SpriteHandler, "map1-1.txt");
+		backgroundImage = new CSprite(_SpriteHandler, SCROLLBG_IMAGE, 4096, 432, 1, 1);
+	}
+	else{
+		foregroundImage = new CSprite(_SpriteHandler, FOREGROUND_IMAGE_2, 2848, 720, 1, 1);
+		LoadMap(mObjectManager, _SpriteHandler, "map1-2.txt");
+		backgroundImage = new CSprite(_SpriteHandler, SCROLLBG_IMAGE_2, 4096, 432, 1, 1);
+	}
 	Animation *bgAnim = new Animation(0, 0);
 	scrollBG = new Object(1000, 216, 4096, 432, 0, 0, 0, 0, 0, bgAnim, backgroundImage);
-	
-	
 	mario = mObjectManager->getMario();
 
 }
