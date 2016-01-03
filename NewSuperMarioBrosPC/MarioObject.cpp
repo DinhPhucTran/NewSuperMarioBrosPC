@@ -143,7 +143,8 @@ void Mario::die(){
 		nextState = (new MarioStateSmall(this));
 	}
 	else{
-		Object::die();
+		setState(new MarioStateDie(this));
+		return;
 	}
 	setState(new MarioStateInvincible(this, nextState));
 	/*y += 50;

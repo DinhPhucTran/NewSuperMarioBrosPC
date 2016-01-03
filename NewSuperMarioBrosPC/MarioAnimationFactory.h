@@ -247,4 +247,14 @@ public:
 	~SuperLargeMarioAnimationFactory();
 };
 
+class DieAnimationFactory : public AnimationFactory{
+	Mario* mMario;
+	DieAnimationFactory(Mario* mario);
+	static DieAnimationFactory* sInstance;
+public:
+	Animation* mDieAnimation = new Animation(68, 68);
+	Animation* createAnimation()override;
+	static DieAnimationFactory* getInstance(Mario * mario);
+};
+
 #endif

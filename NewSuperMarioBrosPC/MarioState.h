@@ -107,4 +107,13 @@ public:
 	void onAPress()override;
 	void onBPress()override;
 };
+
+class MarioStateDie :public MarioState{
+public:
+	static const string STATE_NAME;
+	MarioStateDie(Mario* mario);
+	void onCollision(Object *ob, int dir)override;//rơi tự do không va chạm
+	string getName();
+	AnimationFactory* getAnimationFactory()override;
+};
 #endif

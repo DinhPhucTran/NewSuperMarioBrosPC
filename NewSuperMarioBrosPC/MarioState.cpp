@@ -536,3 +536,22 @@ void MarioStateSuperInvincible::onAPress(){
 void MarioStateSuperInvincible::onBPress(){
 	mLastState->onBPress();
 }
+
+
+/////////////////////////MarioStateDie///////////////////////
+const string MarioStateDie::STATE_NAME = "mario_state_die";
+string MarioStateDie::getName(){
+	return STATE_NAME;
+}
+
+void MarioStateDie::onCollision(Object*ob,int dir){
+	return;
+}
+
+AnimationFactory* MarioStateDie::getAnimationFactory(){
+	return DieAnimationFactory::getInstance(mMario);
+}
+
+MarioStateDie::MarioStateDie(Mario* mario):MarioState(mario){
+	mario->vy = 0.35f;
+}

@@ -275,7 +275,7 @@ Animation* RaccoonMarioAnimationFactory::createAnimation(){
 		else
 			result = sitDownRight;
 	}
-	else if (mMario->isKickKoopa.isReset()==0 && mMario->isBringingKoopa == 0){
+	else if (mMario->isKickKoopa.isReset()==0 && mMario->isBButtonPressed == 0){
 		if (mMario->vx_last < 0)//quay trái
 			result = kickKoopaLeft;
 		else
@@ -771,4 +771,20 @@ SuperLargeMarioAnimationFactory::~SuperLargeMarioAnimationFactory(){
 	delete leftStandAnim;
 	delete rightStandAnim;
 
+}
+///////////////////////////DieAnimationFactory
+
+DieAnimationFactory* DieAnimationFactory::sInstance;
+DieAnimationFactory::DieAnimationFactory(Mario* mario){
+	mMario - mario;
+}
+DieAnimationFactory* DieAnimationFactory::getInstance(Mario* mario){
+	if (sInstance == 0){
+		sInstance = new DieAnimationFactory(mario);
+	}
+	return sInstance;
+}
+Animation* DieAnimationFactory::createAnimation(){
+	mDieAnimation->Update();
+	return mDieAnimation;
 }
