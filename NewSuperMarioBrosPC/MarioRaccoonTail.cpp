@@ -3,6 +3,15 @@
 #include "Physics.h"
 #include "Qbrick.h"
 #include "Pipe.h"
+#include "KoopaTroopa.h"
+#include "RedFirePiranha.h"
+#include "RedKoopa.h"
+#include "FirePiranha.h"
+#include "PiranhaPlant.h"
+#include "gooba.h"
+#include "MarioGame.h"
+#include "GoldBrick.h"
+
 const string MarioRaccoonTail::OBJECT_NAME = "mario_raccoon_tail";
 const int MarioRaccoonTail::WIDTH = 10;
 const int MarioRaccoonTail::HEIGHT = 6;
@@ -12,6 +21,7 @@ const string MarioRaccoonTail::DIRECTION_LEFT = "direction_left";
 const string MarioRaccoonTail::DIRECTION_RIGHT = "direction_right";
 const string MarioRaccoonTail::STATE_ACTIVE = "active_tail";
 const string MarioRaccoonTail::STATE_INACTIVE = "inactive_tail";
+const int MarioRaccoonTail::EXPLOSION_TIME = 400;
 
 string MarioRaccoonTail::getName(){
 	return OBJECT_NAME;
@@ -21,7 +31,8 @@ MarioRaccoonTail::MarioRaccoonTail(Mario* mario,int x, int y, int width, int hei
 	mMario = mario;
 	mLastTime = GetTickCount();
 	mState = STATE_INACTIVE;
-
+	mIsCollided.reset();
+	mSprite = CMarioGame::getInstance()->marioSprite;
 }
 MarioRaccoonTail::MarioRaccoonTail():Object(0,0,MarioRaccoonTail::WIDTH,MarioRaccoonTail::HEIGHT){
 	mLastTime = GetTickCount();
@@ -32,12 +43,14 @@ MarioRaccoonTail::MarioRaccoonTail():Object(0,0,MarioRaccoonTail::WIDTH,MarioRac
 		x = mMario->x;
 		y = mMario->y;
 	}
-	
+	mIsCollided.reset();
+	mSprite = CMarioGame::getInstance()->marioSprite;
 	mState = STATE_INACTIVE;
 }
 void MarioRaccoonTail::render(int vpx, int vpy){
 	//nếu va chạm thì vẽ hiệu ứng va chạm
 
+	mSprite->Render(createAnimation(), mCollisionX, mCollisionY, vpx, vpy);
 	
 }
 void MarioRaccoonTail::onCollision(Object* ob, int dir){
@@ -55,6 +68,20 @@ void MarioRaccoonTail::onCollision(Object* ob, int dir){
 		}
 		else if (dir == Physics::COLLIDED_FROM_TOP){
 			
+		}
+	}
+	if (objName == Gooba::OBJECT_NAME 
+		|| objName == PiranhaPlant::OBJECT_NAME
+		|| objName == FirePiranha::OBJECT_NAME
+		|| objName == RedFirePiranha::OBJECT_NAME
+		|| objName == KoopaTroopa::OBJECT_NAME
+		|| objName == RedKoopa::OBJECT_NAME
+		|| objName == GoldBrick::OBJECT_NAME)
+	{
+		if (mState == STATE_ACTIVE){
+			mCollisionX = ob->x;
+			mCollisionY = ob->y;
+			mIsCollided.start();
 		}
 	}
 }
@@ -185,7 +212,9 @@ void MarioRaccoonTail::update(int t){
 	if (mState == STATE_INACTIVE){
 		x = mMario->x; y = mMario->y;
 	}
-	
+	if (mIsCollided.isReset() == 0 && mIsCollided.getIntervalTime()>EXPLOSION_TIME){
+		mIsCollided.reset();
+	}
 	
 }
 MarioRaccoonTail* MarioRaccoonTail::sIntance;
@@ -203,4 +232,16 @@ MarioRaccoonTail* MarioRaccoonTail::getInstance(){
 }
 int MarioRaccoonTail::isStaticObject(){
 	return 0;
+}
+
+Animation* MarioRaccoonTail::createAnimation(){
+	Animation* result = 0;
+	if (mState == STATE_ACTIVE && mIsCollided.isReset() == 0){
+		result = explosionAnimation;
+	}
+	else{
+		result = blankAnimation;
+	}
+	result->Update();
+	return result;
 }
