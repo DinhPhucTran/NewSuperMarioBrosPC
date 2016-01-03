@@ -131,12 +131,15 @@ void MarioState::onCollision(Object* ob,int dir){
 		string state = koopa->getState()->getName();
 		if (state == KoopaNomalState::STATE_NAME || state == KoopaParaState::STATE_NAME){
 			if (dir == Physics::COLLIDED_FROM_BOTTOM){
+				
 				mMario->y = ob->top() + mMario->height / 2;
 				mMario->vy = 0;
 				mMario->jumpUp();
+				return;
 			}
 			else if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT || dir == Physics::COLLIDED_FROM_TOP){
 				mMario->die();
+				return;
 			}
 			//nếu trái phải thì chết
 		}
@@ -149,6 +152,9 @@ void MarioState::onCollision(Object* ob,int dir){
 			else if (dir == Physics::COLLIDED_FROM_LEFT || dir == Physics::COLLIDED_FROM_RIGHT){
 				mMario->die();
 			}
+		}
+		else if (state == KoopaVulnerableState::STATE_NAME || state == KoopaUpsideDown::STATE_NAME){
+			mMario->isKickKoopa.start();
 		}
 	}
 	if (objectName == Gooba::OBJECT_NAME){
@@ -184,7 +190,10 @@ void MarioState::onCollision(Object* ob,int dir){
 	if (objectName == PiranhaPlant::OBJECT_NAME || objectName == FirePiranha::OBJECT_NAME || objectName == FireBall::OBJECT_NAME){
 		mMario->die();
 	}
-	
+	if (mMario->isKickKoopa.isReset() == 0){
+		if (mMario->isKickKoopa.getIntervalTime() >= 200)
+			mMario->isKickKoopa.reset();
+	}
 }
 string MarioState::getName(){
 	return "mario_state";

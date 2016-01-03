@@ -12,6 +12,7 @@ public:
 	}
 	void start(){
 		mLastTime = GetTickCount();
+		mIsReset = 0;
 	}
 	void reset(){
 		mLastTime = 0;
