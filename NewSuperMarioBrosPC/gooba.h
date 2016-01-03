@@ -89,6 +89,24 @@ public:
 	void update(int t)override;
 };
 
+//class GoobaBomerState :public GoobaState{
+//protected:
+//	Gooba* mGooba;
+//	Mario* mMario;
+//public:
+//	Timer mTimeToFly;//4000ms
+//	Timer mTimeToHuntMario;
+//	static const int MAX_Y;//120
+//	static const float SPEED_Y;
+//	static const int TIME_TO_FLY;//4000
+//	static const string STATE_NAME;
+//	string getName()override;
+//	GoobaBomerState(Gooba* gooba);
+//	void onCollision(Object* ob, int dir)override;
+//	void unloadMiniGoomba();
+//	void update(int t)override;
+//};
+//
 
 
 class Gooba : public Object{
