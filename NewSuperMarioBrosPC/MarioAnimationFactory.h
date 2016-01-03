@@ -203,6 +203,9 @@ public:
 	Animation *sitDownLeft = new Animation(116, 116);
 	Animation *sitDownRight = new Animation(117, 117);
 
+	Animation *RollLeft = new Animation(130, 133,1);
+	Animation *RollRight = new Animation(134, 137,1);
+
 	Animation* createAnimation()override;
 	~SuperRaccoonMarioAnimationFactory();
 };

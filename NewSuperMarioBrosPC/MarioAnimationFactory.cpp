@@ -508,15 +508,23 @@ Animation* SuperRaccoonMarioAnimationFactory::createAnimation(){
 	else if (mMario->isFlying == 1){
 		if (mMario->vy > 0){//flying up
 			if (mMario->vx_last < 0)//quay trái
-				result = RaccoonFlyingUpLeft;
+				result = RaccoonFlyingUpLeft;				
 			else
 				result = RaccoonFlyingUpRight;
 		}
 		else {//flying down
 			if (mMario->vx_last < 0)//quay trái
-				result = RaccoonFlyingLeft;
-			else
-				result = RaccoonFlyingRight;
+			{//result = RaccoonFlyingLeft;
+				result = RollLeft;
+				result->Update();
+				return result;
+			}				
+			else{
+				//result = RaccoonFlyingRight;
+				result = RollRight;
+				result->Update();
+				return result;
+			}	
 		}
 	}
 	else if (mMario->isSitDown){
@@ -542,9 +550,18 @@ Animation* SuperRaccoonMarioAnimationFactory::createAnimation(){
 	else if (mMario->vy > 0)//vy>0 => mario nhảy lên, vy<0 =>mario đang rớt xuống
 	{
 		if (mMario->vx_last < 0)//quay trái
-			result = leftJumpUpAnim;
-		else
-			result = rightJumpUpAnim;
+		{
+			//result = leftJumpUpAnim;
+			result = RollLeft;
+			result->Update();
+			return result;
+		}
+		else{
+			//result = rightJumpUpAnim;
+			result = RollRight;
+			result->Update();
+			return result;
+		}
 	}
 	else if (mMario->vy == 0)
 	{//vy==0 mario đang đứng trên vật thể 
@@ -573,10 +590,18 @@ Animation* SuperRaccoonMarioAnimationFactory::createAnimation(){
 	else {//mario đang rơi
 		if (mMario->vx_last < 0)//quay trái
 		{
-			result = leftJumpDownAnim;
+			//result = leftJumpDownAnim;
+			result = RollLeft;
+			result->Update();
+			return result;
 		}
-		else
-			result = rightJumpDownAnim;
+		else{
+			//result = rightJumpDownAnim;
+			result = RollRight;
+			result->Update();
+			return result;
+		}
+			
 	}
 
 	int frameDelay = result->frameDelay;
