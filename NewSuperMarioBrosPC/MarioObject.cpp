@@ -20,6 +20,8 @@ const float Mario::MAX_SPEED_Y = 0.35f;//0.45
 const float Mario::POWER_JUMP_UP_SPEED = 0.05f;
 
 const int Mario::INVINCIBLE_SWITCH_STATE_TIME = 1000;
+const int Mario::SITDOWN_HEIGHT = 16;
+const int Mario::SITDOWN_WIDTH = 16;
 
 MarioState* Mario::getState(){
 	return mMarioState;
@@ -45,6 +47,7 @@ Mario::Mario(int x, int y, int width, int height, int vx, int vy, int vx_last, f
 	isBButtonPressed = 0;
 	isLeftButtonPressed = 0;
 	isRightButtonPressed = 0;
+	isKickKoopa.reset();
 	score = 0;
 }
 const string Mario::OBJECT_NAME = "mario_object";
@@ -102,6 +105,21 @@ void Mario::jumpUp(){
 void Mario::powerJumpUp(){
 	if (vy == 0){
 		ay = Mario::ACCELERATION_Y_PLUS;
+	}
+}
+void Mario::sitDown(){
+	if (vy == 0 && vx==0)
+	{
+		width = 16;
+		height = 16;
+		isSitDown = 1;
+	}
+}
+void Mario::standUp(){
+	if (isSitDown == 1){
+		width = getState()->getWidth();
+		height = getState()->getHeight();
+		isSitDown = 0;
 	}
 }
 void Mario::stop(){

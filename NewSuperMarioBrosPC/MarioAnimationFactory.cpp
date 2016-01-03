@@ -137,6 +137,18 @@ Animation* LargeMarioAnimationFactory::createAnimation(){
 		}
 		
 	}
+	else if (mMario->isKickKoopa.isReset() == 0){
+		if (mMario->vx_last < 0)//quay trái
+			result = kickKoopaLeft;
+		else
+			result = kickKoopaRight;
+	}
+	else if (mMario->isSitDown){
+		if (mMario->vx_last < 0)//quay trái
+			result = sitDownLeft;
+		else
+			result = sitDownRight;
+	}
 	else if (mMario->vy == 0)
 	{//vy==0 mario đang đứng trên vật thể 
 		if (mMario->vx_last < 0)//quay trái
@@ -242,6 +254,18 @@ Animation* RaccoonMarioAnimationFactory::createAnimation(){
 			else
 				result = RaccoonFlyingRight;
 		}
+	}
+	else if (mMario->isSitDown){
+		if (mMario->vx_last < 0)//quay trái
+			result = sitDownLeft;
+		else
+			result = sitDownRight;
+	}
+	else if(mMario->isKickKoopa.isReset()==0){
+		if (mMario->vx_last < 0)//quay trái
+			result = kickKoopaLeft;
+		else
+			result = kickKoopaRight;
 	}
 	else if (mMario->getPowerBar()->isPower()&&mMario->vx!=0){
 		if (mMario->vx_last > 0){

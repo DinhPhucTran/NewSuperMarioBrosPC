@@ -72,6 +72,12 @@ public:
 	Animation *powerJumpLeft = new Animation(49, 49);
 	Animation *powerJumpRight = new Animation(34, 34);
 
+	Animation *kickKoopaLeft = new Animation(90, 90);
+	Animation *kickKoopaRight = new Animation(91, 91);
+
+	Animation *sitDownLeft = new Animation(22, 22);
+	Animation *sitDownRight = new Animation(23, 23);
+
 	Animation* createAnimation()override;
 	~LargeMarioAnimationFactory();
 };
@@ -109,6 +115,12 @@ public:
 
 	Animation* powerRunLeft = new Animation(56, 58,2);
 	Animation* powerRunRight = new Animation(53, 55,2);
+	
+	Animation* kickKoopaLeft = new Animation(66, 66);
+	Animation* kickKoopaRight = new Animation(67, 67);
+
+	Animation *sitDownLeft = new Animation(59, 59);
+	Animation *sitDownRight = new Animation(69, 69);
 
 	Animation* createAnimation()override;
 	~RaccoonMarioAnimationFactory();
@@ -121,7 +133,7 @@ private:
 	static InvincibleMarioAnimationFactory* sInstance;
 	bool isBlanked;
 public:
-	Animation* blankAnimation = new Animation(69, 69);
+	Animation* blankAnimation = new Animation(-1, -1);
 	Animation* createAnimation()override;
 	static InvincibleMarioAnimationFactory* getInstance(Mario* mario);
 };

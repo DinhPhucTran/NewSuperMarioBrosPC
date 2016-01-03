@@ -219,18 +219,12 @@ void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 				mario->ay += Mario::ACCELERATION_Y_PLUS - Mario::ACCELERATION_Y;
 				lastTimeAPress = 0;//để chặn việc liên tục tăng ay, chỉ cộng vào ay 1 lần
 			}
-		}
-			
-			
+		}		
 	}
-	
-	//if (IsKeyDown(DIK_Z)){
-	//	mario->isBButtonPressed = 1;
-	//}
-	//else{
-	//	mario->isBButtonPressed = 0;
-	//}
-
+	if (IsKeyDown(DIK_DOWN)){
+		mario->sitDown();
+		return;
+	}
 	if (IsKeyDown(DIK_RIGHT))
 	{
 		mario->isRightButtonPressed = 1;
@@ -291,7 +285,6 @@ void CMarioGame::OnKeyDown(int KeyCode)
 		mario->isBButtonPressed = 1;
 		mario->onBPress();
 		break;
-	}
 	
 }
 
@@ -305,6 +298,9 @@ void CMarioGame::OnKeyUp(int KeyCode)
 		break;
 	case DIK_Z:
 		mario->isBButtonPressed = 0;
+		break;
+	case DIK_DOWN:
+		mario->standUp();
 		break;
 	case DIK_1:
 		mario->x = 1000;
@@ -320,6 +316,9 @@ void CMarioGame::OnKeyUp(int KeyCode)
 		break;
 	case DIK_S:
 		mario->setState(new MarioStateSmall(mario));
+		break;
+	case DIK_L:
+		mario->setState(new MarioStateLarge(mario));
 		break;
 	case DIK_I:
 		mario->setState(new MarioStateSuperInvincible(mario));

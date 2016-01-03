@@ -3,6 +3,7 @@
 
 #include <string>
 #include "object.h"
+#include "Timer.h"
 using namespace std;
 class MarioState;//khai báo lớp MarioState,
 class AnimationFactory;//khai báo có lớp MarioAnimationFactory
@@ -17,6 +18,8 @@ public:
 	int isAButtonPressed=0;
 	int isBButtonPressed=0;
 	int isFlying;
+	Timer isKickKoopa;
+	int isSitDown = 0;
 	int score;
 	static const float FLYING_Y_SPEED;
 	static const float FLYING_X_SPEED;
@@ -28,6 +31,8 @@ public:
 	static const float MAX_SPEED_Y;
 	static const float POWER_JUMP_UP_SPEED;
 	static const int INVINCIBLE_SWITCH_STATE_TIME;//1000 ms
+	static const int SITDOWN_WIDTH;
+	static const int SITDOWN_HEIGHT;
 
 
 	AnimationFactory* mAnimationFactory;
@@ -43,6 +48,8 @@ public:
 	void update(int t)override;
 	void jumpUp();
 	void powerJumpUp();
+	void sitDown();
+	void standUp();
 	void stop();
 	void die()override;
 	MarioPowerBar* getPowerBar();
