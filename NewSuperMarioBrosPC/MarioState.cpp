@@ -94,7 +94,7 @@ void MarioState::onCollision(Object* ob,int dir){
 			return;
 		}
 	}
-	if ((objectName == BrickGround::OBJECT_NAME || objectName == Pipe::OBJECT_NAME || objectName == QBrick::OBJECT_NAME || objectName == GoldBrick::OBJECT_NAME) && mMario->getState()->getName() != MarioStateGoingToBonusRoom::STATE_NAME)
+	if (objectName == BrickGround::OBJECT_NAME || ((objectName == Pipe::OBJECT_NAME || objectName == QBrick::OBJECT_NAME || objectName == GoldBrick::OBJECT_NAME) && mMario->getState()->getName() != MarioStateGoingToBonusRoom::STATE_NAME))
 	{
 		if (dir == Physics::COLLIDED_FROM_TOP){
 			if (objectName == QBrick::OBJECT_NAME){
@@ -130,13 +130,13 @@ void MarioState::onCollision(Object* ob,int dir){
 	}
 	if (objectName == DoorPipe::OBJECT_NAME) {
 		DoorPipe * pipe = (DoorPipe*)ob;
-		if (pipe->dir == 1 && dir == Physics::COLLIDED_FROM_BOTTOM)
+		if (pipe->dir == 1 && dir == Physics::COLLIDED_FROM_BOTTOM && mMario->bottom() >= pipe->top()-5)
 		{
 			mMario->canSitDown = 0;
 			if (mMario->isGoingDown == 1)
 			{
 				mMario->setState(new MarioStateGoingToBonusRoom(mMario, pipe->outX, pipe->outY));
-			}
+			}			
 		}
 	}
 	if (objectName == Door::OBJECT_NAME) {
@@ -206,7 +206,8 @@ void MarioState::onCollision(Object* ob,int dir){
 	}
 	//xử lý với PiranhaPlant
 	if (objectName == PiranhaPlant::OBJECT_NAME || objectName == FirePiranha::OBJECT_NAME || objectName == FireBall::OBJECT_NAME){
-		mMario->die();
+		if (mMario->getState()->getName() != MarioStateGoingToBonusRoom::STATE_NAME)
+			mMario->die();
 	}
 	if (mMario->isKickKoopa.isReset() == 0){
 		if (mMario->isKickKoopa.getIntervalTime() >= 200)
@@ -576,13 +577,14 @@ MarioStateDie::MarioStateDie(Mario* mario):MarioState(mario){
 
 /////////////////////////MarioStateGoingToBonusRoom///////////////////////
 const string MarioStateGoingToBonusRoom::STATE_NAME = "mario_going_to_bonusroom";
-const int MarioStateGoingToBonusRoom::MAINTAIN_TIME = 40;
+const int MarioStateGoingToBonusRoom::MAINTAIN_TIME = 1000;
 MarioStateGoingToBonusRoom::MarioStateGoingToBonusRoom(Mario* mario, int OutX, int OutY) :MarioState(mario){
 	mDuration.start();
 	if (mario != 0)
 		mLastState = mario->getState();
 	outX = OutX;
 	outY = OutY;
+	initY = mario->y;
 }
 string MarioStateGoingToBonusRoom::getName(){
 	return STATE_NAME;

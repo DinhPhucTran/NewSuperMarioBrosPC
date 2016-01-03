@@ -122,6 +122,7 @@ class MarioStateGoingToBonusRoom :public MarioState
 private:
 	Timer mDuration;
 	int outX, outY;
+	int initY;
 public:
 	static const int MAINTAIN_TIME;
 	MarioState* mLastState;

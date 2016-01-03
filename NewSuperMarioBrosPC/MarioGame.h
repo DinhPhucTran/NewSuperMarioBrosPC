@@ -13,7 +13,7 @@
 #include "gooba.h"
 
 
-#define MAP_LEVEL 1;
+#define MAP_LEVEL 2;
 #define DIRECT_LEFT 0;
 #define DIRECT_RIGHT 1;
 

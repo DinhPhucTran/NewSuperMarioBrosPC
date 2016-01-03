@@ -90,7 +90,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	paraGoombaSprite = new CSprite(_SpriteHandler, PARA_GOOMBA, 32, 32, 4, 4);
 	itemsSprite = new CSprite(_SpriteHandler, ITEMS_SPRITE, 16, 16, 8, 8);
 	horizontalPipe = new CSprite(_SpriteHandler, HORIZONTAL_PIPE, 34, 34, 8, 2);
-	doorPipeSprite = new CSprite(_SpriteHandler, PIPEDOOR_IMAGE, 48, 48, 4, 4);
+	doorPipeSprite = new CSprite(_SpriteHandler, PIPEDOOR_IMAGE, 32, 32, 4, 4);
 	
 
 	
@@ -129,7 +129,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 		backgroundImage = new CSprite(_SpriteHandler, SCROLLBG_IMAGE, 4096, 432, 1, 1);
 	}
 	else{
-		foregroundImage = new CSprite(_SpriteHandler, FOREGROUND_IMAGE_2, 2848, 720, 1, 1);
+		foregroundImage = new CSprite(_SpriteHandler, FOREGROUND_IMAGE_2, 2848, 928, 1, 1);
 		LoadMap(mObjectManager, _SpriteHandler, "map1-2.txt");
 		backgroundImage = new CSprite(_SpriteHandler, SCROLLBG_IMAGE_2, 4096, 432, 1, 1);
 	}
@@ -179,7 +179,7 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	D3DTEXF_NONE);*/
 
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-
+	int mapLevel = MAP_LEVEL;
 	int vpx;
 	int vpy;
 	if (mario->y > 120)
@@ -189,8 +189,18 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	}
 	else if (mario->y < -20)
 	{
-		vpx = 2240;
-		vpy = -64;
+		if (mapLevel == 1)
+		{
+			vpx = 2240;
+			vpy = -64;
+		}
+		if (mapLevel == 2)
+		{
+			vpx = 1072;
+			vpy = mario->y + 72;
+			if (vpy <= -288)
+				vpy = -288;
+		}
 	}
 	else
 	{
@@ -207,7 +217,10 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 	
 	scrollBG->render(vpx, vpy);
 
-	foregroundImage->Render(1424, 360 - 288, vpx, vpy);
+	if (mapLevel==1)
+		foregroundImage->Render(1424, 360 - 288, vpx, vpy);
+	else if (mapLevel==2)
+		foregroundImage->Render(1424, -32, vpx, vpy);
 	
 	//render all object in game
 	mObjectManager->render(vpx,vpy);
