@@ -24,7 +24,7 @@ void KoopaTroopaState::onCollision(Object*ob, int dir){
 			mKoopa->vy = 0;
 			mKoopa->ay = 0;
 			mKoopa->y = ob->top() + mKoopa->height / 2;
-			if (mKoopa->getName() == RedKoopa::OBJECT_NAME) {
+			if (mKoopa->getName() == RedKoopa::OBJECT_NAME && mKoopa->getState()->getName() != KoopaSlidingState::STATE_NAME) {
 				if (mKoopa->x > ob->right())
 				{
 					if (mKoopa->vx_last > 0){
