@@ -107,11 +107,11 @@ public:
 	Animation* RaccoonTailLeft = new Animation(38, 38);
 	Animation* RaccoonTailRight = new Animation(39, 39);
 
-	Animation* RaccoonFlyingLeft = new Animation(43, 45,3);
-	Animation* RaccoonFlyingRight = new Animation(40, 42,3);
+	Animation* RaccoonFlyingLeft = new Animation(43, 45,2);
+	Animation* RaccoonFlyingRight = new Animation(40, 42,2);
 	
-	Animation* RaccoonFlyingUpLeft = new Animation(46, 48, 3);
-	Animation* RaccoonFlyingUpRight = new Animation(50, 52, 3);
+	Animation* RaccoonFlyingUpLeft = new Animation(46, 48, 2);
+	Animation* RaccoonFlyingUpRight = new Animation(50, 52, 2);
 
 	Animation* powerRunLeft = new Animation(56, 58,2);
 	Animation* powerRunRight = new Animation(53, 55,2);
@@ -208,6 +208,43 @@ public:
 
 	Animation* createAnimation()override;
 	~SuperRaccoonMarioAnimationFactory();
+};
+
+
+class SuperLargeMarioAnimationFactory :public AnimationFactory{
+private:
+	Mario* mMario;
+	SuperLargeMarioAnimationFactory(Mario* mario);
+	static SuperLargeMarioAnimationFactory* sInstance;
+public:
+	static SuperLargeMarioAnimationFactory* getInstance(Mario* mario);
+	Animation *rightWalkAnim = new Animation(147, 149);
+	Animation *leftWalkAnim = new Animation(143, 145);
+	Animation *rightStandAnim = new Animation(147, 147);
+	Animation *leftStandAnim = new Animation(145, 145);
+	Animation *leftJumpUpAnim = new Animation(18, 18);
+	Animation *rightJumpUpAnim = new Animation(19, 19);
+	Animation *leftJumpDownAnim = new Animation(13, 13);
+	Animation *rightJumpDownAnim = new Animation(17, 17);
+	Animation *turnRightAnimation = new Animation(150, 150);
+	Animation *turnLeftAnimation = new Animation(146, 146);
+
+	Animation *powerRunLeft = new Animation(154, 156, 2);
+	Animation *powerRunRight = new Animation(151, 153, 2);
+	Animation *powerJumpLeft = new Animation(169, 169);
+	Animation *powerJumpRight = new Animation(159, 159);
+
+	Animation *kickKoopaLeft = new Animation(138, 138);
+	Animation *kickKoopaRight = new Animation(139, 139);
+
+	Animation *sitDownLeft = new Animation(157, 157);
+	Animation *sitDownRight = new Animation(158, 158);
+
+	Animation *RollLeft = new Animation(160, 163, 1);
+	Animation *RollRight = new Animation(164, 167, 1);
+
+	Animation* createAnimation()override;
+	~SuperLargeMarioAnimationFactory();
 };
 
 #endif
