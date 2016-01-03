@@ -472,3 +472,139 @@ SuperInvincibleMarioSmallAnimationFactory* SuperInvincibleMarioSmallAnimationFac
 		sInstance->mMario = mario;
 	return sInstance;
 }
+////////////////////////////////////////////////////////////
+SuperRaccoonMarioAnimationFactory::SuperRaccoonMarioAnimationFactory(Mario* mario){
+	mMario = mario;
+}
+
+//define singleton
+SuperRaccoonMarioAnimationFactory* SuperRaccoonMarioAnimationFactory::sInstance;
+SuperRaccoonMarioAnimationFactory* SuperRaccoonMarioAnimationFactory::getInstance(Mario* mario){
+	if (sInstance == NULL){
+		sInstance = new SuperRaccoonMarioAnimationFactory(mario);
+	}
+	else
+		sInstance->mMario = mario;
+	return sInstance;
+}
+
+Animation* SuperRaccoonMarioAnimationFactory::createAnimation(){
+	Animation* result;
+	MarioRaccoonTail* tail = MarioRaccoonTail::getInstance();
+	if (tail->getState() == MarioRaccoonTail::STATE_ACTIVE){
+		if (tail->mDirection == MarioRaccoonTail::DIRECTION_FRONT){
+			result = RaccoonTailFront;
+		}
+		else if (tail->mDirection == MarioRaccoonTail::DIRECTION_BACK){
+			result = RaccoonTailBack;
+		}
+		else if (tail->mDirection == MarioRaccoonTail::DIRECTION_LEFT){
+			result = RaccoonTailLeft;
+		}
+		else {
+			result = RaccoonTailRight;
+		}
+	}
+	else if (mMario->isFlying == 1){
+		if (mMario->vy > 0){//flying up
+			if (mMario->vx_last < 0)//quay trái
+				result = RaccoonFlyingUpLeft;
+			else
+				result = RaccoonFlyingUpRight;
+		}
+		else {//flying down
+			if (mMario->vx_last < 0)//quay trái
+				result = RaccoonFlyingLeft;
+			else
+				result = RaccoonFlyingRight;
+		}
+	}
+	else if (mMario->isSitDown){
+		if (mMario->vx_last < 0)//quay trái
+			result = sitDownLeft;
+		else
+			result = sitDownRight;
+	}
+	else if (mMario->isKickKoopa.isReset() == 0){
+		if (mMario->vx_last < 0)//quay trái
+			result = kickKoopaLeft;
+		else
+			result = kickKoopaRight;
+	}
+	else if (mMario->getPowerBar()->isPower() && mMario->vx != 0){
+		if (mMario->vx_last > 0){
+			result = powerRunRight;
+		}
+		else{
+			result = powerRunLeft;
+		}
+	}
+	else if (mMario->vy > 0)//vy>0 => mario nhảy lên, vy<0 =>mario đang rớt xuống
+	{
+		if (mMario->vx_last < 0)//quay trái
+			result = leftJumpUpAnim;
+		else
+			result = rightJumpUpAnim;
+	}
+	else if (mMario->vy == 0)
+	{//vy==0 mario đang đứng trên vật thể 
+		if (mMario->vx_last < 0)//quay trái
+		{
+			if (mMario->ax > 0 && mMario->isRightButtonPressed == 1){//quay phải
+				result = turnRightAnimation;
+			}
+			else if (mMario->vx != 0)//mario đang đi
+				result = leftWalkAnim;
+			else{//mario đang đứng yên
+				result = leftStandAnim;
+			}
+		}
+		else{//vx_last >0 mario đang đi trái
+			if (mMario->ax < 0 && mMario->isLeftButtonPressed == 1)//đang đổi hướng
+			{
+				result = turnLeftAnimation;
+			}
+			else if (mMario->vx != 0)//đang đi phải
+				result = rightWalkAnim;
+			else
+				result = rightStandAnim;
+		}
+	}
+	else {//mario đang rơi
+		if (mMario->vx_last < 0)//quay trái
+		{
+			result = leftJumpDownAnim;
+		}
+		else
+			result = rightJumpDownAnim;
+	}
+
+	int frameDelay = result->frameDelay;
+	float statePower = mMario->getPowerBar()->getState();
+	if (statePower >= 0.1){
+		if (frameDelay == Animation::FRAME_DELAY_DEFAULT){
+			//result->SetFrameDeplay(Animation::FRAME_DELAY_DEFAULT- (float)(Animation::FRAME_DELAY_DEFAULT*statePower));
+			result->SetFrameDeplay(4);
+		}
+	}
+	else if (statePower >= 0.4){
+		result->SetFrameDeplay(3);
+	}
+	else if (statePower >= 0.8){
+		result->SetFrameDeplay(2);
+	}
+	else{
+		result->SetFrameDeplay(Animation::FRAME_DELAY_DEFAULT);
+	}
+	result->Update();
+	return result;
+}
+
+SuperRaccoonMarioAnimationFactory::~SuperRaccoonMarioAnimationFactory(){
+
+	delete leftWalkAnim;
+	delete rightWalkAnim;
+	delete leftStandAnim;
+	delete rightStandAnim;
+
+}

@@ -514,6 +514,9 @@ AnimationFactory* MarioStateSuperInvincible::getAnimationFactory(){
 	if (mLastState->getName() == MarioStateSmall::STATE_NAME){
 		return SuperInvincibleMarioSmallAnimationFactory::getInstance(mMario);
 	}
+	else if (mLastState->getName() == MarioStateRaccoon::STATE_NAME){
+		return SuperRaccoonMarioAnimationFactory::getInstance(mMario);
+	}
 	return mLastState->getAnimationFactory();
 }
 

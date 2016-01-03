@@ -285,7 +285,7 @@ void CMarioGame::OnKeyDown(int KeyCode)
 		mario->isBButtonPressed = 1;
 		mario->onBPress();
 		break;
-	
+	}
 }
 
 

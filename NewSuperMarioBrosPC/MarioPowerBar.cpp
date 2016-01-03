@@ -26,10 +26,20 @@ void MarioPowerBar::update(){
 		}
 	}
 	string state = mMario->getState()->getName();
-	if (state == MarioStateRaccoon::STATE_NAME){
+	if (state == MarioStateRaccoon::STATE_NAME ){
 		if (mPowerTimer.getIntervalTime() >= RACCOON_POWER_TIME && mPowerTimer.getTickCount() != 0){
 			mIsPower = 0;
 			mPowerTimer.reset();
+		}
+	}
+	else if (state == MarioStateSuperInvincible::STATE_NAME){
+		MarioStateSuperInvincible* superState = (MarioStateSuperInvincible*)mMario->getState();
+		string lastState = superState->mLastState->getName();
+		if (lastState == MarioStateRaccoon::STATE_NAME){
+			if (mPowerTimer.getIntervalTime() >= RACCOON_POWER_TIME && mPowerTimer.getTickCount() != 0){
+				mIsPower = 0;
+				mPowerTimer.reset();
+			}
 		}
 	}
 	else{

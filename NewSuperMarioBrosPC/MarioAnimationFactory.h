@@ -165,4 +165,46 @@ public:
 	Animation* createAnimation()override;
 };
 
+class SuperRaccoonMarioAnimationFactory :public AnimationFactory{
+private:
+	Mario* mMario;
+	SuperRaccoonMarioAnimationFactory(Mario* mario);
+	static SuperRaccoonMarioAnimationFactory* sInstance;
+public:
+	static SuperRaccoonMarioAnimationFactory* getInstance(Mario* mario);
+	Animation *rightWalkAnim = new Animation(92, 94);
+	Animation *leftWalkAnim = new Animation(96, 98);
+	Animation *rightStandAnim = new Animation(92, 92);
+	Animation *leftStandAnim = new Animation(98, 98);
+	Animation *leftJumpUpAnim = new Animation(106, 106);
+	Animation *leftJumpDownAnim = new Animation(96, 96);
+	Animation *rightJumpUpAnim = new Animation(107, 107);
+	Animation *rightJumpDownAnim = new Animation(94, 94);
+	Animation *turnRightAnimation = new Animation(95, 95);
+	Animation *turnLeftAnimation = new Animation(99, 99);
+
+	Animation* RaccoonTailBack = new Animation(100, 100);
+	Animation* RaccoonTailFront = new Animation(102, 102);
+	Animation* RaccoonTailLeft = new Animation(103, 103);
+	Animation* RaccoonTailRight = new Animation(101, 101);
+
+	Animation* RaccoonFlyingLeft = new Animation(127, 129, 3);
+	Animation* RaccoonFlyingRight = new Animation(140, 142, 3);
+
+	Animation* RaccoonFlyingUpLeft = new Animation(110, 112, 3);
+	Animation* RaccoonFlyingUpRight = new Animation(113, 115, 3);
+
+	Animation* powerRunLeft = new Animation(120, 122, 2);
+	Animation* powerRunRight = new Animation(123, 125, 2);
+
+	Animation* kickKoopaLeft = new Animation(109, 109);
+	Animation* kickKoopaRight = new Animation(108, 108);
+
+	Animation *sitDownLeft = new Animation(116, 116);
+	Animation *sitDownRight = new Animation(117, 117);
+
+	Animation* createAnimation()override;
+	~SuperRaccoonMarioAnimationFactory();
+};
+
 #endif
