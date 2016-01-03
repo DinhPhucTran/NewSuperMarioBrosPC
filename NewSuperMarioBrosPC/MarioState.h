@@ -116,4 +116,20 @@ public:
 	string getName();
 	AnimationFactory* getAnimationFactory()override;
 };
+
+class MarioStateGoingToBonusRoom :public MarioState
+{
+private:
+	Timer mDuration;
+	int outX, outY;
+public:
+	static const int MAINTAIN_TIME;
+	MarioState* mLastState;
+	static const string STATE_NAME;
+	MarioStateGoingToBonusRoom(Mario* mario, int outX, int outY);
+	string getName()override;
+	AnimationFactory* getAnimationFactory()override;
+	int getRemainTime();
+	void update(int t)override;
+};
 #endif

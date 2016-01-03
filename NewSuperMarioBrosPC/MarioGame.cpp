@@ -25,6 +25,8 @@
 #include "RedFirePiranha.h"
 #include "SuperStar.h"
 #include "GoobaFactory.h"
+#include "Door.h"
+#include "DoorPipe.h"
 using namespace std;
 
 const float CMarioGame::GRAVITY_VELOCOTY = GRAV_VELOCITY;
@@ -88,6 +90,7 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	paraGoombaSprite = new CSprite(_SpriteHandler, PARA_GOOMBA, 32, 32, 4, 4);
 	itemsSprite = new CSprite(_SpriteHandler, ITEMS_SPRITE, 16, 16, 8, 8);
 	horizontalPipe = new CSprite(_SpriteHandler, HORIZONTAL_PIPE, 34, 34, 8, 2);
+	doorPipeSprite = new CSprite(_SpriteHandler, PIPEDOOR_IMAGE, 48, 48, 4, 4);
 	
 
 	
@@ -177,15 +180,27 @@ void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-	int vpx = mario->x - 100;
+	int vpx;
 	int vpy;
 	if (mario->y > 120)
-		vpy = mario->y + 120;
-	else vpy = 240;
+	{
+		vpx = mario->x - 90;
+		vpy = mario->y + 72;
+	}
+	else if (mario->y < -20)
+	{
+		vpx = 2240;
+		vpy = -64;
+	}
+	else
+	{
+		vpx = mario->x - 90;
+		vpy = 192;
+	}
 	
 	//int vpx = xc;
 	if (vpx <= 0) vpx = 0;
-	if (vpx >= 2485) vpx = 2485;
+	if (vpx >= 2480) vpx = 2480;
 	//xc += 1;
 	
 	
@@ -224,7 +239,9 @@ void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 		}		
 	}
 	if (IsKeyDown(DIK_DOWN)){
-		mario->sitDown();
+		if (mario->canSitDown == 1)
+			mario->sitDown();
+		mario->isGoingDown = 1;
 		return;
 	}
 	if (IsKeyDown(DIK_RIGHT))
@@ -415,6 +432,17 @@ void CMarioGame::LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler,
 			
 			StaticCoin *coin = new StaticCoin(v[1], v[2], 16, 16, coinAnim, itemsSprite);
 			obManager->addObject(coin);
+		}
+
+		else if (v[0] == 7)
+		{
+			DoorPipe * pipe = new DoorPipe(v[1], v[2], v[3], v[4], v[5], doorPipeSprite, v[6], v[7]);
+			obManager->addObject(pipe);
+		}
+		else if (v[0] == 8)
+		{
+			Door * door = new Door(v[1], v[2], v[3], v[4], v[5], v[6]);
+			obManager->addObject(door);
 		}
 
 		else if (v[0] == 10)

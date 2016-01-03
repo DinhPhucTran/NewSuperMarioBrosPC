@@ -21,6 +21,8 @@
 #include "FireBall.h"
 #include "SuperStar.h"
 #include "Coin.h"
+#include "Door.h"
+#include "DoorPipe.h"
 using namespace std;
 
 //================STATE====================
@@ -92,7 +94,7 @@ void MarioState::onCollision(Object* ob,int dir){
 			return;
 		}
 	}
-	if (objectName == BrickGround::OBJECT_NAME || objectName == Pipe::OBJECT_NAME || objectName == QBrick::OBJECT_NAME || objectName == GoldBrick::OBJECT_NAME)
+	if ((objectName == BrickGround::OBJECT_NAME || objectName == Pipe::OBJECT_NAME || objectName == QBrick::OBJECT_NAME || objectName == GoldBrick::OBJECT_NAME) && mMario->getState()->getName() != MarioStateGoingToBonusRoom::STATE_NAME)
 	{
 		if (dir == Physics::COLLIDED_FROM_TOP){
 			if (objectName == QBrick::OBJECT_NAME){
@@ -125,6 +127,22 @@ void MarioState::onCollision(Object* ob,int dir){
 			mMario->ax = 0;
 			return;
 		}
+	}
+	if (objectName == DoorPipe::OBJECT_NAME) {
+		DoorPipe * pipe = (DoorPipe*)ob;
+		if (pipe->dir == 1 && dir == Physics::COLLIDED_FROM_BOTTOM)
+		{
+			mMario->canSitDown = 0;
+			if (mMario->isGoingDown == 1)
+			{
+				mMario->setState(new MarioStateGoingToBonusRoom(mMario, pipe->outX, pipe->outY));
+			}
+		}
+	}
+	if (objectName == Door::OBJECT_NAME) {
+		Door * door = (Door*)ob;
+		mMario->setState(new MarioStateGoingToBonusRoom(mMario, door->outX, door->outY));
+		mMario->y += 50;
 	}
 	if (objectName == KoopaTroopa::OBJECT_NAME || objectName == RedKoopa::OBJECT_NAME){
 		KoopaTroopa* koopa = (KoopaTroopa*)ob;
@@ -554,4 +572,61 @@ AnimationFactory* MarioStateDie::getAnimationFactory(){
 
 MarioStateDie::MarioStateDie(Mario* mario):MarioState(mario){
 	mario->vy = 0.35f;
+}
+
+/////////////////////////MarioStateGoingToBonusRoom///////////////////////
+const string MarioStateGoingToBonusRoom::STATE_NAME = "mario_going_to_bonusroom";
+const int MarioStateGoingToBonusRoom::MAINTAIN_TIME = 40;
+MarioStateGoingToBonusRoom::MarioStateGoingToBonusRoom(Mario* mario, int OutX, int OutY) :MarioState(mario){
+	mDuration.start();
+	if (mario != 0)
+		mLastState = mario->getState();
+	outX = OutX;
+	outY = OutY;
+}
+string MarioStateGoingToBonusRoom::getName(){
+	return STATE_NAME;
+}
+
+AnimationFactory* MarioStateGoingToBonusRoom::getAnimationFactory(){
+	if (mLastState->getName() == MarioStateSmall::STATE_NAME){
+		return MarioSmallGoingToBonusRoomAnimationFactory::getInstance(mMario);
+	}
+	else if (mLastState->getName() == MarioStateLarge::STATE_NAME){
+		return MarioBigGoingToBonusRoomAnimationFactory::getInstance(mMario);
+	}
+	else if (mLastState->getName() == MarioStateRaccoon::STATE_NAME){
+		return MarioRaccoonGoingToBonusRoomAnimationFactory::getInstance(mMario);
+	}
+	return mLastState->getAnimationFactory();
+}
+
+int MarioStateGoingToBonusRoom::getRemainTime(){
+	return mDuration.getIntervalTime();
+}
+
+void MarioStateGoingToBonusRoom::update(int t){
+
+	/*if (GetTickCount() > MAINTAIN_TIME)
+	{
+	mMario->x = outX;
+	mMario->y = outY;
+	}*/
+	if (mDuration.getIntervalTime() > MAINTAIN_TIME){
+		if (mLastState != 0){
+			mMario->setState(mLastState);
+		}
+		else{
+			mMario->setState(new MarioStateSmall(mMario));
+		}
+		mMario->x = outX;
+		mMario->y = outY;
+		mMario->isGoingDown = 0;
+		mMario->canSitDown = 1;
+	}
+	else
+	{
+		mMario->vy = -0.05f;
+		mMario->y += mMario->vy *t;
+	}
 }

@@ -257,4 +257,41 @@ public:
 	static DieAnimationFactory* getInstance(Mario * mario);
 };
 
+/////MarioGoingToBonusRoomAnimationFactories
+class MarioSmallGoingToBonusRoomAnimationFactory :public AnimationFactory{
+private:
+	Mario* mMario;
+	MarioSmallGoingToBonusRoomAnimationFactory(Mario* mario);
+	static MarioSmallGoingToBonusRoomAnimationFactory* sInstance;
+
+public:
+	Animation *anim = new Animation(118, 118);
+	static MarioSmallGoingToBonusRoomAnimationFactory* getInstance(Mario* mario);
+	Animation* createAnimation()override;
+};
+
+class MarioBigGoingToBonusRoomAnimationFactory :public AnimationFactory{
+private:
+	Mario* mMario;
+	MarioBigGoingToBonusRoomAnimationFactory(Mario* mario);
+	static MarioBigGoingToBonusRoomAnimationFactory* sInstance;
+
+public:
+	Animation *anim = new Animation(36, 36);
+	static MarioBigGoingToBonusRoomAnimationFactory* getInstance(Mario* mario);
+	Animation* createAnimation()override;
+};
+
+class MarioRaccoonGoingToBonusRoomAnimationFactory :public AnimationFactory{
+private:
+	Mario* mMario;
+	MarioRaccoonGoingToBonusRoomAnimationFactory(Mario* mario);
+	static MarioRaccoonGoingToBonusRoomAnimationFactory* sInstance;
+
+public:
+	Animation *anim = new Animation(119, 119);
+	static MarioRaccoonGoingToBonusRoomAnimationFactory* getInstance(Mario* mario);
+	Animation* createAnimation()override;
+};
+
 #endif

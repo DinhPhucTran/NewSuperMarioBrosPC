@@ -20,6 +20,8 @@ public:
 	int isFlying;
 	Timer isKickKoopa;
 	int isSitDown = 0;
+	int isGoingDown = 0;
+	int canSitDown = 1;
 	int score;
 	static const float FLYING_Y_SPEED;
 	static const float FLYING_X_SPEED;

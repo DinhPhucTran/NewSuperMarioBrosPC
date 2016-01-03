@@ -13,16 +13,14 @@
 #include "gooba.h"
 
 
-#define MAP_LEVEL 2;
+#define MAP_LEVEL 1;
 #define DIRECT_LEFT 0;
 #define DIRECT_RIGHT 1;
 
-//#define MARIO_IMAGE_RIGHT L"mario3.bmp"
-//#define MARIO_IMAGE_LEFT L"mario3.bmp"
 #define BRICK L"brick.png"
 #define MARIO_LARGE_IMAGE L"marioSprite32x32.png"
 #define KOOPA_TROOPA_GOOMBA_IMAGE L"enemies4.png"
-#define FOREGROUND_IMAGE L"foreground.png"
+#define FOREGROUND_IMAGE L"foreground1.png"
 #define FOREGROUND_IMAGE_2 L"foreground2.png"
 #define QBRICK_IMAGE L"qBrick.png"
 #define SCROLLBG_IMAGE L"scrollBG3.png"
@@ -35,6 +33,7 @@
 #define SUPER_STAR L"SuperStar.png"
 #define ITEMS_SPRITE L"items.png"
 #define HORIZONTAL_PIPE L"HorizonPipe32.png"
+#define PIPEDOOR_IMAGE L"pipeDoor.png"
 
 
 #define GROUND_Y 45
@@ -90,6 +89,7 @@ public:
 	CSprite * paraGoombaSprite;
 	CSprite * itemsSprite;
 	CSprite* horizontalPipe;
+	CSprite * doorPipeSprite;
 
 	int score;
 	int animationDelay=0;

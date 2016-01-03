@@ -788,3 +788,65 @@ Animation* DieAnimationFactory::createAnimation(){
 	mDieAnimation->Update();
 	return mDieAnimation;
 }
+
+
+/////MarioGoingToBonusRoomAnimationFactories
+MarioSmallGoingToBonusRoomAnimationFactory::MarioSmallGoingToBonusRoomAnimationFactory(Mario* mario){
+	mMario = mario;
+}
+
+Animation* MarioSmallGoingToBonusRoomAnimationFactory::createAnimation(){
+	Animation* result;
+	result = anim;
+	return result;
+}
+
+MarioSmallGoingToBonusRoomAnimationFactory* MarioSmallGoingToBonusRoomAnimationFactory::sInstance;//define singleton
+MarioSmallGoingToBonusRoomAnimationFactory* MarioSmallGoingToBonusRoomAnimationFactory::getInstance(Mario* mario){
+	if (MarioSmallGoingToBonusRoomAnimationFactory::sInstance == NULL){
+		MarioSmallGoingToBonusRoomAnimationFactory::sInstance = new MarioSmallGoingToBonusRoomAnimationFactory(mario);
+	}
+	else
+		sInstance->mMario = mario;
+	return sInstance;
+}
+
+MarioBigGoingToBonusRoomAnimationFactory::MarioBigGoingToBonusRoomAnimationFactory(Mario* mario){
+	mMario = mario;
+}
+
+Animation* MarioBigGoingToBonusRoomAnimationFactory::createAnimation(){
+	Animation* result;
+	result = anim;
+	return result;
+}
+
+MarioBigGoingToBonusRoomAnimationFactory* MarioBigGoingToBonusRoomAnimationFactory::sInstance;//define singleton
+MarioBigGoingToBonusRoomAnimationFactory* MarioBigGoingToBonusRoomAnimationFactory::getInstance(Mario* mario){
+	if (MarioBigGoingToBonusRoomAnimationFactory::sInstance == NULL){
+		MarioBigGoingToBonusRoomAnimationFactory::sInstance = new MarioBigGoingToBonusRoomAnimationFactory(mario);
+	}
+	else
+		sInstance->mMario = mario;
+	return sInstance;
+}
+
+MarioRaccoonGoingToBonusRoomAnimationFactory::MarioRaccoonGoingToBonusRoomAnimationFactory(Mario* mario){
+	mMario = mario;
+}
+
+Animation* MarioRaccoonGoingToBonusRoomAnimationFactory::createAnimation(){
+	Animation* result;
+	result = anim;
+	return result;
+}
+
+MarioRaccoonGoingToBonusRoomAnimationFactory* MarioRaccoonGoingToBonusRoomAnimationFactory::sInstance;//define singleton
+MarioRaccoonGoingToBonusRoomAnimationFactory* MarioRaccoonGoingToBonusRoomAnimationFactory::getInstance(Mario* mario){
+	if (MarioRaccoonGoingToBonusRoomAnimationFactory::sInstance == NULL){
+		MarioRaccoonGoingToBonusRoomAnimationFactory::sInstance = new MarioRaccoonGoingToBonusRoomAnimationFactory(mario);
+	}
+	else
+		sInstance->mMario = mario;
+	return sInstance;
+}

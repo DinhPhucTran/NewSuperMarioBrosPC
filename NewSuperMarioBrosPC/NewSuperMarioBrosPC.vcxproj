@@ -72,6 +72,8 @@
     <ClInclude Include="AnimationFactory.h" />
     <ClInclude Include="BrickGround.h" />
     <ClInclude Include="Coin.h" />
+    <ClInclude Include="Door.h" />
+    <ClInclude Include="DoorPipe.h" />
     <ClInclude Include="FireBall.h" />
     <ClInclude Include="FirePiranha.h" />
     <ClInclude Include="FirePiranhaAnimationFactory.h" />
@@ -110,6 +112,8 @@
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="Door.cpp" />
+    <ClCompile Include="DoorPipe.cpp" />
     <ClCompile Include="FireBall.cpp" />
     <ClCompile Include="FirePiranha.cpp" />
     <ClCompile Include="FirePiranhaAnimationFactory.cpp" />
