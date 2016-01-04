@@ -71,6 +71,8 @@ void Leaf::onCollision(Object * ob, int dir)
 		{
 			vy = 0;
 			ay = 0;
+			ax = 0;
+			vx = 0;
 			y = ob->top() + height / 2;
 			return;
 		}

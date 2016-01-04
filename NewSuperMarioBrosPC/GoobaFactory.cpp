@@ -44,10 +44,12 @@ Gooba* GoobaFactory::produceGooba(){
 		{
 			goombaX = x - 20;
 		}
-		Gooba* gooba = new Gooba(goombaX, y, Gooba::SPEED_X*mDirection);
-		ObjectManager::getInstance()->addObject(gooba);
-		mProductionTime.start();
-		return gooba;
+		if (x < mMario->x){
+			Gooba* gooba = new Gooba(goombaX, y, Gooba::SPEED_X*mDirection);
+			ObjectManager::getInstance()->addObject(gooba);
+			mProductionTime.start();
+			return gooba;
+		}
 	}
 	return 0;
 }
