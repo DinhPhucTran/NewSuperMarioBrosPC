@@ -27,6 +27,7 @@
 #include "GoobaFactory.h"
 #include "Door.h"
 #include "DoorPipe.h"
+#include "Hole.h"
 using namespace std;
 
 const float CMarioGame::GRAVITY_VELOCOTY = GRAV_VELOCITY;
@@ -81,7 +82,49 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	itemsSprite = new CSprite(_SpriteHandler, ITEMS_SPRITE, 16, 16, 8, 8);
 	horizontalPipe = new CSprite(_SpriteHandler, HORIZONTAL_PIPE, 34, 34, 8, 2);
 	doorPipeSprite = new CSprite(_SpriteHandler, PIPEDOOR_IMAGE, 32, 32, 4, 4);
+
+	titleBackground = CreateSurfaceFromFile(_d3ddv, TITLE_BACKGROUND_IMAGE);
+	pauseBackground = CreateSurfaceFromFile(_d3ddv, PAUSE_BACKGROUND_IMAGE);
+	gameoverBackground = CreateSurfaceFromFile(_d3ddv, GAMEOVER_BACKGROUND_IMAGE);
+	cursorSprite = new CSprite(_SpriteHandler, CURSOR_IMAGE, 16, 16, 1, 1);
 	
+	
+	ResetMario();
+
+	SuperStar* superStar = new SuperStar(100, 100, itemsSprite);
+	GoobaFactory* goombaFactory = new GoobaFactory(400, 128, 1);
+	
+	//mObjectManager->addObject(goombaFactory);
+	//mObjectManager->addObject(superStar);
+
+	
+		
+
+	D3DXCreateFont(d3ddv, 30, 0, FW_BOLD, 0, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, TEXT("Arial"), &fontArial);
+	
+	
+	
+
+}
+
+void CMarioGame::SetBackground()
+{
+	if (mapLevel == 1){
+		foregroundImage = new CSprite(_SpriteHandler, FOREGROUND_IMAGE, 2848, 720, 1, 1);
+		//LoadMap(mObjectManager, _SpriteHandler, "map1-1.txt");
+		backgroundImage = new CSprite(_SpriteHandler, SCROLLBG_IMAGE, 4096, 432, 1, 1);
+	}
+	else{
+		foregroundImage = new CSprite(_SpriteHandler, FOREGROUND_IMAGE_2, 2848, 928, 1, 1);
+		//LoadMap(mObjectManager, _SpriteHandler, "map1-2.txt");
+		backgroundImage = new CSprite(_SpriteHandler, SCROLLBG_IMAGE_2, 4096, 432, 1, 1);
+	}
+	Animation *bgAnim = new Animation(0, 0);
+	scrollBG = new Object(1000, 216, 4096, 432, 0, 0, 0, 0, 0, bgAnim, backgroundImage);
+}
+
+void CMarioGame::ResetMario()
+{
 	//return to last state
 	Mario* marioObject;
 	if (lastState != NULL)
@@ -96,224 +139,467 @@ void CMarioGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 		else
 			marioObject->setState(new MarioStateSmall(marioObject));
 	}
-		
+
 	else
 	{
 		marioObject = new Mario(mario_x, mario_y, 32, 32, mario_vx, 0, 0, 0, 0, NULL, marioSprite, NULL, NULL);
 		marioObject->setState(new MarioStateLarge(marioObject));
 		marioObject->setState(new MarioStateSuperInvincible(marioObject));
 	}
-	
-
-	SuperStar* superStar = new SuperStar(100, 100, itemsSprite);
-	GoobaFactory* goombaFactory = new GoobaFactory(400, 128, 1);
+	marioObject->lives = 4;
 	mObjectManager->addObject(marioObject);
-	//mObjectManager->addObject(goombaFactory);
-	//mObjectManager->addObject(superStar);
-
-	
-		
-
-	D3DXCreateFont(d3ddv, 30, 0, FW_BOLD, 0, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, TEXT("Arial"), &fontArial);
-
-	
-	
-	CSprite *backgroundImage = new CSprite(_SpriteHandler, SCROLLBG_IMAGE, 4096, 432, 1, 1);
-	if (mapLevel == 1){
-		foregroundImage = new CSprite(_SpriteHandler, FOREGROUND_IMAGE, 2848, 720, 1, 1);
-		LoadMap(mObjectManager, _SpriteHandler, "map1-1.txt");
-		backgroundImage = new CSprite(_SpriteHandler, SCROLLBG_IMAGE, 4096, 432, 1, 1);
-	}
-	else{
-		foregroundImage = new CSprite(_SpriteHandler, FOREGROUND_IMAGE_2, 2848, 928, 1, 1);
-		LoadMap(mObjectManager, _SpriteHandler, "map1-2.txt");
-		backgroundImage = new CSprite(_SpriteHandler, SCROLLBG_IMAGE_2, 4096, 432, 1, 1);
-	}
-	Animation *bgAnim = new Animation(0, 0);
-	scrollBG = new Object(1000, 216, 4096, 432, 0, 0, 0, 0, 0, bgAnim, backgroundImage);
 	mario = mObjectManager->getMario();
-
 }
-
-//int xc = 0;
 
 void CMarioGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 {
-	mObjectManager->update(t);
-	
-	mObjectManager->checkCollition();
+	switch (gameStatus)
+	{
+	case GAME_TITLE:
+	{
+					   d3ddv->StretchRect(
+						   titleBackground,			
+						   NULL,	
+						   _BackBuffer,	
+						   NULL,		
+						   D3DTEXF_NONE);
+					   _SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+					   switch (titleSelector)
+					   {
+					   case 1:
+						   cursorSprite->Render(112, 134);
+						   break;
+					   case 2:
+						   cursorSprite->Render(112, 152);
+						   break;
+					   case 3:
+						   cursorSprite->Render(112, 168);
+						   break;
+					   default:
+						   break;
+					   }
+					   
+					   _SpriteHandler->End();
 
-	////go to next map
-	if (mario->x > 2700)
-	{
-		lastState = mario->getState();
-		mObjectManager->removeAllObject();
-		if (mapLevel == 1)
-			mapLevel = 2;
-		else
-			mapLevel = 1;
-		LoadResources(d3ddv);
 	}
-	////paralaxBackground
-	scrollBG->update(t);
-	scrollBG->ay = 0;
-	if (mario->x < 100)
-		scrollBG->vx = 0;
-	else
-	{
-		if (marioXlast < mario->x) // kiểm tra mario có thay đổi vị trí không
-			scrollBG->ax = 0.001f;
-		else if (marioXlast > mario->x)
-			scrollBG->ax = -0.001f;
-		else
-			scrollBG->vx = 0;
+		break;
 
-		if (scrollBG->vx >= 0.1f)
-			scrollBG->vx = 0.1f;
-		else if (scrollBG->vx <= -0.1f)
-			scrollBG->vx = -0.1f;
-		marioXlast = mario->x;
-	}
-	//////
-	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-	int vpx;
-	int vpy;
-	if (mario->y > 120)
+	case GAME_RUN:
 	{
-		vpx = mario->x - 90;
-		vpy = mario->y + 72;
-		if (vpy > 420)
-			vpy = 420;
+
+					 mObjectManager->update(t);
+
+					 mObjectManager->checkCollition();
+
+					 if (mario->getState()->getName()==MarioStateDie::STATE_NAME)
+						 if (GetTickCount() - mario->timeToDie > 450)
+						 {
+							mObjectManager->removeAllObject();
+							 if (mapLevel == 1)
+							 {
+								 lastLives = mario->lives;
+								 ResetMario();								 
+								 mario->lives = lastLives;
+								 delete backgroundImage;
+								 delete foregroundImage;
+								 SetBackground();
+								 LoadMap(mObjectManager, _SpriteHandler, "map1-1.txt");
+							 }
+							 else
+							 {
+								 lastLives = mario->lives;
+								 ResetMario();
+								 mario->lives = lastLives;
+								 delete backgroundImage;
+								 delete foregroundImage;
+								 SetBackground();
+								 LoadMap(mObjectManager, _SpriteHandler, "map1-2.txt");
+							 }
+						 }
+					 if (mario->lives < 0)
+						 gameStatus = GAME_END;
+
+					 ////go to next map
+					 if (mario->x > 2700)
+					 {
+						 lastState = mario->getState();
+						 mObjectManager->removeAllObject();
+						 if (mapLevel == 1)
+						 {
+							 mapLevel = 2;
+							 ResetMario();
+							 delete backgroundImage;
+							 delete foregroundImage;
+							 SetBackground();
+							 LoadMap(mObjectManager, _SpriteHandler, "map1-2.txt");
+						 }							 
+						 else
+						 {
+							 mapLevel = 1;
+							 ResetMario();
+							 delete backgroundImage;
+							 delete foregroundImage;
+							 SetBackground();
+							 LoadMap(mObjectManager, _SpriteHandler, "map1-1.txt");
+						 }
+					 }
+					 ////paralaxBackground
+					 scrollBG->update(t);
+					 scrollBG->ay = 0;
+					 if (mario->x < 100)
+						 scrollBG->vx = 0;
+					 else
+					 {
+						 if (marioXlast < mario->x) // kiểm tra mario có thay đổi vị trí không
+							 scrollBG->ax = 0.001f;
+						 else if (marioXlast > mario->x)
+							 scrollBG->ax = -0.001f;
+						 else
+							 scrollBG->vx = 0;
+
+						 if (scrollBG->vx >= 0.1f)
+							 scrollBG->vx = 0.1f;
+						 else if (scrollBG->vx <= -0.1f)
+							 scrollBG->vx = -0.1f;
+						 marioXlast = mario->x;
+					 }
+					 //////
+					 _SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);					 
+					 if (mario->y > 120)
+					 {
+						 vpx = mario->x - 90;
+						 vpy = mario->y + 72;
+						 if (vpy > 420)
+							 vpy = 420;
+					 }
+					 else if (mario->y < -20)
+					 {
+						 if (mapLevel == 1)
+						 {
+							 vpx = 2240;
+							 vpy = -64;
+						 }
+						 if (mapLevel == 2)
+						 {
+							 vpx = 1072;
+							 vpy = mario->y + 72;
+							 if (vpy <= -288)
+								 vpy = -288;
+						 }
+					 }
+					 else
+					 {
+						 vpx = mario->x - 90;
+						 vpy = 192;
+					 }
+
+					 //int vpx = xc;
+					 if (vpx <= 0) vpx = 0;
+					 if (vpx >= 2490) vpx = 2490;
+					 //xc += 1;
+
+
+
+					 scrollBG->render(vpx, vpy);
+
+					 if (mapLevel == 1)
+						 foregroundImage->Render(1424, 360 - 288, vpx, vpy);
+					 else if (mapLevel == 2)
+						 foregroundImage->Render(1424, -32, vpx, vpy);
+
+					 //render all object in game
+					 mObjectManager->render(vpx, vpy);
+					 //mario->render(vpx, vpy);
+
+
+					 _SpriteHandler->End();
+
+					 rect.top = 0;
+					 rect.left = 20;
+					 rect.right = 640;//240
+					 rect.bottom = 100;
+					 char buffer[64] = { 0 };
+					 sprintf_s(buffer, "Lives: %d              ", mario->lives);
+					 MarioPowerBar* powerBar = mario->getPowerBar();
+					 fontArial->DrawTextA(NULL, buffer, 10, &rect, DT_LEFT, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
-	else if (mario->y < -20)
-	{
-		if (mapLevel == 1)
+		break;
+
+	case GAME_PAUSE:
+		d3ddv->StretchRect(
+			pauseBackground,
+			NULL,
+			_BackBuffer,
+			NULL,
+			D3DTEXF_NONE);
+
+		_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+
+		switch (pauseSelector)
 		{
-			vpx = 2240;
-			vpy = -64;
+		case 1:
+			cursorSprite->Render(106, 105);
+			break;
+		case 2:
+			cursorSprite->Render(80, 130);
+			break;
+		case 3:
+			cursorSprite->Render(115, 155);
+			break;
+		default:
+			break;
 		}
-		if (mapLevel == 2)
+		
+		_SpriteHandler->End();
+
+		break;
+
+	case GAME_END:
+		d3ddv->StretchRect(
+			gameoverBackground,
+			NULL,
+			_BackBuffer,
+			NULL,
+			D3DTEXF_NONE);
+
+		_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+
+		switch (gameoverSelector)
 		{
-			vpx = 1072;
-			vpy = mario->y + 72;
-			if (vpy <= -288)
-				vpy = -288;
+		case 1:
+			cursorSprite->Render(92, 112);
+			break;
+		case 2:
+			cursorSprite->Render(110, 140);
+			break;
 		}
+
+		_SpriteHandler->End();
+
+		break;
+
 	}
-	else
-	{
-		vpx = mario->x - 90;
-		vpy = 192;
-	}
 	
-	//int vpx = xc;
-	if (vpx <= 0) vpx = 0;
-	if (vpx >= 2490) vpx = 2490;
-	//xc += 1;
-	
-	
-	
-	scrollBG->render(vpx, vpy);
-
-	if (mapLevel==1)
-		foregroundImage->Render(1424, 360 - 288, vpx, vpy);
-	else if (mapLevel==2)
-		foregroundImage->Render(1424, -32, vpx, vpy);
-	
-	//render all object in game
-	mObjectManager->render(vpx,vpy);
-	//mario->render(vpx, vpy);
-	
-
-	_SpriteHandler->End();
-
-	rect.top = 0;
-	rect.left = 20;
-	rect.right = 640;//240
-	rect.bottom = 100;
-	char buffer[64] = { 0 };
-	sprintf_s(buffer, "Mx: %d / My: %d                ", mario->x, mario->y);
-	MarioPowerBar* powerBar = mario->getPowerBar();
-	fontArial->DrawTextA(NULL, buffer, 20, &rect, DT_LEFT, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
 void CMarioGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int t)
 {
-	if (IsKeyDown(DIK_X)){
-		if (mario->isAButtonPressed == 1){
-			if (GetTickCount() - lastTimeAPress >= 250 && GetTickCount() - lastTimeAPress<350)
-			{
-				mario->ay += Mario::ACCELERATION_Y_PLUS - Mario::ACCELERATION_Y;
-				lastTimeAPress = 0;//để chặn việc liên tục tăng ay, chỉ cộng vào ay 1 lần
-			}
-		}		
-	}
-	if (IsKeyDown(DIK_DOWN)){
-		if (mario->canSitDown == 1)
-			mario->sitDown();
-		mario->isGoingDown = 1;
-		return;
-	}
-	if (IsKeyDown(DIK_RIGHT))
+	switch (gameStatus)
 	{
-		mario->isRightButtonPressed = 1;
-		mario->ax = Mario::ACCELERATION_X;
-		mario->vx_last = mario->vx;//lưu lại vx để biết hướng của mario
-	}
-	else{
-		mario->isRightButtonPressed = 0;
-	}
-
-	if (IsKeyDown(DIK_LEFT))
-	{
-		
-		mario->isLeftButtonPressed = 1;
-		mario->ax = -Mario::ACCELERATION_X;
-		mario->vx_last = mario->vx;
-		
-	}
-	else{
-		mario->isLeftButtonPressed = 0;
-	}
-	if(mario->isLeftButtonPressed==0&&mario->isRightButtonPressed==0)//all key release
-	{
-		if (mario->vx_last > 0)
-		{
-			//mario->vx -= 0.00000015f;
-			mario->ax = -Mario::ACCELERATION_X;
-			if (mario->vx <= 0){
-				mario->vx = 0;
-				mario->ax = 0;
-			}
-		}else
-		if (mario->vx_last < 0)
-		{
-			//mario->vx += 0.00000015f;
-			mario->ax = Mario::ACCELERATION_X;
-			if (mario->vx >= 0){
-				mario->vx = 0;
-				mario->ax = 0;
+	case GAME_RUN:
+		if (IsKeyDown(DIK_X)){
+			if (mario->isAButtonPressed == 1){
+				if (GetTickCount() - lastTimeAPress >= 250 && GetTickCount() - lastTimeAPress<350)
+				{
+					mario->ay += Mario::ACCELERATION_Y_PLUS - Mario::ACCELERATION_Y;
+					lastTimeAPress = 0;//để chặn việc liên tục tăng ay, chỉ cộng vào ay 1 lần
+				}
 			}
 		}
+		if (IsKeyDown(DIK_DOWN)){
+			if (mario->canSitDown == 1)
+				mario->sitDown();
+			mario->isGoingDown = 1;
+			return;
+		}
+		if (IsKeyDown(DIK_RIGHT))
+		{
+			mario->isRightButtonPressed = 1;
+			mario->ax = Mario::ACCELERATION_X;
+			mario->vx_last = mario->vx;//lưu lại vx để biết hướng của mario
+		}
+		else{
+			mario->isRightButtonPressed = 0;
+		}
+
+		if (IsKeyDown(DIK_LEFT))
+		{
+
+			mario->isLeftButtonPressed = 1;
+			mario->ax = -Mario::ACCELERATION_X;
+			mario->vx_last = mario->vx;
+
+		}
+		else{
+			mario->isLeftButtonPressed = 0;
+		}
+		if (mario->isLeftButtonPressed == 0 && mario->isRightButtonPressed == 0)//all key release
+		{
+			if (mario->vx_last > 0)
+			{
+				//mario->vx -= 0.00000015f;
+				mario->ax = -Mario::ACCELERATION_X;
+				if (mario->vx <= 0){
+					mario->vx = 0;
+					mario->ax = 0;
+				}
+			}
+			else
+			if (mario->vx_last < 0)
+			{
+				//mario->vx += 0.00000015f;
+				mario->ax = Mario::ACCELERATION_X;
+				if (mario->vx >= 0){
+					mario->vx = 0;
+					mario->ax = 0;
+				}
+			}
+		}
+		break;
+
+	default:
+		break;
 	}
+	
 	
 	
 }
 
 void CMarioGame::OnKeyDown(int KeyCode)
 {
-	MarioState* marioState = mario->getState();
-	switch (KeyCode)
+	//MarioState* marioState = mario->getState();
+	switch (gameStatus)
 	{
-	case DIK_X:
-		mario->isAButtonPressed = 1;
-		lastTimeAPress = GetTickCount();
-		mario->onAPress();
+	case GAME_TITLE:
+		switch (KeyCode)
+		{		
+		case DIK_RETURN:
+			switch (titleSelector)
+			{
+			case 1:
+				mapLevel = 1;
+				SetBackground();
+				LoadMap(mObjectManager, _SpriteHandler, "map1-1.txt");
+				gameStatus = GAME_RUN;
+				break;
+			case 2:
+				mapLevel = 2;
+				SetBackground();
+				LoadMap(mObjectManager, _SpriteHandler, "map1-2.txt");
+				gameStatus = GAME_RUN;
+				break;
+			case 3:
+				PostMessage(_hWnd, WM_QUIT, 0, 0);
+				break;
+			}
+			break;
+
+			case DIK_DOWN:
+				titleSelector++;
+				if (titleSelector > 3)
+					titleSelector = 1;
+				break;
+
+			case DIK_UP:
+				titleSelector--;
+				if (titleSelector < 1)
+					titleSelector = 3;
+				break;
+		}
+		
 		break;
-	case DIK_Z:
-		mario->isBButtonPressed = 1;
-		mario->onBPress();
+
+	case GAME_RUN:
+		switch (KeyCode)
+		{
+		case DIK_X:
+			mario->isAButtonPressed = 1;
+			lastTimeAPress = GetTickCount();
+			mario->onAPress();
+			break;
+		case DIK_Z:
+			mario->isBButtonPressed = 1;
+			mario->onBPress();
+			break;
+		case DIK_ESCAPE:
+			gameStatus = GAME_PAUSE;
+			break;
+		}
 		break;
+
+	case GAME_PAUSE:
+		switch (KeyCode)
+		{
+		case DIK_ESCAPE:
+			gameStatus = GAME_RUN;
+			break;
+
+		case DIK_DOWN:
+			pauseSelector++;
+			if (pauseSelector > 3)
+				pauseSelector = 1;
+			break;
+
+		case  DIK_UP:
+			pauseSelector--;
+			if (pauseSelector < 1)
+				pauseSelector = 3;
+			break;
+
+		case DIK_RETURN:
+			switch (pauseSelector)
+			{
+			case 1:
+				gameStatus = GAME_RUN;
+				break;
+
+			case 2:
+				mObjectManager->removeAllObject();
+				ResetMario();
+				delete backgroundImage;
+				delete foregroundImage;
+				SetBackground();
+				if (mapLevel==1)
+					LoadMap(mObjectManager, _SpriteHandler, "map1-1.txt");
+				else if (mapLevel == 2)
+					LoadMap(mObjectManager, _SpriteHandler, "map1-2.txt");
+
+				gameStatus = GAME_RUN;
+				break;
+
+			case 3:
+				PostMessage(_hWnd, WM_QUIT, 0, 0);
+				break;
+			}
+			break;
+		}
+		break;
+
+	case GAME_END:
+		switch (KeyCode)
+		{
+		case DIK_DOWN:
+			gameoverSelector++;
+			if (gameoverSelector > 2)
+				gameoverSelector = 1;
+			break;
+
+		case  DIK_UP:
+			gameoverSelector--;
+			if (gameoverSelector < 1)
+				gameoverSelector = 2;
+			break;
+
+		case DIK_RETURN:
+			switch (gameoverSelector)
+			{
+			case 1:
+				mObjectManager->removeAllObject();
+				ResetMario();
+				delete backgroundImage;
+				delete foregroundImage;
+				SetBackground();
+				LoadMap(mObjectManager, _SpriteHandler, "map1-1.txt");
+				gameStatus = GAME_RUN;
+				break;
+
+			case 2:
+				PostMessage(_hWnd, WM_QUIT, 0, 0);
+				break;
+			}
+		}
+		break;
+
 	}
 }
 
@@ -453,6 +739,12 @@ void CMarioGame::LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler,
 		{
 			Door * door = new Door(v[1], v[2], v[3], v[4], v[5], v[6]);
 			obManager->addObject(door);
+		}
+
+		else if (v[0] == 9)
+		{
+			Hole *hole = new Hole(v[1], -16, v[2], 32);
+			obManager->addObject(hole);
 		}
 
 		else if (v[0] == 10)

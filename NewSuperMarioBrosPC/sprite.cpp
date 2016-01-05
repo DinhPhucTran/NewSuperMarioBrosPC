@@ -134,15 +134,7 @@ void CSprite::Render(int X, int Y, int vpx, int vpy)
 void CSprite::Render(Animation *anim, int X, int Y, int vpx, int vpy)
 {
 	RECT srect;
-	/*if (anim->startFrame > 1)
-		srect.left = ((anim->startFrame % _SpritePerRow) * _Width) + (anim->index % (anim->startFrame)) * (_Width);
-	//original value =((anim->startFrame % _SpritePerRow) * _Width + 1) + (anim->index % (anim->startFrame)) * (_Width);
-	else if (anim->startFrame <= 1)
-		srect.left = anim->index * _Width;
-	srect.top = (anim->index / _SpritePerRow) * (_Height);//original value srect.top = (anim->index / _SpritePerRow) * (_Height)
-	srect.right = srect.left + _Width;//original value srect.right = srect.left + _Width-1
-	srect.bottom = srect.top + _Height ;//original value srect.bottom = srect.top + _Height + 1;*/
-
+	
 	srect.left = (anim->index % _SpritePerRow) * _Width;
 	srect.top = (anim->index / _SpritePerRow) * _Height;
 	srect.right = srect.left + _Width;
@@ -174,6 +166,32 @@ void CSprite::Render(Animation *anim, int X, int Y, int vpx, int vpy)
 		&srect,
 		&center,
 		&p,
+		D3DCOLOR_XRGB(255, 255, 255)
+		);
+
+}
+
+void CSprite::Render(int X, int Y)
+{
+	RECT srect;
+
+	srect.left = (_Index % _SpritePerRow) * (_Width);
+	srect.top = (_Index / _SpritePerRow) * (_Height);
+	srect.right = srect.left + _Width;
+	srect.bottom = srect.top + _Height + 1;
+
+	D3DXVECTOR3 position((float)X, (float)Y, 0);
+	D3DXVECTOR3 center((float)_Width / 2, (float)_Height / 2, 0);
+
+	D3DXMATRIX mt1;
+	D3DXMatrixScaling(&mt1, 2, 2, 1);
+	_SpriteHandler->SetTransform(&mt1);
+
+	_SpriteHandler->Draw(
+		_Image,
+		&srect,
+		&center,
+		&position,
 		D3DCOLOR_XRGB(255, 255, 255)
 		);
 

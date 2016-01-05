@@ -81,6 +81,7 @@
     <ClInclude Include="GoldBrick.h" />
     <ClInclude Include="gooba.h" />
     <ClInclude Include="GoobaFactory.h" />
+    <ClInclude Include="Hole.h" />
     <ClInclude Include="KoopaTroopa.h" />
     <ClInclude Include="KoopaTroopaAnimationFactory.h" />
     <ClInclude Include="KoopaTroopaState.h" />
@@ -121,6 +122,7 @@
     <ClCompile Include="GoldBrick.cpp" />
     <ClCompile Include="gooba.cpp" />
     <ClCompile Include="GoobaFactory.cpp" />
+    <ClCompile Include="Hole.cpp" />
     <ClCompile Include="KoopaTroopa.cpp" />
     <ClCompile Include="KoopaTroopaAnimationFactory.cpp" />
     <ClCompile Include="KoopaTroopaState.cpp" />

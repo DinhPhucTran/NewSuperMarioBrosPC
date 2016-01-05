@@ -87,6 +87,7 @@ void Object::update(int t){
 }
 Object::~Object() {
 	delete mSprite;
+	delete mAnim;
 }
 
 void Object::render(int vpx, int vpy){

@@ -23,6 +23,7 @@
 #include "Coin.h"
 #include "Door.h"
 #include "DoorPipe.h"
+#include "Hole.h"
 using namespace std;
 
 //================STATE====================
@@ -84,6 +85,11 @@ void MarioState::update(int t){
 
 void MarioState::onCollision(Object* ob,int dir){
 	string objectName = ob->getName();
+	if (objectName == Hole::OBJECT_NAME)
+	{
+		mMario->setState(new MarioStateDie(mMario));
+		mMario->lives--;
+	}
 	if (objectName == MetalBlock::OBJECT_NAME)
 	{
 		if (dir == Physics::COLLIDED_FROM_BOTTOM && mMario->top() > ob->top() && mMario->bottom() + 8 >= ob ->top())//tránh trường hợp tự động đứng trên block khi chưa nhảy tới
@@ -477,6 +483,11 @@ void MarioStateSuperInvincible::onCollision(Object* ob, int dir){
 		
 	}
 	string objectName = ob->getName();
+	if (objectName == Hole::OBJECT_NAME)
+	{
+		mMario->setState(new MarioStateDie(mMario));
+		mMario->lives--;
+	}
 	if (objectName == MetalBlock::OBJECT_NAME)
 	{
 		if (dir == Physics::COLLIDED_FROM_BOTTOM && mMario->top() > ob->top() && mMario->bottom() + 8 >= ob->top())//tránh trường hợp tự động đứng trên block khi chưa nhảy tới
@@ -573,6 +584,7 @@ AnimationFactory* MarioStateDie::getAnimationFactory(){
 
 MarioStateDie::MarioStateDie(Mario* mario):MarioState(mario){
 	mario->vy = 0.35f;
+	mario->timeToDie = GetTickCount();
 }
 
 /////////////////////////MarioStateGoingToBonusRoom///////////////////////

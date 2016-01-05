@@ -23,6 +23,8 @@ public:
 	int isGoingDown = 0;
 	int canSitDown = 1;
 	int score;
+	int lives;
+	DWORD timeToDie;
 	static const float FLYING_Y_SPEED;
 	static const float FLYING_X_SPEED;
 	static const float ACCELERATION_X;

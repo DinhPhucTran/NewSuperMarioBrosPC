@@ -218,11 +218,11 @@ void CGame::_ProcessKeyBoard()
 	// Collect all key states first
 	_Keyboard->GetDeviceState(sizeof(_KeyStates), _KeyStates);
 
-	if (IsKeyDown(DIK_ESCAPE))
+	/*if (IsKeyDown(DIK_ESCAPE))
 	{
 		//trace(L"Escape key pressed!");
 		PostMessage(_hWnd, WM_QUIT, 0, 0);
-	}
+	}*/
 
 	// Collect all buffered events
 	DWORD dwElements = KEYBOARD_BUFFER_SIZE;

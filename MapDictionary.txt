@@ -4,6 +4,7 @@
 4 QBrick
 5 GoldBrick
 6 Coin
+9 Hole
 10 Gooba
 11 Koopa	1:NomalState 	2:KoopaParaState 	3:VulnerableState
 12 RedKoopa	1:NomalState 	3:VulnerableState 

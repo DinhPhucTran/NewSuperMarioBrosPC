@@ -144,6 +144,7 @@ void Mario::die(){
 	}
 	else{
 		setState(new MarioStateDie(this));
+		lives--;
 		return;
 	}
 	setState(new MarioStateInvincible(this, nextState));

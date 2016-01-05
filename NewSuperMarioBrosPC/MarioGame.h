@@ -34,17 +34,18 @@
 #define ITEMS_SPRITE L"items.png"
 #define HORIZONTAL_PIPE L"HorizonPipe32.png"
 #define PIPEDOOR_IMAGE L"pipeDoor.png"
+#define TITLE_BACKGROUND_IMAGE L"title.png"
+#define PAUSE_BACKGROUND_IMAGE L"pause.png"
+#define GAMEOVER_BACKGROUND_IMAGE L"gameover.png"
+#define CURSOR_IMAGE L"cursor.png"
+
+#define GAME_TITLE 1
+#define GAME_RUN 2
+#define GAME_PAUSE 3
+#define GAME_END 4
 
 
-#define GROUND_Y 45
-
-#define BACKGROUND_FILE L"blocks.png"
-
-
-
-#define GRAV_VELOCITY 0.00007f;//0.0001f original value
-
-//#define VIEW_PORT_Y  600
+#define GRAV_VELOCITY 0.00007f;
 
 class CMarioGame : public CGame
 {
@@ -90,12 +91,24 @@ public:
 	CSprite * itemsSprite;
 	CSprite* horizontalPipe;
 	CSprite * doorPipeSprite;
+	CSprite *cursorSprite;
+	CSprite *backgroundImage;
 
+	int vpx;
+	int vpy;
 	int score;
 	int animationDelay=0;
 	int mapLevel = MAP_LEVEL;
+	int gameStatus=GAME_TITLE;
+	int lastLives;
+
+	int titleSelector = 1;
+	int pauseSelector = 1;
+	int gameoverSelector = 1;
 protected:
-	LPDIRECT3DSURFACE9 _Background;
+	LPDIRECT3DSURFACE9 titleBackground;
+	LPDIRECT3DSURFACE9 pauseBackground;
+	LPDIRECT3DSURFACE9 gameoverBackground;
 
 	virtual void RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)override;
 	virtual void ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)override;
@@ -106,5 +119,7 @@ protected:
 
 	void RenderBackground(int view_port_x, int view_port_y);
 	void LoadMap(ObjectManager * obManager, LPD3DXSPRITE _SpriteHandler, char* file);
+	void ResetMario();
+	void SetBackground();
 };
 #endif
