@@ -19,7 +19,7 @@ const float Mario::POWER_SPEED_X_PLUS = 0.09f;//khi mario full ống power chạ
 const float Mario::MAX_SPEED_Y = 0.35f;//0.45
 const float Mario::POWER_JUMP_UP_SPEED = 0.05f;
 
-const int Mario::INVINCIBLE_SWITCH_STATE_TIME = 1000;
+const int Mario::INVINCIBLE_SWITCH_STATE_TIME = 2000;
 const int Mario::SITDOWN_HEIGHT = 16;
 const int Mario::SITDOWN_WIDTH = 16;
 
