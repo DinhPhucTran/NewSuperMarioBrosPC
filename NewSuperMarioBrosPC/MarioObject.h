@@ -41,6 +41,7 @@ public:
 
 	AnimationFactory* mAnimationFactory;
 	Mario(int x, int y, int width, int height, int vx, int vy, int vx_last, float aX, float aY, Animation* anim, CSprite* image, MarioState* state = NULL,AnimationFactory* animFactory = NULL);
+	~Mario();
 	static const string OBJECT_NAME;
 	void onAPress();
 	void onBPress();

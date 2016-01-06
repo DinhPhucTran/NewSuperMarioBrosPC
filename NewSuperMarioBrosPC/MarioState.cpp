@@ -401,6 +401,11 @@ void MarioStateInvincible::onCollision(Object* ob, int dir){
 		mMario->setState(mNextState);
 	}
 	string objectName = ob->getName();
+	if (objectName == Hole::OBJECT_NAME)
+	{
+		mMario->setState(new MarioStateDie(mMario));
+		mMario->lives--;
+	}
 	if (objectName == MetalBlock::OBJECT_NAME)
 	{
 		if (dir == Physics::COLLIDED_FROM_BOTTOM && mMario->top() > ob->top() && mMario->bottom() + 8 >= ob->top())//tránh trường hợp tự động đứng trên block khi chưa nhảy tới

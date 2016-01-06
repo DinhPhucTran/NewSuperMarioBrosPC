@@ -50,6 +50,12 @@ Mario::Mario(int x, int y, int width, int height, int vx, int vy, int vx_last, f
 	isKickKoopa.reset();
 	score = 0;
 }
+
+Mario::~Mario()
+{
+	delete mMarioState;
+	delete mPowerBar;
+}
 const string Mario::OBJECT_NAME = "mario_object";
 
 void Mario::onAPress(){

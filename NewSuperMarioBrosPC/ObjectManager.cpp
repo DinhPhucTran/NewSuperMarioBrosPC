@@ -73,6 +73,7 @@ void ObjectManager::checkCollition(){
 	//	}
 	//}
 	
+	int dir;
 	for (int i = 0; i < mListObject.size(); ++i){
 		for (int j = i; j < mListObject.size(); ++j){
 			Object *ob1, *ob2;
@@ -84,13 +85,17 @@ void ObjectManager::checkCollition(){
 			else if (ob2 == 0){
 				continue;
 			}
-			int dir = Physics::CollisionStatic(ob1, ob2);
-			if (dir != 0){
-				if (ob1!=0 && ob2 !=0)
-					ob1->onCollision(ob2, dir);//ob 1 bị đụng trái thì ob2 bị đụng phải, tương tự trên dưới
-				if (ob2 != 0 && ob1 != 0)
-					ob2->onCollision(ob1, -dir);
+			if ((abs(ob1->x - ob2->x < 100)) && (abs(ob1->y - ob2->y) < 100))
+			{
+				dir = Physics::CollisionStatic(ob1, ob2);
+				if (dir != 0){
+					if (ob1 != 0 && ob2 != 0)
+						ob1->onCollision(ob2, dir);//ob 1 bị đụng trái thì ob2 bị đụng phải, tương tự trên dưới
+					if (ob2 != 0 && ob1 != 0)
+						ob2->onCollision(ob1, -dir);
+				}
 			}
+			
 		}
 		//check collision for static object
 		for (int k = 0; k < mListStaticObject.size(); ++k){
@@ -103,13 +108,16 @@ void ObjectManager::checkCollition(){
 			else if (ob2 == 0){
 				continue;
 			}
-			int dir = Physics::CollisionStatic(ob1, ob2);
-			if (dir != 0){
-				if (ob1!=0 && ob2!=0){
-					ob1->onCollision(ob2, dir);
-				}
-				if (ob2!=0 && ob1!=0){
-					ob2->onCollision(ob1, -dir);
+			if ((abs(ob1->x - ob2->x < 800)) && (abs(ob1->y - ob2->y) < 100))
+			{
+				int dir = Physics::CollisionStatic(ob1, ob2);
+				if (dir != 0){
+					if (ob1 != 0 && ob2 != 0){
+						ob1->onCollision(ob2, dir);
+					}
+					if (ob2 != 0 && ob1 != 0){
+						ob2->onCollision(ob1, -dir);
+					}
 				}
 			}
 		}

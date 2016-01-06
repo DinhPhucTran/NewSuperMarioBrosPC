@@ -17,27 +17,26 @@
 #define DIRECT_LEFT 0;
 #define DIRECT_RIGHT 1;
 
-#define BRICK L"brick.png"
-#define MARIO_LARGE_IMAGE L"marioSprite32x32.png"
-#define KOOPA_TROOPA_GOOMBA_IMAGE L"enemies4.png"
-#define FOREGROUND_IMAGE L"foreground1.png"
-#define FOREGROUND_IMAGE_2 L"foreground2.png"
-#define QBRICK_IMAGE L"qBrick.png"
-#define SCROLLBG_IMAGE L"scrollBG3.png"
-#define SCROLLBG_IMAGE_2 L"scrollBGHills.png"
-#define GOLDBRICK_IMAGE_AND_BUTTON L"goldBrickAndButton.png"
-#define PIRANHA_PLANT L"PiranhaPlant10x20x36.png"
-#define PIPE_IMAGE L"pipe32.png"
-#define PIPE_IMAGE_40 L"Pipe32x40.png"
-#define PARA_GOOMBA L"paraGoomba.png"
-#define SUPER_STAR L"SuperStar.png"
-#define ITEMS_SPRITE L"items.png"
-#define HORIZONTAL_PIPE L"HorizonPipe32.png"
-#define PIPEDOOR_IMAGE L"pipeDoor.png"
-#define TITLE_BACKGROUND_IMAGE L"title.png"
-#define PAUSE_BACKGROUND_IMAGE L"pause.png"
-#define GAMEOVER_BACKGROUND_IMAGE L"gameover.png"
-#define CURSOR_IMAGE L"cursor.png"
+#define MARIO_LARGE_IMAGE L"Images\\marioSprite32x32.png"
+#define KOOPA_TROOPA_GOOMBA_IMAGE L"Images\\enemies4.png"
+#define FOREGROUND_IMAGE L"Images\\foreground1.png"
+#define FOREGROUND_IMAGE_2 L"Images\\foreground2.png"
+#define QBRICK_IMAGE L"Images\\qBrick.png"
+#define SCROLLBG_IMAGE L"Images\\scrollBG3.png"
+#define SCROLLBG_IMAGE_2 L"Images\\scrollBGHills.png"
+#define GOLDBRICK_IMAGE_AND_BUTTON L"Images\\goldBrickAndButton.png"
+#define PIRANHA_PLANT L"Images\\PiranhaPlant10x20x36.png"
+#define PIPE_IMAGE L"Images\\pipe32.png"
+#define PIPE_IMAGE_40 L"Images\\Pipe32x40.png"
+#define PARA_GOOMBA L"Images\\paraGoomba.png"
+#define SUPER_STAR L"Images\\SuperStar.png"
+#define ITEMS_SPRITE L"Images\\items.png"
+#define HORIZONTAL_PIPE L"Images\\HorizonPipe32.png"
+#define PIPEDOOR_IMAGE L"Images\\pipeDoor.png"
+#define TITLE_BACKGROUND_IMAGE L"Images\\title.png"
+#define PAUSE_BACKGROUND_IMAGE L"Images\\pause.png"
+#define GAMEOVER_BACKGROUND_IMAGE L"Images\\gameover.png"
+#define CURSOR_IMAGE L"Images\\cursor.png"
 
 #define GAME_TITLE 1
 #define GAME_RUN 2
@@ -74,10 +73,9 @@ public:
 
 	//LPDIRECT3DSURFACE9 Background;
 
-	
+	Mario* marioObject;
 	CSprite * marioSprite;
 	CSprite * koopaTroopaGoombaSprite;
-	CSprite * ground_middle;
 	CSprite * brick;
 	CSprite *mountain;
 	CSprite *foregroundImage;
@@ -93,6 +91,7 @@ public:
 	CSprite * doorPipeSprite;
 	CSprite *cursorSprite;
 	CSprite *backgroundImage;
+	Object *scrollBG;
 
 	int vpx;
 	int vpy;

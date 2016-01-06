@@ -36,13 +36,13 @@ int Physics::CollisionStatic(Object *o1, Object *o2)
 		}
 	}
 
-	if (ContainsPoint(o2, o1->right(), o1->y - o1->height / 4) || ContainsPoint(o2, o1->right(), o1->y + o1->height / 4))
+	if (ContainsPoint(o2, o1->right(), o1->y - o1->height / 6) || ContainsPoint(o2, o1->right(), o1->y + o1->height / 6))
 	{
 		//o1->x = o2->left() - o1->width / 2;
 		return 2;
 	}
 
-	if (ContainsPoint(o2, o1->left(), o1->y - o1->height / 4) || ContainsPoint(o2, o1->left(), o1->y + o1->height / 4))
+	if (ContainsPoint(o2, o1->left(), o1->y - o1->height / 6) || ContainsPoint(o2, o1->left(), o1->y + o1->height / 6))
 	{
 		//o1->x = o2->right() + o1->width / 2;
 		return -2;
