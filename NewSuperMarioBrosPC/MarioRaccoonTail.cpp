@@ -45,6 +45,7 @@ MarioRaccoonTail::MarioRaccoonTail():Object(0,0,MarioRaccoonTail::WIDTH,MarioRac
 	}
 	mIsCollided.reset();
 	mSprite = CMarioGame::getInstance()->marioSprite;
+	mLastTime = GetTickCount();
 	mState = STATE_INACTIVE;
 }
 void MarioRaccoonTail::render(int vpx, int vpy){

@@ -79,6 +79,9 @@ void ObjectManager::checkCollition(){
 			Object *ob1, *ob2;
 			ob1 = mListObject[i];
 			ob2 = mListObject[j];
+			if (ob1 == ob2){
+				continue;
+			}
 			if (ob1 == 0){//object này đả bị xóa, tiếp tục chạy sẽ gây lỗi
 				break;
 			}

@@ -298,7 +298,6 @@ const int MarioStateRaccoon::FLYING_TIME = 300;
 
 MarioStateRaccoon::MarioStateRaccoon(Mario* mario) :MarioState(mario){
 	MarioRaccoonTail* mTail = MarioRaccoonTail::getInstance();
-	//mTail->setSprite(mMario->mSprite);//for debug only
 	ObjectManager::getInstance()->addObject(mTail);
 
 }
